@@ -10,3 +10,6 @@ URL: https://github.com/gaborcsardi/gh
 BugReports: https://github.com/gaborcsardi/gh/issues
 Suggests: 
     testthat
+Imports:
+    jsonlite,
+    httr

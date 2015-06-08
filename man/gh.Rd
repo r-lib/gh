@@ -23,4 +23,17 @@ Minimal wrapper to access GitHub's API.
 
 TODO
 }
+\examples{
+\dontrun{
+## Repositories of a user
+gh(users/hadley/repos)
+
+## Issues of a repository
+gh(repos/hadley/dplyr/issues)
+
+## Using variables in the end point, just put them in a paren
+myuser <- "gaborcsardi"
+gh(users/(myuser)/repos)
+}
+}
 

@@ -66,7 +66,7 @@ send_headers <- c("accept" = "application/vnd.github.v3+json",
 api <- list(GET = list(), POST = list())
 
 api$GET$`user/repos` <- list(
-  path = "/user/repos",
+  path = "user/repos",
   parameters = list(
     type = list(
       type = "string",

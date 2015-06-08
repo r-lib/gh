@@ -4,4 +4,5 @@
 ^README.Rmd$
 ^.travis.yml$
 ^appveyor.yml$
-^NEWS.Rd$
+^NEWS\.md$
+^tags$

@@ -4,8 +4,23 @@
 \name{gh}
 \alias{gh}
 \alias{gh-package}
-\title{'GitHub' 'API'}
+\title{GitHub API}
+\usage{
+gh(end_point, ..., .token = Sys.getenv("GITHUB_TOKEN"))
+}
+\arguments{
+\item{end_point}{GitHub API end point. See examples below.}
+
+\item{...}{Additional parameters}
+
+\item{.token}{Authentication token.}
+}
+\value{
+Answer from the API.
+}
 \description{
 Minimal wrapper to access GitHub's API.
+
+TODO
 }
 

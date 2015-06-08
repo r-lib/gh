@@ -12,4 +12,5 @@ Suggests:
     testthat
 Imports:
     jsonlite,
-    httr
+    httr,
+    lazyeval

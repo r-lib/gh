@@ -16,26 +16,6 @@ api_url <- "https://api.github.com/"
 send_headers <- c("accept" = "application/vnd.github.v3+json",
                   "user-agent" = "https://github.com/gaborcsardi/whoami")
 
-api <- list(GET = list(), POST = list())
-
-api$GET$`user/repos` <- list(
-  path = "user/repos",
-  parameters = list(
-    type = list(
-      type = "string",
-      desc = "Can be one of all, owner, public, private, member. Default: all"
-    ),
-    sort = list(
-      type = "string",
-      desc = "Can be one of created, updated, pushed, full_name. Default: full_name"
-    ),
-    direction = list(
-      type = "string",
-      desc = "Can be one of asc or desc. Default: when using full_name: asc; otherwise desc"
-    )
-  )
-)
-
 #' Query the GitHub API
 #'
 #' TODO
@@ -61,17 +41,37 @@ api$GET$`user/repos` <- list(
 #' gh(users/(myuser)/repos)
 #' }
 
-gh <- function(end_point, ..., .token = Sys.getenv('GITHUB_TOKEN')) {
+gh <- function(end_point, ...){
   end_point <- parse_end_point(end_point, env = parent.frame())
-  params <- list(...)
+  do.call(gh_, c(end_point$method, end_point$end_point, list(...)))
+}
+
+#' @export
+
+gh_ <- function(..., .token = Sys.getenv('GITHUB_TOKEN')) {
+
+  args <- list(...)
+  method <- "GET"
+  if (args[[1]] %in% github_verbs) {
+    method <- args[[1]]
+    args <- args[-1]
+  }
+
+  if (is.null(names(args))) {
+    end_point <- unlist(args)
+    params <- list()
+  } else {
+    end_point <- unlist(args[names(args) == ""])
+    params <- args[names(args) != ""]
+  }
 
   auth <- character()
   if (.token != "") auth <- c("Authorization" = paste("token", .token))
 
-  url <- paste0(api_url, paste(end_point$end_point, collapse = "/"))
+  url <- paste0(api_url, paste(end_point, collapse = "/"))
 
   response <- VERB(
-    verb = end_point$method,
+    verb = method,
     url = url,
     add_headers(.headers = c(send_headers, auth))
   )

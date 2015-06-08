@@ -1,4 +1,6 @@
 
+github_verbs <- c("GET", "POST", "PATCH", "PUT", "DELETE")
+
 #' @importFrom lazyeval lazy
 
 parse_end_point <- function(end_point, env) {
@@ -29,8 +31,7 @@ parse_end_point <- function(end_point, env) {
   }
 
   method <- "GET"
-  if (length(res) >= 1 &&
-      res[1] %in% c("GET", "POST", "PATCH", "PUT", "DELETE")) {
+  if (length(res) >= 1 && res[1] %in% github_verbs) {
     method <- res[1]
     res <- res[-1]
   }

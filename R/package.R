@@ -25,7 +25,8 @@ send_headers <- c("accept" = "application/vnd.github.v3+json",
 #' @param .token Authentication token.
 #' @return Answer from the API.
 #'
-#' @importFrom httr VERB stop_for_status content add_headers
+#' @importFrom httr VERB stop_for_status content add_headers headers
+#'   status_code
 #' @importFrom jsonlite fromJSON
 #' @export
 #' @examples
@@ -76,9 +77,25 @@ gh_ <- function(..., .token = Sys.getenv('GITHUB_TOKEN')) {
     add_headers(.headers = c(send_headers, auth))
   )
 
-  stop_for_status(response)
+  heads <- headers(response)
 
-  res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)
+  if (grepl("^application/json", heads$`content-type`,
+            ignore.case = TRUE)) {
+    res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)
+  } else {
+    res <- content(response, as = "text")
+  }
+
+  if (status_code(response) >= 300) {
+    cond <- structure(list(
+      content = res,
+      headers = heads,
+      message = "GitHub API error"
+    ), class = "condition")
+    stop(cond)
+  }
+
+  attr(res, "response") <- headers(response)
   class(res) <- "gh_response"
   res
 }

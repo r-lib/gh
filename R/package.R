@@ -23,10 +23,6 @@ send_headers <- c("accept" = "application/vnd.github.v3+json",
 #' @param end_point GitHub API end point. See examples below.
 #' @param ... Additional parameters
 #' @param .token Authentication token.
-#' @param .body Data for POST, PUT, PATCH requests. It can be a character
-#'   scalar, and it is expected to be JSON (with very few API point
-#'   exceptions that require a raw string). Otherwise it is converted
-#'   to JSON via \code{jsonlite}.
 #' @return Answer from the API.
 #'
 #' @importFrom httr stop_for_status content add_headers headers
@@ -53,7 +49,7 @@ gh <- function(end_point, ...){
 
 #' @export
 
-gh_ <- function(..., .token = Sys.getenv('GITHUB_TOKEN'), .body = "") {
+gh_ <- function(..., .token = Sys.getenv('GITHUB_TOKEN')) {
 
   args <- list(...)
   method <- "GET"
@@ -78,17 +74,19 @@ gh_ <- function(..., .token = Sys.getenv('GITHUB_TOKEN'), .body = "") {
 
   url <- paste0(api_url, paste(end_point, collapse = "/"))
 
-  if (!is.character(.body) || length(.body) != 1) {
-    .body <- toJSON(.body, auto_unbox = TRUE)
+  if (method == "GET") {
+    response <- GET(
+      url = url,
+      add_headers(.headers = c(send_headers, auth)),
+      query = params
+    )
+  } else {
+    response <- method_fun(
+      url = url,
+      add_headers(.headers = c(send_headers, auth)),
+      body = toJSON(params, auto_unbox = TRUE)
+    )
   }
-
-  response <- method_fun(
-    verb = method,
-    url = url,
-    body = .body,
-    encode = "json",
-    add_headers(.headers = c(send_headers, auth))
-  )
 
   heads <- headers(response)
 

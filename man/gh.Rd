@@ -14,6 +14,11 @@ gh(end_point, ...)
 \item{...}{Additional parameters}
 
 \item{.token}{Authentication token.}
+
+\item{.body}{Data for POST, PUT, PATCH requests. It can be a character
+scalar, and it is expected to be JSON (with very few API point
+exceptions that require a raw string). Otherwise it is converted
+to JSON via \code{jsonlite}.}
 }
 \value{
 Answer from the API.

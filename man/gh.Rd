@@ -21,7 +21,18 @@ Answer from the API.
 \description{
 Minimal wrapper to access GitHub's API.
 
-TODO
+This is an extremely minimal client. You need to know the API
+to be able to use this client. All this function does is
+\itemize{
+  \item Tries to substitute each listed parameter into
+    \code{end_point}, using the \code{:parameter} notation.
+  \item If a GET request (the default), then adds
+    all other listed parameters as query parameters.
+  \item If not a GET request, then sends the other parameters
+    in the request body, as JSON.
+  \item Converts the response to an R list using
+    \code{jsonline::fromJSON}.
+}
 }
 \examples{
 \dontrun{

@@ -3,7 +3,7 @@ Title: 'GitHub' 'API'
 Version: 1.0.0
 Author: Gabor Csardi
 Maintainer: Gabor Csardi <csardi.gabor@gmail.com>
-Description: Minimal wrapper to access GitHub's API.
+Description: Minimal client to access GitHub's API.
 License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/gaborcsardi/gh

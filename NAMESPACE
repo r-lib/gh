@@ -2,7 +2,6 @@
 
 S3method(print,gh_response)
 export(gh)
-export(gh_)
 importFrom(httr,DELETE)
 importFrom(httr,GET)
 importFrom(httr,PATCH)
@@ -16,4 +15,3 @@ importFrom(httr,stop_for_status)
 importFrom(jsonlite,fromJSON)
 importFrom(jsonlite,prettify)
 importFrom(jsonlite,toJSON)
-importFrom(lazyeval,lazy)

@@ -6,7 +6,7 @@
 \alias{gh-package}
 \title{GitHub API}
 \usage{
-gh(end_point, ...)
+gh(end_point, ..., .token = Sys.getenv("GITHUB_TOKEN"))
 }
 \arguments{
 \item{end_point}{GitHub API end point. See examples below.}
@@ -14,11 +14,6 @@ gh(end_point, ...)
 \item{...}{Additional parameters}
 
 \item{.token}{Authentication token.}
-
-\item{.body}{Data for POST, PUT, PATCH requests. It can be a character
-scalar, and it is expected to be JSON (with very few API point
-exceptions that require a raw string). Otherwise it is converted
-to JSON via \code{jsonlite}.}
 }
 \value{
 Answer from the API.
@@ -30,15 +25,16 @@ TODO
 }
 \examples{
 \dontrun{
-## Repositories of a user
-gh(users/hadley/repos)
+## Repositories of a user, these are equivalent
+gh("/users/hadley/repos")
+gh("/users/:username/repos", username = "hadley")
+
+## Create a repository
+gh("POST /user/repos", name = "foobar")
 
 ## Issues of a repository
-gh(repos/hadley/dplyr/issues)
-
-## Using variables in the end point, just put them in a paren
-myuser <- "gaborcsardi"
-gh(users/(myuser)/repos)
+gh("/repos/hadley/dplyr/issues")
+gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
 }
 }
 

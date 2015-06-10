@@ -9,7 +9,7 @@ NULL
 
 ## Main API URL
 
-api_url <- "https://api.github.com/"
+api_url <- "https://api.github.com"
 
 ## Headers to send with each API request
 
@@ -31,48 +31,36 @@ send_headers <- c("accept" = "application/vnd.github.v3+json",
 #' @export
 #' @examples
 #' \dontrun{
-#' ## Repositories of a user
-#' gh(users/hadley/repos)
+#' ## Repositories of a user, these are equivalent
+#' gh("/users/hadley/repos")
+#' gh("/users/:username/repos", username = "hadley")
+#'
+#' ## Create a repository
+#' gh("POST /user/repos", name = "foobar")
 #'
 #' ## Issues of a repository
-#' gh(repos/hadley/dplyr/issues)
-#'
-#' ## Using variables in the end point, just put them in a paren
-#' myuser <- "gaborcsardi"
-#' gh(users/(myuser)/repos)
+#' gh("/repos/hadley/dplyr/issues")
+#' gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
 #' }
 
-gh <- function(end_point, ...){
-  end_point <- parse_end_point(end_point, env = parent.frame())
-  do.call(gh_, c(end_point$method, end_point$end_point, list(...)))
-}
+gh <- function(end_point, ..., .token = Sys.getenv('GITHUB_TOKEN')) {
 
-#' @export
+  params <- list(...)
 
-gh_ <- function(..., .token = Sys.getenv('GITHUB_TOKEN')) {
-
-  args <- list(...)
-  method <- "GET"
-  if (args[[1]] %in% github_verbs) {
-    method <- args[[1]]
-    args <- args[-1]
-  }
+  parsed <- parse_end_point(end_point, params)
+  method <- parsed$method
+  end_point <- parsed$end_point
+  params <- parsed$params
 
   method_fun <- list("GET" = GET, "POST" = POST, "PATCH" = PATCH,
                      "PUT" = PUT, "DELETE" = DELETE)[[method]]
 
-  if (is.null(names(args))) {
-    end_point <- unlist(args)
-    params <- list()
-  } else {
-    end_point <- unlist(args[names(args) == ""])
-    params <- args[names(args) != ""]
-  }
+  if (is.null(method_fun)) stop("Unknown HTTP verb")
 
   auth <- character()
   if (.token != "") auth <- c("Authorization" = paste("token", .token))
 
-  url <- paste0(api_url, paste(end_point, collapse = "/"))
+  url <- paste0(api_url, end_point)
 
   if (method == "GET") {
     response <- GET(

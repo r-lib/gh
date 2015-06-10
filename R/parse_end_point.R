@@ -1,52 +1,25 @@
 
 github_verbs <- c("GET", "POST", "PATCH", "PUT", "DELETE")
 
-#' @importFrom lazyeval lazy
+parse_end_point <- function(end_point, params) {
 
-parse_end_point <- function(end_point, env) {
-
-  ep <- lazy(end_point)$expr
-
-  res <- character()
-  repeat {
-
-    if (length(ep) == 3 && is.name(ep[[1]]) &&
-        as.character(ep[[1]]) == "/") {
-      res <- c(parse_clause(ep[[3]], env), res)
-      ep <- ep[[2]]
-
-    } else if (length(ep) == 2 && is.name(ep[[1]]) &&
-               as.character(ep[[1]]) == "(") {
-      res <- c(parse_clause(ep, env), res)
-      break;
-
-    } else if (is.symbol(ep)) {
-      res <- c(parse_clause(ep, env), res)
-      break;
-
-    } else {
-      stop("Syntax error: invalid GitHub API end point")
+  done <- logical(length(params))
+  for (i in seq_along(params)) {
+    n <- names(params)[i]
+    p <- params[[i]]
+    end_point2 <- gsub(paste0(":", n, "\\b"), p, end_point)
+    if (end_point2 != end_point) {
+      end_point <- end_point2
+      done[i] <- TRUE
     }
-
   }
 
-  method <- "GET"
-  if (length(res) >= 1 && res[1] %in% github_verbs) {
-    method <- res[1]
-    res <- res[-1]
-  }
-
-  list(method = method, end_point = res)
-}
-
-parse_clause <- function(ep, env) {
-  if (length(ep) == 2 && is.name(ep[[1]]) && as.character(ep[[1]]) == "(") {
-    eval(ep, envir = env)
-
-  } else if (is.symbol(ep)) {
-    as.character(ep)
-
+  if (substring(end_point, 1, 1) != "/") {
+    method <- gsub("^([^/ ]+)\\s*/.*$", "\\1", end_point)
+    end_point <- gsub("^[^/]+/", "/", end_point)
   } else {
-    stop("Syntax error: invalid GitHub API end point")
+    method <- "GET"
   }
+
+  list(method = method, end_point = end_point, params = params[!done])
 }

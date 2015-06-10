@@ -2,6 +2,7 @@
 
 S3method(print,gh_response)
 export(gh)
+export(gh_)
 importFrom(httr,VERB)
 importFrom(httr,add_headers)
 importFrom(httr,content)

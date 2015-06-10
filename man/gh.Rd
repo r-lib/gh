@@ -6,7 +6,7 @@
 \alias{gh-package}
 \title{GitHub API}
 \usage{
-gh(end_point, ..., .token = Sys.getenv("GITHUB_TOKEN"))
+gh(end_point, ...)
 }
 \arguments{
 \item{end_point}{GitHub API end point. See examples below.}

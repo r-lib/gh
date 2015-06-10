@@ -25,7 +25,7 @@ send_headers <- c("accept" = "application/vnd.github.v3+json",
 #' @param .token Authentication token.
 #' @return Answer from the API.
 #'
-#' @importFrom httr stop_for_status content add_headers headers
+#' @importFrom httr content add_headers headers
 #'   status_code GET POST PATCH PUT DELETE
 #' @importFrom jsonlite fromJSON toJSON
 #' @export

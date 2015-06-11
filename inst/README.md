@@ -11,7 +11,7 @@
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/gh)](http://www.r-pkg.org/pkg/gh)
 
 
-Minimal wrapper to access
+Minimalistic client to access
 [GitHub's API v3](https://developer.github.com/v3/).
 
 ## Installation
@@ -44,18 +44,18 @@ vapply(my_repos, "[[", "", "name")
 #>  [1] "ask"                   "background"           
 #>  [3] "baseimports"           "bundler"              
 #>  [5] "clisymbols"            "closure"              
-#>  [7] "cranky"                "crayon"               
-#>  [9] "datastore"             "decima"               
-#> [11] "disposables"           "docstrings"           
-#> [13] "dot-emacs"             "dotenv"               
-#> [15] "elasticsearch-jetty"   "ensurethat"           
-#> [17] "falsy"                 "feast"                
-#> [19] "flock"                 "gaborcsardi.github.io"
-#> [21] "gh"                    "ISA"                  
-#> [23] "json2r6"               "keypress"             
-#> [25] "locker"                "macBriain"            
-#> [27] "mason"                 "mason.rpkg"           
-#> [29] "massig"                "MISO"
+#>  [7] "cmaker"                "cranky"               
+#>  [9] "crayon"                "datastore"            
+#> [11] "decima"                "disposables"          
+#> [13] "docstrings"            "dot-emacs"            
+#> [15] "dotenv"                "elasticsearch-jetty"  
+#> [17] "ensurethat"            "falsy"                
+#> [19] "feast"                 "flock"                
+#> [21] "gaborcsardi.github.io" "gh"                   
+#> [23] "ISA"                   "json2r6"              
+#> [25] "keypress"              "locker"               
+#> [27] "macBriain"             "mason"                
+#> [29] "mason.rpkg"            "massig"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -123,21 +123,21 @@ vapply(my_repos2, "[[", "", "name")
 ```
 
 ```
-#>  [1] "my-old-MISO"            "parsedate"             
-#>  [3] "pingr"                  "pkgconfig"             
-#>  [5] "playground"             "pretty"                
-#>  [7] "prettyunits"            "printr"                
-#>  [9] "procrustes"             "progress"              
-#> [11] "r-font"                 "r-wiki-engine"         
-#> [13] "ratlab"                 "rcorpora"              
-#> [15] "Rcpp"                   "redsvd"                
-#> [17] "regexp"                 "resume"                
-#> [19] "rfunctions"             "roxygen"               
-#> [21] "rsmith"                 "rsync-mirror"          
-#> [23] "scidb"                  "Semantic-plotting-in-R"
-#> [25] "snap"                   "spark"                 
-#> [27] "splicing"               "staticdocs"            
-#> [29] "tab"                    "testthat"
+#>  [1] "MISO"                   "my-old-MISO"           
+#>  [3] "parsedate"              "pingr"                 
+#>  [5] "pkgconfig"              "playground"            
+#>  [7] "pretty"                 "prettyunits"           
+#>  [9] "printr"                 "procrustes"            
+#> [11] "progress"               "r-font"                
+#> [13] "r-wiki-engine"          "ratlab"                
+#> [15] "rcorpora"               "Rcpp"                  
+#> [17] "redsvd"                 "regexp"                
+#> [19] "resume"                 "rfunctions"            
+#> [21] "roxygen"                "rsmith"                
+#> [23] "rsync-mirror"           "scidb"                 
+#> [25] "Semantic-plotting-in-R" "snap"                  
+#> [27] "spark"                  "splicing"              
+#> [29] "staticdocs"             "tab"
 ```
 
 ## License

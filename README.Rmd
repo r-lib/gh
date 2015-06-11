@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/gh)](http://www.r-pkg.org/pkg/gh)
 
 
-Minimal wrapper to access
+Minimalistic client to access
 [GitHub's API v3](https://developer.github.com/v3/).
 
 ## Installation

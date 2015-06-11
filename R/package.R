@@ -22,7 +22,7 @@ send_headers <- c("accept" = "application/vnd.github.v3+json",
 #' to be able to use this client. All this function does is
 #' \itemize{
 #'   \item Tries to substitute each listed parameter into
-#'     \code{end_point}, using the \code{:parameter} notation.
+#'     \code{endpoint}, using the \code{:parameter} notation.
 #'   \item If a GET request (the default), then adds
 #'     all other listed parameters as query parameters.
 #'   \item If not a GET request, then sends the other parameters
@@ -31,7 +31,7 @@ send_headers <- c("accept" = "application/vnd.github.v3+json",
 #'     \code{jsonline::fromJSON}.
 #' }
 #'
-#' @param end_point GitHub API end point. See examples below.
+#' @param endpoint GitHub API endpoint. See examples below.
 #' @param ... Additional parameters
 #' @param .token Authentication token.
 #' @return Answer from the API.
@@ -54,13 +54,13 @@ send_headers <- c("accept" = "application/vnd.github.v3+json",
 #' gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
 #' }
 
-gh <- function(end_point, ..., .token = Sys.getenv('GITHUB_TOKEN')) {
+gh <- function(endpoint, ..., .token = Sys.getenv('GITHUB_TOKEN')) {
 
   params <- list(...)
 
-  parsed <- parse_end_point(end_point, params)
+  parsed <- parse_endpoint(endpoint, params)
   method <- parsed$method
-  end_point <- parsed$end_point
+  endpoint <- parsed$endpoint
   params <- parsed$params
 
   method_fun <- list("GET" = GET, "POST" = POST, "PATCH" = PATCH,
@@ -71,7 +71,7 @@ gh <- function(end_point, ..., .token = Sys.getenv('GITHUB_TOKEN')) {
   auth <- character()
   if (.token != "") auth <- c("Authorization" = paste("token", .token))
 
-  url <- paste0(api_url, end_point)
+  url <- paste0(api_url, endpoint)
 
   if (method == "GET") {
     response <- GET(

@@ -1,25 +1,25 @@
 
 github_verbs <- c("GET", "POST", "PATCH", "PUT", "DELETE")
 
-parse_end_point <- function(end_point, params) {
+parse_endpoint <- function(endpoint, params) {
 
   done <- logical(length(params))
   for (i in seq_along(params)) {
     n <- names(params)[i]
     p <- params[[i]]
-    end_point2 <- gsub(paste0(":", n, "\\b"), p, end_point)
-    if (end_point2 != end_point) {
-      end_point <- end_point2
+    endpoint2 <- gsub(paste0(":", n, "\\b"), p, endpoint)
+    if (endpoint2 != endpoint) {
+      endpoint <- endpoint2
       done[i] <- TRUE
     }
   }
 
-  if (substring(end_point, 1, 1) != "/") {
-    method <- gsub("^([^/ ]+)\\s*/.*$", "\\1", end_point)
-    end_point <- gsub("^[^/]+/", "/", end_point)
+  if (substring(endpoint, 1, 1) != "/") {
+    method <- gsub("^([^/ ]+)\\s*/.*$", "\\1", endpoint)
+    endpoint <- gsub("^[^/]+/", "/", endpoint)
   } else {
     method <- "GET"
   }
 
-  list(method = method, end_point = end_point, params = params[!done])
+  list(method = method, endpoint = endpoint, params = params[!done])
 }

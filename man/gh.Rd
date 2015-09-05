@@ -6,7 +6,7 @@
 \alias{gh-package}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"))
+gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"), .limit = NULL)
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. See examples below.}
@@ -14,6 +14,15 @@ gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"))
 \item{...}{Additional parameters}
 
 \item{.token}{Authentication token.}
+
+\item{.limit}{Number of records to return. This can be used
+instead of manual pagination. By default it is \code{NULL},
+which means that the defaults of the GitHub API are used.
+You can set it to a number to request more (or less)
+records, and also to \code{Inf} to request all records.
+Note, that if you request many records, then multiple GitHub
+API calls are used to get them, and this can take a potentially
+long time.}
 }
 \value{
 Answer from the API.
@@ -40,12 +49,17 @@ to be able to use this client. All this function does is
 gh("/users/hadley/repos")
 gh("/users/:username/repos", username = "hadley")
 
-## Create a repository
+## Create a repository, needs a token in GITHUB_TOKEN
+## environment variable
 gh("POST /user/repos", name = "foobar")
 
 ## Issues of a repository
 gh("/repos/hadley/dplyr/issues")
 gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
+
+## Automatic pagination
+users <- gh("/users", .limit = 50)
+length(users)
 }
 }
 

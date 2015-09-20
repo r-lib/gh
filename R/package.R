@@ -171,7 +171,7 @@ gh_url <- function(method, url, auth, headers, params) {
     cond <- structure(list(
       content = res,
       headers = heads,
-      message = "GitHub API error"
+      message = paste("GitHub API error", heads$`status`)
     ), class = "condition")
     stop(cond)
   }

@@ -101,7 +101,7 @@ gh <- function(endpoint, ..., .token = Sys.getenv('GITHUB_TOKEN'),
   res <- gh_url(method, url, auth, headers, params)
 
   while (! is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
-    res2 <- gh_next(res, .token = .token)
+    res2 <- gh_next(res, .token = .token, headers)
     res3 <- c(res, res2)
     attributes(res3) <- attributes(res2)
     res <- res3

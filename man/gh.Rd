@@ -6,7 +6,8 @@
 \alias{gh-package}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"), .limit = NULL)
+gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"), .limit = NULL,
+  .send_headers = NULL)
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. See examples below.}
@@ -23,6 +24,16 @@ records, and also to \code{Inf} to request all records.
 Note, that if you request many records, then multiple GitHub
 API calls are used to get them, and this can take a potentially
 long time.}
+
+\item{.send_headers}{Named character vector of header field values
+  (excepting \code{Authorization}, which is handled via
+  \code{.token}). This can be used to override or augment the
+  defaults, which are as follows: the \code{Accept} field defaults
+  to \code{"application/vnd.github.v3+json"} and the
+  \code{User-Agent} field defaults to
+  \code{"https://github.com/gaborcsardi/whoami"}. This can be used
+  to, e.g., provide a custom media type, in order to access a
+  preview feature of the API.}
 }
 \value{
 Answer from the API.
@@ -33,14 +44,14 @@ Minimal wrapper to access GitHub's API.
 This is an extremely minimal client. You need to know the API
 to be able to use this client. All this function does is
 \itemize{
-  \item Tries to substitute each listed parameter into
+  \item Try to substitute each listed parameter into
     \code{endpoint}, using the \code{:parameter} notation.
-  \item If a GET request (the default), then adds
+  \item If a GET request (the default), then add
     all other listed parameters as query parameters.
-  \item If not a GET request, then sends the other parameters
+  \item If not a GET request, then send the other parameters
     in the request body, as JSON.
-  \item Converts the response to an R list using
-    \code{jsonline::fromJSON}.
+  \item Convert the response to an R list using
+    \code{jsonlite::fromJSON}.
 }
 }
 \examples{
@@ -60,6 +71,11 @@ gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
 ## Automatic pagination
 users <- gh("/users", .limit = 50)
 length(users)
+
+## Access developer preview of Licenses API (in preview on 2015-09-20)
+gh("/licenses") # error code 415
+gh("/licenses",
+   .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
 }
 }
 

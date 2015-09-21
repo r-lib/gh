@@ -7,18 +7,32 @@
 \alias{gh_prev}
 \title{Get the next, previous, first or last page of results}
 \usage{
-gh_next(gh_response, .token = Sys.getenv("GITHUB_TOKEN"))
+gh_next(gh_response, .token = Sys.getenv("GITHUB_TOKEN"),
+  .send_headers = NULL)
 
-gh_prev(gh_response, .token = Sys.getenv("GITHUB_TOKEN"))
+gh_prev(gh_response, .token = Sys.getenv("GITHUB_TOKEN"),
+  .send_headers = NULL)
 
-gh_first(gh_response, .token = Sys.getenv("GITHUB_TOKEN"))
+gh_first(gh_response, .token = Sys.getenv("GITHUB_TOKEN"),
+  .send_headers = NULL)
 
-gh_last(gh_response, .token = Sys.getenv("GITHUB_TOKEN"))
+gh_last(gh_response, .token = Sys.getenv("GITHUB_TOKEN"),
+  .send_headers = NULL)
 }
 \arguments{
 \item{gh_response}{An object returned by a \code{gh()} call.}
 
 \item{.token}{Authentication token.}
+
+\item{.send_headers}{Named character vector of header field values
+  (excepting \code{Authorization}, which is handled via
+  \code{.token}). This can be used to override or augment the
+  defaults, which are as follows: the \code{Accept} field defaults
+  to \code{"application/vnd.github.v3+json"} and the
+  \code{User-Agent} field defaults to
+  \code{"https://github.com/gaborcsardi/whoami"}. This can be used
+  to, e.g., provide a custom media type, in order to access a
+  preview feature of the API.}
 }
 \value{
 Answer from the API.

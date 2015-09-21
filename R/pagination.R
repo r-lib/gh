@@ -29,7 +29,7 @@ gh_has_next <- function(gh_response) {
   gh_has(gh_response, "next")
 }
 
-gh_link <- function(gh_response, .token, link) {
+gh_link <- function(gh_response, .token, .send_headers, link) {
 
   stopifnot(is(gh_response, "gh_response"))
 
@@ -40,6 +40,7 @@ gh_link <- function(gh_response, .token, link) {
     method = attr(gh_response, "method"),
     url = url,
     auth = get_auth(.token),
+    headers = get_headers(.send_headers),
     params = list()
   )
 
@@ -56,7 +57,7 @@ gh_link <- function(gh_response, .token, link) {
 #' If the requested page does not exist, an error is thrown.
 #'
 #' @param gh_response An object returned by a \code{gh()} call.
-#' @param .token Authentication token.
+#' @inheritParams gh
 #' @return Answer from the API.
 #'
 #' @name gh_next
@@ -69,30 +70,34 @@ gh_link <- function(gh_response, .token, link) {
 #' sapply(x2, "[[", "login")
 #' }
 
-gh_next <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
-  gh_link(gh_response, .token, "next")
+gh_next <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN"),
+                    .send_headers = NULL) {
+  gh_link(gh_response, .token, .send_headers, "next")
 }
 
 
 #' @name gh_next
 #' @export
 
-gh_prev <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
-  gh_link(gh_response, .token, "prev")
+gh_prev <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN"),
+                    .send_headers = NULL) {
+  gh_link(gh_response, .token, .send_headers, "prev")
 }
 
 
 #' @name gh_next
 #' @export
 
-gh_first <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
-  gh_link(gh_response, .token, "first")
+gh_first <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN"),
+                     .send_headers = NULL) {
+  gh_link(gh_response, .token, .send_headers, "first")
 }
 
 
 #' @name gh_next
 #' @export
 
-gh_last <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
-  gh_link(gh_response, .token, "last")
+gh_last <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN"),
+                    .send_headers = NULL) {
+  gh_link(gh_response, .token, .send_headers, "last")
 }

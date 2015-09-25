@@ -141,10 +141,11 @@ gh_url <- function(method, url, auth, params) {
 
   if (status_code(response) >= 300) {
     cond <- structure(list(
+      call = sys.call(-1),
       content = res,
       headers = heads,
-      message = "GitHub API error"
-    ), class = "condition")
+      message = paste("GitHub API error", heads$`status`)
+    ), class = c("condition", "error"))
     stop(cond)
   }
 

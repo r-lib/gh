@@ -132,8 +132,11 @@ gh_url <- function(method, url, auth, params) {
 
   heads <- headers(response)
 
-  if (grepl("^application/json", heads$`content-type`,
-            ignore.case = TRUE)) {
+  content_type <- heads$`content-type`
+  if (is.null(content_type) || length(content_type) == 0) {
+    res <- ""
+  } else if (grepl("^application/json", heads$`content-type`,
+                   ignore.case = TRUE)) {
     res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)
   } else {
     res <- content(response, as = "text")

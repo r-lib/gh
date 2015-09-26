@@ -40,6 +40,7 @@ gh_link <- function(gh_response, .token, link) {
     method = attr(gh_response, "method"),
     url = url,
     auth = get_auth(.token),
+    headers = attr(gh_response, ".send_headers"),
     params = list()
   )
 

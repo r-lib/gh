@@ -72,7 +72,7 @@ gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
 users <- gh("/users", .limit = 50)
 length(users)
 
-## Access developer preview of Licenses API (in preview on 2015-09-20)
+## Access developer preview of Licenses API (in preview as of 2015-09-24)
 gh("/licenses") # error code 415
 gh("/licenses",
    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))

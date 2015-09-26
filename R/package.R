@@ -178,6 +178,7 @@ gh_url <- function(method, url, auth, headers, params) {
 
   attr(res, "method") <- method
   attr(res, "response") <- headers(response)
+  attr(res, ".send_headers") <- headers
   class(res) <- "gh_response"
   res
 }

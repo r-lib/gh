@@ -6,7 +6,7 @@ parse_endpoint <- function(endpoint, params) {
   done <- logical(length(params))
   for (i in seq_along(params)) {
     n <- names(params)[i]
-    p <- params[[i]]
+    p <- params[[i]][1]
     endpoint2 <- gsub(paste0(":", n, "\\b"), p, endpoint)
     if (endpoint2 != endpoint) {
       endpoint <- endpoint2

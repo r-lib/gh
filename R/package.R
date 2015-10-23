@@ -9,7 +9,7 @@ NULL
 
 ## Main API URL
 
-api_url <- "https://api.github.com"
+default_api_url <- "https://api.github.com"
 
 ## Headers to send with each API request
 
@@ -35,6 +35,7 @@ send_headers <- c("Accept" = "application/vnd.github.v3+json",
 #' @param endpoint GitHub API endpoint. See examples below.
 #' @param ... Additional parameters
 #' @param .token Authentication token.
+#' @param .api_url Github API url (default: \url{https://api.github.com})
 #' @param .limit Number of records to return. This can be used
 #'   instead of manual pagination. By default it is \code{NULL},
 #'   which means that the defaults of the GitHub API are used.
@@ -81,9 +82,14 @@ send_headers <- c("Accept" = "application/vnd.github.v3+json",
 #' gh("/licenses") # error code 415
 #' gh("/licenses",
 #'    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
+#'  
+#' ## Access Github Enterprise API
+#' gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
 #' }
+#' 
 
 gh <- function(endpoint, ..., .token = Sys.getenv('GITHUB_TOKEN'),
+               .api_url = Sys.getenv('GITHUB_API_URL', unset = default_api_url),
                .limit = NULL, .send_headers = NULL) {
 
   params <- list(...)
@@ -96,7 +102,7 @@ gh <- function(endpoint, ..., .token = Sys.getenv('GITHUB_TOKEN'),
   auth <- get_auth(.token)
   headers <- get_headers(.send_headers)
 
-  url <- paste0(api_url, endpoint)
+  url <- paste0(.api_url, endpoint)
 
   res <- gh_url(method, url, auth, headers, params)
 

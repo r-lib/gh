@@ -6,8 +6,9 @@
 \alias{gh-package}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"), .limit = NULL,
-  .send_headers = NULL)
+gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"),
+  .api_url = Sys.getenv("GITHUB_API_URL", unset = default_api_url),
+  .limit = NULL, .send_headers = NULL)
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. See examples below.}
@@ -15,6 +16,8 @@ gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"), .limit = NULL,
 \item{...}{Additional parameters}
 
 \item{.token}{Authentication token.}
+
+\item{.api_url}{Github API url (default: \url{https://api.github.com})}
 
 \item{.limit}{Number of records to return. This can be used
 instead of manual pagination. By default it is \code{NULL},
@@ -76,6 +79,9 @@ length(users)
 gh("/licenses") # error code 415
 gh("/licenses",
    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
+
+## Access Github Enterprise API
+gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
 }
 }
 

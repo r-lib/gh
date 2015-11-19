@@ -181,7 +181,7 @@ gh_url <- function(method, url, auth, headers, params) {
       call = sys.call(-1),
       content = res,
       headers = heads,
-      message = paste("GitHub API error", heads$`status`)
+      message = paste0("GitHub API error: ", heads$`status`, "\n  ", res$message, "\n")
     ), class = c("condition", "error"))
     stop(cond)
   }

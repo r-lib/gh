@@ -54,7 +54,8 @@ send_headers <- c("Accept" = "application/vnd.github.v3+json",
 #'   to, e.g., provide a custom media type, in order to access a
 #'   preview feature of the API.
 #'
-#' @return Answer from the API.
+#' @return Answer from the API as a \code{gh_response} object, which is also a
+#'   \code{list}.
 #'
 #' @importFrom httr content add_headers headers
 #'   status_code GET POST PATCH PUT DELETE
@@ -189,6 +190,6 @@ gh_url <- function(method, url, auth, headers, params) {
   attr(res, "method") <- method
   attr(res, "response") <- headers(response)
   attr(res, ".send_headers") <- headers
-  class(res) <- "gh_response"
+  class(res) <- c("gh_response", "list")
   res
 }

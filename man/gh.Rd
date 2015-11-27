@@ -39,7 +39,8 @@ to, e.g., provide a custom media type, in order to access a
 preview feature of the API.}
 }
 \value{
-Answer from the API.
+Answer from the API as a \code{gh_response} object, which is also a
+  \code{list}.
 }
 \description{
 Minimal wrapper to access GitHub's API.

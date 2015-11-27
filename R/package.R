@@ -114,6 +114,10 @@ gh <- function(endpoint, ..., .token = Sys.getenv('GITHUB_TOKEN'),
     res <- res3
   }
 
+  if (! is.null(.limit) && length(res) > .limit) {
+    res <- res[seq_len(.limit)]
+  }
+
   res
 }
 

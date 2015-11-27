@@ -8,8 +8,9 @@ License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/gaborcsardi/gh
 BugReports: https://github.com/gaborcsardi/gh/issues
-Suggests: 
+Suggests:
     testthat
 Imports:
     jsonlite,
     httr
+RoxygenNote: 5.0.1.9000

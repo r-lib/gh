@@ -1,7 +1,11 @@
 
 extract_link <- function(gh_response, link) {
   headers <- attr(gh_response, "response")
-  links <- trim_ws(strsplit(headers$link, ",")[[1]])
+  links <- headers$link
+  if (is.null(links)) {
+    return(NA_character_)
+  }
+  links <- trim_ws(strsplit(links, ",")[[1]])
   link_list <- lapply(links, function(x) {
     x <- trim_ws(strsplit(x, ";")[[1]])
     name <- sub("^.*\"(.*)\".*$", "\\1", x[2])

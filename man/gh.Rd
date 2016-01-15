@@ -6,9 +6,8 @@
 \alias{gh-package}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., .token = Sys.getenv("GITHUB_TOKEN"),
-  .api_url = Sys.getenv("GITHUB_API_URL", unset = default_api_url),
-  .limit = NULL, .send_headers = NULL)
+gh(endpoint, ..., .token = NULL, .api_url = Sys.getenv("GITHUB_API_URL",
+  unset = default_api_url), .limit = NULL, .send_headers = NULL)
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. See examples below.}
@@ -64,7 +63,7 @@ to be able to use this client. All this function does is
 gh("/users/hadley/repos")
 gh("/users/:username/repos", username = "hadley")
 
-## Create a repository, needs a token in GITHUB_TOKEN
+## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
 ## environment variable
 gh("POST /user/repos", name = "foobar")
 

@@ -108,7 +108,7 @@ gh("DELETE /repos/:owner/:repo", owner = "gaborcsardi",
 
 ### Tokens
 
-By default the `GITHUB_TOKEN` environment variable is used. Alternatively, 
+By default the `GITHUB_PAT` environment variable is used. Alternatively, 
 one can set the `.token` argument of `gh()`.
 
 ### Pagination

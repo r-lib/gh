@@ -37,6 +37,8 @@ gh_link <- function(gh_response, .token, link) {
 
   stopifnot(is(gh_response, "gh_response"))
 
+  if (is.null(token)) .token <- gh_token()
+
   url <- extract_link(gh_response, link)
   if (is.na(url)) stop("No ", link, " page")
 
@@ -74,7 +76,7 @@ gh_link <- function(gh_response, .token, link) {
 #' sapply(x2, "[[", "login")
 #' }
 
-gh_next <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
+gh_next <- function(gh_response, .token = NULL) {
   gh_link(gh_response, .token, "next")
 }
 
@@ -82,7 +84,7 @@ gh_next <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
 #' @name gh_next
 #' @export
 
-gh_prev <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
+gh_prev <- function(gh_response, .token = NULL) {
   gh_link(gh_response, .token, "prev")
 }
 
@@ -90,7 +92,7 @@ gh_prev <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
 #' @name gh_next
 #' @export
 
-gh_first <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
+gh_first <- function(gh_response, .token = NULL) {
   gh_link(gh_response, .token, "first")
 }
 
@@ -98,6 +100,6 @@ gh_first <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
 #' @name gh_next
 #' @export
 
-gh_last <- function(gh_response, .token = Sys.getenv("GITHUB_TOKEN")) {
+gh_last <- function(gh_response, .token = NULL) {
   gh_link(gh_response, .token, "last")
 }

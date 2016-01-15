@@ -67,7 +67,7 @@ send_headers <- c("Accept" = "application/vnd.github.v3+json",
 #' gh("/users/hadley/repos")
 #' gh("/users/:username/repos", username = "hadley")
 #'
-#' ## Create a repository, needs a token in GITHUB_TOKEN
+#' ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
 #' ## environment variable
 #' gh("POST /user/repos", name = "foobar")
 #'
@@ -83,15 +83,17 @@ send_headers <- c("Accept" = "application/vnd.github.v3+json",
 #' gh("/licenses") # error code 415
 #' gh("/licenses",
 #'    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
-#'  
+#'
 #' ## Access Github Enterprise API
 #' gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
 #' }
-#' 
+#'
 
-gh <- function(endpoint, ..., .token = Sys.getenv('GITHUB_TOKEN'),
+gh <- function(endpoint, ..., .token = NULL,
                .api_url = Sys.getenv('GITHUB_API_URL', unset = default_api_url),
                .limit = NULL, .send_headers = NULL) {
+
+  if (is.null(.token)) .token <- gh_token()
 
   params <- list(...)
 
@@ -121,6 +123,10 @@ gh <- function(endpoint, ..., .token = Sys.getenv('GITHUB_TOKEN'),
   res
 }
 
+
+gh_token <- function() {
+  Sys.getenv('GITHUB_PAT', NULL) %||% Sys.getenv("GITHUB_TOKEN", "")
+}
 
 get_auth <- function(token) {
   auth <- character()

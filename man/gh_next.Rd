@@ -7,13 +7,13 @@
 \alias{gh_prev}
 \title{Get the next, previous, first or last page of results}
 \usage{
-gh_next(gh_response, .token = Sys.getenv("GITHUB_TOKEN"))
+gh_next(gh_response, .token = NULL)
 
-gh_prev(gh_response, .token = Sys.getenv("GITHUB_TOKEN"))
+gh_prev(gh_response, .token = NULL)
 
-gh_first(gh_response, .token = Sys.getenv("GITHUB_TOKEN"))
+gh_first(gh_response, .token = NULL)
 
-gh_last(gh_response, .token = Sys.getenv("GITHUB_TOKEN"))
+gh_last(gh_response, .token = NULL)
 }
 \arguments{
 \item{gh_response}{An object returned by a \code{gh()} call.}

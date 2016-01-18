@@ -125,7 +125,8 @@ gh <- function(endpoint, ..., .token = NULL,
 
 
 gh_token <- function() {
-  Sys.getenv('GITHUB_PAT', NULL) %||% Sys.getenv("GITHUB_TOKEN", "")
+  token <- Sys.getenv('GITHUB_PAT', "")
+  if (token == "") Sys.getenv("GITHUB_TOKEN", "") else token
 }
 
 get_auth <- function(token) {

@@ -117,7 +117,9 @@ gh <- function(endpoint, ..., .token = NULL,
   }
 
   if (! is.null(.limit) && length(res) > .limit) {
+    res_attr <- attributes(res)
     res <- res[seq_len(.limit)]
+    attributes(res) <- res_attr
   }
 
   res

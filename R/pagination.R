@@ -37,7 +37,7 @@ gh_link <- function(gh_response, .token, link) {
 
   stopifnot(is(gh_response, "gh_response"))
 
-  if (is.null(token)) .token <- gh_token()
+  if (is.null(.token)) .token <- gh_token()
 
   url <- extract_link(gh_response, link)
   if (is.na(url)) stop("No ", link, " page")

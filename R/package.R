@@ -186,8 +186,13 @@ gh_url <- function(method, url, auth, headers, params) {
   } else if (grepl("^application/json", heads$`content-type`,
                    ignore.case = TRUE)) {
     res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)
+  } else if (grepl("^text/html", heads$`content-type`, ignore.case = TRUE)) {
+    x <- tempfile(pattern = "gh-github-api-error-", fileext = ".html")
+    write(res, x)
+    browseURL(x)
+    res <- list(message = "html response :(")
   } else {
-    res <- content(response, as = "text")
+    res <- list(message = content(response, as = "text"))
   }
 
   if (status_code(response) >= 300) {
@@ -195,7 +200,8 @@ gh_url <- function(method, url, auth, headers, params) {
       call = sys.call(-1),
       content = res,
       headers = heads,
-      message = paste0("GitHub API error: ", heads$`status`, "\n  ", res$message, "\n")
+      message = paste0("GitHub API error (", status_code(response), "): ",
+                       heads$`status`, "\n  ", res$message, "\n")
     ), class = c("condition", "error"))
     stop(cond)
   }

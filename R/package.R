@@ -60,6 +60,7 @@ send_headers <- c("Accept" = "application/vnd.github.v3+json",
 #' @importFrom httr content add_headers headers
 #'   status_code GET POST PATCH PUT DELETE
 #' @importFrom jsonlite fromJSON toJSON
+#' @importFrom utils URLencode
 #' @export
 #' @examples
 #' \dontrun{
@@ -105,7 +106,7 @@ gh <- function(endpoint, ..., .token = NULL,
   auth <- get_auth(.token)
   headers <- get_headers(.send_headers)
 
-  url <- paste0(.api_url, endpoint)
+  url <- URLencode(paste0(.api_url, endpoint))
 
   res <- gh_url(method, url, auth, headers, params)
 

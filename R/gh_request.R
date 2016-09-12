@@ -81,6 +81,7 @@ gh_set_body <- function(x) {
   if (length(x$params) == 0L) return(x)
   if (x$method == "GET") {
     warning("This is a 'GET' request and unnamed parameters are being ignored.")
+    return(x)
   }
   x$body <- toJSON(x$params, auto_unbox = TRUE)
   x

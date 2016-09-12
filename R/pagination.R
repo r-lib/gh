@@ -5,9 +5,9 @@ extract_link <- function(gh_response, link) {
   if (is.null(links)) {
     return(NA_character_)
   }
-  links <- trimws(strsplit(links, ",")[[1]])
+  links <- trim_ws(strsplit(links, ",")[[1]])
   link_list <- lapply(links, function(x) {
-    x <- trimws(strsplit(x, ";")[[1]])
+    x <- trim_ws(strsplit(x, ";")[[1]])
     name <- sub("^.*\"(.*)\".*$", "\\1", x[2])
     value <- sub("^<(.*)>$", "\\1", x[1])
     c(name, value)

@@ -7,15 +7,6 @@
 #' @name gh
 NULL
 
-## Main API URL
-
-default_api_url <- "https://api.github.com"
-
-## Headers to send with each API request
-
-send_headers <- c("Accept" = "application/vnd.github.v3+json",
-                  "User-Agent" = "https://github.com/gaborcsardi/whoami")
-
 #' Query the GitHub API
 #'
 #' This is an extremely minimal client. You need to know the API
@@ -58,7 +49,7 @@ send_headers <- c("Accept" = "application/vnd.github.v3+json",
 #'   \code{list}.
 #'
 #' @importFrom httr content add_headers headers
-#'   status_code GET POST PATCH PUT DELETE
+#'   status_code http_type GET POST PATCH PUT DELETE
 #' @importFrom jsonlite fromJSON toJSON
 #' @importFrom utils URLencode
 #' @export
@@ -91,27 +82,18 @@ send_headers <- c("Accept" = "application/vnd.github.v3+json",
 #'
 
 gh <- function(endpoint, ..., .token = NULL,
-               .api_url = Sys.getenv('GITHUB_API_URL', unset = default_api_url),
-               .limit = NULL, .send_headers = NULL) {
+               .api_url = NULL, .limit = NULL, .send_headers = NULL) {
 
-  if (is.null(.token)) .token <- gh_token()
+  req <- gh_build_request(endpoint = endpoint, params = list(...),
+                          token = .token, send_headers = .send_headers,
+                          api_url = .api_url)
 
-  params <- list(...)
+  raw <- gh_make_request(req)
 
-  parsed <- parse_endpoint(endpoint, params)
-  method <- parsed$method
-  endpoint <- parsed$endpoint
-  params <- parsed$params
+  res <- gh_process_response(raw)
 
-  auth <- get_auth(.token)
-  headers <- get_headers(.send_headers)
-
-  url <- URLencode(paste0(.api_url, endpoint))
-
-  res <- gh_url(method, url, auth, headers, params)
-
-  while (! is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
-    res2 <- gh_next(res, .token = .token)
+  while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
+    res2 <- gh_next(res)
     res3 <- c(res, res2)
     attributes(res3) <- attributes(res2)
     res <- res3
@@ -126,84 +108,14 @@ gh <- function(endpoint, ..., .token = NULL,
   res
 }
 
-
-gh_token <- function() {
-  token <- Sys.getenv('GITHUB_PAT', "")
-  if (token == "") Sys.getenv("GITHUB_TOKEN", "") else token
-}
-
-get_auth <- function(token) {
-  auth <- character()
-  if (token != "") auth <- c("Authorization" = paste("token", token))
-  auth
-}
-
-get_headers <- function(headers = NULL) {
-
-  if (is.null(headers))
-    send_headers
-  else
-    c(headers,
-      send_headers[ ! tolower(names(send_headers)) %in%
-                      tolower(names(headers))])
-
-}
-
-
-gh_url <- function(method, url, auth, headers, params) {
+gh_make_request <- function(x) {
 
   method_fun <- list("GET" = GET, "POST" = POST, "PATCH" = PATCH,
-                     "PUT" = PUT, "DELETE" = DELETE)[[method]]
-
+                     "PUT" = PUT, "DELETE" = DELETE)[[x$method]]
   if (is.null(method_fun)) stop("Unknown HTTP verb")
 
-  ## GET ignores parameters within `url`, if `query` is specified,
-  ## so we separate out the case when `query = params` is empty.
-
-  if (method == "GET" && length(params) > 0) {
-    response <- GET(
-      url = url,
-      add_headers(.headers = c(headers, auth)),
-      query = params
-    )
-  } else if (method == "GET") {
-    response <- GET(
-      url = url,
-      add_headers(.headers = c(headers, auth))
-    )
-  } else {
-    response <- method_fun(
-      url = url,
-      add_headers(.headers = c(headers, auth)),
-      body = toJSON(params, auto_unbox = TRUE)
-    )
-  }
-
-  heads <- headers(response)
-
-  content_type <- heads$`content-type`
-  if (is.null(content_type) || length(content_type) == 0) {
-    res <- ""
-  } else if (grepl("^application/json", heads$`content-type`,
-                   ignore.case = TRUE)) {
-    res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)
-  } else {
-    res <- content(response, as = "text")
-  }
-
-  if (status_code(response) >= 300) {
-    cond <- structure(list(
-      call = sys.call(-1),
-      content = res,
-      headers = heads,
-      message = paste0("GitHub API error: ", heads$`status`, "\n  ", res$message, "\n")
-    ), class = c("condition", "error"))
-    stop(cond)
-  }
-
-  attr(res, "method") <- method
-  attr(res, "response") <- headers(response)
-  attr(res, ".send_headers") <- headers
-  class(res) <- c("gh_response", "list")
-  res
+  raw <- do.call(method_fun,
+                 list(url = x$url, query = x$query, body = x$body,
+                      add_headers(x$headers)))
+  raw
 }

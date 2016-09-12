@@ -7,18 +7,16 @@
 \alias{gh_prev}
 \title{Get the next, previous, first or last page of results}
 \usage{
-gh_next(gh_response, .token = NULL)
+gh_next(gh_response)
 
-gh_prev(gh_response, .token = NULL)
+gh_prev(gh_response)
 
-gh_first(gh_response, .token = NULL)
+gh_first(gh_response)
 
-gh_last(gh_response, .token = NULL)
+gh_last(gh_response)
 }
 \arguments{
 \item{gh_response}{An object returned by a \code{gh()} call.}
-
-\item{.token}{Authentication token.}
 }
 \value{
 Answer from the API.

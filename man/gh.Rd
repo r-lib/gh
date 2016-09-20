@@ -6,8 +6,8 @@
 \alias{gh-package}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., .token = NULL, .api_url = Sys.getenv("GITHUB_API_URL",
-  unset = default_api_url), .limit = NULL, .send_headers = NULL)
+gh(endpoint, ..., .token = NULL, .api_url = NULL, .limit = NULL,
+  .send_headers = NULL)
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. See examples below.}
@@ -79,7 +79,7 @@ length(users)
 gh("/licenses") # error code 415
 gh("/licenses",
    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
- 
+
 ## Access Github Enterprise API
 gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
 }

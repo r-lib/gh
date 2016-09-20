@@ -3,6 +3,12 @@ trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }
 
+## from devtools, among other places
+compact <- function(x) {
+  is_empty <- vapply(x, function(x) length(x) == 0, logical(1))
+  x[!is_empty]
+}
+
 ## from purrr, among other places
 `%||%` <- function(x, y) {
   if (is.null(x)) {

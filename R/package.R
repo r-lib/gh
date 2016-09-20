@@ -115,7 +115,7 @@ gh_make_request <- function(x) {
   if (is.null(method_fun)) stop("Unknown HTTP verb")
 
   raw <- do.call(method_fun,
-                 list(url = x$url, query = x$query, body = x$body,
-                      add_headers(x$headers)))
+                 compact(list(url = x$url, query = x$query, body = x$body,
+                              add_headers(x$headers))))
   raw
 }

@@ -3,7 +3,7 @@ gh_process_response <- function(response) {
   heads <- headers(response)
 
   content_type <- http_type(response)
-  if (is.null(content_type) || length(content_type) == 0) {
+  if (length(content(response)) == 0) {
     res <- ""
   } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {
     res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)

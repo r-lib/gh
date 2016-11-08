@@ -12,7 +12,11 @@
 #' gh_tree_remote()
 #' }
 gh_tree_remote <- function(path = ".") {
-  remotes <- lapply(git_remotes(path), github_remote_parse)
+  github_remote(git_remotes(path))
+}
+
+github_remote <- function(x) {
+  remotes <- lapply(x, github_remote_parse)
   remotes <- remotes[!vapply(remotes, is.null, logical(1))]
 
   if (length(remotes) == 0) {
@@ -20,10 +24,16 @@ gh_tree_remote <- function(path = ".") {
   }
 
   if (length(remotes) > 1) {
-    warning("Multiple github remotes found. Using first", call. = FALSE)
+    if (any(names(remotes) == "origin")) {
+      warning("Multiple github remotes found. Using origin.", call. = FALSE)
+      remotes <- remotes[["origin"]]
+    } else {
+      warning("Multiple github remotes found. Using first.", call. = FALSE)
+      remotes <- remotes[[1]]
+    }
+  } else {
+    remotes[[1]]
   }
-
-  remotes[[1]]
 }
 
 github_remote_parse <- function(x) {

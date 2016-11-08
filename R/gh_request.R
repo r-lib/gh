@@ -3,7 +3,7 @@ default_api_url <- "https://api.github.com"
 
 ## Headers to send with each API request
 default_send_headers <- c("Accept" = "application/vnd.github.v3+json",
-                          "User-Agent" = "https://github.com/gaborcsardi/whoami")
+                          "User-Agent" = "https://github.com/r-pkgs/gh")
 
 gh_build_request <- function(endpoint = "/user", params = list(),
                              token = NULL, send_headers = NULL, api_url = NULL) {

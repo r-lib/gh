@@ -1,4 +1,17 @@
-github_remote <- function(path = ".") {
+#' Find the GitHub remote associated with a path
+#'
+#' This is handy helper if you want to make gh requests related to the
+#' current project.
+#'
+#' @param path Path that is contained within a git repo.
+#' @return If the repo has a github remote, a list containing \code{username}
+#'    and \code{repo}. Otherwise, an error.
+#' @export
+#' @examples
+#' \dontrun{
+#' gh_tree_remote()
+#' }
+gh_tree_remote <- function(path = ".") {
   remotes <- lapply(git_remotes(path), github_remote_parse)
   remotes <- remotes[!vapply(remotes, is.null, logical(1))]
 
@@ -7,7 +20,7 @@ github_remote <- function(path = ".") {
   }
 
   if (length(remotes) > 1) {
-    stop("Multiple github remotes found. Using first", call. = FALSE)
+    warning("Multiple github remotes found. Using first", call. = FALSE)
   }
 
   remotes[[1]]

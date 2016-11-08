@@ -22,7 +22,16 @@ NULL
 #'     \code{jsonlite::fromJSON}.
 #' }
 #'
-#' @param endpoint GitHub API endpoint. See examples below.
+#' @param endpoint GitHub API endpoint. Must be one of the following forms:
+#'
+#'    \itemize{
+#'      \item "METHOD path", e.g. "GET /rate_limit"
+#'      \item "path", e.g. "/rate_limit".
+#'      \item "METHOD url", e.g. "GET https://api.github.com/rate_limit"
+#'      \item "url", e.g. "https://api.github.com/rate_limit".
+#'    }
+#'
+#'    If the method is not supplied, it is assumed to be \code{GET}.
 #' @param ... Name-value pairs giving API parameters. Will be matched
 #'   into \code{url} placeholders, send as query parameters in \code{GET}
 #'   requests, and in the JSON body of \code{POST} requests.

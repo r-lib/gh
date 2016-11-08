@@ -30,13 +30,14 @@ gh_build_request <- function(endpoint = "/user", params = list(),
 
 gh_set_verb <- function(x) {
   if (!nzchar(x$endpoint)) return(x)
-  if (grepl("^/", x$endpoint)) {
+  if (grepl("^/", x$endpoint) || grepl("^http", x$endpoint)) {
     x$method <- "GET"
     return(x)
   }
-  x$method <- gsub("^([^/ ]+)\\s*/.*$", "\\1", x$endpoint)
+
+  x$method <- gsub("^([^/ ]+)\\s+.*$", "\\1", x$endpoint)
   stopifnot(x$method %in% c("GET", "POST", "PATCH", "PUT", "DELETE"))
-  x$endpoint <- gsub("^[^/]+/", "/", x$endpoint)
+  x$endpoint <- gsub("^[A-Z]+ ", "", x$endpoint)
   x
 }
 
@@ -95,8 +96,13 @@ gh_set_headers <- function(x) {
 }
 
 gh_set_url <- function(x) {
-  api_url <- x$api_url %||% Sys.getenv('GITHUB_API_URL', unset = default_api_url)
-  x$url <- URLencode(paste0(api_url, x$endpoint))
+  if (grepl("^https?://", x$endpoint)) {
+    x$url <- URLencode(x$endpoint)
+  } else {
+    api_url <- x$api_url %||% Sys.getenv('GITHUB_API_URL', unset = default_api_url)
+    x$url <- URLencode(paste0(api_url, x$endpoint))
+  }
+
   x
 }
 

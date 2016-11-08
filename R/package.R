@@ -22,12 +22,25 @@ NULL
 #'     \code{jsonlite::fromJSON}.
 #' }
 #'
-#' @param endpoint GitHub API endpoint. See examples below.
+#' @param endpoint GitHub API endpoint. Must be one of the following forms:
+#'
+#'    \itemize{
+#'      \item "METHOD path", e.g. "GET /rate_limit"
+#'      \item "path", e.g. "/rate_limit".
+#'      \item "METHOD url", e.g. "GET https://api.github.com/rate_limit"
+#'      \item "url", e.g. "https://api.github.com/rate_limit".
+#'    }
+#'
+#'    If the method is not supplied, will use \code{.method}, which defaults
+#'    to \code{GET}.
 #' @param ... Name-value pairs giving API parameters. Will be matched
 #'   into \code{url} placeholders, send as query parameters in \code{GET}
 #'   requests, and in the JSON body of \code{POST} requests.
 #' @param .token Authentication token.
-#' @param .api_url Github API url (default: \url{https://api.github.com})
+#' @param .api_url Github API url (default: \url{https://api.github.com}).
+#'   Used if \code{endpoint} just contains a path.
+#' @param .method HTTP method to use if not explicitly supplied in the
+#'    \code{endpoint}.
 #' @param .limit Number of records to return. This can be used
 #'   instead of manual pagination. By default it is \code{NULL},
 #'   which means that the defaults of the GitHub API are used.
@@ -83,11 +96,13 @@ NULL
 #'
 
 gh <- function(endpoint, ..., .token = NULL,
-               .api_url = NULL, .limit = NULL, .send_headers = NULL) {
+               .api_url = NULL, .method = "GET",
+               .limit = NULL, .send_headers = NULL
+               ) {
 
   req <- gh_build_request(endpoint = endpoint, params = list(...),
                           token = .token, send_headers = .send_headers,
-                          api_url = .api_url)
+                          api_url = .api_url, method = .method)
 
   raw <- gh_make_request(req)
 

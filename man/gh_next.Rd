@@ -27,7 +27,7 @@ Get the next, previous, first or last page of results
 \details{
 Note that these are not always defined. E.g. if the first
 page was queried (the default), then there are no first and previous
-pages defined. If there is no next page, then there is no
+pages defined. If there is no next page, then there is nog
 next page defined, etc.
 
 If the requested page does not exist, an error is thrown.

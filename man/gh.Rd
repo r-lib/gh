@@ -12,7 +12,9 @@ gh(endpoint, ..., .token = NULL, .api_url = NULL, .limit = NULL,
 \arguments{
 \item{endpoint}{GitHub API endpoint. See examples below.}
 
-\item{...}{Additional parameters}
+\item{...}{Name-value pairs giving API parameters. Will be matched
+into \code{url} placeholders, send as query parameters in \code{GET}
+requests, and in the JSON body of \code{POST} requests.}
 
 \item{.token}{Authentication token.}
 
@@ -39,13 +41,13 @@ preview feature of the API.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a
-  \code{list}.
+  \code{list}. Failed requests will generate an R error.
 }
 \description{
 Minimal wrapper to access GitHub's API.
 
 This is an extremely minimal client. You need to know the API
-to be able to use this client. All this function does is
+to be able to use this client. All this function does is:
 \itemize{
   \item Try to substitute each listed parameter into
     \code{endpoint}, using the \code{:parameter} notation.

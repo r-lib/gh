@@ -10,7 +10,7 @@ NULL
 #' Query the GitHub API
 #'
 #' This is an extremely minimal client. You need to know the API
-#' to be able to use this client. All this function does is
+#' to be able to use this client. All this function does is:
 #' \itemize{
 #'   \item Try to substitute each listed parameter into
 #'     \code{endpoint}, using the \code{:parameter} notation.
@@ -22,9 +22,10 @@ NULL
 #'     \code{jsonlite::fromJSON}.
 #' }
 #'
-
 #' @param endpoint GitHub API endpoint. See examples below.
-#' @param ... Additional parameters
+#' @param ... Name-value pairs giving API parameters. Will be matched
+#'   into \code{url} placeholders, send as query parameters in \code{GET}
+#'   requests, and in the JSON body of \code{POST} requests.
 #' @param .token Authentication token.
 #' @param .api_url Github API url (default: \url{https://api.github.com})
 #' @param .limit Number of records to return. This can be used
@@ -46,7 +47,7 @@ NULL
 #'   preview feature of the API.
 #'
 #' @return Answer from the API as a \code{gh_response} object, which is also a
-#'   \code{list}.
+#'   \code{list}. Failed requests will generate an R error.
 #'
 #' @importFrom httr content add_headers headers
 #'   status_code http_type GET POST PATCH PUT DELETE

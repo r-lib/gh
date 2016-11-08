@@ -6,9 +6,10 @@ default_send_headers <- c("Accept" = "application/vnd.github.v3+json",
                           "User-Agent" = "https://github.com/r-pkgs/gh")
 
 gh_build_request <- function(endpoint = "/user", params = list(),
-                             token = NULL, send_headers = NULL, api_url = NULL) {
+                             token = NULL, send_headers = NULL,
+                             api_url = NULL, method = "GET") {
 
-  working <- list(method = character(), url = character(), headers = NULL,
+  working <- list(method = method, url = character(), headers = NULL,
                   query = NULL, body = NULL,
                   endpoint = endpoint, params = params,
                   token = token, send_headers = send_headers, api_url = api_url)
@@ -30,8 +31,9 @@ gh_build_request <- function(endpoint = "/user", params = list(),
 
 gh_set_verb <- function(x) {
   if (!nzchar(x$endpoint)) return(x)
+
+  # No method defined, so use default
   if (grepl("^/", x$endpoint) || grepl("^http", x$endpoint)) {
-    x$method <- "GET"
     return(x)
   }
 

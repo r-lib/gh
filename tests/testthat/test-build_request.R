@@ -9,3 +9,8 @@ test_that("all forms of specifying endpoint are equivalent", {
   expect_equal(gh_build_request("GET https://api.github.com/rate_limit"), r1)
   expect_equal(gh_build_request("https://api.github.com/rate_limit"), r1)
 })
+
+test_that("method arg sets default method", {
+  r <- gh_build_request("/rate_limit", method = "POST")
+  expect_equal(r$method, "POST")
+})

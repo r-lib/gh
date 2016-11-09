@@ -4,4 +4,5 @@ if (file.exists("github-token.txt")) {
 }
 
 Sys.setenv(DEBUGME = "httrmock")
+system("find .")
 httrmock::start_replaying()

@@ -12,6 +12,7 @@ Suggests:
     httrmock,
     testthat
 Imports:
+    ini,
     jsonlite,
     httr
 Remotes:

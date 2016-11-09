@@ -6,3 +6,4 @@
 ^appveyor.yml$
 ^NEWS\.md$
 ^tags$
+^tests/testthat/github-token\.txt$

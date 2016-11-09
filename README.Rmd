@@ -12,8 +12,8 @@ knitr::opts_chunk$set(
 
 > GitHub API
 
-[![Linux Build Status](https://travis-ci.org/gaborcsardi/gh.svg?branch=master)](https://travis-ci.org/gaborcsardi/gh)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/gaborcsardi/gh?svg=true)](https://ci.appveyor.com/project/gaborcsardi/gh)
+[![Linux Build Status](https://travis-ci.org/r-pkgs/gh.svg?branch=master)](https://travis-ci.org/r-pkgs/gh)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-pkgs/gh?svg=true)](https://ci.appveyor.com/project/gaborcsardi/gh)
 [![](http://www.r-pkg.org/badges/version/gh)](http://www.r-pkg.org/pkg/gh)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/gh)](http://www.r-pkg.org/pkg/gh)
 
@@ -24,7 +24,7 @@ Minimalistic client to access
 ## Installation
 
 ```{r eval = FALSE}
-devtools::install_github("gaborcsardi/gh")
+devtools::install_github("r-pkgs/gh")
 ```
 
 ## Usage

@@ -5,8 +5,8 @@
 
 > GitHub API
 
-[![Linux Build Status](https://travis-ci.org/gaborcsardi/gh.svg?branch=master)](https://travis-ci.org/gaborcsardi/gh)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/gaborcsardi/gh?svg=true)](https://ci.appveyor.com/project/gaborcsardi/gh)
+[![Linux Build Status](https://travis-ci.org/r-pkgs/gh.svg?branch=master)](https://travis-ci.org/r-pkgs/gh)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-pkgs/gh?svg=true)](https://ci.appveyor.com/project/gaborcsardi/gh)
 [![](http://www.r-pkg.org/badges/version/gh)](http://www.r-pkg.org/pkg/gh)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/gh)](http://www.r-pkg.org/pkg/gh)
 
@@ -18,7 +18,7 @@ Minimalistic client to access
 
 
 ```r
-devtools::install_github("gaborcsardi/gh")
+devtools::install_github("r-pkgs/gh")
 ```
 
 ## Usage
@@ -41,21 +41,16 @@ vapply(my_repos, "[[", "", "name")
 ```
 
 ```
-#>  [1] "ask"                   "background"           
-#>  [3] "baseimports"           "bundler"              
-#>  [5] "clisymbols"            "closure"              
-#>  [7] "cmaker"                "cranky"               
-#>  [9] "crayon"                "datastore"            
-#> [11] "decima"                "disposables"          
-#> [13] "docstrings"            "dot-emacs"            
-#> [15] "dotenv"                "elasticsearch-jetty"  
-#> [17] "ensurethat"            "falsy"                
-#> [19] "feast"                 "flock"                
-#> [21] "gaborcsardi.github.io" "gh"                   
-#> [23] "ISA"                   "json2r6"              
-#> [25] "keypress"              "locker"               
-#> [27] "macBriain"             "mason"                
-#> [29] "mason.rpkg"            "massig"
+#>  [1] "after"               "argufy"              "ask"                
+#>  [4] "baseimports"         "citest"              "clisymbols"         
+#>  [7] "cmaker"              "cmark"               "conditions"         
+#> [10] "crayon"              "debugme"             "diffobj"            
+#> [13] "disposables"         "dotenv"              "elasticsearch-jetty"
+#> [16] "falsy"               "fswatch"             "gitty"              
+#> [19] "httrmock"            "ISA"                 "keypress"           
+#> [22] "lintr"               "macBriain"           "maxygen"            
+#> [25] "MISO"                "parr"                "parsedate"          
+#> [28] "pingr"               "pkgconfig"           "playground"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -70,21 +65,16 @@ vapply(j_repos, "[[", "", "name")
 ```
 
 ```
-#>  [1] "apps"                  "blog"                 
-#>  [3] "cheerio"               "cmark"                
-#>  [5] "commonmark"            "curl"                 
-#>  [7] "daff"                  "data"                 
-#>  [9] "devtools"              "DiagrammeR"           
-#> [11] "docdbi"                "docplyr"              
-#> [13] "dplyr"                 "encode"               
-#> [15] "evaluate"              "fib"                  
-#> [17] "git"                   "httr"                 
-#> [19] "icu"                   "interactivity"        
-#> [21] "ipyr"                  "IRkernel"             
-#> [23] "jeroenooms.github.com" "JJcorr"               
-#> [25] "js"                    "JSlibs"               
-#> [27] "jsonlite"              "lausd-data"           
-#> [29] "lawn"                  "leaflet-pip"
+#>  [1] "apps"               "asantest"           "awk"               
+#>  [4] "base64"             "bcrypt"             "blog"              
+#>  [7] "brotli"             "cheerio"            "cmark"             
+#> [10] "commonmark"         "covr"               "cranlogs"          
+#> [13] "curl"               "cyphr"              "daff"              
+#> [16] "data"               "data.table.extras"  "devtools"          
+#> [19] "DiagrammeR"         "docdbi"             "docplyr"           
+#> [22] "docs-travis-ci-com" "dplyr"              "encode"            
+#> [25] "evaluate"           "feather"            "fib"               
+#> [28] "figures"            "gdtools"            "geojson"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -123,21 +113,18 @@ vapply(my_repos2, "[[", "", "name")
 ```
 
 ```
-#>  [1] "MISO"                   "my-old-MISO"           
-#>  [3] "parsedate"              "pingr"                 
-#>  [5] "pkgconfig"              "playground"            
-#>  [7] "pretty"                 "prettyunits"           
-#>  [9] "printr"                 "procrustes"            
-#> [11] "progress"               "r-font"                
-#> [13] "r-wiki-engine"          "ratlab"                
-#> [15] "rcorpora"               "Rcpp"                  
-#> [17] "redsvd"                 "regexp"                
-#> [19] "resume"                 "rfunctions"            
-#> [21] "roxygen"                "rsmith"                
-#> [23] "rsync-mirror"           "scidb"                 
-#> [25] "Semantic-plotting-in-R" "snap"                  
-#> [27] "spark"                  "splicing"              
-#> [29] "staticdocs"             "tab"
+#>  [1] "praise"                      "prettyunits"                
+#>  [3] "progress"                    "prompt"                     
+#>  [5] "r-font"                      "R6"                         
+#>  [7] "rcloud.rcap.style.att"       "rcloud.rcap.style.att.ecomp"
+#>  [9] "rcorpora"                    "readline"                   
+#> [11] "remoji"                      "resume"                     
+#> [13] "rhub-presentations"          "rintrojs"                   
+#> [15] "roxygen"                     "scidb"                      
+#> [17] "spark"                       "sparklyr"                   
+#> [19] "splicing"                    "tamper"                     
+#> [21] "testthat"                    "user2016-tutorial-shiny"    
+#> [23] "webdriver"                   "whoami"
 ```
 
 ## License

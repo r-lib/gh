@@ -6,8 +6,8 @@ Maintainer: Gabor Csardi <csardi.gabor@gmail.com>
 Description: Minimal client to access 'GitHub''s 'API'.
 License: MIT + file LICENSE
 LazyData: true
-URL: https://github.com/gaborcsardi/gh
-BugReports: https://github.com/gaborcsardi/gh/issues
+URL: https://github.com/r-pkgs/gh
+BugReports: https://github.com/r-pkgs/gh/issues
 Suggests:
     httrmock,
     testthat

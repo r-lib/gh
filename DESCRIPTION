@@ -9,8 +9,12 @@ LazyData: true
 URL: https://github.com/gaborcsardi/gh
 BugReports: https://github.com/gaborcsardi/gh/issues
 Suggests:
+    httrmock,
     testthat
 Imports:
     jsonlite,
     httr
-RoxygenNote: 5.0.1
+Remotes:
+    gaborcsardi/httrmock
+RoxygenNote: 5.0.1.9000
+Roxygen: list(markdown = TRUE)

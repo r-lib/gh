@@ -4,6 +4,6 @@ if (file.exists("github-token.txt")) {
 }
 
 ## Sys.setenv(DEBUGME = "httrmock")
-## httrmock::start_recording()
+
 httrmock::start_replaying()
 httrmock::stop_recording()

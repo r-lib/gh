@@ -9,6 +9,7 @@ LazyData: true
 URL: https://github.com/r-pkgs/gh
 BugReports: https://github.com/r-pkgs/gh/issues
 Suggests:
+    covr,
     httrmock,
     testthat
 Imports:

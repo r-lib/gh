@@ -9,7 +9,7 @@
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-pkgs/gh?svg=true)](https://ci.appveyor.com/project/gaborcsardi/gh)
 [![](http://www.r-pkg.org/badges/version/gh)](http://www.r-pkg.org/pkg/gh)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/gh)](http://www.r-pkg.org/pkg/gh)
-
+[![Coverage Status](https://img.shields.io/codecov/c/github/r-pkgs/gh/master.svg)](https://codecov.io/github/r-pkgs/gh?branch=master)
 
 Minimalistic client to access
 [GitHub's API v3](https://developer.github.com/v3/).
@@ -44,13 +44,13 @@ vapply(my_repos, "[[", "", "name")
 #>  [1] "after"               "argufy"              "ask"                
 #>  [4] "baseimports"         "citest"              "clisymbols"         
 #>  [7] "cmaker"              "cmark"               "conditions"         
-#> [10] "crayon"              "debugme"             "diffobj"            
-#> [13] "disposables"         "dotenv"              "elasticsearch-jetty"
-#> [16] "falsy"               "fswatch"             "gitty"              
-#> [19] "httrmock"            "ISA"                 "keypress"           
-#> [22] "lintr"               "macBriain"           "maxygen"            
-#> [25] "MISO"                "parr"                "parsedate"          
-#> [28] "pingr"               "pkgconfig"           "playground"
+#> [10] "crayon"              "debugme"             "devtools"           
+#> [13] "diffobj"             "disposables"         "dotenv"             
+#> [16] "elasticsearch-jetty" "falsy"               "fswatch"            
+#> [19] "gitty"               "httr"                "httrmock"           
+#> [22] "ISA"                 "keypress"            "lintr"              
+#> [25] "macBriain"           "maxygen"             "MISO"               
+#> [28] "parr"                "parsedate"           "pingr"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -113,18 +113,19 @@ vapply(my_repos2, "[[", "", "name")
 ```
 
 ```
-#>  [1] "praise"                      "prettyunits"                
-#>  [3] "progress"                    "prompt"                     
-#>  [5] "r-font"                      "R6"                         
-#>  [7] "rcloud.rcap.style.att"       "rcloud.rcap.style.att.ecomp"
-#>  [9] "rcorpora"                    "readline"                   
-#> [11] "remoji"                      "resume"                     
-#> [13] "rhub-presentations"          "rintrojs"                   
-#> [15] "roxygen"                     "scidb"                      
-#> [17] "spark"                       "sparklyr"                   
-#> [19] "splicing"                    "tamper"                     
-#> [21] "testthat"                    "user2016-tutorial-shiny"    
-#> [23] "webdriver"                   "whoami"
+#>  [1] "pkgconfig"               "playground"             
+#>  [3] "praise"                  "prettycode"             
+#>  [5] "prettyunits"             "progress"               
+#>  [7] "prompt"                  "r-font"                 
+#>  [9] "R6"                      "rcorpora"               
+#> [11] "readline"                "remoji"                 
+#> [13] "resume"                  "rhub-presentations"     
+#> [15] "rintrojs"                "roxygen"                
+#> [17] "scidb"                   "spark"                  
+#> [19] "sparklyr"                "splicing"               
+#> [21] "tamper"                  "testthat"               
+#> [23] "trump"                   "user2016-tutorial-shiny"
+#> [25] "webdriver"               "whoami"
 ```
 
 ## License

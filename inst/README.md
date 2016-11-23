@@ -129,4 +129,4 @@ vapply(my_repos2, "[[", "", "name")
 
 ## License
 
-MIT © [Gabor Csardi](https://github.com/gaborcsardi).
+MIT © [Gábor Csárdi](https://github.com/gaborcsardi).

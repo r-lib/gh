@@ -1,8 +1,8 @@
 Package: gh
 Title: 'GitHub' 'API'
 Version: 1.0.0
-Author: Gabor Csardi
-Maintainer: Gabor Csardi <csardi.gabor@gmail.com>
+Author: Gábor Csárdi
+Maintainer: Gábor Csárdi <csardi.gabor@gmail.com>
 Description: Minimal client to access 'GitHub''s 'API'.
 License: MIT + file LICENSE
 LazyData: true
@@ -19,3 +19,4 @@ Remotes:
     gaborcsardi/httrmock
 RoxygenNote: 5.0.1.9000
 Roxygen: list(markdown = TRUE)
+Encoding: UTF-8

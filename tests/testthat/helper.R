@@ -17,3 +17,5 @@ if (file.exists("github-token.txt")) {
   httrmock::stop_recording()
   httrmock::start_replaying()
 }
+
+gh_test_owner <- "gh-testing"

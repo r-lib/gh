@@ -14,3 +14,14 @@ test_that("method arg sets default method", {
   r <- gh_build_request("/rate_limit", method = "POST")
   expect_equal(r$method, "POST")
 })
+
+test_that("parameter substitution is equivalent to direct specification", {
+  subst <-
+    gh_build_request("POST /repos/:org/:repo/issues/:number/labels",
+                     params = list(org = "ORG", repo = "REPO", number = "1",
+                                   "body"))
+  spec <-
+    gh_build_request("POST /repos/ORG/REPO/issues/1/labels",
+                     params = list("body"))
+  expect_identical(subst, spec)
+})

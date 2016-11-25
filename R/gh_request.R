@@ -65,6 +65,7 @@ gh_set_endpoint <- function(x) {
 
   x$endpoint <- endpoint
   x$params <- x$params[!done]
+  x$params <- cleanse_names(x$params)
   x
 
 }

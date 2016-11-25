@@ -32,7 +32,7 @@ has_no_names <- function(x) all(!has_name(x))
 
 ## if all names are "", strip completely
 cleanse_names <- function(x) {
-  if (all(has_no_names(x))) {
+  if (has_no_names(x)) {
     names(x) <- NULL
   }
   x

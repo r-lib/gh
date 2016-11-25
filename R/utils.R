@@ -30,6 +30,14 @@ has_name <- function(x) {
 
 has_no_names <- function(x) all(!has_name(x))
 
+## if all names are "", strip completely
+cleanse_names <- function(x) {
+  if (all(has_no_names(x))) {
+    names(x) <- NULL
+  }
+  x
+}
+
 ## to process HTTP headers, i.e. combine defaults w/ user-specified headers
 ## in the spirit of modifyList(), except
 ## x and y are vectors (not lists)

@@ -53,7 +53,7 @@ There are `r nrow(rdf)` endpoints in the table below.
 
 ```{r echo = FALSE}
 rdf_print <- rdf %>%
-  mutate(section = paste0("*", section, "*"),
+  mutate(section = paste0(seq_len(nrow(rdf)), " *", section, "*"),
          info = paste(method, url),
          info = paste(info, description, sep = "<br>"),
          info = paste(info, section, sep = "<br>")) %>% 

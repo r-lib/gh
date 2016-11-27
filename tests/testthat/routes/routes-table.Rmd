@@ -1,0 +1,76 @@
+---
+title: "GitHub API as documented by node-github.js"
+date: "`r format(Sys.Date())`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "#>", collapse = TRUE)
+```
+
+Table created from `routes.json` obtained from here:
+
+https://github.com/mikedeboer/node-github/blob/master/lib/routes.json
+
+Suggestion to consider this as basis for gh tests from:
+
+https://github.com/r-pkgs/gh/issues/8
+
+```{r include = FALSE}
+library(jsonlite)
+library(tidyverse)
+library(stringr)
+
+routes <- fromJSON("routes.json")
+routes$defines <- NULL
+rdf <- tibble(
+  section = rep(names(routes), lengths(routes)),
+  endpoints = flatten(routes),
+  url = map_chr(endpoints, "url"),
+  method = map_chr(endpoints, "method"),
+  description = map_chr(endpoints, "description"),
+  params = map(endpoints, ~ names(.x$params))
+)
+rdf <- rdf %>%
+  select(section, method, url, description, params)
+rdf <- rdf %>%
+  mutate(url_params = url %>%
+           str_split("/") %>%
+           map(tail, n = -1) %>%
+           map(str_subset, "^:") %>%
+           map(str_replace, "^:", ""))
+
+## prepare to isolate 'other' params, i.e. those destined for query (GET)
+## or body (all other verbs)
+rdf <- rdf %>%
+  mutate(other_params = params %>%
+           map(str_replace, "^\\$", ""))
+rdf <- rdf %>%
+  mutate(other_params = map2(other_params, url_params, setdiff))
+```
+
+There are `r nrow(rdf)` endpoints in the table below.
+
+```{r echo = FALSE}
+rdf_print <- rdf %>%
+  mutate(section = paste0("*", section, "*"),
+         info = paste(method, url),
+         info = paste(info, description, sep = "<br>"),
+         info = paste(info, section, sep = "<br>")) %>% 
+  select(-method, -url, -description, -section) %>% 
+  select(info, everything())
+comma_collapse <- function(x) paste(x, collapse = ", ")
+rdf_print <- rdf_print %>%
+  mutate(params2 = map_chr(params, comma_collapse),
+         url_params = map_chr(url_params, comma_collapse),
+         other_params = map_chr(other_params, comma_collapse)) %>% 
+  select(-params) %>% 
+  mutate(params = paste0("**params:** ", params2, sep = ": "),
+         url_params = paste0("**url_params:** ", url_params),
+         other_params = paste0("**other_params:** ", other_params)) %>% 
+  mutate(params = paste(params, url_params, other_params, sep = "<br>")) %>% 
+  select(info, params)
+if (interactive()) View(rdf_print)
+knitr::kable(rdf_print)
+```
+

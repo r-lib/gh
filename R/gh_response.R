@@ -21,7 +21,7 @@ gh_process_response <- function(response) {
       headers = heads,
       message = paste0("GitHub API error (", status_code(response), "): ",
                        heads$`status`, "\n  ", res$message, "\n")
-    ), class = c("condition", "error"))
+    ), class = c("github_error", status_code(response), "condition", "error"))
     stop(cond)
   }
 

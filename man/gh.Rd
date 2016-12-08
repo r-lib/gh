@@ -4,6 +4,7 @@
 \name{gh}
 \alias{gh}
 \alias{gh-package}
+\alias{gh}
 \title{GitHub API}
 \usage{
 gh(endpoint, ..., .token = NULL, .api_url = NULL, .method = "GET",
@@ -12,18 +13,18 @@ gh(endpoint, ..., .token = NULL, .api_url = NULL, .method = "GET",
 \arguments{
 \item{endpoint}{GitHub API endpoint. Must be one of the following forms:
 
-   \itemize{
-     \item "METHOD path", e.g. "GET /rate_limit"
-     \item "path", e.g. "/rate_limit".
-     \item "METHOD url", e.g. "GET https://api.github.com/rate_limit"
-     \item "url", e.g. "https://api.github.com/rate_limit".
-   }
+\itemize{
+\item "METHOD path", e.g. "GET /rate_limit"
+\item "path", e.g. "/rate_limit".
+\item "METHOD url", e.g. "GET https://api.github.com/rate_limit"
+\item "url", e.g. "https://api.github.com/rate_limit".
+}
 
-   If the method is not supplied, will use \code{.method}, which defaults
-   to \code{GET}.}
+If the method is not supplied, will use \code{.method}, which defaults
+to \code{GET}.}
 
 \item{...}{Name-value pairs giving API parameters. Will be matched
-into \code{url} placeholders, send as query parameters in \code{GET}
+into \code{url} placeholders, sent as query parameters in \code{GET}
 requests, and in the JSON body of \code{POST} requests.}
 
 \item{.token}{Authentication token.}
@@ -55,7 +56,7 @@ preview feature of the API.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a
-  \code{list}. Failed requests will generate an R error.
+\code{list}. Failed requests will generate an R error.
 }
 \description{
 Minimal wrapper to access GitHub's API.
@@ -63,14 +64,14 @@ Minimal wrapper to access GitHub's API.
 This is an extremely minimal client. You need to know the API
 to be able to use this client. All this function does is:
 \itemize{
-  \item Try to substitute each listed parameter into
-    \code{endpoint}, using the \code{:parameter} notation.
-  \item If a GET request (the default), then add
-    all other listed parameters as query parameters.
-  \item If not a GET request, then send the other parameters
-    in the request body, as JSON.
-  \item Convert the response to an R list using
-    \code{jsonlite::fromJSON}.
+\item Try to substitute each listed parameter into
+\code{endpoint}, using the \code{:parameter} notation.
+\item If a GET request (the default), then add
+all other listed parameters as query parameters.
+\item If not a GET request, then send the other parameters
+in the request body, as JSON.
+\item Convert the response to an R list using
+\code{jsonlite::fromJSON}.
 }
 }
 \examples{
@@ -101,4 +102,3 @@ gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3"
 }
 
 }
-

@@ -17,4 +17,3 @@ The JSON result.
 \description{
 Print the result of a GitHub API call
 }
-

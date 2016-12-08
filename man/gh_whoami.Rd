@@ -28,10 +28,43 @@ A \code{gh_response} object, which is also a \code{list}.
 \description{
 Reports wallet name, GitHub login, and GitHub URL for the current
 authenticated user, the first few and last characters of the token, and the
-associated scopes. To get full information on the user, call
+associated scopes.
+}
+\details{
+Get a personal access token for the GitHub API from
+\url{https://github.com/settings/tokens} and select the scopes necessary for
+your planned tasks. The \code{repo} scope, for example, is one many are
+likely to need. The token itself is a string of 40 letters and digits. You
+can store it any way you like and provide explicitly via the \code{.token}
+argument to \code{\link{gh}()}.
+
+However, many prefer to define an environment variable \code{GITHUB_PAT} (or
+\code{GITHUB_TOKEN}) with this value in their \code{.Renviron} file. Add a
+line that looks like this, substituting your PAT:
+
+\preformatted{
+GITHUB_PAT=8c70fd8419398999c9ac5bacf3192882193cadf2
+}
+
+Put a line break at the end! If you’re using an editor that shows line
+numbers, there should be (at least) two lines, where the second one is empty.
+Restart R for this to take effect. Call \code{gh_whoami()} to confirm
+success.
+
+To get complete information on the authenticated user, call
 \code{gh("/user")}.
+
+For token management via API (versus the browser), use the
+\href{https://developer.github.com/v3/oauth_authorizations/}{OAuth
+Authorizations API}. This API requires Basic Authentication using your
+username and password, not tokens, and is outside the scope of the \code{gh}
+package.
 }
 \examples{
 gh_whoami()
+\dontrun{
+## explicit token + use with GitHub Enterprise
+gh_whoami(.token = "8c70fd8419398999c9ac5bacf3192882193cadf2",
+          .api_url = "https://github.foobar.edu/api/v3")
 }
-
+}

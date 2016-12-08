@@ -102,3 +102,7 @@ gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3"
 }
 
 }
+\seealso{
+\code{\link{gh_whoami}()} for details on GitHub API token
+management.
+}

@@ -67,6 +67,8 @@ NULL
 #' @importFrom jsonlite fromJSON toJSON
 #' @importFrom utils URLencode
 #' @export
+#' @seealso \code{\link{gh_whoami}()} for details on GitHub API token
+#'   management.
 #' @examples
 #' \dontrun{
 #' ## Repositories of a user, these are equivalent

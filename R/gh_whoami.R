@@ -51,7 +51,7 @@ gh_whoami <- function(.token = NULL, .api_url = NULL, .send_headers = NULL) {
     message("No personal access token (PAT) available.\n",
             "Obtain a PAT from here:\n",
             "https://github.com/settings/tokens\n",
-            "For more on what to do with the PAT, see `help(gh_whoami`.")
+            "For more on what to do with the PAT, see ?gh_whoami.")
     return(invisible(NULL))
   }
   req <- gh_build_request(endpoint = "/user", token = .token,

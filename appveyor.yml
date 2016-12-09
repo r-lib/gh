@@ -12,6 +12,10 @@ install:
 
 # Adapt as necessary starting from here
 
+environment:
+  global:
+    GITHUB_TOKEN: ANYTHING_BUT_NULL
+
 build_script:
   - travis-tool.sh install_deps
 

@@ -61,8 +61,9 @@ username and password, not tokens, and is outside the scope of the \code{gh}
 package.
 }
 \examples{
-gh_whoami()
 \dontrun{
+gh_whoami()
+
 ## explicit token + use with GitHub Enterprise
 gh_whoami(.token = "8c70fd8419398999c9ac5bacf3192882193cadf2",
           .api_url = "https://github.foobar.edu/api/v3")

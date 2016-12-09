@@ -47,7 +47,7 @@
 #' }
 gh_whoami <- function(.token = NULL, .api_url = NULL, .send_headers = NULL) {
   .token <- .token %||% gh_token()
-  if (.token == "") {
+  if (isTRUE(.token == "")) {
     message("No personal access token (PAT) available.\n",
             "Obtain a PAT from here:\n",
             "https://github.com/settings/tokens\n",

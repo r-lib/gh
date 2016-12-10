@@ -1,8 +1,8 @@
 #' Info on current GitHub user and token
 #'
 #' Reports wallet name, GitHub login, and GitHub URL for the current
-#' authenticated user, the first few and last characters of the token, and the
-#' associated scopes.
+#' authenticated user, the first bit of the token, and the associated scopes.
+
 #'
 #' Get a personal access token for the GitHub API from
 #' \url{https://github.com/settings/tokens} and select the scopes necessary for

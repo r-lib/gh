@@ -1,8 +1,8 @@
 #' Info on current GitHub user and token
 #'
 #' Reports wallet name, GitHub login, and GitHub URL for the current
-#' authenticated user, the first few and last characters of the token, and the
-#' associated scopes.
+#' authenticated user, the first bit of the token, and the associated scopes.
+
 #'
 #' Get a personal access token for the GitHub API from
 #' \url{https://github.com/settings/tokens} and select the scopes necessary for
@@ -60,14 +60,14 @@ gh_whoami <- function(.token = NULL, .api_url = NULL, .send_headers = NULL) {
   scopes <- attr(res, "response")[["x-oauth-scopes"]]
   res <- res[c("name", "login", "html_url")]
   res$scopes <- scopes
-  res$token <- hide_middle(.token)
+  res$token <- obfuscate(.token)
   ## 'gh_response' class has to be restored
   class(res) <- c("gh_response", "list")
   res
 }
 
-hide_middle <- function(x, n = 4) {
-  paste0(substr(x, start = 1, stop = n),
+obfuscate <- function(x, first = 2, last = 0) {
+  paste0(substr(x, start = 1, stop = first),
          "...",
-         substr(x, start = nchar(x) - n + 1, stop = nchar(x)))
+         substr(x, start = nchar(x) - last + 1, stop = nchar(x)))
 }

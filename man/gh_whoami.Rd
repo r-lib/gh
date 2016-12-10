@@ -27,8 +27,7 @@ A \code{gh_response} object, which is also a \code{list}.
 }
 \description{
 Reports wallet name, GitHub login, and GitHub URL for the current
-authenticated user, the first few and last characters of the token, and the
-associated scopes.
+authenticated user, the first bit of the token, and the associated scopes.
 }
 \details{
 Get a personal access token for the GitHub API from

@@ -118,11 +118,11 @@ gh_token <- function() {
 }
 
 gh_auth <- function(token) {
-  auth <- character()
   if (isTRUE(token != "")) {
-    auth <- c("Authorization" = paste("token", token))
+    c("Authorization" = paste("token", token))
+  } else {
+    character()
   }
-  auth
 }
 
 gh_send_headers <- function(headers = NULL) {

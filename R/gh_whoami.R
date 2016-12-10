@@ -55,12 +55,11 @@ gh_whoami <- function(.token = NULL, .api_url = NULL, .send_headers = NULL) {
             "For more on what to do with the PAT, see ?gh_whoami.")
     return(invisible(NULL))
   }
-  req <- gh_build_request(endpoint = "/user", token = .token,
-                          api_url = .api_url, send_headers = .send_headers)
-  raw <- gh_make_request(req)
-  res <- gh_process_response(raw)
+  res <- gh(endpoint = "/user", .token = .token,
+            .api_url = .api_url, .send_headers = .send_headers)
+  scopes <- attr(res, "response")[["x-oauth-scopes"]]
   res <- res[c("name", "login", "html_url")]
-  res$scopes <- headers(raw)[["x-oauth-scopes"]]
+  res$scopes <- scopes
   res$token <- hide_middle(.token)
   ## 'gh_response' class has to be restored
   class(res) <- c("gh_response", "list")

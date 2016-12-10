@@ -7,5 +7,9 @@ r:
  - devel
  - oldrel
 
+env:
+  - global
+    - GITHUB_TOKEN=ANYTHING_BUT_NULL
+
 after_success:
   - test $TRAVIS_R_VERSION_STRING = "release" && Rscript -e 'covr::codecov()'

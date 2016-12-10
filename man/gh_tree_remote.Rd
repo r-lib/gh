@@ -11,7 +11,7 @@ gh_tree_remote(path = ".")
 }
 \value{
 If the repo has a github remote, a list containing \code{username}
-   and \code{repo}. Otherwise, an error.
+and \code{repo}. Otherwise, an error.
 }
 \description{
 This is handy helper if you want to make gh requests related to the
@@ -22,4 +22,3 @@ current project.
 gh_tree_remote()
 }
 }
-

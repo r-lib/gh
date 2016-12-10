@@ -34,7 +34,7 @@ NULL
 #'    If the method is not supplied, will use \code{.method}, which defaults
 #'    to \code{GET}.
 #' @param ... Name-value pairs giving API parameters. Will be matched
-#'   into \code{url} placeholders, send as query parameters in \code{GET}
+#'   into \code{url} placeholders, sent as query parameters in \code{GET}
 #'   requests, and in the JSON body of \code{POST} requests.
 #' @param .token Authentication token.
 #' @param .api_url Github API url (default: \url{https://api.github.com}).
@@ -67,6 +67,8 @@ NULL
 #' @importFrom jsonlite fromJSON toJSON
 #' @importFrom utils URLencode
 #' @export
+#' @seealso \code{\link{gh_whoami}()} for details on GitHub API token
+#'   management.
 #' @examples
 #' \dontrun{
 #' ## Repositories of a user, these are equivalent

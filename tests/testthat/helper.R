@@ -10,8 +10,6 @@
 if (file.exists("github-token.txt")) {
   Sys.setenv(GITHUB_TOKEN = readLines("github-token.txt", n = 1))
   Sys.setenv(DEBUGME = "httrmock")
-  httrmock::start_recording()
-  httrmock::start_replaying()
   ms <- httrmock::mocking_status()
   message("mocking status:\n",
           paste(names(ms), ms, sep = ": ", collapse = "\n"))

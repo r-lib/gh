@@ -1,9 +1,7 @@
 context("whoami")
 
 test_that("whoami works in presence of PAT", {
-  ## being explicit re token because GITHUB_PAT > GITHUB_TOKEN in gh_token()
-  ## don't want developer's GITHUB_PAT to override gh-testing's GITHUB_TOKEN
-  res <- gh_whoami(Sys.getenv("GITHUB_TOKEN"))
+  res <- gh_whoami(.token = tt())
   expect_s3_class(res, "gh_response")
   expect_identical(res[["login"]], "gh-testing")
   expect_match(res[["scopes"]], "\\brepo\\b")

@@ -94,6 +94,12 @@ NULL
 #'
 #' ## Access Github Enterprise API
 #' gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
+#'
+#' ## Use I() to force body part to be sent as an array, even if length 1
+#' ## This works whether assignees has length 1 or > 1
+#' assignees <- "gh_user"
+#' assignees <- c("gh_user1", "gh_user2")
+#' gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
 #' }
 #'
 

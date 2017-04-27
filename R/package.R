@@ -75,6 +75,10 @@ NULL
 #' gh("/users/hadley/repos")
 #' gh("/users/:username/repos", username = "hadley")
 #'
+#' ## Starred repositories of a user
+#' gh("/users/hadley/starred")
+#' gh("/users/:username/starred", username = "hadley")
+#'
 #' ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
 #' ## environment variable
 #' gh("POST /user/repos", name = "foobar")

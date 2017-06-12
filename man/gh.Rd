@@ -50,7 +50,7 @@ long time.}
 defaults, which are as follows: the \code{Accept} field defaults
 to \code{"application/vnd.github.v3+json"} and the
 \code{User-Agent} field defaults to
-\code{"https://github.com/r-pkgs/gh"}. This can be used
+\code{"https://github.com/r-lib/gh"}. This can be used
 to, e.g., provide a custom media type, in order to access a
 preview feature of the API.}
 }

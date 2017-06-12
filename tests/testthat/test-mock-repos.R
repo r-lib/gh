@@ -9,7 +9,7 @@ test_that("repos, some basics", {
   res <- gh("/users/:username/repos", username = "gaborcsardi", .token = tt())
   expect_true(all(c("id", "name", "full_name") %in% names(res[[1]])))
 
-  res <- gh("/orgs/:org/repos", org = "r-pkgs", type = "sources", .token = tt())
+  res <- gh("/orgs/:org/repos", org = "r-lib", type = "sources", .token = tt())
   expect_true("desc" %in% vapply(res, "[[", "name", FUN.VALUE = ""))
 
   res <- gh("/repositories", .token = tt())
@@ -19,7 +19,7 @@ test_that("repos, some basics", {
     "POST /user/repos",
     name = "gh-testing",
     description = "Test repo for gh",
-    homepage = "https://github.com/r-pkgs/gh",
+    homepage = "https://github.com/r-lib/gh",
     private = FALSE,
     has_issues = FALSE,
     has_wiki = FALSE,
@@ -27,7 +27,7 @@ test_that("repos, some basics", {
   )
   expect_equal(res$name, "gh-testing")
   expect_equal(res$description, "Test repo for gh")
-  expect_equal(res$homepage, "https://github.com/r-pkgs/gh")
+  expect_equal(res$homepage, "https://github.com/r-lib/gh")
   expect_false(res$private)
   expect_false(res$has_issues)
   expect_false(res$has_wiki)
@@ -42,7 +42,7 @@ test_that("repos, some basics", {
   )
   expect_equal(res$name, "gh-testing")
   expect_equal(res$description, "Test repo for gh")
-  expect_equal(res$homepage, "https://github.com/r-pkgs/gh")
+  expect_equal(res$homepage, "https://github.com/r-lib/gh")
   expect_false(res$private)
   expect_false(res$has_issues)
   expect_false(res$has_wiki)
@@ -68,7 +68,7 @@ test_that("repos, some basics", {
 
   res <- gh(
     "GET /repos/:owner/:repo/languages",
-    owner = "r-pkgs",
+    owner = "r-lib",
     repo = "desc",
     .token = tt()
   )

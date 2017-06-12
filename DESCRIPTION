@@ -8,8 +8,8 @@ Authors@R:
 Description: Minimal client to access 'GitHub''s 'API'.
 License: MIT + file LICENSE
 LazyData: true
-URL: https://github.com/r-pkgs/gh
-BugReports: https://github.com/r-pkgs/gh/issues
+URL: https://github.com/r-lib/gh#readme
+BugReports: https://github.com/r-lib/gh/issues
 Suggests:
     covr,
     httrmock,

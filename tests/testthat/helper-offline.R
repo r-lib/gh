@@ -1,6 +1,8 @@
 
 skip_if_offline <- function() {
-  if (is.na(pingr::ping_port("github.com", count = 1, timeout = 0.2))) {
+  ping_res <- tryCatch(pingr::ping_port("github.com", count = 1, timeout = 0.2),
+                       error = function(e) NA)
+  if (is.na(ping_res)) {
     skip("Offline")
   }
 }

@@ -5,7 +5,7 @@ test_that("errors return a github_error object", {
   skip_if_offline()
   skip_on_cran()
   
-  e <- tryCatch(gh("/missing", .token = ""), error = identity)
+  e <- tryCatch(gh("/missing", .token = tt()), error = identity)
 
   expect_s3_class(e, "github_error")
   expect_s3_class(e, "http_error_404")

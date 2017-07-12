@@ -4,6 +4,7 @@ test_that("whoami works in presence of PAT", {
 
   skip_if_offline()
   skip_on_cran()
+  skip_if_no_token()
   
   res <- gh_whoami(.token = tt())
   expect_s3_class(res, "gh_response")

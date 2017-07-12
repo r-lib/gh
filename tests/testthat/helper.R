@@ -10,16 +10,3 @@
 ## * Reveal debugging info from httrmock.
 
 tt <- function() Sys.getenv("GH_TESTING", NA)
-
-httrmock::stop_recording()
-httrmock::start_replaying()
-ms <- httrmock::mocking_status()
-message("mocking status:\n",
-        paste(names(ms), ms, sep = ": ", collapse = "\n"))
-
-if (!is.na(tt())) {
-  Sys.setenv(DEBUGME = "httrmock")
-  ## more stuff re: replaying and recording might come back here?
-}
-
-gh_test_owner <- "gh-testing"

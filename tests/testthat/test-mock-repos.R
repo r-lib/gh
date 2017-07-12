@@ -3,6 +3,10 @@ context("repos")
 
 test_that("repos, some basics", {
 
+  skip_if_offline()
+  skip_on_cran()
+  skip("needs mocking")
+  
   res <- gh("/user/repos", .token = tt())
   expect_true(all(c("id", "name", "full_name") %in% names(res[[1]])))
 

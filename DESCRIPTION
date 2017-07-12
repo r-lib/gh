@@ -5,7 +5,7 @@ Authors@R:
     c(person("Gábor", "Csárdi",, "csardi.gabor@gmail.com", c("cre", "ctb")),
       person("Jennifer", "Bryan", role = "aut"),
       person("Hadley", "Wickham", role = "aut"))
-Description: Minimal client to access 'GitHub''s 'API'.
+Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
 LazyData: true
 URL: https://github.com/r-lib/gh#readme
@@ -18,6 +18,6 @@ Imports:
     ini,
     jsonlite,
     httr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

@@ -8,3 +8,4 @@
 ^tags$
 ^tests/testthat/github-token\.txt$
 ^CONTRIBUTING\.md$
+^tests/testthat/httrmock$

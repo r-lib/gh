@@ -1,6 +1,6 @@
 Package: gh
 Title: 'GitHub' 'API'
-Version: 1.0.0
+Version: 1.0.1
 Authors@R:
     c(person("Gábor", "Csárdi",, "csardi.gabor@gmail.com", c("cre", "ctb")),
       person("Jennifer", "Bryan", role = "aut"),

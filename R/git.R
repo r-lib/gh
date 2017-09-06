@@ -60,7 +60,9 @@ git_remotes <- function(path = ".") {
   conf <- git_config(path)
   remotes <- conf[grepl("^remote", names(conf))]
 
+  remotes <- discard(remotes, function(x) is.null(x$url))
   urls <- vapply(remotes, "[[", "url", FUN.VALUE = character(1))
+
   names(urls) <- gsub('^remote "(.*?)"$', "\\1", names(remotes))
   urls
 }

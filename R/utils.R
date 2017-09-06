@@ -49,3 +49,17 @@ modify_vector <- function(x, y = NULL) {
   lnames <- function(x) tolower(names(x))
   c(x[!(lnames(x) %in% lnames(y))], y)
 }
+
+
+discard <- function(.x, .p, ...) {
+  sel <- probe(.x, .p, ...)
+  .x[is.na(sel) | !sel]
+}
+probe <- function(.x, .p, ...) {
+  if (is.logical(.p)) {
+    stopifnot(length(.p) == length(.x))
+    .p
+  } else {
+    vapply(.x, .p, logical(1), ...)
+  }
+}

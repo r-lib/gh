@@ -1,6 +1,8 @@
 gh_process_response <- function(response) {
   stopifnot(inherits(response, "response"))
-  heads <- headers(response)
+  if (status_code(response) >= 300) {
+    gh_error(response)
+  }
 
   content_type <- http_type(response)
   if (length(content(response)) == 0) {
@@ -14,20 +16,52 @@ gh_process_response <- function(response) {
     res <- list(message = content(response, as = "text"))
   }
 
-  if (status_code(response) >= 300) {
-    cond <- structure(list(
-      call = sys.call(-1),
-      content = res,
-      headers = heads,
-      message = paste0("GitHub API error (", status_code(response), "): ",
-                       heads$`status`, "\n  ", res$message, "\n")
-    ), class = c("github_error", paste0("http_error_", status_code(response)), "error", "condition"))
-    stop(cond)
-  }
-
   attr(res, "method") <- response$request$method
-  attr(res, "response") <- heads
+  attr(res, "response") <- headers(response)
   attr(res, ".send_headers") <- response$request$headers
   class(res) <- c("gh_response", "list")
   res
+}
+
+## https://developer.github.com/v3/#client-errors
+gh_error <- function(response, call = sys.call(-1)) {
+  heads <- headers(response)
+  res <- content(response)
+  status <- status_code(response)
+
+  msg <- c(
+    "",
+    paste0("GitHub API error (", status, "): ", heads$status),
+    paste0("Message: ", res$message)
+  )
+
+  doc_url <- res$documentation_url
+  if (!is.null(doc_url)) {
+    msg <- append(msg, paste0("Read more at ", doc_url))
+  }
+
+  errors <- res$errors
+  if (!is.null(errors)) {
+    errors <- as.data.frame(do.call(rbind, errors))
+    nms <- c("resource", "field", "code", "message")
+    nms <- nms[nms %in% names(errors)]
+    msg <- append(
+      msg,
+      c("",
+        "Errors:",
+        capture.output(print(errors[nms], row.names = FALSE))
+      )
+    )
+  }
+  cond <- structure(list(
+    call = call,
+    message = paste0(msg, collapse = "\n")
+  ),
+  class = c(
+    "github_error",
+    paste0("http_error_", status),
+    "error",
+    "condition"
+  ))
+  stop(cond)
 }

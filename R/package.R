@@ -65,7 +65,7 @@ NULL
 #' @importFrom httr content add_headers headers
 #'   status_code http_type GET POST PATCH PUT DELETE
 #' @importFrom jsonlite fromJSON toJSON
-#' @importFrom utils URLencode
+#' @importFrom utils URLencode capture.output
 #' @export
 #' @seealso \code{\link{gh_whoami}()} for details on GitHub API token
 #'   management.

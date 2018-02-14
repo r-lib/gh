@@ -40,6 +40,10 @@ gh_error <- function(response, call = sys.call(-1)) {
     msg <- append(msg, paste0("Read more at ", doc_url))
   }
 
+  if (status == 404) {
+    msg <- append(msg, c("", paste0("URL not found: ", response$request$url)))
+  }
+
   errors <- res$errors
   if (!is.null(errors)) {
     errors <- as.data.frame(do.call(rbind, errors))

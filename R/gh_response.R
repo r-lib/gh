@@ -23,7 +23,7 @@ gh_process_response <- function(response) {
   attr(res, "method") <- response$request$method
   attr(res, "response") <- headers(response)
   attr(res, ".send_headers") <- response$request$headers
-  if(is_raw) {
+  if (is_raw) {
     class(res) <- c("gh_response", "raw")
   } else {
     class(res) <- c("gh_response", "list")

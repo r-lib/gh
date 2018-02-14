@@ -60,7 +60,8 @@ NULL
 #'   preview feature of the API.
 #'
 #' @return Answer from the API as a \code{gh_response} object, which is also a
-#'   \code{list}. Failed requests will generate an R error.
+#'   \code{list}. Failed requests will generate an R error. Requests that
+#'   generate a raw response will return a raw vector.
 #'
 #' @importFrom httr content add_headers headers
 #'   status_code http_type GET POST PATCH PUT DELETE

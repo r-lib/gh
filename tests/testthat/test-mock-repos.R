@@ -115,7 +115,8 @@ test_that("repo raw files", {
     owner = "r-lib",
     repo = "gh",
     path = "DESCRIPTION",
-    .send_headers = c(Accept = "application/vnd.github.v3.raw")
+    .send_headers = c(Accept = "application/vnd.github.v3.raw"),
+    .token = tt()
   )
 
   expect_equal(attr(res, "response")[["x-github-media-type"]], "github.v3; param=raw")

@@ -56,7 +56,8 @@ preview feature of the API.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a
-\code{list}. Failed requests will generate an R error.
+\code{list}. Failed requests will generate an R error. Requests that
+generate a raw response will return a raw vector.
 }
 \description{
 Minimal wrapper to access GitHub's API.

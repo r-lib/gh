@@ -10,7 +10,7 @@
 #' @method print gh_response
 
 print.gh_response <- function(x, ...) {
-  if (inherits(x, "raw")) {
+  if (inherits(x, c("raw", "path"))) {
     attr(x, c("method")) <- NULL
     attr(x, c("response")) <- NULL
     attr(x, ".send_headers") <- NULL

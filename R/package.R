@@ -36,10 +36,10 @@ NULL
 #' @param ... Name-value pairs giving API parameters. Will be matched
 #'   into \code{url} placeholders, sent as query parameters in \code{GET}
 #'   requests, and in the JSON body of \code{POST} requests.
-#' @param destfile path to write response to disk.  If NULL (default), response will
+#' @param .destfile path to write response to disk.  If NULL (default), response will
 #'   be processed and returned as an object.  If path is given, response will
 #'   be written to disk in the form sent.
-#' @param overwrite if \code{destfile} is provided, whether to overwrite an
+#' @param .overwrite if \code{destfile} is provided, whether to overwrite an
 #'   existing file.  Defaults to FALSE.
 #' @param .token Authentication token.
 #' @param .api_url Github API url (default: \url{https://api.github.com}).
@@ -113,13 +113,14 @@ NULL
 #' }
 #'
 
-gh <- function(endpoint, ..., .token = NULL, destfile = NULL,
-               overwrite = FALSE, .api_url = NULL, .method = "GET",
+gh <- function(endpoint, ..., .token = NULL, .destfile = NULL,
+               .overwrite = FALSE, .api_url = NULL, .method = "GET",
                .limit = NULL, .send_headers = NULL
                ) {
 
   req <- gh_build_request(endpoint = endpoint, params = list(...),
-                          destfile = destfile, token = .token,
+                          token = .token, destfile = .destfile,
+                          overwrite = .overwrite,
                           send_headers = .send_headers,
                           api_url = .api_url, method = .method)
 

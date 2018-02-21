@@ -7,7 +7,7 @@
 \alias{gh}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., .token = NULL, destfile = NULL, overwrite = FALSE,
+gh(endpoint, ..., .token = NULL, .destfile = NULL, .overwrite = FALSE,
   .api_url = NULL, .method = "GET", .limit = NULL, .send_headers = NULL)
 }
 \arguments{
@@ -29,11 +29,11 @@ requests, and in the JSON body of \code{POST} requests.}
 
 \item{.token}{Authentication token.}
 
-\item{destfile}{path to write response to disk.  If NULL (default), response will
+\item{.destfile}{path to write response to disk.  If NULL (default), response will
 be processed and returned as an object.  If path is given, response will
 be written to disk in the form sent.}
 
-\item{overwrite}{if \code{destfile} is provided, whether to overwrite an
+\item{.overwrite}{if \code{destfile} is provided, whether to overwrite an
 existing file.  Defaults to FALSE.}
 
 \item{.api_url}{Github API url (default: \url{https://api.github.com}).

@@ -6,14 +6,15 @@ default_send_headers <- c("Accept" = "application/vnd.github.v3+json",
                           "User-Agent" = "https://github.com/r-lib/gh")
 
 gh_build_request <- function(endpoint = "/user", params = list(),
-                             token = NULL, destfile = NULL, send_headers = NULL,
+                             token = NULL, destfile = NULL, overwrite = NULL,
+                             send_headers = NULL,
                              api_url = NULL, method = "GET") {
 
   working <- list(method = method, url = character(), headers = NULL,
                   query = NULL, body = NULL,
                   endpoint = endpoint, params = params,
                   token = token, send_headers = send_headers, api_url = api_url,
-                  dest = destfile)
+                  dest = destfile, overwrite = overwrite)
 
   working <- gh_set_verb(working)
   working <- gh_set_endpoint(working)
@@ -116,7 +117,7 @@ gh_set_dest <- function(x) {
   if (is.null(x$dest)) {
     x$dest <- write_memory()
   } else {
-    x$dest <- write_disk(x$dest, overwrite = TRUE)
+    x$dest <- write_disk(x$dest, overwrite = x$overwrite)
   }
   x
 }

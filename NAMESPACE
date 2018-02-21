@@ -3,6 +3,7 @@
 S3method(print,gh_response)
 export(gh)
 export(gh_first)
+export(gh_gql)
 export(gh_last)
 export(gh_next)
 export(gh_prev)

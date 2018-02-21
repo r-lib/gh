@@ -112,6 +112,21 @@ gh_set_url <- function(x) {
 ## functions to retrieve request elements
 ## possibly consult an env var or combine with a built-in default
 
+#' Return the local user's GitHub Personal Access Token (PAT)
+#'
+#' You can read more about PATs here:
+#' <https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/>
+#' and you can access your PATs here (if logged in to GitHub):
+#' <https://github.com/settings/tokens>.
+#'
+#' Currently it consults the `GITHUB_PAT` and `GITHUB_TOKEN`
+#' environment variables, in this order.
+#'
+#' @return A string, with the token, or a zero length string scalar,
+#' if no token is available.
+#'
+#' @export
+
 gh_token <- function() {
   token <- Sys.getenv('GITHUB_PAT', "")
   if (token == "") Sys.getenv("GITHUB_TOKEN", "") else token

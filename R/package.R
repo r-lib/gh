@@ -36,6 +36,11 @@ NULL
 #' @param ... Name-value pairs giving API parameters. Will be matched
 #'   into \code{url} placeholders, sent as query parameters in \code{GET}
 #'   requests, and in the JSON body of \code{POST} requests.
+#' @param .destfile path to write response to disk.  If NULL (default), response will
+#'   be processed and returned as an object.  If path is given, response will
+#'   be written to disk in the form sent.
+#' @param .overwrite if \code{destfile} is provided, whether to overwrite an
+#'   existing file.  Defaults to FALSE.
 #' @param .token Authentication token.
 #' @param .api_url Github API url (default: \url{https://api.github.com}).
 #'   Used if \code{endpoint} just contains a path.
@@ -108,13 +113,15 @@ NULL
 #' }
 #'
 
-gh <- function(endpoint, ..., .token = NULL,
-               .api_url = NULL, .method = "GET",
+gh <- function(endpoint, ..., .token = NULL, .destfile = NULL,
+               .overwrite = FALSE, .api_url = NULL, .method = "GET",
                .limit = NULL, .send_headers = NULL
                ) {
 
   req <- gh_build_request(endpoint = endpoint, params = list(...),
-                          token = .token, send_headers = .send_headers,
+                          token = .token, destfile = .destfile,
+                          overwrite = .overwrite,
+                          send_headers = .send_headers,
                           api_url = .api_url, method = .method)
 
   raw <- gh_make_request(req)
@@ -145,6 +152,6 @@ gh_make_request <- function(x) {
 
   raw <- do.call(method_fun,
                  compact(list(url = x$url, query = x$query, body = x$body,
-                              add_headers(x$headers))))
+                              add_headers(x$headers), x$dest)))
   raw
 }

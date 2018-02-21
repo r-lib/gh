@@ -7,8 +7,8 @@
 \alias{gh}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., .token = NULL, .api_url = NULL, .method = "GET",
-  .limit = NULL, .send_headers = NULL)
+gh(endpoint, ..., .token = NULL, .destfile = NULL, .overwrite = FALSE,
+  .api_url = NULL, .method = "GET", .limit = NULL, .send_headers = NULL)
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. Must be one of the following forms:
@@ -28,6 +28,13 @@ into \code{url} placeholders, sent as query parameters in \code{GET}
 requests, and in the JSON body of \code{POST} requests.}
 
 \item{.token}{Authentication token.}
+
+\item{.destfile}{path to write response to disk.  If NULL (default), response will
+be processed and returned as an object.  If path is given, response will
+be written to disk in the form sent.}
+
+\item{.overwrite}{if \code{destfile} is provided, whether to overwrite an
+existing file.  Defaults to FALSE.}
 
 \item{.api_url}{Github API url (default: \url{https://api.github.com}).
 Used if \code{endpoint} just contains a path.}

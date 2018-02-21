@@ -105,7 +105,7 @@ test_that("repos, some basics", {
   expect_equal(res[[1]], "")            # TODO: better return value here?
 })
 
-test_that("repo raw files", {
+test_that("repo files", {
   skip_if_offline()
   skip_on_cran()
   skip("needs mocking")
@@ -119,6 +119,15 @@ test_that("repo raw files", {
     .token = tt()
   )
 
-  expect_equal(attr(res, "response")[["x-github-media-type"]], "github.v3; param=raw")
+  expect_equal(attr(res, "response")[["x-github-media-type"]],
+               "github.v3; param=raw")
   expect_equal(class(res), c("gh_response", "raw"))
-})
+
+  tmp <- tempfile()
+  res <- gh("/orgs/:org/repos", org = "r-lib", type = "sources", .token = tt())
+  res_file <- gh("/orgs/:org/repos", org = "r-lib", type = "sources",
+                    destfile = tmp, .token = tt())
+  expect_equal(class(res_file), c("gh_response", "path"))
+  expect_equivalent(res, jsonlite::fromJSON(res_file,  simplifyVector = FALSE))
+
+  })

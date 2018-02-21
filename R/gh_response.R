@@ -7,8 +7,11 @@ gh_process_response <- function(response) {
   content_type <- http_type(response)
   gh_media_type <- headers(response)[["x-github-media-type"]]
   is_raw <- grepl("param=raw$", gh_media_type, ignore.case = TRUE)
+  is_ondisk <- inherits(response$content, "path")
   if (length(content(response)) == 0) {
     res <- ""
+  } else if (is_ondisk) {
+    res <- response$content
   } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {
     res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)
   } else if (is_raw) {
@@ -23,7 +26,9 @@ gh_process_response <- function(response) {
   attr(res, "method") <- response$request$method
   attr(res, "response") <- headers(response)
   attr(res, ".send_headers") <- response$request$headers
-  if (is_raw) {
+  if (is_ondisk) {
+    class(res) <- c("gh_response", "path")
+  } else if (is_raw) {
     class(res) <- c("gh_response", "raw")
   } else {
     class(res) <- c("gh_response", "list")

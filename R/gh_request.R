@@ -1,4 +1,5 @@
 ## Main API URL
+default_github_url <- "https://github.com"
 default_api_url <- "https://api.github.com"
 
 ## Headers to send with each API request
@@ -133,16 +134,83 @@ gh_set_dest <- function(x) {
 #' <https://github.com/settings/tokens>.
 #'
 #' Currently it consults the `GITHUB_PAT` and `GITHUB_TOKEN`
-#' environment variables, in this order.
+#' environment variables, in this order. If none of these are set and
+#' the session is interactive, [gh_interactive_oauth_token()] is invoked
+#' to obtain an oauth token interactively.
 #'
 #' @return A string, with the token, or a zero length string scalar,
 #' if no token is available.
 #'
 #' @export
-
 gh_token <- function() {
   token <- Sys.getenv('GITHUB_PAT', "")
-  if (token == "") Sys.getenv("GITHUB_TOKEN", "") else token
+  if (token == "") token <- Sys.getenv("GITHUB_TOKEN", "")
+  if (token == "" && interactive()) {
+    gh_interactive_oauth_token()$credentials$access_token
+  } else {
+    token
+  }
+}
+
+#' Obtain a Github OAuth Token Interactively
+#'
+#' Under an interactive R session, this opens the browser and acquires an OAuth
+#' token interactively. This provides a simplified authorization experience than
+#' manually creating PAT and setting the environment variable.
+#'
+#' If `client_id` and `client_secret` are not provided, a default pair is used
+#' for github.com. Refer to [Github documentation](https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/)
+#' on how to create your own application. The callback URL shall be the value of
+#' [httr::oauth_callback()], namely, `http://localhost:1410/`.
+#'
+#' This can be useful for Github Enterprise installation where an internal
+#' R package can create a Github application such that users may obtain authroization
+#' tokens interactively. The package may further wrap this token in helper functions
+#' such as streamlining internal `install_github` usage. See examples section for more details.
+#'
+#' @param client_id The client ID you received from GitHub when you
+#' [registered](https://github.com/settings/applications/new) your Github app.
+#' @param client_secret The client secret you received from GitHub for your GitHub App.
+#' @param github_url The base url of Github or Github Enterprise.
+#' @return An [httr::oauth2.0_token()]
+#'
+#' @references [http://developer.github.com/guides/basics-of-authentication/]
+#' @importFrom httr modify_url oauth_endpoint oauth2.0_token oauth_app
+#' @export
+#' @examples
+#' \dontrun{
+#' # obtain an OAuth token with GHE
+#' token <- withr::with_options(
+#'   # share GHE OAuth token across projects
+#'   httr_oauth_cache = "~/.httr_oauth_ghe",
+#'   gh_interactive_oauth_token("{client_id}", "{client_secret}", "{ghe_host}")
+#' )
+#' # use obtained OAuth token temporarily
+#' withr::with_envvar(
+#'   GITHUB_PAT = token$credentials$access_token,
+#'   gh_whoami()
+#' )
+#' # wrap it to create custom install_github function
+#' install_github <- function(...) {
+#'   devtools::install_github(host = "{ghe_api}", auth_token = token$credentials$access_token, ...)
+#' }
+#' }
+gh_interactive_oauth_token <- function(client_id, client_secret, github_url) {
+  if (!interactive()) {
+    stop("OAuth cannot proceed under a non-interactive session!")
+  }
+  if (missing(client_id) && missing(client_secret)) {
+    # TODO: replace with r-lib id and oauth secret
+    client_id <- "1ce1de9d27bd86ce924d"
+    client_secret <- "67f526618a826e6149ce00b4a07bc4c2aca90df1"
+  }
+  if (missing(github_url)) {
+    github_url <- Sys.getenv('GITHUB_URL', unset = default_github_url)
+  }
+  base_url <- modify_url(github_url, path = "login/oauth")
+  github <- oauth_endpoint(NULL, "authorize", "access_token", base_url = base_url)
+  app <- oauth_app("github", client_id, client_secret)
+  oauth2.0_token(github, app, as_header=FALSE)
 }
 
 gh_auth <- function(token) {

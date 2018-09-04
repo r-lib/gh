@@ -3,3 +3,4 @@
 .RData
 /tags
 /tests/testthat/github-token.txt
+.httr-oauth

@@ -18,5 +18,7 @@ and you can access your PATs here (if logged in to GitHub):
 }
 \details{
 Currently it consults the \code{GITHUB_PAT} and \code{GITHUB_TOKEN}
-environment variables, in this order.
+environment variables, in this order. If none of these are set and
+the session is interactive, \code{\link[=gh_interactive_oauth_token]{gh_interactive_oauth_token()}} is invoked
+to obtain an oauth token interactively.
 }

@@ -10,3 +10,4 @@
 ^CONTRIBUTING\.md$
 ^tests/testthat/httrmock$
 ^\.github$
+^\.httr-oauth$

@@ -128,6 +128,10 @@ gh <- function(endpoint, ..., .token = NULL, .destfile = NULL,
 
   res <- gh_process_response(raw)
 
+  gh_fill(res, .limit)
+}
+
+gh_fill <- function(res, .limit) {
   while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
     res2 <- gh_next(res)
     res3 <- c(res, res2)

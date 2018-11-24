@@ -36,6 +36,8 @@ NULL
 #' @param ... Name-value pairs giving API parameters. Will be matched
 #'   into \code{url} placeholders, sent as query parameters in \code{GET}
 #'   requests, and in the JSON body of \code{POST} requests.
+#' @param per_page Number of items to return per page. The default varies
+#'   across API endpoints and depending on the `.limit` argument.
 #' @param .destfile path to write response to disk.  If NULL (default), response will
 #'   be processed and returned as an object.  If path is given, response will
 #'   be written to disk in the form sent.
@@ -113,12 +115,24 @@ NULL
 #' }
 #'
 
-gh <- function(endpoint, ..., .token = NULL, .destfile = NULL,
+gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                .overwrite = FALSE, .api_url = NULL, .method = "GET",
                .limit = NULL, .send_headers = NULL
                ) {
 
-  req <- gh_build_request(endpoint = endpoint, params = list(...),
+  params <- list(...)
+
+  if (is.null(per_page)) {
+    if (!is.null(.limit)) {
+      per_page <- max(min(.limit, 100), 1)
+    }
+  }
+
+  if (!is.null(per_page)) {
+    params <- c(params, list(per_page = per_page))
+  }
+
+  req <- gh_build_request(endpoint = endpoint, params = params,
                           token = .token, destfile = .destfile,
                           overwrite = .overwrite,
                           send_headers = .send_headers,

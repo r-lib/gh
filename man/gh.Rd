@@ -4,11 +4,11 @@
 \name{gh}
 \alias{gh}
 \alias{gh-package}
-\alias{gh}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., .token = NULL, .destfile = NULL, .overwrite = FALSE,
-  .api_url = NULL, .method = "GET", .limit = NULL, .send_headers = NULL)
+gh(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
+  .overwrite = FALSE, .api_url = NULL, .method = "GET",
+  .limit = NULL, .send_headers = NULL)
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. Must be one of the following forms:
@@ -26,6 +26,9 @@ to \code{GET}.}
 \item{...}{Name-value pairs giving API parameters. Will be matched
 into \code{url} placeholders, sent as query parameters in \code{GET}
 requests, and in the JSON body of \code{POST} requests.}
+
+\item{per_page}{Number of items to return per page. The default varies
+across API endpoints and depending on the \code{.limit} argument.}
 
 \item{.token}{Authentication token.}
 

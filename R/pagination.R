@@ -65,6 +65,9 @@ gh_link <- function(gh_response, link) {
 #' @param gh_response An object returned by a \code{gh()} call.
 #' @return Answer from the API.
 #'
+#' @seealso The `.limit` argument to [gh()] supports fetching more than
+#'   one page.
+#'
 #' @name gh_next
 #' @export
 #' @examples

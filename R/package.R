@@ -132,18 +132,28 @@ gh <- function(endpoint, ..., .token = NULL, .destfile = NULL,
 }
 
 gh_fill <- function(res, .limit) {
-  while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
-    res2 <- gh_next(res)
-    res3 <- c(res, res2)
-    attributes(res3) <- attributes(res2)
-    res <- res3
-  }
+  tryCatch(
+    {
+      while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
+        res2 <- gh_next(res)
+        res3 <- c(res, res2)
+        attributes(res3) <- attributes(res2)
+        res <- res3
+      }
 
-  if (! is.null(.limit) && length(res) > .limit) {
-    res_attr <- attributes(res)
-    res <- res[seq_len(.limit)]
-    attributes(res) <- res_attr
-  }
+      if (! is.null(.limit) && length(res) > .limit) {
+        res2 <- res[seq_len(.limit)]
+        attributes(res2) <- attributes(res)
+        res <- res2
+      }
+    },
+    error = function(e) {
+      warning("Error occurred, results may be incomplete: ", e$message, call. = FALSE)
+    },
+    interrupt = function(e) {
+      warning("Interrupted, results may be incomplete.", call. = FALSE)
+    }
+  )
 
   res
 }

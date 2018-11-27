@@ -27,8 +27,9 @@ to \code{GET}.}
 into \code{url} placeholders, sent as query parameters in \code{GET}
 requests, and in the JSON body of \code{POST} requests.}
 
-\item{per_page}{Number of items to return per page. The default varies
-across API endpoints and depending on the \code{.limit} argument.}
+\item{per_page}{Number of items to return per page. If omitted,
+will be substituted by \code{max(.limit, 100)} if \code{.limit} is set,
+otherwise determined by the API (never greater than 100).}
 
 \item{.token}{Authentication token.}
 

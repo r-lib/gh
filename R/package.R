@@ -36,8 +36,9 @@ NULL
 #' @param ... Name-value pairs giving API parameters. Will be matched
 #'   into \code{url} placeholders, sent as query parameters in \code{GET}
 #'   requests, and in the JSON body of \code{POST} requests.
-#' @param per_page Number of items to return per page. The default varies
-#'   across API endpoints and depending on the `.limit` argument.
+#' @param per_page Number of items to return per page. If omitted,
+#'   will be substituted by `max(.limit, 100)` if `.limit` is set,
+#'   otherwise determined by the API (never greater than 100).
 #' @param .destfile path to write response to disk.  If NULL (default), response will
 #'   be processed and returned as an object.  If path is given, response will
 #'   be written to disk in the form sent.

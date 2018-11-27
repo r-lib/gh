@@ -43,3 +43,7 @@ x2 <- gh_next(x)
 sapply(x2, "[[", "login")
 }
 }
+\seealso{
+The \code{.limit} argument to \code{\link[=gh]{gh()}} supports fetching more than
+one page.
+}

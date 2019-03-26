@@ -17,8 +17,10 @@ Minimalistic client to access
 ## Installation
 
 
+Install the package from CRAN as usual:
+
 ```r
-devtools::install_github("r-lib/gh")
+install.packages("gh")
 ```
 
 ## Usage

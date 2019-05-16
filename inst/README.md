@@ -62,7 +62,7 @@ as extra arguments:
 
 
 ```r
-j_repos <- gh("/users/:username/repos", username = "jeroenooms")
+j_repos <- gh("/users/:username/repos", username = "jeroen")
 vapply(j_repos, "[[", "", "name")
 ```
 

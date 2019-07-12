@@ -7,10 +7,12 @@
 gh_whoami(.token = NULL, .api_url = NULL, .send_headers = NULL)
 }
 \arguments{
-\item{.token}{Authentication token.}
+\item{.token}{Authentication token. Default to GITHUB_PAT or GITHUB_TOKEN
+environment variables, in this order if any is set.}
 
-\item{.api_url}{Github API url (default: \url{https://api.github.com}).
-Used if \code{endpoint} just contains a path.}
+\item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
+if \code{endpoint} just contains a path. Default to GITHUB_API_URL
+environment variable if set.}
 
 \item{.send_headers}{Named character vector of header field values
 (excepting \code{Authorization}, which is handled via

@@ -44,9 +44,11 @@ NULL
 #'   be written to disk in the form sent.
 #' @param .overwrite if \code{destfile} is provided, whether to overwrite an
 #'   existing file.  Defaults to FALSE.
-#' @param .token Authentication token.
-#' @param .api_url Github API url (default: \url{https://api.github.com}).
-#'   Used if \code{endpoint} just contains a path.
+#' @param .token Authentication token. Default to GITHUB_PAT or GITHUB_TOKEN
+#'   environment variables, in this order if any is set.
+#' @param .api_url Github API url (default: \url{https://api.github.com}). Used
+#'   if \code{endpoint} just contains a path. Default to GITHUB_API_URL
+#'   environment variable if set.
 #' @param .method HTTP method to use if not explicitly supplied in the
 #'    \code{endpoint}.
 #' @param .limit Number of records to return. This can be used
@@ -106,6 +108,7 @@ NULL
 #'    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
 #'
 #' ## Access Github Enterprise API
+#' ## Use GITHUB_API_URL environment variable to change the default.
 #' gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
 #'
 #' ## Use I() to force body part to be sent as an array, even if length 1

@@ -31,7 +31,8 @@ requests, and in the JSON body of \code{POST} requests.}
 will be substituted by \code{max(.limit, 100)} if \code{.limit} is set,
 otherwise determined by the API (never greater than 100).}
 
-\item{.token}{Authentication token.}
+\item{.token}{Authentication token. Default to GITHUB_PAT or GITHUB_TOKEN
+environment variables, in this order if any is set.}
 
 \item{.destfile}{path to write response to disk.  If NULL (default), response will
 be processed and returned as an object.  If path is given, response will
@@ -40,8 +41,9 @@ be written to disk in the form sent.}
 \item{.overwrite}{if \code{destfile} is provided, whether to overwrite an
 existing file.  Defaults to FALSE.}
 
-\item{.api_url}{Github API url (default: \url{https://api.github.com}).
-Used if \code{endpoint} just contains a path.}
+\item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
+if \code{endpoint} just contains a path. Default to GITHUB_API_URL
+environment variable if set.}
 
 \item{.method}{HTTP method to use if not explicitly supplied in the
 \code{endpoint}.}
@@ -114,6 +116,7 @@ gh("/licenses",
    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
 
 ## Access Github Enterprise API
+## Use GITHUB_API_URL environment variable to change the default.
 gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
 
 ## Use I() to force body part to be sent as an array, even if length 1

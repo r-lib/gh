@@ -80,5 +80,5 @@ gh_error <- function(response, call = sys.call(-1)) {
     "error",
     "condition"
   ))
-  stop(cond)
+  throw(cond)
 }

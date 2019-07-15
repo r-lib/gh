@@ -20,7 +20,7 @@ github_remote <- function(x) {
   remotes <- remotes[!vapply(remotes, is.null, logical(1))]
 
   if (length(remotes) == 0) {
-    stop("No github remotes found", call. = FALSE)
+    throw(new_error("No github remotes found", call. = FALSE))
   }
 
   if (length(remotes) > 1) {
@@ -72,7 +72,7 @@ git_remotes <- function(path = ".") {
 git_config <- function(path = ".") {
   config_path <- file.path(repo_root(path), ".git", "config")
   if (!file.exists(config_path)) {
-    stop("git config does not exist", call. = FALSE)
+    throw(new_error("git config does not exist", call. = FALSE))
 
   }
   ini::read.ini(config_path, "UTF-8")
@@ -80,13 +80,13 @@ git_config <- function(path = ".") {
 
 repo_root <- function(path = ".") {
   if (!file.exists(path)) {
-    stop("Can't find '", path, "'.", call. = FALSE)
+    throw(new_error("Can't find '", path, "'.", call. = FALSE))
   }
 
   # Walk up to root directory
   while (!has_git(path)) {
     if (is_root(path)) {
-      stop("Could not find git root.", call. = FALSE)
+      throw(new_error("Could not find git root.", call. = FALSE))
     }
 
     path <- dirname(path)

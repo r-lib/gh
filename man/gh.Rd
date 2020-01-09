@@ -3,12 +3,20 @@
 \docType{package}
 \name{gh}
 \alias{gh}
-\alias{gh-package}
 \title{GitHub API}
 \usage{
-gh(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
-  .overwrite = FALSE, .api_url = NULL, .method = "GET",
-  .limit = NULL, .send_headers = NULL)
+gh(
+  endpoint,
+  ...,
+  per_page = NULL,
+  .token = NULL,
+  .destfile = NULL,
+  .overwrite = FALSE,
+  .api_url = NULL,
+  .method = "GET",
+  .limit = NULL,
+  .send_headers = NULL
+)
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. Must be one of the following forms:

@@ -2,11 +2,8 @@
 % Please edit documentation in R/pagination.R
 \name{gh_next}
 \alias{gh_next}
-\alias{gh_next}
 \alias{gh_prev}
-\alias{gh_next}
 \alias{gh_first}
-\alias{gh_next}
 \alias{gh_last}
 \title{Get the next, previous, first or last page of results}
 \usage{

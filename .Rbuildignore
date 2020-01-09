@@ -10,3 +10,5 @@
 ^CONTRIBUTING\.md$
 ^tests/testthat/httrmock$
 ^\.github$
+^\.Rprofile$
+^r-packages$

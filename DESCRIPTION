@@ -19,5 +19,5 @@ Imports:
     jsonlite,
     httr
 RoxygenNote: 7.0.2.9000
-Roxygen: list(markdown = TRUE)
+Roxygen: { loadNamespace("roxygenlabs"); list(markdown = TRUE) }
 Encoding: UTF-8

@@ -94,7 +94,7 @@ body, as JSON.
 }
 }
 \examples{
-\dontrun{
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Repositories of a user, these are equivalent
 gh("/users/hadley/repos")
 gh("/users/:username/repos", username = "hadley")
@@ -102,11 +102,13 @@ gh("/users/:username/repos", username = "hadley")
 ## Starred repositories of a user
 gh("/users/hadley/starred")
 gh("/users/:username/starred", username = "hadley")
-
+\dontshow{\}) # examplesIf}
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
 ## environment variable
 gh("POST /user/repos", name = "foobar")
-
+\dontshow{\}) # examplesIf}
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Issues of a repository
 gh("/repos/hadley/dplyr/issues")
 gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
@@ -114,23 +116,25 @@ gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
 ## Automatic pagination
 users <- gh("/users", .limit = 50)
 length(users)
-
+\dontshow{\}) # examplesIf}
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Access developer preview of Licenses API (in preview as of 2015-09-24)
-gh("/licenses") # error code 415
+gh("/licenses") # used to error code 415
 gh("/licenses",
    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
-
+\dontshow{\}) # examplesIf}
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Access Github Enterprise API
 ## Use GITHUB_API_URL environment variable to change the default.
 gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
-
+\dontshow{\}) # examplesIf}
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Use I() to force body part to be sent as an array, even if length 1
 ## This works whether assignees has length 1 or > 1
 assignees <- "gh_user"
 assignees <- c("gh_user1", "gh_user2")
 gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
-}
-
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Useful links:

@@ -37,14 +37,14 @@
 #' @return A `gh_response` object, which is also a `list`.
 #' @export
 #'
-#' @examples
-#' \dontrun{
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' gh_whoami()
 #'
+#' @examplesIf FALSE
 #' ## explicit token + use with GitHub Enterprise
 #' gh_whoami(.token = "8c70fd8419398999c9ac5bacf3192882193cadf2",
 #'           .api_url = "https://github.foobar.edu/api/v3")
-#' }
+
 gh_whoami <- function(.token = NULL, .api_url = NULL, .send_headers = NULL) {
   .token <- .token %||% gh_token()
   if (isTRUE(.token == "")) {

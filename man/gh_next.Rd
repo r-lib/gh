@@ -33,12 +33,12 @@ next page defined, etc.
 If the requested page does not exist, an error is thrown.
 }
 \examples{
-\dontrun{
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 x <- gh("/users")
-sapply(x, "[[", "login")
+vapply(x, "[[", character(1), "login")
 x2 <- gh_next(x)
-sapply(x2, "[[", "login")
-}
+vapply(x2, "[[", character(1), "login")
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 The \code{.limit} argument to \code{\link[=gh]{gh()}} supports fetching more than

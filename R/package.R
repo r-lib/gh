@@ -71,8 +71,7 @@
 #' @importFrom utils URLencode capture.output
 #' @export
 #' @seealso [gh_whoami()] for details on GitHub API token management.
-#' @examples
-#' \dontrun{
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Repositories of a user, these are equivalent
 #' gh("/users/hadley/repos")
 #' gh("/users/:username/repos", username = "hadley")
@@ -81,10 +80,12 @@
 #' gh("/users/hadley/starred")
 #' gh("/users/:username/starred", username = "hadley")
 #'
+#' @examplesIf FALSE
 #' ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
 #' ## environment variable
 #' gh("POST /user/repos", name = "foobar")
 #'
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Issues of a repository
 #' gh("/repos/hadley/dplyr/issues")
 #' gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
@@ -93,22 +94,23 @@
 #' users <- gh("/users", .limit = 50)
 #' length(users)
 #'
+#' @examplesIf FALSE
 #' ## Access developer preview of Licenses API (in preview as of 2015-09-24)
-#' gh("/licenses") # error code 415
+#' gh("/licenses") # used to error code 415
 #' gh("/licenses",
 #'    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
 #'
+#' @examplesIf FALSE
 #' ## Access Github Enterprise API
 #' ## Use GITHUB_API_URL environment variable to change the default.
 #' gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
 #'
+#' @examplesIf FALSE
 #' ## Use I() to force body part to be sent as an array, even if length 1
 #' ## This works whether assignees has length 1 or > 1
 #' assignees <- "gh_user"
 #' assignees <- c("gh_user1", "gh_user2")
 #' gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
-#' }
-#'
 
 gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                .overwrite = FALSE, .api_url = NULL, .method = "GET",

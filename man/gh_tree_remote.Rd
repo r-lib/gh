@@ -18,7 +18,7 @@ This is handy helper if you want to make gh requests related to the
 current project.
 }
 \examples{
-\dontrun{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 gh_tree_remote()
-}
+\dontshow{\}) # examplesIf}
 }

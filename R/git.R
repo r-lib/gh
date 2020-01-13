@@ -7,10 +7,9 @@
 #' @return If the repo has a github remote, a list containing `username`
 #'    and `repo`. Otherwise, an error.
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf interactive()
 #' gh_tree_remote()
-#' }
+
 gh_tree_remote <- function(path = ".") {
   github_remote(git_remotes(path))
 }

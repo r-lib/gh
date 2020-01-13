@@ -70,13 +70,11 @@ gh_link <- function(gh_response, link) {
 #'
 #' @name gh_next
 #' @export
-#' @examples
-#' \dontrun{
+#' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' x <- gh("/users")
-#' sapply(x, "[[", "login")
+#' vapply(x, "[[", character(1), "login")
 #' x2 <- gh_next(x)
-#' sapply(x2, "[[", "login")
-#' }
+#' vapply(x2, "[[", character(1), "login")
 
 gh_next <- function(gh_response) gh_link(gh_response, "next")
 

@@ -4,8 +4,8 @@
 #' current project.
 #'
 #' @param path Path that is contained within a git repo.
-#' @return If the repo has a github remote, a list containing \code{username}
-#'    and \code{repo}. Otherwise, an error.
+#' @return If the repo has a github remote, a list containing `username`
+#'    and `repo`. Otherwise, an error.
 #' @export
 #' @examples
 #' \dontrun{

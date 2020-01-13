@@ -16,7 +16,7 @@ gh_first(gh_response)
 gh_last(gh_response)
 }
 \arguments{
-\item{gh_response}{An object returned by a \code{gh()} call.}
+\item{gh_response}{An object returned by a \code{\link[=gh]{gh()}} call.}
 }
 \value{
 Answer from the API.

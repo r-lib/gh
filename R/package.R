@@ -11,66 +11,58 @@ NULL
 #'
 #' This is an extremely minimal client. You need to know the API
 #' to be able to use this client. All this function does is:
-#' \itemize{
-#'   \item Try to substitute each listed parameter into
-#'     \code{endpoint}, using the \code{:parameter} notation.
-#'   \item If a GET request (the default), then add
-#'     all other listed parameters as query parameters.
-#'   \item If not a GET request, then send the other parameters
-#'     in the request body, as JSON.
-#'   \item Convert the response to an R list using
-#'     \code{jsonlite::fromJSON}.
-#' }
+#' * Try to substitute each listed parameter into `endpoint`, using the
+#'   `:parameter` notation.
+#' * If a GET request (the default), then add all other listed parameters
+#'   as query parameters.
+#' * If not a GET request, then send the other parameters in the request
+#'   body, as JSON.
+#' * Convert the response to an R list using [jsonlite::fromJSON()].
 #'
 #' @param endpoint GitHub API endpoint. Must be one of the following forms:
+#'    * `METHOD path`, e.g. `GET /rate_limit`,
+#'    * `path`, e.g. `/rate_limit`,
+#'    * `METHOD url`, e.g. `GET https://api.github.com/rate_limit`,
+#'    * `url`, e.g. `https://api.github.com/rate_limit`.
 #'
-#'    \itemize{
-#'      \item "METHOD path", e.g. "GET /rate_limit"
-#'      \item "path", e.g. "/rate_limit".
-#'      \item "METHOD url", e.g. "GET https://api.github.com/rate_limit"
-#'      \item "url", e.g. "https://api.github.com/rate_limit".
-#'    }
-#'
-#'    If the method is not supplied, will use \code{.method}, which defaults
-#'    to \code{GET}.
+#'    If the method is not supplied, will use `.method`, which defaults
+#'    to `"GET"`.
 #' @param ... Name-value pairs giving API parameters. Will be matched
-#'   into \code{url} placeholders, sent as query parameters in \code{GET}
-#'   requests, and in the JSON body of \code{POST} requests.
+#'   into `endpoint` placeholders, sent as query parameters in GET
+#'   requests, and as a JSON body of POST requests.
 #' @param per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).
 #' @param .destfile path to write response to disk.  If NULL (default), response will
 #'   be processed and returned as an object.  If path is given, response will
 #'   be written to disk in the form sent.
-#' @param .overwrite if \code{destfile} is provided, whether to overwrite an
+#' @param .overwrite if `.destfile` is provided, whether to overwrite an
 #'   existing file.  Defaults to FALSE.
-#' @param .token Authentication token. Default to GITHUB_PAT or GITHUB_TOKEN
-#'   environment variables, in this order if any is set.
-#' @param .api_url Github API url (default: \url{https://api.github.com}). Used
-#'   if \code{endpoint} just contains a path. Default to GITHUB_API_URL
+#' @param .token Authentication token. Defaults to `GITHUB_PAT` or
+#'   `GITHUB_TOKEN` environment variables, in this order if any is set.
+#' @param .api_url Github API url (default: <https://api.github.com>). Used
+#'   if `endpoint` just contains a path. Defaults to `GITHUB_API_URL`
 #'   environment variable if set.
 #' @param .method HTTP method to use if not explicitly supplied in the
-#'    \code{endpoint}.
+#'    `endpoint`.
 #' @param .limit Number of records to return. This can be used
-#'   instead of manual pagination. By default it is \code{NULL},
+#'   instead of manual pagination. By default it is `NULL`,
 #'   which means that the defaults of the GitHub API are used.
 #'   You can set it to a number to request more (or less)
-#'   records, and also to \code{Inf} to request all records.
+#'   records, and also to `Inf` to request all records.
 #'   Note, that if you request many records, then multiple GitHub
 #'   API calls are used to get them, and this can take a potentially
 #'   long time.
 #' @param .send_headers Named character vector of header field values
-#'   (excepting \code{Authorization}, which is handled via
-#'   \code{.token}). This can be used to override or augment the
-#'   defaults, which are as follows: the \code{Accept} field defaults
-#'   to \code{"application/vnd.github.v3+json"} and the
-#'   \code{User-Agent} field defaults to
-#'   \code{"https://github.com/r-lib/gh"}. This can be used
-#'   to, e.g., provide a custom media type, in order to access a
+#'   (except `Authorization`, which is handled via `.token`). This can be
+#'   used to override or augment the defaults, which are as follows: the
+#'   `Accept` field defaults to `"application/vnd.github.v3+json"` and the
+#'   `User-Agent` field defaults to `"https://github.com/r-lib/gh"`. This
+#'   can be used to, e.g., provide a custom media type, in order to access a
 #'   preview feature of the API.
 #'
-#' @return Answer from the API as a \code{gh_response} object, which is also a
-#'   \code{list}. Failed requests will generate an R error. Requests that
+#' @return Answer from the API as a `gh_response` object, which is also a
+#'   `list`. Failed requests will generate an R error. Requests that
 #'   generate a raw response will return a raw vector.
 #'
 #' @importFrom httr content add_headers headers
@@ -78,8 +70,7 @@ NULL
 #' @importFrom jsonlite fromJSON toJSON
 #' @importFrom utils URLencode capture.output
 #' @export
-#' @seealso \code{\link{gh_whoami}()} for details on GitHub API token
-#'   management.
+#' @seealso [gh_whoami()] for details on GitHub API token management.
 #' @examples
 #' \dontrun{
 #' ## Repositories of a user, these are equivalent

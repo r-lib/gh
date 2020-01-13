@@ -20,37 +20,36 @@ gh(
 }
 \arguments{
 \item{endpoint}{GitHub API endpoint. Must be one of the following forms:
-
 \itemize{
-\item "METHOD path", e.g. "GET /rate_limit"
-\item "path", e.g. "/rate_limit".
-\item "METHOD url", e.g. "GET https://api.github.com/rate_limit"
-\item "url", e.g. "https://api.github.com/rate_limit".
+\item \verb{METHOD path}, e.g. \code{GET /rate_limit},
+\item \code{path}, e.g. \verb{/rate_limit},
+\item \verb{METHOD url}, e.g. \verb{GET https://api.github.com/rate_limit},
+\item \code{url}, e.g. \verb{https://api.github.com/rate_limit}.
 }
 
 If the method is not supplied, will use \code{.method}, which defaults
-to \code{GET}.}
+to \code{"GET"}.}
 
 \item{...}{Name-value pairs giving API parameters. Will be matched
-into \code{url} placeholders, sent as query parameters in \code{GET}
-requests, and in the JSON body of \code{POST} requests.}
+into \code{endpoint} placeholders, sent as query parameters in GET
+requests, and as a JSON body of POST requests.}
 
 \item{per_page}{Number of items to return per page. If omitted,
 will be substituted by \code{max(.limit, 100)} if \code{.limit} is set,
 otherwise determined by the API (never greater than 100).}
 
-\item{.token}{Authentication token. Default to GITHUB_PAT or GITHUB_TOKEN
-environment variables, in this order if any is set.}
+\item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
+\code{GITHUB_TOKEN} environment variables, in this order if any is set.}
 
 \item{.destfile}{path to write response to disk.  If NULL (default), response will
 be processed and returned as an object.  If path is given, response will
 be written to disk in the form sent.}
 
-\item{.overwrite}{if \code{destfile} is provided, whether to overwrite an
+\item{.overwrite}{if \code{.destfile} is provided, whether to overwrite an
 existing file.  Defaults to FALSE.}
 
 \item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
-if \code{endpoint} just contains a path. Default to GITHUB_API_URL
+if \code{endpoint} just contains a path. Defaults to \code{GITHUB_API_URL}
 environment variable if set.}
 
 \item{.method}{HTTP method to use if not explicitly supplied in the
@@ -66,13 +65,11 @@ API calls are used to get them, and this can take a potentially
 long time.}
 
 \item{.send_headers}{Named character vector of header field values
-(excepting \code{Authorization}, which is handled via
-\code{.token}). This can be used to override or augment the
-defaults, which are as follows: the \code{Accept} field defaults
-to \code{"application/vnd.github.v3+json"} and the
-\code{User-Agent} field defaults to
-\code{"https://github.com/r-lib/gh"}. This can be used
-to, e.g., provide a custom media type, in order to access a
+(except \code{Authorization}, which is handled via \code{.token}). This can be
+used to override or augment the defaults, which are as follows: the
+\code{Accept} field defaults to \code{"application/vnd.github.v3+json"} and the
+\code{User-Agent} field defaults to \code{"https://github.com/r-lib/gh"}. This
+can be used to, e.g., provide a custom media type, in order to access a
 preview feature of the API.}
 }
 \value{
@@ -86,14 +83,13 @@ Minimal wrapper to access GitHub's API.
 This is an extremely minimal client. You need to know the API
 to be able to use this client. All this function does is:
 \itemize{
-\item Try to substitute each listed parameter into
-\code{endpoint}, using the \code{:parameter} notation.
-\item If a GET request (the default), then add
-all other listed parameters as query parameters.
-\item If not a GET request, then send the other parameters
-in the request body, as JSON.
-\item Convert the response to an R list using
-\code{jsonlite::fromJSON}.
+\item Try to substitute each listed parameter into \code{endpoint}, using the
+\verb{:parameter} notation.
+\item If a GET request (the default), then add all other listed parameters
+as query parameters.
+\item If not a GET request, then send the other parameters in the request
+body, as JSON.
+\item Convert the response to an R list using \code{\link[jsonlite:fromJSON]{jsonlite::fromJSON()}}.
 }
 }
 \examples{
@@ -136,6 +132,5 @@ gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
 
 }
 \seealso{
-\code{\link{gh_whoami}()} for details on GitHub API token
-management.
+\code{\link[=gh_whoami]{gh_whoami()}} for details on GitHub API token management.
 }

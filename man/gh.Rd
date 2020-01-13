@@ -3,6 +3,7 @@
 \docType{package}
 \name{gh}
 \alias{gh}
+\alias{gh-package}
 \title{GitHub API}
 \usage{
 gh(
@@ -132,5 +133,22 @@ gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
 
 }
 \seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/r-lib/gh#readme}
+  \item Report bugs at \url{https://github.com/r-lib/gh/issues}
+}
+
+
 \code{\link[=gh_whoami]{gh_whoami()}} for details on GitHub API token management.
+}
+\author{
+\strong{Maintainer}: Gábor Csárdi \email{csardi.gabor@gmail.com} [contributor]
+
+Authors:
+\itemize{
+  \item Jennifer Bryan
+  \item Hadley Wickham
+}
+
 }

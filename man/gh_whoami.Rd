@@ -51,10 +51,9 @@ To get complete information on the authenticated user, call
 \code{gh("/user")}.
 
 For token management via API (versus the browser), use the
-\link[=OAuth
-Authorizations API]{https://developer.github.com/v3/oauth_authorizations/}. This API requires Basic Authentication using your
-username and password, not tokens, and is outside the scope of the gh
-package.
+\href{https://developer.github.com/v3/oauth_authorizations}{Authorizations API}.
+This API requires Basic Authentication using your username and password,
+not tokens, and is outside the scope of the gh package.
 }
 \examples{
 \dontrun{

@@ -5,7 +5,7 @@
 #'
 #' @docType package
 #' @name gh
-NULL
+"_PACKAGE"
 
 #' Query the GitHub API
 #'

@@ -8,14 +8,15 @@ gh_process_response <- function(response) {
   gh_media_type <- headers(response)[["x-github-media-type"]]
   is_raw <- grepl("param=raw$", gh_media_type, ignore.case = TRUE)
   is_ondisk <- inherits(response$content, "path")
-  if (length(content(response)) == 0) {
-    res <- ""
-  } else if (is_ondisk) {
+  if (is_ondisk) {
     res <- response$content
   } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {
     res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)
   } else if (is_raw) {
     res <- content(response, as = "raw")
+  } else if (content_type == "application/octet-stream" &&
+             length(content(response, as = "raw")) == 0) {
+    res <- NULL
   } else {
     if (grepl("^text/html", content_type, ignore.case = TRUE)) {
       warning("Response came back as html :(", call. = FALSE)

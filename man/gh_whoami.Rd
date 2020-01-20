@@ -16,11 +16,8 @@ environment variable if set.}
 
 \item{.send_headers}{Named character vector of header field values
 (except \code{Authorization}, which is handled via \code{.token}). This can be
-used to override or augment the defaults, which are as follows: the
-\code{Accept} field defaults to \code{"application/vnd.github.v3+json"} and the
-\code{User-Agent} field defaults to \code{"https://github.com/r-lib/gh"}. This
-can be used to, e.g., provide a custom media type, in order to access a
-preview feature of the API.}
+used to override or augment the default \code{User-Agent} header:
+\code{"https://github.com/r-lib/gh"}.}
 }
 \value{
 A \code{gh_response} object, which is also a \code{list}.

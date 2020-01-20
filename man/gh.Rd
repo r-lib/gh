@@ -16,6 +16,7 @@ gh(
   .api_url = NULL,
   .method = "GET",
   .limit = NULL,
+  .accept = "application/vnd.github.v3+json",
   .send_headers = NULL
 )
 }
@@ -66,13 +67,16 @@ Note, that if you request many records, then multiple GitHub
 API calls are used to get them, and this can take a potentially
 long time.}
 
+\item{.accept}{The value of the \code{Accept} HTTP header. Defaults to
+\code{"application/vnd.github.v3+json"} . If \code{Accept} is given in
+\code{.send_headers}, then that will be used. This paramter can be used to
+provide a custom media type, in order to access a preview feature of
+the API.}
+
 \item{.send_headers}{Named character vector of header field values
 (except \code{Authorization}, which is handled via \code{.token}). This can be
-used to override or augment the defaults, which are as follows: the
-\code{Accept} field defaults to \code{"application/vnd.github.v3+json"} and the
-\code{User-Agent} field defaults to \code{"https://github.com/r-lib/gh"}. This
-can be used to, e.g., provide a custom media type, in order to access a
-preview feature of the API.}
+used to override or augment the default \code{User-Agent} header:
+\code{"https://github.com/r-lib/gh"}.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a
@@ -121,8 +125,7 @@ length(users)
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Access developer preview of Licenses API (in preview as of 2015-09-24)
 gh("/licenses") # used to error code 415
-gh("/licenses",
-   .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
+gh("/licenses", .accept = "application/vnd.github.drax-preview+json")
 \dontshow{\}) # examplesIf}
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Access Github Enterprise API

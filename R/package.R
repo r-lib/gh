@@ -54,13 +54,15 @@
 #'   Note, that if you request many records, then multiple GitHub
 #'   API calls are used to get them, and this can take a potentially
 #'   long time.
+#' @param .accept The value of the `Accept` HTTP header. Defaults to
+#'   `"application/vnd.github.v3+json"` . If `Accept` is given in
+#'   `.send_headers`, then that will be used. This paramter can be used to
+#'   provide a custom media type, in order to access a preview feature of
+#'   the API.
 #' @param .send_headers Named character vector of header field values
 #'   (except `Authorization`, which is handled via `.token`). This can be
-#'   used to override or augment the defaults, which are as follows: the
-#'   `Accept` field defaults to `"application/vnd.github.v3+json"` and the
-#'   `User-Agent` field defaults to `"https://github.com/r-lib/gh"`. This
-#'   can be used to, e.g., provide a custom media type, in order to access a
-#'   preview feature of the API.
+#'   used to override or augment the default `User-Agent` header:
+#'   `"https://github.com/r-lib/gh"`.
 #'
 #' @return Answer from the API as a `gh_response` object, which is also a
 #'   `list`. Failed requests will generate an R error. Requests that
@@ -98,8 +100,7 @@
 #' @examplesIf FALSE
 #' ## Access developer preview of Licenses API (in preview as of 2015-09-24)
 #' gh("/licenses") # used to error code 415
-#' gh("/licenses",
-#'    .send_headers = c("Accept" = "application/vnd.github.drax-preview+json"))
+#' gh("/licenses", .accept = "application/vnd.github.drax-preview+json")
 #'
 #' @examplesIf FALSE
 #' ## Access Github Enterprise API
@@ -115,8 +116,8 @@
 
 gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                .overwrite = FALSE, .api_url = NULL, .method = "GET",
-               .limit = NULL, .send_headers = NULL
-               ) {
+               .limit = NULL, .accept = "application/vnd.github.v3+json",
+               .send_headers = NULL) {
 
   params <- list(...)
   params <- drop_named_nulls(params)
@@ -134,7 +135,7 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
 
   req <- gh_build_request(endpoint = endpoint, params = params,
                           token = .token, destfile = .destfile,
-                          overwrite = .overwrite,
+                          overwrite = .overwrite, accept = .accept,
                           send_headers = .send_headers,
                           api_url = .api_url, method = .method)
 

@@ -2,18 +2,18 @@
 default_api_url <- "https://api.github.com"
 
 ## Headers to send with each API request
-default_send_headers <- c("Accept" = "application/vnd.github.v3+json",
-                          "User-Agent" = "https://github.com/r-lib/gh")
+default_send_headers <- c("User-Agent" = "https://github.com/r-lib/gh")
 
 gh_build_request <- function(endpoint = "/user", params = list(),
                              token = NULL, destfile = NULL, overwrite = NULL,
-                             send_headers = NULL,
+                             accept = NULL, send_headers = NULL,
                              api_url = NULL, method = "GET") {
 
   working <- list(method = method, url = character(), headers = NULL,
                   query = NULL, body = NULL,
                   endpoint = endpoint, params = params,
-                  token = token, send_headers = send_headers, api_url = api_url,
+                  token = token, accept = c(Accept = accept),
+                  send_headers = send_headers, api_url = api_url,
                   dest = destfile, overwrite = overwrite)
 
   working <- gh_set_verb(working)
@@ -96,7 +96,7 @@ gh_set_body <- function(x) {
 
 gh_set_headers <- function(x) {
   auth <- gh_auth(x$token %||% gh_token())
-  send_headers <- gh_send_headers(x$send_headers)
+  send_headers <- gh_send_headers(x$accept, x$send_headers)
   x$headers <- c(send_headers, auth)
   x
 }
@@ -153,6 +153,9 @@ gh_auth <- function(token) {
   }
 }
 
-gh_send_headers <- function(headers = NULL) {
-  modify_vector(default_send_headers, headers)
+gh_send_headers <- function(accept_header = NULL, headers = NULL) {
+  modify_vector(
+    modify_vector(default_send_headers, accept_header),
+    headers
+  )
 }

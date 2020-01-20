@@ -9,6 +9,8 @@
    error for named `NA` parameters (#21, #84).
 -  `gh()` now returns better values for empty responses, typically empty
    lists or dictionaries (#66).
+-  `gh()` now has an `.accept` argument to make it easier to set the
+   `Accept` HTTP header (#91).
 
 # 1.0.1
 

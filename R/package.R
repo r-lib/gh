@@ -29,7 +29,8 @@
 #'    to `"GET"`.
 #' @param ... Name-value pairs giving API parameters. Will be matched
 #'   into `endpoint` placeholders, sent as query parameters in GET
-#'   requests, and as a JSON body of POST requests.
+#'   requests, and as a JSON body of POST requests. Named `NULL` values
+#'   are silently dropped, and named `NA` values trigger an error.
 #' @param per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).
@@ -118,6 +119,8 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                ) {
 
   params <- list(...)
+  params <- drop_named_nulls(params)
+  check_named_nas(params)
 
   if (is.null(per_page)) {
     if (!is.null(.limit)) {

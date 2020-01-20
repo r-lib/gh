@@ -5,6 +5,8 @@
    argument
 -  gh now sets `.Last.error` to the error object after an uncaught error,
    and `.Last.error.trace` to the stack trace of the error.
+-  `gh()` now silently drops named `NULL` parameters, and throws an
+   error for named `NA` parameters (#21, #84).
 
 # 1.0.1
 

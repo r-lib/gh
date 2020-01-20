@@ -63,3 +63,23 @@ probe <- function(.x, .p, ...) {
     vapply(.x, .p, logical(1), ...)
   }
 }
+
+drop_named_nulls <- function(x) {
+  if (has_no_names(x)) return(x)
+  named <- has_name(x)
+  null <- vapply(x, is.null, logical(1))
+  cleanse_names(x[! named | ! null])
+}
+
+check_named_nas <- function(x) {
+  if (has_no_names(x)) return(x)
+  named <- has_name(x)
+  na <- vapply(x, FUN.VALUE = logical(1), function(v) {
+    is.atomic(v) && anyNA(v)
+  })
+  bad <- which(named & na)
+  if (length(bad)) {
+    str <- paste0("`", names(x)[bad], "`", collapse = ", ")
+    stop("Named NA parameters are not allowed: ", str)
+  }
+}

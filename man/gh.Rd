@@ -33,7 +33,8 @@ to \code{"GET"}.}
 
 \item{...}{Name-value pairs giving API parameters. Will be matched
 into \code{endpoint} placeholders, sent as query parameters in GET
-requests, and as a JSON body of POST requests.}
+requests, and as a JSON body of POST requests. Named \code{NULL} values
+are silently dropped, and named \code{NA} values trigger an error.}
 
 \item{per_page}{Number of items to return per page. If omitted,
 will be substituted by \code{max(.limit, 100)} if \code{.limit} is set,

@@ -11,6 +11,8 @@
    lists or dictionaries (#66).
 -  `gh()` now has an `.accept` argument to make it easier to set the
    `Accept` HTTP header (#91).
+-  New `gh_gql()` function to make it easier to work with the GitHub
+   GraphQL API.
 
 # 1.0.1
 

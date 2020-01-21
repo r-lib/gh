@@ -17,7 +17,7 @@ Suggests:
 Imports:
     ini,
     jsonlite,
-    httr
+    httr (>= 1.2)
 RoxygenNote: 7.0.2.9000
 Roxygen: { loadNamespace("roxygenlabs"); list(markdown = TRUE) }
 Encoding: UTF-8

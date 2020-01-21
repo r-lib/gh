@@ -24,7 +24,6 @@ gh_build_request <- function(endpoint = "/user", params = list(),
   working <- gh_set_url(working)
   working <- gh_set_dest(working)
   working[c("method", "url", "headers", "query", "body", "dest")]
-
 }
 
 

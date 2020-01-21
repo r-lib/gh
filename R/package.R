@@ -73,7 +73,8 @@
 #' @importFrom jsonlite fromJSON toJSON
 #' @importFrom utils URLencode capture.output
 #' @export
-#' @seealso [gh_whoami()] for details on GitHub API token management.
+#' @seealso [gh_gql()] if you want to use the GitHub GraphQL API,
+#' [gh_whoami()] for details on GitHub API token management.
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Repositories of a user, these are equivalent
 #' gh("/users/hadley/repos")

@@ -148,6 +148,7 @@ Useful links:
 }
 
 
+\code{\link[=gh_gql]{gh_gql()}} if you want to use the GitHub GraphQL API,
 \code{\link[=gh_whoami]{gh_whoami()}} for details on GitHub API token management.
 }
 \author{

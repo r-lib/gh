@@ -7,8 +7,16 @@
 \alias{gh-package}
 \title{GitHub API}
 \usage{
-gh_gql(query, ..., .token = NULL, .destfile = NULL, .overwrite = FALSE,
-  .api_url = NULL, .limit = NULL, .send_headers = NULL)
+gh_gql(
+  query,
+  ...,
+  .token = NULL,
+  .destfile = NULL,
+  .overwrite = FALSE,
+  .api_url = NULL,
+  .limit = NULL,
+  .send_headers = NULL
+)
 
 gh(
   endpoint,
@@ -25,25 +33,12 @@ gh(
 )
 }
 \arguments{
-\item{endpoint}{GitHub API endpoint. Must be one of the following forms:
-\itemize{
-\item \verb{METHOD path}, e.g. \code{GET /rate_limit},
-\item \code{path}, e.g. \verb{/rate_limit},
-\item \verb{METHOD url}, e.g. \verb{GET https://api.github.com/rate_limit},
-\item \code{url}, e.g. \verb{https://api.github.com/rate_limit}.
-}
-
-If the method is not supplied, will use \code{.method}, which defaults
-to \code{"GET"}.}
+\item{query}{The GraphQL query, as a string.}
 
 \item{...}{Name-value pairs giving API parameters. Will be matched
 into \code{endpoint} placeholders, sent as query parameters in GET
 requests, and as a JSON body of POST requests. Named \code{NULL} values
 are silently dropped, and named \code{NA} values trigger an error.}
-
-\item{per_page}{Number of items to return per page. If omitted,
-will be substituted by \code{max(.limit, 100)} if \code{.limit} is set,
-otherwise determined by the API (never greater than 100).}
 
 \item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
 \code{GITHUB_TOKEN} environment variables, in this order if any is set.}
@@ -68,16 +63,34 @@ Note, that if you request many records, then multiple GitHub
 API calls are used to get them, and this can take a potentially
 long time.}
 
+\item{.send_headers}{Named character vector of header field values
+(except \code{Authorization}, which is handled via \code{.token}). This can be
+used to override or augment the default \code{User-Agent} header:
+\code{"https://github.com/r-lib/gh"}.}
+
+\item{endpoint}{GitHub API endpoint. Must be one of the following forms:
+\itemize{
+\item \verb{METHOD path}, e.g. \code{GET /rate_limit},
+\item \code{path}, e.g. \verb{/rate_limit},
+\item \verb{METHOD url}, e.g. \verb{GET https://api.github.com/rate_limit},
+\item \code{url}, e.g. \verb{https://api.github.com/rate_limit}.
+}
+
+If the method is not supplied, will use \code{.method}, which defaults
+to \code{"GET"}.}
+
+\item{per_page}{Number of items to return per page. If omitted,
+will be substituted by \code{max(.limit, 100)} if \code{.limit} is set,
+otherwise determined by the API (never greater than 100).}
+
+\item{.method}{HTTP method to use if not explicitly supplied in the
+\code{endpoint}.}
+
 \item{.accept}{The value of the \code{Accept} HTTP header. Defaults to
 \code{"application/vnd.github.v3+json"} . If \code{Accept} is given in
 \code{.send_headers}, then that will be used. This paramter can be used to
 provide a custom media type, in order to access a preview feature of
 the API.}
-
-\item{.send_headers}{Named character vector of header field values
-(except \code{Authorization}, which is handled via \code{.token}). This can be
-used to override or augment the default \code{User-Agent} header:
-\code{"https://github.com/r-lib/gh"}.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a

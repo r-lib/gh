@@ -11,7 +11,6 @@ gh_gql(
   .destfile = NULL,
   .overwrite = FALSE,
   .api_url = NULL,
-  .limit = NULL,
   .send_headers = NULL
 )
 }
@@ -37,22 +36,19 @@ existing file.  Defaults to FALSE.}
 if \code{endpoint} just contains a path. Defaults to \code{GITHUB_API_URL}
 environment variable if set.}
 
-\item{.limit}{Number of records to return. This can be used
-instead of manual pagination. By default it is \code{NULL},
-which means that the defaults of the GitHub API are used.
-You can set it to a number to request more (or less)
-records, and also to \code{Inf} to request all records.
-Note, that if you request many records, then multiple GitHub
-API calls are used to get them, and this can take a potentially
-long time.}
-
 \item{.send_headers}{Named character vector of header field values
 (except \code{Authorization}, which is handled via \code{.token}). This can be
 used to override or augment the default \code{User-Agent} header:
 \code{"https://github.com/r-lib/gh"}.}
 }
 \description{
-A simple interface for the GitHub GraphQL API v4.
+See more about the GraphQL API here:
+\url{https://developer.github.com/v4/}
+}
+\details{
+Note: pagination and the \code{.limit} argument does not work currently,
+as pagination in the GraphQL API is different from the v3 API.
+If you need pagination with GraphQL, you'll need to do that manually.
 }
 \examples{
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

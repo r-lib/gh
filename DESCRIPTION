@@ -15,6 +15,7 @@ Suggests:
     pingr,
     testthat
 Imports:
+    cli,
     ini,
     jsonlite,
     httr (>= 1.2)

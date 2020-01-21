@@ -17,7 +17,8 @@ gh(
   .method = "GET",
   .limit = NULL,
   .accept = "application/vnd.github.v3+json",
-  .send_headers = NULL
+  .send_headers = NULL,
+  .progress = TRUE
 )
 }
 \arguments{
@@ -77,6 +78,9 @@ the API.}
 (except \code{Authorization}, which is handled via \code{.token}). This can be
 used to override or augment the default \code{User-Agent} header:
 \code{"https://github.com/r-lib/gh"}.}
+
+\item{.progress}{Whether to show a progress indicator for calls that
+need more than one HTTP request.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a

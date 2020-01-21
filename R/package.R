@@ -63,6 +63,8 @@
 #'   (except `Authorization`, which is handled via `.token`). This can be
 #'   used to override or augment the default `User-Agent` header:
 #'   `"https://github.com/r-lib/gh"`.
+#' @param .progress Whether to show a progress indicator for calls that
+#'   need more than one HTTP request.
 #'
 #' @return Answer from the API as a `gh_response` object, which is also a
 #'   `list`. Failed requests will generate an R error. Requests that
@@ -72,6 +74,7 @@
 #'   status_code http_type GET POST PATCH PUT DELETE
 #' @importFrom jsonlite fromJSON toJSON
 #' @importFrom utils URLencode capture.output
+#' @importFrom cli cli_status cli_status_update
 #' @export
 #' @seealso [gh_gql()] if you want to use the GitHub GraphQL API,
 #' [gh_whoami()] for details on GitHub API token management.
@@ -118,7 +121,7 @@
 gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                .overwrite = FALSE, .api_url = NULL, .method = "GET",
                .limit = NULL, .accept = "application/vnd.github.v3+json",
-               .send_headers = NULL) {
+               .send_headers = NULL, .progress = TRUE) {
 
   params <- list(...)
   params <- drop_named_nulls(params)
@@ -140,11 +143,14 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                           send_headers = .send_headers,
                           api_url = .api_url, method = .method)
 
+  if (.progress) prbr <- make_progress_bar(req)
+
   raw <- gh_make_request(req)
 
   res <- gh_process_response(raw)
 
   while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
+    update_progress_bar(prbr, res)
     res2 <- gh_next(res)
     res3 <- c(res, res2)
     attributes(res3) <- attributes(res2)

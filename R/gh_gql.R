@@ -1,10 +1,11 @@
-#' @describeIn gh A simple interface for the GitHub GraphQL API v4.
+#' A simple interface for the GitHub GraphQL API v4.
+#' @inheritParams gh
 #' @param query The GraphQL query, as a string.
 #' @export
-#' @examples
-#' \dontrun{
+#' @seealso [gh()] for the GitHub v3 API.
+#' @examplesIf FALSE
 #' gh_gql("query { viewer { login }}")
-#' }
+
 gh_gql <- function(query, ..., .token = NULL, .destfile = NULL,
   .overwrite = FALSE, .api_url = NULL, .limit = NULL, .send_headers = NULL) {
 

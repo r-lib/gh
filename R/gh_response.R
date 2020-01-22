@@ -6,7 +6,8 @@ gh_process_response <- function(response) {
 
   content_type <- http_type(response)
   gh_media_type <- headers(response)[["x-github-media-type"]]
-  is_raw <- grepl("param=raw$", gh_media_type, ignore.case = TRUE)
+  is_raw <- content_type == "application/octet-stream" ||
+    isTRUE(grepl("param=raw$", gh_media_type, ignore.case = TRUE))
   is_ondisk <- inherits(response$content, "path")
   if (is_ondisk) {
     res <- response$content

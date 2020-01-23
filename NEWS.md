@@ -15,6 +15,8 @@
    GraphQL API.
 -  gh now supports separate personal access tokens for GitHub Enterprise
    sites.
+-  gh now supports storing your GitHub personal access tokens (PAT) in the
+   system keyring, via the keyring package.
 
 # 1.0.1
 

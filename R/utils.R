@@ -83,3 +83,24 @@ check_named_nas <- function(x) {
     stop("Named NA parameters are not allowed: ", str)
   }
 }
+
+can_load <- function(pkg) {
+  isTRUE(requireNamespace(pkg, quietly = TRUE))
+}
+
+is_interactive <- function() {
+  opt <- getOption("rlib_interactive")
+  if (isTRUE(opt)) {
+    TRUE
+  } else if (identical(opt, FALSE)) {
+    FALSE
+  } else if (tolower(getOption("knitr.in.progress", "false")) == "true") {
+    FALSE
+  } else if (tolower(getOption("rstudio.notebook.executing", "false")) == "true") {
+    FALSE
+  } else if (identical(Sys.getenv("TESTTHAT"), "true")) {
+    FALSE
+  } else {
+    interactive()
+  }
+}

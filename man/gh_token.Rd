@@ -23,22 +23,66 @@ and you can access your PATs here (if logged in to GitHub):
 \details{
 Set the \code{GITHUB_PAT} environment variable to avoid having to include
 your PAT in the code. If you work with multiple GitHub deployments,
-e.g. via GitHub Enterprise, then read on.
+e.g. via GitHub Enterprise, then read 'PATs for GitHub Enterprise' below.
+
+In you want a more secure solution than putting authentication tokens
+into envirnment variables, read 'Storing PATs in the system keyring'
+below.
 }
-\section{}{
- PATs for multiple GitHub deployments:
+\section{NA}{
 
-gh lets you use different PATs for different GitHub API URLs, by looking
-for the PAT in an URL specific environment variable first. It uses
-\code{\link[=slugify_url]{slugify_url()}} to compute a suffix from the API URL, by extracting the
-host name and removing the protocol and the path from it, and replacing
-special characters with underscores. This suffix is added to
-\code{GITHUB_PAT_} then. For example for the default API URL:
-\url{https://api.github.com}, the \code{GITHUB_PAT_API_GITHUB_COM} environment
-variable is consulted first.
 
-If the API URL specific environment variable is not set, then gh falls
-back to \code{GITHUB_PAT} and then to `GITHUB_TOKEN'.
+gh supports storing your PAT in the system keyring, on Windows, macOS
+and Linux, using the keyring package.
+
+For each PAT environment variable, gh first checks whether the key with
+that value is set in the system keyring, and if yes, it will use its
+value as the PAT. I.e. without a custom \code{GITHUB_API_URL} variable, it
+checks the \code{GITHUB_PAT_API_GITHUB_COM} key first, then the env var
+with the same name, then the \code{GITHUB_PAT} key, etc. Such a check looks
+like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
+}\if{html}{\out{</div>}}
+
+and it uses the default keyring backend and the default keyring within
+that backend. See \code{\link[keyring:default_backend]{keyring::default_backend()}} for details and changing
+these defaults.
+
+If the selected keyring is locked, and the session is interactive,
+then gh will try to unlock it. If the keyring is locked, and the session
+is not interactive, then gh will not use the keyring. Note that some
+keyring backends cannot be locked (e.g. the one that uses environment
+variables).
+
+If you want gh to ignote the system keyring completely, set the
+\code{GH_NO_KEYRING} environment variable to \code{true}.
+}
+
+\section{Storing PATs in the system keyring}{
+
+
+gh supports storing your PAT in the system keyring, on Windows, macOS
+and Linux, using the keyring package.
+
+For each PAT environment variable, gh first checks whether the key with
+that value is set in the system keyring, and if yes, it will use its
+value as the PAT. I.e. without a custom \code{GITHUB_API_URL} variable, it
+checks the \code{GITHUB_PAT_API_GITHUB_COM} key first, then the env var
+with the same name, then the \code{GITHUB_PAT} key, etc. Such a check looks
+like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
+}\if{html}{\out{</div>}}
+
+and it uses the default keyring backend and the default keyring within
+that backend. See \code{\link[keyring:default_backend]{keyring::default_backend()}} for details and changing
+these defaults.
+
+If the selected keyring is locked, and the session is interactive,
+then gh will try to unlock it. If the keyring is locked, and the session
+is not interactive, then gh will not use the keyring. Note that some
+keyring backends cannot be locked (e.g. the one that uses environment
+variables).
+
+If you want gh to ignote the system keyring completely, set the
+\code{GH_NO_KEYRING} environment variable to \code{true}.
 }
 
 \seealso{

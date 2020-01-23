@@ -19,8 +19,11 @@ gh_gql(
 
 \item{...}{Name-value pairs giving API parameters. Will be matched
 into \code{endpoint} placeholders, sent as query parameters in GET
-requests, and as a JSON body of POST requests. Named \code{NULL} values
-are silently dropped, and named \code{NA} values trigger an error.}
+requests, and as a JSON body of POST requests. If there is only one
+unnamed parameter, and it is a raw vector, then it will not be JSON
+encoded, but sent as raw data, as is. This can be used for example to
+add assets to releases. Named \code{NULL} values are silently dropped,
+and named \code{NA} values trigger an error.}
 
 \item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
 \code{GITHUB_TOKEN} environment variables, in this order if any is set.

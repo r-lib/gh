@@ -29,8 +29,11 @@
 #'    to `"GET"`.
 #' @param ... Name-value pairs giving API parameters. Will be matched
 #'   into `endpoint` placeholders, sent as query parameters in GET
-#'   requests, and as a JSON body of POST requests. Named `NULL` values
-#'   are silently dropped, and named `NA` values trigger an error.
+#'   requests, and as a JSON body of POST requests. If there is only one
+#'   unnamed parameter, and it is a raw vector, then it will not be JSON
+#'   encoded, but sent as raw data, as is. This can be used for example to
+#'   add assets to releases. Named `NULL` values are silently dropped,
+#'   and named `NA` values trigger an error.
 #' @param per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).

@@ -17,6 +17,7 @@
    sites.
 -  gh now supports storing your GitHub personal access tokens (PAT) in the
    system keyring, via the keyring package.
+-  `gh()` can now POST raw data, which allows adding assets to releases (#56).
 
 # 1.0.1
 

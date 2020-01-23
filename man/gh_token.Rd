@@ -25,8 +25,8 @@ Set the \code{GITHUB_PAT} environment variable to avoid having to include
 your PAT in the code. If you work with multiple GitHub deployments,
 e.g. via GitHub Enterprise, then read 'PATs for GitHub Enterprise' below.
 
-In you want a more secure solution than putting authentication tokens
-into envirnment variables, read 'Storing PATs in the system keyring'
+If you want a more secure solution than putting authentication tokens
+into environment variables, read 'Storing PATs in the system keyring'
 below.
 }
 \section{NA}{

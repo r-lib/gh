@@ -4,7 +4,6 @@
 ^README.Rmd$
 ^.travis.yml$
 ^appveyor.yml$
-^NEWS\.md$
 ^tags$
 ^tests/testthat/github-token\.txt$
 ^CONTRIBUTING\.md$

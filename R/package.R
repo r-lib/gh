@@ -41,6 +41,8 @@
 #'   existing file.  Defaults to FALSE.
 #' @param .token Authentication token. Defaults to `GITHUB_PAT` or
 #'   `GITHUB_TOKEN` environment variables, in this order if any is set.
+#'   See [gh_token()] if you need more flexibility, e.g. different tokens
+#'   for different GitHub Enterprise deployments.
 #' @param .api_url Github API url (default: <https://api.github.com>). Used
 #'   if `endpoint` just contains a path. Defaults to `GITHUB_API_URL`
 #'   environment variable if set.

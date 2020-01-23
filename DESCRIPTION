@@ -13,7 +13,8 @@ BugReports: https://github.com/r-lib/gh/issues
 Suggests:
     covr,
     pingr,
-    testthat
+    testthat,
+    withr
 Imports:
     cli,
     ini,

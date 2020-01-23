@@ -1,5 +1,7 @@
 ## Main API URL
-default_api_url <- "https://api.github.com"
+default_api_url <- function() {
+  Sys.getenv('GITHUB_API_URL', unset = "https://api.github.com")
+}
 
 ## Headers to send with each API request
 default_send_headers <- c("User-Agent" = "https://github.com/r-lib/gh")
@@ -20,8 +22,8 @@ gh_build_request <- function(endpoint = "/user", params = list(),
   working <- gh_set_endpoint(working)
   working <- gh_set_query(working)
   working <- gh_set_body(working)
-  working <- gh_set_headers(working)
   working <- gh_set_url(working)
+  working <- gh_set_headers(working)
   working <- gh_set_dest(working)
   working[c("method", "url", "headers", "query", "body", "dest")]
 }
@@ -94,7 +96,8 @@ gh_set_body <- function(x) {
 }
 
 gh_set_headers <- function(x) {
-  auth <- gh_auth(x$token %||% gh_token())
+  # x$api_url must be set properly at this point
+  auth <- gh_auth(x$token %||% gh_token(x$api_url))
   send_headers <- gh_send_headers(x$accept, x$send_headers)
   x$headers <- c(send_headers, auth)
   x
@@ -103,9 +106,10 @@ gh_set_headers <- function(x) {
 gh_set_url <- function(x) {
   if (grepl("^https?://", x$endpoint)) {
     x$url <- URLencode(x$endpoint)
+    x$api_url <- get_baseurl(x$url)
   } else {
-    api_url <- x$api_url %||% Sys.getenv('GITHUB_API_URL', unset = default_api_url)
-    x$url <- URLencode(paste0(api_url, x$endpoint))
+    x$api_url <- x$api_url %||% default_api_url()
+    x$url <- URLencode(paste0(x$api_url, x$endpoint))
   }
 
   x
@@ -119,37 +123,6 @@ gh_set_dest <- function(x) {
     x$dest <- write_disk(x$dest, overwrite = x$overwrite)
   }
   x
-}
-
-## functions to retrieve request elements
-## possibly consult an env var or combine with a built-in default
-
-#' Return the local user's GitHub Personal Access Token (PAT)
-#'
-#' You can read more about PATs here:
-#' <https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/>
-#' and you can access your PATs here (if logged in to GitHub):
-#' <https://github.com/settings/tokens>.
-#'
-#' Currently it consults the `GITHUB_PAT` and `GITHUB_TOKEN`
-#' environment variables, in this order.
-#'
-#' @return A string, with the token, or a zero length string scalar,
-#' if no token is available.
-#'
-#' @export
-
-gh_token <- function() {
-  token <- Sys.getenv('GITHUB_PAT', "")
-  if (token == "") Sys.getenv("GITHUB_TOKEN", "") else token
-}
-
-gh_auth <- function(token) {
-  if (isTRUE(token != "")) {
-    c("Authorization" = paste("token", token))
-  } else {
-    character()
-  }
 }
 
 gh_send_headers <- function(accept_header = NULL, headers = NULL) {

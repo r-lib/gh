@@ -13,6 +13,8 @@
    `Accept` HTTP header (#91).
 -  New `gh_gql()` function to make it easier to work with the GitHub
    GraphQL API.
+-  gh now supports separate personal access tokens for GitHub Enterprise
+   sites.
 
 # 1.0.1
 

@@ -23,7 +23,9 @@ requests, and as a JSON body of POST requests. Named \code{NULL} values
 are silently dropped, and named \code{NA} values trigger an error.}
 
 \item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
-\code{GITHUB_TOKEN} environment variables, in this order if any is set.}
+\code{GITHUB_TOKEN} environment variables, in this order if any is set.
+See \code{\link[=gh_token]{gh_token()}} if you need more flexibility, e.g. different tokens
+for different GitHub Enterprise deployments.}
 
 \item{.destfile}{path to write response to disk.  If NULL (default), response will
 be processed and returned as an object.  If path is given, response will

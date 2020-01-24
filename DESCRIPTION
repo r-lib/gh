@@ -17,7 +17,7 @@ Suggests:
     testthat,
     withr
 Imports:
-    cli,
+    cli (>= 2.0.1),
     ini,
     jsonlite,
     httr (>= 1.2)

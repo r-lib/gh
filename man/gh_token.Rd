@@ -33,14 +33,16 @@ below.
 
 
 gh supports storing your PAT in the system keyring, on Windows, macOS
-and Linux, using the keyring package.
+and Linux, using the keyring package. To turn on keyring support, you
+need to set the \code{GH_KEYRING} environment variables to \code{true}, in your
+\code{.Renviron} file or profile.
 
-For each PAT environment variable, gh first checks whether the key with
-that value is set in the system keyring, and if yes, it will use its
-value as the PAT. I.e. without a custom \code{GITHUB_API_URL} variable, it
-checks the \code{GITHUB_PAT_API_GITHUB_COM} key first, then the env var
-with the same name, then the \code{GITHUB_PAT} key, etc. Such a check looks
-like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
+If keyring support is turned on, then for each PAT environment variable,
+gh first checks whether the key with that value is set in the system
+keyring, and if yes, it will use its value as the PAT. I.e. without a
+custom \code{GITHUB_API_URL} variable, it checks the
+\code{GITHUB_PAT_API_GITHUB_COM} key first, then the env var with the same
+name, then the \code{GITHUB_PAT} key, etc. Such a check looks like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
 }\if{html}{\out{</div>}}
 
 and it uses the default keyring backend and the default keyring within
@@ -53,22 +55,30 @@ is not interactive, then gh will not use the keyring. Note that some
 keyring backends cannot be locked (e.g. the one that uses environment
 variables).
 
-If you want gh to ignote the system keyring completely, set the
-\code{GH_NO_KEYRING} environment variable to \code{true}.
+On some OSes, e.g. typically on macOS, you need to allow R to access the
+system keyring. You can allow this separately for each access, or for
+all future accesses, until you update or re-install R. You typically
+need to give access to each R GUI (e.g. RStudio) and the command line
+R program separately.
+
+To store your PAT on the keyring run\if{html}{\out{<div class="r">}}\preformatted{keyring::key_set("GITHUB_PAT")
+}\if{html}{\out{</div>}}
 }
 
 \section{Storing PATs in the system keyring}{
 
 
 gh supports storing your PAT in the system keyring, on Windows, macOS
-and Linux, using the keyring package.
+and Linux, using the keyring package. To turn on keyring support, you
+need to set the \code{GH_KEYRING} environment variables to \code{true}, in your
+\code{.Renviron} file or profile.
 
-For each PAT environment variable, gh first checks whether the key with
-that value is set in the system keyring, and if yes, it will use its
-value as the PAT. I.e. without a custom \code{GITHUB_API_URL} variable, it
-checks the \code{GITHUB_PAT_API_GITHUB_COM} key first, then the env var
-with the same name, then the \code{GITHUB_PAT} key, etc. Such a check looks
-like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
+If keyring support is turned on, then for each PAT environment variable,
+gh first checks whether the key with that value is set in the system
+keyring, and if yes, it will use its value as the PAT. I.e. without a
+custom \code{GITHUB_API_URL} variable, it checks the
+\code{GITHUB_PAT_API_GITHUB_COM} key first, then the env var with the same
+name, then the \code{GITHUB_PAT} key, etc. Such a check looks like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
 }\if{html}{\out{</div>}}
 
 and it uses the default keyring backend and the default keyring within
@@ -81,8 +91,14 @@ is not interactive, then gh will not use the keyring. Note that some
 keyring backends cannot be locked (e.g. the one that uses environment
 variables).
 
-If you want gh to ignote the system keyring completely, set the
-\code{GH_NO_KEYRING} environment variable to \code{true}.
+On some OSes, e.g. typically on macOS, you need to allow R to access the
+system keyring. You can allow this separately for each access, or for
+all future accesses, until you update or re-install R. You typically
+need to give access to each R GUI (e.g. RStudio) and the command line
+R program separately.
+
+To store your PAT on the keyring run\if{html}{\out{<div class="r">}}\preformatted{keyring::key_set("GITHUB_PAT")
+}\if{html}{\out{</div>}}
 }
 
 \seealso{

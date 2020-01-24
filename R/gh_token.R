@@ -34,14 +34,16 @@
 #' @section Storing PATs in the system keyring:
 #'
 #' gh supports storing your PAT in the system keyring, on Windows, macOS
-#' and Linux, using the keyring package.
+#' and Linux, using the keyring package. To turn on keyring support, you
+#' need to set the `GH_KEYRING` environment variables to `true`, in your
+#' `.Renviron` file or profile.
 #'
-#' For each PAT environment variable, gh first checks whether the key with
-#' that value is set in the system keyring, and if yes, it will use its
-#' value as the PAT. I.e. without a custom `GITHUB_API_URL` variable, it
-#' checks the `GITHUB_PAT_API_GITHUB_COM` key first, then the env var
-#' with the same name, then the `GITHUB_PAT` key, etc. Such a check looks
-#' like this:
+#' If keyring support is turned on, then for each PAT environment variable,
+#' gh first checks whether the key with that value is set in the system
+#' keyring, and if yes, it will use its value as the PAT. I.e. without a
+#' custom `GITHUB_API_URL` variable, it checks the
+#' `GITHUB_PAT_API_GITHUB_COM` key first, then the env var with the same
+#' name, then the `GITHUB_PAT` key, etc. Such a check looks like this:
 #'
 #' ```r
 #' keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
@@ -57,8 +59,16 @@
 #' keyring backends cannot be locked (e.g. the one that uses environment
 #' variables).
 #'
-#' If you want gh to ignote the system keyring completely, set the
-#' `GH_NO_KEYRING` environment variable to `true`.
+#' On some OSes, e.g. typically on macOS, you need to allow R to access the
+#' system keyring. You can allow this separately for each access, or for
+#' all future accesses, until you update or re-install R. You typically
+#' need to give access to each R GUI (e.g. RStudio) and the command line
+#' R program separately.
+#'
+#' To store your PAT on the keyring run
+#' ```r
+#' keyring::key_set("GITHUB_PAT")
+#' ```
 #'
 #' @param api_url Github API url. Defaults to `GITHUB_API_URL`
 #' environment variable if set, otherwise <https://api.github.com>.
@@ -76,14 +86,17 @@ gh_token <- function(api_url = NULL) {
   get_first_token_found(c(token_env_var, "GITHUB_PAT", "GITHUB_TOKEN"))
 }
 
+#' @importFrom cli cli_alert_info
+
 should_use_keyring <- function() {
-  # Opt out?
-  if (tolower(Sys.getenv("GH_NO_KEYRING", "")) %in% c("yes", "true")) {
-    return(FALSE)
-  }
+  # Opt in?
+  if (tolower(Sys.getenv("GH_KEYRING", "")) != "true") return(FALSE)
 
   # Can we load the package?
-  if (!can_load("keyring")) return(FALSE)
+  if (!can_load("keyring")) {
+    cli_alert_info("{.pkg gh}: the {.pkg keyring} package is not available")
+    return(FALSE)
+  }
 
   # If is_locked() errors, the keyring cannot be locked, and we'll use it
   err <- FALSE
@@ -94,7 +107,10 @@ should_use_keyring <- function() {
   if (err) return(TRUE)
 
   # Otherwise if locked, and non-interactive session, we won't use it
-  if (locked && ! is_interactive()) return(FALSE)
+  if (locked && ! is_interactive()) {
+    cli_alert_info("{.pkg gh}: default keyring is locked")
+    return(FALSE)
+  }
 
   # Otherwise if locked, we try to unlock it here. Otherwise key_get()
   # would unlock it, but if that fails, we'll get multiple unlock dialogs
@@ -102,7 +118,10 @@ should_use_keyring <- function() {
   if (locked) {
     err <- FALSE
     tryCatch(keyring::keyring_unlock(), error = function(e) err <- TRUE)
-    if (err) return(FALSE)
+    if (err) {
+      cli_alert_info("{.pkg gh}: failed to unlock default keyring")
+      return(FALSE)
+    }
   }
 
   TRUE

@@ -1,7 +1,7 @@
 
 test_that("api specific token is used", {
   env <- c(
-    GH_NO_KEYRING = "true",
+    GH_KEYRING = "false",
     GITHUB_API_URL = "https://github.acme.com",
     GITHUB_PAT_GITHUB_ACME_COM = "good",
     GITHUB_PAT_GITHUB_ACME2_COM = "good2",
@@ -14,7 +14,7 @@ test_that("api specific token is used", {
   })
 
   env2 <- c(
-    GH_NO_KEYRING = "true",
+    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_API_GITHUB_COM = "good",
     GITHUB_PAT = "bad",
@@ -28,7 +28,7 @@ test_that("api specific token is used", {
 
 test_that("fall back to GITHUB_PAT", {
   env <- c(
-    GH_NO_KEYRING = "true",
+    GH_KEYRING = "false",
     GITHUB_API_URL = "https://github.acme.com",
     GITHUB_PAT_GITHUB_ACME2_COM = "acme2",
     GITHUB_PAT = "pat",
@@ -40,7 +40,7 @@ test_that("fall back to GITHUB_PAT", {
   })
 
   env2 <- c(
-    GH_NO_KEYRING = "true",
+    GH_KEYRING = "false",
     GITHUB_API_URL = "https://github.acme.com",
     GITHUB_PAT = "pat",
     GITHUB_TOKEN = "token"
@@ -51,7 +51,7 @@ test_that("fall back to GITHUB_PAT", {
   })
 
   env3 <- c(
-    GH_NO_KEYRING = "true",
+    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_API_GITHUB_COM = NA,
     GITHUB_PAT = "pat",
@@ -65,7 +65,7 @@ test_that("fall back to GITHUB_PAT", {
 
 test_that("fall back to GITHUB_TOKEN", {
   env <- c(
-    GH_NO_KEYRING = "true",
+    GH_KEYRING = "false",
     GITHUB_API_URL = "https://github.acme.com",
     GITHUB_PAT_GITHUB_ACME2_COM = "acme2",
     GITHUB_PAT = NA,
@@ -77,7 +77,7 @@ test_that("fall back to GITHUB_TOKEN", {
   })
 
   env2 <- c(
-    GH_NO_KEYRING = "true",
+    GH_KEYRING = "false",
     GITHUB_API_URL = "https://github.acme.com",
     GITHUB_PAT = NA,
     GITHUB_TOKEN = "token"
@@ -88,7 +88,7 @@ test_that("fall back to GITHUB_TOKEN", {
   })
 
   env3 <- c(
-    GH_NO_KEYRING = "true",
+    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_API_GITHUB_COM = NA,
     GITHUB_PAT = NA,

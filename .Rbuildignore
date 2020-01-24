@@ -11,3 +11,4 @@
 ^\.github$
 ^\.Rprofile$
 ^r-packages$
+^revdep$

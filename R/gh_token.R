@@ -14,7 +14,7 @@
 #' into environment variables, read 'Storing PATs in the system keyring'
 #' below.
 #'
-#' @section: PATs for GitHub Enterprise:
+#' @section PATs for GitHub Enterprise:
 #'
 #' gh lets you use different PATs for different GitHub API URLs, by looking
 #' for the PAT in an URL specific environment variable first. It uses

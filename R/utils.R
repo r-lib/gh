@@ -1,4 +1,5 @@
 
+
 trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }
@@ -11,7 +12,7 @@ compact <- function(x) {
 
 ## from purrr, among other places
 `%||%` <- function(x, y) {
-  if (is.null(x)) {
+  if (is.null(x) || length(x) <= 0) {
     y
   } else {
     x

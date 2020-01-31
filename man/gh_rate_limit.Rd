@@ -4,7 +4,12 @@
 \alias{gh_rate_limit}
 \title{Return GitHub user's current rate limits}
 \usage{
-gh_rate_limit(response, .token = NULL, .api_url = NULL, .send_headers = NULL)
+gh_rate_limit(
+  response = NULL,
+  .token = NULL,
+  .api_url = NULL,
+  .send_headers = NULL
+)
 }
 \arguments{
 \item{response}{\code{gh_response} object from a previous \code{gh} call, rate

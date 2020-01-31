@@ -18,8 +18,8 @@
 #'
 #' @export
 
-gh_rate_limit = function(response, .token = NULL, .api_url = NULL, .send_headers = NULL) {
-  if (missing(response)) {
+gh_rate_limit = function(response = NULL, .token = NULL, .api_url = NULL, .send_headers = NULL) {
+  if (is.null(response)) {
     # This end point does not count against limit
     .token <- .token %||% gh_token(.api_url)
     response <- gh("GET /rate_limit", .token = .token,
@@ -30,12 +30,12 @@ gh_rate_limit = function(response, .token = NULL, .api_url = NULL, .send_headers
 
   http_res <- attr(response, "response")
 
-  reset <- as.integer(http_res[["x-ratelimit-reset"]] %||% NA)
+  reset <- as.integer(c(http_res[["x-ratelimit-reset"]], NA)[1])
   reset <- as.POSIXct(reset, origin = "1970-01-01")
 
   list(
-    limit     = as.integer(http_res[["x-ratelimit-limit"]] %||% NA),
-    remaining = as.integer(http_res[["x-ratelimit-remaining"]] %||% NA),
+    limit     = as.integer(c(http_res[["x-ratelimit-limit"]], NA)[1]),
+    remaining = as.integer(c(http_res[["x-ratelimit-remaining"]], NA)[1]),
     reset     = reset
   )
 }

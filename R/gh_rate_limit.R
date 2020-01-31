@@ -1,0 +1,41 @@
+#' Return GitHub user's current rate limits
+#'
+#' Reports the current rate limit status for the authenticated user,
+#' either pulls this information from a previous successful request
+#' or directly from the GitHub API.
+#'
+#' Further details on GitHub's API rate limit policies are available
+#' [here](https://developer.github.com/v3/#rate-limiting)
+#'
+#' @param response `gh_response` object from a previous `gh` call, rate
+#' limit values are determined from values in the response header.
+#' Optional argument, if missing a call to "GET /rate_limit" will be made.
+#'
+#' @inheritParams gh
+#'
+#' @return A `list` object containing the overall `limit`, `remaining` limit, and the
+#' limit `reset` time.
+#'
+#' @export
+
+gh_rate_limit = function(response, .token = NULL, .api_url = NULL, .send_headers = NULL) {
+  if (missing(response)) {
+    # This end point does not count against limit
+    .token <- .token %||% gh_token(.api_url)
+    response <- gh("GET /rate_limit", .token = .token,
+                  .api_url = .api_url, .send_headers = .send_headers)
+  }
+
+  stopifnot(inherits(response, "gh_response"))
+
+  http_res <- attr(response, "response")
+
+  reset <- as.integer(http_res[["x-ratelimit-reset"]] %||% NA)
+  reset <- as.POSIXct(reset, origin = "1970-01-01")
+
+  list(
+    limit     = as.integer(http_res[["x-ratelimit-limit"]] %||% NA),
+    remaining = as.integer(http_res[["x-ratelimit-remaining"]] %||% NA),
+    reset     = reset
+  )
+}

@@ -148,6 +148,41 @@ assignees <- "gh_user"
 assignees <- c("gh_user1", "gh_user2")
 gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
 \dontshow{\}) # examplesIf}
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+## There are two ways to send JSON data. One is that you supply one or
+## more objects that will be converted to JSON automatically via
+## jsonlite::toJSON(). In this case sometimes you need to use
+## jsonlite::unbox() because fromJSON() creates lists from scalar vectors
+## by default. The Content-Type header is automatically added in this
+## case. For example this request turns on GitHub Pages, using this
+## API: https://developer.github.com/v3/repos/pages/#enable-a-pages-site
+
+gh::gh(
+  "POST /repos/:owner/:repo/pages",
+  owner = "gaborcsardi",
+  repo = "playground",
+  source = list(
+    branch = jsonlite::unbox("master"),
+    path = jsonlite::unbox("/docs")
+  ),
+  .send_headers = c(Accept = "application/vnd.github.switcheroo-preview+json")
+)
+
+## The second way is to handle the JSON encoding manually, and supply it
+## as a raw vector in an unnamed argument, and also a Content-Type header:
+
+body <- '{ "source": { "branch": "master", "path": "/docs" } }'
+gh::gh(
+  "POST /repos/:owner/:repo/pages",
+  owner = "gaborcsardi",
+  repo = "playground",
+  charToRaw(body),
+  .send_headers = c(
+    Accept = "application/vnd.github.switcheroo-preview+json",
+    "Content-Type" = "application/json"
+  )
+)
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 Useful links:

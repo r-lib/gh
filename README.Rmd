@@ -48,26 +48,20 @@ you can copy and paste `GET /users/:username/repos` into your `gh()`
 call. E.g.
 
 ```{r}
-my_repos <- gh("GET /users/gaborcsardi/repos")
-vapply(my_repos, "[[", "", "name")
-```
-
-
-Parameters can be passed as extra arguments. E.g.
-
-```{r}
-my_repos <- gh("/user/repos", type = "public")
+my_repos <- gh("GET /users/:username/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
 ```
 
 The JSON result sent by the API is converted to an R object.
 
-If the end point itself has parameters, these can also be passed
-as extra arguments:
+Parameters can be passed as extra arguments. E.g.
 
 ```{r}
-j_repos <- gh("/users/:username/repos", username = "jeroen")
-vapply(j_repos, "[[", "", "name")
+my_public_repos <- gh(
+  "/users/:username/repos",
+  username = "gaborcsardi",
+  type = "public")
+vapply(my_public_repos, "[[", "", "name")
 ```
 
 ### POST, PATCH, PUT and DELETE requests

@@ -146,6 +146,13 @@ vapply(my_repos2, "[[", "", "name")
 #> [26] "prompt"         "R-debugging"    "R-dev-web"      "r-font"         "r-source"
 ```
 
+## Environment Variables
+
++ The `GITHUB_API_URL` environment variable is used for the default github api url. 
++ One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in this
+order, as default token.
+
+
 ## License
 
 MIT © Gábor Csárdi, Jennifer Bryan, Hadley Wickham

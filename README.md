@@ -37,7 +37,10 @@ The first argument of `gh()` is the endpoint. You can just copy and paste the
 API endpoints from the documentation. Note that the leading slash
 must be included as well. 
 
-From [https://developer.github.com/v3/repos/#list-user-repositories](https://developer.github.com/v3/repos/#list-user-repositories) you can copy and paste `GET /users/:username/repos` into your `gh()` call. E.g.
+From
+[https://developer.github.com/v3/repos/#list-user-repositories](https://developer.github.com/v3/repos/#list-user-repositories)
+you can copy and paste `GET /users/:username/repos` into your `gh()`
+call. E.g.
 
 
 ```r
@@ -148,9 +151,10 @@ vapply(my_repos2, "[[", "", "name")
 
 ## Environment Variables
 
-+ The `GITHUB_API_URL` environment variable is used for the default github api url. 
-+ One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in this
-order, as default token.
+* The `GITHUB_API_URL` environment variable is used for the default github
+  api url.
+* One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in
+  this order, as default token.
 
 
 ## License

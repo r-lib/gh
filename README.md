@@ -16,8 +16,8 @@ Minimalistic client to access
 
 ## Installation
 
-
 Install the package from CRAN as usual:
+
 
 ```r
 install.packages("gh")
@@ -33,8 +33,33 @@ library(gh)
 Use the `gh()` function to access all API endpoints. The endpoints are
 listed in the [documentation](https://developer.github.com/v3/).
 
-The first argument of `gh()` is the endpoint. Note that the leading slash
-must be included as well. Parameters can be passed as extra arguments. E.g.
+The first argument of `gh()` is the endpoint. You can just copy and paste the 
+API endpoints from the documentation. Note that the leading slash
+must be included as well. 
+
+From [https://developer.github.com/v3/repos/#list-user-repositories](https://developer.github.com/v3/repos/#list-user-repositories) you can copy and paste `GET /users/:username/repos` into your `gh()` call. E.g.
+
+
+```r
+my_repos <- gh("GET /users/gaborcsardi/repos")
+vapply(my_repos, "[[", "", "name")
+```
+
+```
+#>  [1] "after"               "alexr"               "altlist"            
+#>  [4] "argufy"              "ask"                 "base"               
+#>  [7] "baseimports"         "citest"              "cmaker"             
+#> [10] "covr"                "cranky"              "cranlike-server"    
+#> [13] "curl"                "dbplyr"              "devtools"           
+#> [16] "disposables"         "dot-emacs"           "dotenv"             
+#> [19] "dynex"               "elasticsearch-jetty" "ethel"              
+#> [22] "falsy"               "flowery"             "form-data"          
+#> [25] "franc"               "fswatch"             "gitty"              
+#> [28] "hierformR"           "httpq"               "httr"
+```
+
+
+Parameters can be passed as extra arguments. E.g.
 
 
 ```r
@@ -67,16 +92,14 @@ vapply(j_repos, "[[", "", "name")
 ```
 
 ```
-#>  [1] "apps"               "asantest"           "awk"               
-#>  [4] "base64"             "bcrypt"             "blog"              
-#>  [7] "brotli"             "cheerio"            "cmark"             
-#> [10] "commonmark"         "covr"               "cranlogs"          
-#> [13] "curl"               "cyphr"              "daff"              
-#> [16] "data"               "data.table.extras"  "devtools"          
-#> [19] "DiagrammeR"         "docdbi"             "docplyr"           
-#> [22] "docs-travis-ci-com" "dplyr"              "encode"            
-#> [25] "evaluate"           "feather"            "fib"               
-#> [28] "figures"            "gdtools"            "geojson"
+#>  [1] "2018.erum.io"    "acme"            "agent"           "algebre1"       
+#>  [5] "animation"       "antiword"        "apcf"            "arrow-r-dev"    
+#>  [9] "asantest"        "askpass"         "async"           "attobot"        
+#> [13] "autobrew"        "autobrew-old"    "awk"             "base64"         
+#> [17] "bcrypt"          "betty"           "bigartm"         "bigstatsr"      
+#> [21] "BiocBBSpack"     "blastula"        "blma"            "bookdown_travis"
+#> [25] "bottles"         "brew"            "brotli"          "cheerio"        
+#> [29] "cld3"            "collage"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -115,26 +138,13 @@ vapply(my_repos2, "[[", "", "name")
 ```
 
 ```
-#>  [1] "pkgconfig"               "playground"             
-#>  [3] "praise"                  "prettycode"             
-#>  [5] "prettyunits"             "progress"               
-#>  [7] "prompt"                  "r-font"                 
-#>  [9] "R6"                      "rcorpora"               
-#> [11] "readline"                "remoji"                 
-#> [13] "resume"                  "rhub-presentations"     
-#> [15] "rintrojs"                "roxygen"                
-#> [17] "scidb"                   "spark"                  
-#> [19] "sparklyr"                "splicing"               
-#> [21] "tamper"                  "testthat"               
-#> [23] "trump"                   "user2016-tutorial-shiny"
-#> [25] "webdriver"               "whoami"
+#>  [1] "installlite"    "ISA"            "isc"            "keynote"        "keypress"      
+#>  [6] "load-asciicast" "lpSolve"        "macBriain"      "magick"         "maxygen"       
+#> [11] "MISO"           "msgtools"       "multidplyr"     "node-jenkins"   "node-papi"     
+#> [16] "notifier"       "nsfw"           "oldie"          "pak-talk"       "parr"          
+#> [21] "parsedate"      "pkgbuild"       "playground"     "progress0"      "promises"      
+#> [26] "prompt"         "R-debugging"    "R-dev-web"      "r-font"         "r-source"
 ```
-
-## Environment Variables
-
-+ The `GITHUB_API_URL` environment variable is used for the default github api url. 
-+ One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in this
-order, as default token.
 
 ## License
 

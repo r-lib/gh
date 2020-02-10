@@ -38,22 +38,30 @@ library(gh)
 Use the `gh()` function to access all API endpoints. The endpoints are
 listed in the [documentation](https://developer.github.com/v3/).
 
-The first argument of `gh()` is the endpoint. Note that the leading slash
-must be included as well. Parameters can be passed as extra arguments. E.g.
+The first argument of `gh()` is the endpoint. You can just copy and paste the 
+API endpoints from the documentation. Note that the leading slash
+must be included as well. 
+
+From
+[https://developer.github.com/v3/repos/#list-user-repositories](https://developer.github.com/v3/repos/#list-user-repositories)
+you can copy and paste `GET /users/:username/repos` into your `gh()`
+call. E.g.
 
 ```{r}
-my_repos <- gh("/user/repos", type = "public")
+my_repos <- gh("GET /users/:username/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
 ```
 
 The JSON result sent by the API is converted to an R object.
 
-If the end point itself has parameters, these can also be passed
-as extra arguments:
+Parameters can be passed as extra arguments. E.g.
 
 ```{r}
-j_repos <- gh("/users/:username/repos", username = "jeroen")
-vapply(j_repos, "[[", "", "name")
+my_public_repos <- gh(
+  "/users/:username/repos",
+  username = "gaborcsardi",
+  type = "public")
+vapply(my_public_repos, "[[", "", "name")
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -87,6 +95,14 @@ my_repos2 <- gh("GET /users/:username/repos", username = "gaborcsardi",
   type = "public", page = 2)
 vapply(my_repos2, "[[", "", "name")
 ```
+
+## Environment Variables
+
+* The `GITHUB_API_URL` environment variable is used for the default github
+  api url.
+* One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in
+  this order, as default token.
+
 
 ## License
 

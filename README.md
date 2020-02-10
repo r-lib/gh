@@ -16,8 +16,8 @@ Minimalistic client to access
 
 ## Installation
 
-
 Install the package from CRAN as usual:
+
 
 ```r
 install.packages("gh")
@@ -33,50 +33,58 @@ library(gh)
 Use the `gh()` function to access all API endpoints. The endpoints are
 listed in the [documentation](https://developer.github.com/v3/).
 
-The first argument of `gh()` is the endpoint. Note that the leading slash
-must be included as well. Parameters can be passed as extra arguments. E.g.
+The first argument of `gh()` is the endpoint. You can just copy and paste the 
+API endpoints from the documentation. Note that the leading slash
+must be included as well. 
+
+From
+[https://developer.github.com/v3/repos/#list-user-repositories](https://developer.github.com/v3/repos/#list-user-repositories)
+you can copy and paste `GET /users/:username/repos` into your `gh()`
+call. E.g.
 
 
 ```r
-my_repos <- gh("/user/repos", type = "public")
+my_repos <- gh("GET /users/:username/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
 ```
 
 ```
-#>  [1] "after"               "argufy"              "ask"                
-#>  [4] "baseimports"         "citest"              "clisymbols"         
-#>  [7] "cmaker"              "cmark"               "conditions"         
-#> [10] "crayon"              "debugme"             "devtools"           
-#> [13] "diffobj"             "disposables"         "dotenv"             
-#> [16] "elasticsearch-jetty" "falsy"               "fswatch"            
-#> [19] "gitty"               "httr"                "httrmock"           
-#> [22] "ISA"                 "keypress"            "lintr"              
-#> [25] "macBriain"           "maxygen"             "MISO"               
-#> [28] "parr"                "parsedate"           "pingr"
+#>  [1] "after"               "alexr"               "altlist"            
+#>  [4] "argufy"              "ask"                 "base"               
+#>  [7] "baseimports"         "citest"              "cmaker"             
+#> [10] "covr"                "cranky"              "cranlike-server"    
+#> [13] "curl"                "dbplyr"              "devtools"           
+#> [16] "disposables"         "dot-emacs"           "dotenv"             
+#> [19] "dynex"               "elasticsearch-jetty" "ethel"              
+#> [22] "falsy"               "flowery"             "form-data"          
+#> [25] "franc"               "fswatch"             "gitty"              
+#> [28] "hierformR"           "httpq"               "httr"
 ```
 
 The JSON result sent by the API is converted to an R object.
 
-If the end point itself has parameters, these can also be passed
-as extra arguments:
+Parameters can be passed as extra arguments. E.g.
 
 
 ```r
-j_repos <- gh("/users/:username/repos", username = "jeroen")
-vapply(j_repos, "[[", "", "name")
+my_public_repos <- gh(
+  "/users/:username/repos",
+  username = "gaborcsardi",
+  type = "public")
+vapply(my_public_repos, "[[", "", "name")
 ```
 
 ```
-#>  [1] "apps"               "asantest"           "awk"               
-#>  [4] "base64"             "bcrypt"             "blog"              
-#>  [7] "brotli"             "cheerio"            "cmark"             
-#> [10] "commonmark"         "covr"               "cranlogs"          
-#> [13] "curl"               "cyphr"              "daff"              
-#> [16] "data"               "data.table.extras"  "devtools"          
-#> [19] "DiagrammeR"         "docdbi"             "docplyr"           
-#> [22] "docs-travis-ci-com" "dplyr"              "encode"            
-#> [25] "evaluate"           "feather"            "fib"               
-#> [28] "figures"            "gdtools"            "geojson"
+#>  [1] "after"               "alexr"               "altlist"            
+#>  [4] "argufy"              "ask"                 "base"               
+#>  [7] "baseimports"         "citest"              "cmaker"             
+#> [10] "covr"                "cranky"              "cranlike-server"    
+#> [13] "curl"                "dbplyr"              "devtools"           
+#> [16] "disposables"         "dot-emacs"           "dotenv"             
+#> [19] "dynex"               "elasticsearch-jetty" "ethel"              
+#> [22] "falsy"               "flowery"             "form-data"          
+#> [25] "franc"               "fswatch"             "gitty"              
+#> [28] "hierformR"           "httpq"               "httr"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -115,26 +123,23 @@ vapply(my_repos2, "[[", "", "name")
 ```
 
 ```
-#>  [1] "pkgconfig"               "playground"             
-#>  [3] "praise"                  "prettycode"             
-#>  [5] "prettyunits"             "progress"               
-#>  [7] "prompt"                  "r-font"                 
-#>  [9] "R6"                      "rcorpora"               
-#> [11] "readline"                "remoji"                 
-#> [13] "resume"                  "rhub-presentations"     
-#> [15] "rintrojs"                "roxygen"                
-#> [17] "scidb"                   "spark"                  
-#> [19] "sparklyr"                "splicing"               
-#> [21] "tamper"                  "testthat"               
-#> [23] "trump"                   "user2016-tutorial-shiny"
-#> [25] "webdriver"               "whoami"
+#>  [1] "installlite"    "ISA"            "isc"            "keynote"       
+#>  [5] "keypress"       "load-asciicast" "lpSolve"        "macBriain"     
+#>  [9] "magick"         "maxygen"        "MISO"           "msgtools"      
+#> [13] "multidplyr"     "node-jenkins"   "node-papi"      "notifier"      
+#> [17] "nsfw"           "oldie"          "pak-talk"       "parr"          
+#> [21] "parsedate"      "pkgbuild"       "playground"     "progress0"     
+#> [25] "promises"       "prompt"         "R-debugging"    "R-dev-web"     
+#> [29] "r-font"         "r-source"
 ```
 
 ## Environment Variables
 
-+ The `GITHUB_API_URL` environment variable is used for the default github api url. 
-+ One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in this
-order, as default token.
+* The `GITHUB_API_URL` environment variable is used for the default github
+  api url.
+* One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in
+  this order, as default token.
+
 
 ## License
 

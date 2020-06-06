@@ -1,6 +1,9 @@
 
 # development version
 
+* Fixed an error that occurred when calling `gh()` with `.progress = FALSE` 
+  (@gadenbuie, #115).
+
 # 1.1.0
 
 * Raw reponses from GitHub are now returned as raw vector.

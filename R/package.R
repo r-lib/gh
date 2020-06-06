@@ -190,7 +190,7 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
   res <- gh_process_response(raw)
 
   while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
-    update_progress_bar(prbr, res)
+    if (.progress) update_progress_bar(prbr, res)
     res2 <- gh_next(res)
     res3 <- c(res, res2)
     attributes(res3) <- attributes(res2)

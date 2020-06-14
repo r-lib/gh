@@ -42,6 +42,7 @@ gh_process_response <- function(response) {
 gh_error <- function(response, call = sys.call(-1)) {
   heads <- headers(response)
   res <- content(response)
+  if (length(res) == 0) res <- list(message = "Empty Body")
   status <- status_code(response)
 
   msg <- c(

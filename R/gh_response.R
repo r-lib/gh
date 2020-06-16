@@ -74,7 +74,8 @@ gh_error <- function(response, call = sys.call(-1)) {
   }
   cond <- structure(list(
     call = call,
-    message = paste0(msg, collapse = "\n")
+    message = paste0(msg, collapse = "\n"),
+    response = heads
   ),
   class = c(
     "github_error",

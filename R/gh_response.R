@@ -44,6 +44,10 @@ gh_error <- function(response, call = sys.call(-1)) {
   res <- content(response)
   status <- status_code(response)
 
+  if (!length(res)) {
+    res <- list(message = "Empty Body\n")
+  }
+
   msg <- c(
     "",
     paste0("GitHub API error (", status, "): ", heads$status),
@@ -76,7 +80,7 @@ gh_error <- function(response, call = sys.call(-1)) {
     call = call,
     message = paste0(msg, collapse = "\n"),
     response_headers = heads,
-    response_content = res
+    response_content = content(response)
   ),
   class = c(
     "github_error",

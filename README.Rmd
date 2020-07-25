@@ -12,14 +12,15 @@ knitr::opts_chunk$set(
 
 > GitHub API
 
-[![Linux Build Status](https://travis-ci.org/r-lib/gh.svg?branch=master)](https://travis-ci.org/r-lib/gh)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-lib/gh?svg=true)](https://ci.appveyor.com/project/gaborcsardi/gh)
+<!-- badges: start -->
+[![R build status](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
+[![Codecov test coverage](https://codecov.io/gh/r-lib/gh/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/gh?branch=master)
 [![](http://www.r-pkg.org/badges/version/gh)](http://www.r-pkg.org/pkg/gh)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/gh)](http://www.r-pkg.org/pkg/gh)
-[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/gh/master.svg)](https://codecov.io/github/r-lib/gh?branch=master)
+<!-- badges: end -->
 
-Minimalistic client to access
-[GitHub's API v3](https://developer.github.com/v3/).
+Minimalistic client to access GitHub's
+[REST](https://docs.github.com/en/rest) and [GraphQL](https://docs.github.com/en/graphql) APIs.
 
 ## Installation
 

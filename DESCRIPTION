@@ -2,25 +2,32 @@ Package: gh
 Title: 'GitHub' 'API'
 Version: 1.1.0.9000
 Authors@R:
-    c(person("Gábor", "Csárdi",, "csardi.gabor@gmail.com", c("cre", "ctb")),
-      person("Jennifer", "Bryan", role = "aut"),
-      person("Hadley", "Wickham", role = "aut"))
+    c(person(given = "Gábor",
+             family = "Csárdi",
+             role = c("cre", "ctb"),
+             email = "csardi.gabor@gmail.com"),
+      person(given = "Jennifer",
+             family = "Bryan",
+             role = "aut"),
+      person(given = "Hadley",
+             family = "Wickham",
+             role = "aut"))
 Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
-LazyData: true
 URL: https://github.com/r-lib/gh#readme
 BugReports: https://github.com/r-lib/gh/issues
+Imports:
+    cli (>= 2.0.1),
+    httr (>= 1.2),
+    ini,
+    jsonlite
 Suggests:
     covr,
     keyring,
     pingr,
     testthat,
     withr
-Imports:
-    cli (>= 2.0.1),
-    ini,
-    jsonlite,
-    httr (>= 1.2)
-RoxygenNote: 7.1.1
-Roxygen: { loadNamespace("roxygenlabs"); list(markdown = TRUE) }
 Encoding: UTF-8
+LazyData: true
+Roxygen: { loadNamespace("roxygenlabs"); list(markdown = TRUE) }
+RoxygenNote: 7.1.1

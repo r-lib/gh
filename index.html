@@ -107,16 +107,17 @@
 <span class="co">#&gt; [26] "spark"       "standalones" "svg-term"    "tamper"</span></pre></div>
 <p>The JSON result sent by the API is converted to an R object.</p>
 <p>Parameters can be passed as extra arguments. E.g.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">my_public_repos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(
+<div class="sourceCode" id="cb4"><pre class="r"><span class="no">my_repos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(
   <span class="st">"/users/:username/repos"</span>,
-  <span class="kw">username</span> <span class="kw">=</span> <span class="st">"gaborcsardi"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="no">my_public_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
-<span class="co">#&gt;  [1] "alexr"       "altlist"     "argufy"      "disposables" "dotenv"     </span>
-<span class="co">#&gt;  [6] "falsy"       "franc"       "ISA"         "keynote"     "keypress"   </span>
-<span class="co">#&gt; [11] "lpSolve"     "macBriain"   "maxygen"     "MISO"        "msgtools"   </span>
-<span class="co">#&gt; [16] "notifier"    "parr"        "parsedate"   "prompt"      "r-font"     </span>
-<span class="co">#&gt; [21] "r-source"    "rcorpora"    "roxygenlabs" "sankey"      "secret"     </span>
-<span class="co">#&gt; [26] "spark"       "standalones" "svg-term"    "tamper"</span></pre></div>
+  <span class="kw">username</span> <span class="kw">=</span> <span class="st">"gaborcsardi"</span>,
+  <span class="kw">sort</span> <span class="kw">=</span> <span class="st">"pushed"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="no">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
+<span class="co">#&gt;  [1] "roxygenlabs" "r-source"    "standalones" "secret"      "msgtools"   </span>
+<span class="co">#&gt;  [6] "parr"        "sankey"      "franc"       "svg-term"    "lpSolve"    </span>
+<span class="co">#&gt; [11] "r-font"      "falsy"       "ISA"         "rcorpora"    "spark"      </span>
+<span class="co">#&gt; [16] "disposables" "dotenv"      "alexr"       "prompt"      "parsedate"  </span>
+<span class="co">#&gt; [21] "altlist"     "keypress"    "keynote"     "notifier"    "argufy"     </span>
+<span class="co">#&gt; [26] "tamper"      "maxygen"     "MISO"        "macBriain"</span></pre></div>
 <div id="post-patch-put-and-delete-requests" class="section level3">
 <h3 class="hasAnchor">
 <a href="#post-patch-put-and-delete-requests" class="anchor"></a>POST, PATCH, PUT and DELETE requests</h3>

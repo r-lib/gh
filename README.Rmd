@@ -1,11 +1,16 @@
+---
+output: github_document
+---
 
-```{r, setup, echo = FALSE, message = FALSE}
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
+  collapse = TRUE,
   comment = "#>",
-  tidy = FALSE,
-  error = FALSE,
-  fig.width = 8,
-  fig.height = 8)
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
 ```
 
 # gh
@@ -60,8 +65,7 @@ Parameters can be passed as extra arguments. E.g.
 ```{r}
 my_public_repos <- gh(
   "/users/:username/repos",
-  username = "gaborcsardi",
-  type = "public")
+  username = "gaborcsardi")
 vapply(my_public_repos, "[[", "", "name")
 ```
 
@@ -92,8 +96,7 @@ one can set the `.token` argument of `gh()`.
 Supply the `page` parameter to get subsequent pages:
 
 ```{r}
-my_repos2 <- gh("GET /users/:username/repos", username = "gaborcsardi",
-  type = "public", page = 2)
+my_repos2 <- gh("GET /orgs/:org/repos", org = "r-lib", page = 2)
 vapply(my_repos2, "[[", "", "name")
 ```
 

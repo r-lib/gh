@@ -61,16 +61,17 @@ The JSON result sent by the API is converted to an R object.
 Parameters can be passed as extra arguments. E.g.
 
 ``` r
-my_public_repos <- gh(
+my_repos <- gh(
   "/users/:username/repos",
-  username = "gaborcsardi")
-vapply(my_public_repos, "[[", "", "name")
-#>  [1] "alexr"       "altlist"     "argufy"      "disposables" "dotenv"     
-#>  [6] "falsy"       "franc"       "ISA"         "keynote"     "keypress"   
-#> [11] "lpSolve"     "macBriain"   "maxygen"     "MISO"        "msgtools"   
-#> [16] "notifier"    "parr"        "parsedate"   "prompt"      "r-font"     
-#> [21] "r-source"    "rcorpora"    "roxygenlabs" "sankey"      "secret"     
-#> [26] "spark"       "standalones" "svg-term"    "tamper"
+  username = "gaborcsardi",
+  sort = "pushed")
+vapply(my_repos, "[[", "", "name")
+#>  [1] "roxygenlabs" "r-source"    "standalones" "secret"      "msgtools"   
+#>  [6] "parr"        "sankey"      "franc"       "svg-term"    "lpSolve"    
+#> [11] "r-font"      "falsy"       "ISA"         "rcorpora"    "spark"      
+#> [16] "disposables" "dotenv"      "alexr"       "prompt"      "parsedate"  
+#> [21] "altlist"     "keypress"    "keynote"     "notifier"    "argufy"     
+#> [26] "tamper"      "maxygen"     "MISO"        "macBriain"
 ```
 
 ### POST, PATCH, PUT and DELETE requests

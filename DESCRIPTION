@@ -24,8 +24,7 @@ Imports:
 Suggests:
     covr,
     keyring,
-    pingr,
-    testthat,
+    testthat (>= 2.3.2),
     withr
 Encoding: UTF-8
 LazyData: true

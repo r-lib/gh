@@ -3,7 +3,7 @@ context("repos")
 
 test_that("repos, some basics", {
 
-  skip_if_offline()
+  skip_if_offline("github.com")
   skip_on_cran()
   skip("needs mocking")
 
@@ -106,7 +106,7 @@ test_that("repos, some basics", {
 })
 
 test_that("repo files", {
-  skip_if_offline()
+  skip_if_offline("github.com")
   skip_on_cran()
   skip("needs mocking")
 

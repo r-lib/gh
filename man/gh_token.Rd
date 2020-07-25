@@ -65,7 +65,7 @@ name, then the \code{GITHUB_PAT} key, etc. Such a check looks like this:\if{html
 }\if{html}{\out{</div>}}
 
 and it uses the default keyring backend and the default keyring within
-that backend. See \code{\link[keyring:default_backend]{keyring::default_backend()}} for details and changing
+that backend. See \code{\link[keyring:backends]{keyring::default_backend()}} for details and changing
 these defaults.
 
 If the selected keyring is locked, and the session is interactive,

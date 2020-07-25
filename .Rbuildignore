@@ -12,3 +12,6 @@
 ^\.Rprofile$
 ^r-packages$
 ^revdep$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

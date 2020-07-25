@@ -1,0 +1,9 @@
+url: https://gh.r-lib.org
+
+authors:
+   Jennifer Bryan:
+     href: https://jennybryan.org
+
+template:
+  params:
+    ganalytics: UA-115082821-1

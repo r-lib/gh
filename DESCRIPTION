@@ -24,9 +24,11 @@ Imports:
 Suggests:
     covr,
     keyring,
+    spelling,
     testthat (>= 2.3.2),
     withr
 Encoding: UTF-8
+Language: en-US
 LazyData: true
 Roxygen: { loadNamespace("roxygenlabs"); list(markdown = TRUE) }
 RoxygenNote: 7.1.1

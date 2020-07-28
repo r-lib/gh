@@ -135,3 +135,16 @@ gh_set_dest <- function(x) {
   }
   x
 }
+
+# helpers ----
+# https://tools.ietf.org/html/rfc6570
+# we support what the RFC calls "Level 1 templates", which only require
+# simple string expansion of a placeholder consisting of [A-Za-z0-9_]
+is_template <- function(x) {
+ is_colon_template(x) || is_uri_template(x)
+}
+
+is_colon_template <- function(x) grepl(":", x)
+
+is_uri_template <- function(x) grepl("[{]\\w+?[}]", x)
+

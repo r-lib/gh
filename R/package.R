@@ -37,11 +37,11 @@
 #' @param per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).
-#' @param .destfile path to write response to disk.  If NULL (default), response will
-#'   be processed and returned as an object.  If path is given, response will
-#'   be written to disk in the form sent.
-#' @param .overwrite if `.destfile` is provided, whether to overwrite an
-#'   existing file.  Defaults to FALSE.
+#' @param .destfile Path to write response to disk. If `NULL` (default),
+#'   response will be processed and returned as an object. If path is given,
+#'   response will be written to disk in the form sent.
+#' @param .overwrite If `.destfile` is provided, whether to overwrite an
+#'   existing file.  Defaults to `FALSE`.
 #' @param .token Authentication token. Defaults to `GITHUB_PAT` or
 #'   `GITHUB_TOKEN` environment variables, in this order if any is set.
 #'   See [gh_token()] if you need more flexibility, e.g. different tokens

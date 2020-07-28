@@ -99,14 +99,6 @@ gh_set_body <- function(x) {
   x
 }
 
-gh_set_headers <- function(x) {
-  # x$api_url must be set properly at this point
-  auth <- gh_auth(x$token %||% gh_token(x$api_url))
-  send_headers <- gh_send_headers(x$accept, x$send_headers)
-  x$headers <- c(send_headers, auth)
-  x
-}
-
 gh_set_url <- function(x) {
   if (grepl("^https?://", x$endpoint)) {
     x$url <- URLencode(x$endpoint)
@@ -119,13 +111,11 @@ gh_set_url <- function(x) {
   x
 }
 
-#' @importFrom httr write_disk write_memory
-gh_set_dest <- function(x) {
-  if (is.null(x$dest)) {
-    x$dest <- write_memory()
-  } else {
-    x$dest <- write_disk(x$dest, overwrite = x$overwrite)
-  }
+gh_set_headers <- function(x) {
+  # x$api_url must be set properly at this point
+  auth <- gh_auth(x$token %||% gh_token(x$api_url))
+  send_headers <- gh_send_headers(x$accept, x$send_headers)
+  x$headers <- c(send_headers, auth)
   x
 }
 
@@ -134,4 +124,14 @@ gh_send_headers <- function(accept_header = NULL, headers = NULL) {
     modify_vector(default_send_headers, accept_header),
     headers
   )
+}
+
+#' @importFrom httr write_disk write_memory
+gh_set_dest <- function(x) {
+  if (is.null(x$dest)) {
+    x$dest <- write_memory()
+  } else {
+    x$dest <- write_disk(x$dest, overwrite = x$overwrite)
+  }
+  x
 }

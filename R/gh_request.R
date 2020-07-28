@@ -49,7 +49,7 @@ gh_set_verb <- function(x) {
 
 gh_set_endpoint <- function(x) {
   params <- x$params
-  if (!grepl(":", x$endpoint) || length(params) == 0L || has_no_names(params)) {
+  if (!is_template(x$endpoint) || length(params) == 0L || has_no_names(params)) {
     return(x)
   }
 

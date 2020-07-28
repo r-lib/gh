@@ -23,3 +23,15 @@ test_that("parameter substitution is equivalent to direct specification", {
                      params = list("body"))
   expect_identical(subst, spec)
 })
+
+test_that("URI templates that need expansion are detected", {
+  expect_true(is_uri_template("/orgs/{org}/repos"))
+  expect_true(is_uri_template("/repos/{owner}/{repo}"))
+  expect_false(is_uri_template("/user/repos"))
+})
+
+test_that("older 'colon templates' are detected", {
+  expect_true(is_colon_template("/orgs/:org/repos"))
+  expect_true(is_colon_template("/repos/:owner/:repo"))
+  expect_false(is_colon_template("/user/repos"))
+})

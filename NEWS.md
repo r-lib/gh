@@ -1,10 +1,9 @@
-
-# development version
+# gh (development version)
 
 * Fixed an error that occurred when calling `gh()` with `.progress = FALSE` 
   (@gadenbuie, #115).
 
-# 1.1.0
+# gh 1.1.0
 
 * Raw reponses from GitHub are now returned as raw vector.
 
@@ -34,6 +33,6 @@
 
 * `gh()` can now POST raw data, which allows adding assets to releases (#56).
 
-# 1.0.1
+# gh 1.0.1
 
 First public release.

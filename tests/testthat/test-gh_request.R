@@ -1,5 +1,3 @@
-context("build_request")
-
 test_that("all forms of specifying endpoint are equivalent", {
   r1 <- gh_build_request("GET /rate_limit")
   expect_equal(r1$method, "GET")

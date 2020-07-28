@@ -58,12 +58,17 @@ gh_set_endpoint <- function(x) {
   endpoint <- endpoint2 <- x$endpoint
 
   for (i in named_params) {
-    n <- names(params)[i]
-    p <- params[[i]][1]
-    endpoint2 <- gsub(paste0(":", n, "\\b"), p, endpoint)
+    endpoint2 <- expand_variable(
+      varname  = names(params)[i],
+      value    = params[[i]][1],
+      template = endpoint
+    )
     if (endpoint2 != endpoint) {
       endpoint <- endpoint2
       done[i] <- TRUE
+    }
+    if (!is_template(endpoint)) {
+      break
     }
   }
 
@@ -71,7 +76,6 @@ gh_set_endpoint <- function(x) {
   x$params <- x$params[!done]
   x$params <- cleanse_names(x$params)
   x
-
 }
 
 gh_set_query <- function(x) {
@@ -148,3 +152,25 @@ is_colon_template <- function(x) grepl(":", x)
 
 is_uri_template <- function(x) grepl("[{]\\w+?[}]", x)
 
+template_type <- function(x) {
+  if (is_uri_template(x)) {
+    return("uri")
+  }
+  if (is_colon_template(x)) {
+    return("colon")
+  }
+}
+
+expand_variable <- function(varname, value, template) {
+  type <- template_type(template)
+  if (is.null(type)) {
+    return(template)
+  }
+  pattern <- switch(
+    type,
+    uri   = paste0("[{]", varname, "[}]"),
+    colon = paste0(":",   varname, "\\b"),
+    stop("Internal error: unrecognized template type")
+  )
+  gsub(pattern, value, template)
+}

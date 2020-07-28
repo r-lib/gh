@@ -35,3 +35,35 @@ test_that("older 'colon templates' are detected", {
   expect_true(is_colon_template("/repos/:owner/:repo"))
   expect_false(is_colon_template("/user/repos"))
 })
+
+test_that("gh_set_endpoint() works", {
+  # no expansion, no extra params
+  input <- list(endpoint = "/user/repos")
+  expect_equal(input, gh_set_endpoint(input))
+
+  # no expansion, with extra params
+  input <- list(endpoint = "/user/repos", params = list(page = 2))
+  expect_equal(input, gh_set_endpoint(input))
+
+  # expansion, no extra params
+  input <- list(
+    endpoint = "/repos/{owner}/{repo}",
+    params = list(owner = "OWNER", repo = "REPO")
+  )
+  out <- gh_set_endpoint(input)
+  expect_equal(
+    out,
+    list(endpoint = "/repos/OWNER/REPO", params = list())
+  )
+
+  # expansion, with extra params
+  input <- list(
+    endpoint = "/repos/{owner}/{repo}/issues",
+    params = list(owner = "OWNER", repo = "REPO", state = "open")
+  )
+  out <- gh_set_endpoint(input)
+  expect_equal(
+    out,
+    list(endpoint = "/repos/OWNER/REPO/issues", params = list(state = "open"))
+  )
+})

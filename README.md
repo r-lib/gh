@@ -3,8 +3,6 @@
 
 # gh
 
-> GitHub API
-
 <!-- badges: start -->
 
 [![R build
@@ -66,7 +64,7 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "pushed")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "roxygenlabs" "r-source"    "standalones" "secret"      "msgtools"   
+#>  [1] "r-source"    "roxygenlabs" "standalones" "secret"      "msgtools"   
 #>  [6] "parr"        "sankey"      "franc"       "svg-term"    "lpSolve"    
 #> [11] "r-font"      "falsy"       "ISA"         "rcorpora"    "spark"      
 #> [16] "disposables" "dotenv"      "alexr"       "prompt"      "parsedate"  

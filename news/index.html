@@ -124,6 +124,37 @@
       <small>Source: <a href='https://github.com/r-lib/gh/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="gh-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#gh-development-version" class="anchor"></a>gh (development version)<small> Unreleased </small>
+</h1>
+<ul>
+<li>Fixed an error that occurred when calling <code><a href="../reference/gh.html">gh()</a></code> with <code>.progress = FALSE</code> (<a href='https://github.com/gadenbuie'>@gadenbuie</a>, <a href='https://github.com/r-lib/gh/issues/115'>#115</a>).</li>
+</ul>
+</div>
+    <div id="gh-110" class="section level1">
+<h1 class="page-header" data-toc-text="1.1.0">
+<a href="#gh-110" class="anchor"></a>gh 1.1.0<small> 2020-01-24 </small>
+</h1>
+<ul>
+<li><p>Raw reponses from GitHub are now returned as raw vector.</p></li>
+<li><p>Responses may be wrtten to disk by providing a path in the <code>.destfile</code> argument.</p></li>
+<li><p>gh now sets <code>.Last.error</code> to the error object after an uncaught error, and <code>.Last.error.trace</code> to the stack trace of the error.</p></li>
+<li><p><code><a href="../reference/gh.html">gh()</a></code> now silently drops named <code>NULL</code> parameters, and throws an error for named <code>NA</code> parameters (<a href='https://github.com/r-lib/gh/issues/21'>#21</a>, <a href='https://github.com/r-lib/gh/issues/84'>#84</a>).</p></li>
+<li><p><code><a href="../reference/gh.html">gh()</a></code> now returns better values for empty responses, typically empty lists or dictionaries (<a href='https://github.com/r-lib/gh/issues/66'>#66</a>).</p></li>
+<li><p><code><a href="../reference/gh.html">gh()</a></code> now has an <code>.accept</code> argument to make it easier to set the <code>Accept</code> HTTP header (<a href='https://github.com/r-lib/gh/issues/91'>#91</a>).</p></li>
+<li><p>New <code><a href="../reference/gh_gql.html">gh_gql()</a></code> function to make it easier to work with the GitHub GraphQL API.</p></li>
+<li><p>gh now supports separate personal access tokens for GitHub Enterprise sites. See <code><a href="../reference/gh_token.html">?gh_token</a></code> for details.</p></li>
+<li><p>gh now supports storing your GitHub personal access tokens (PAT) in the system keyring, via the keyring package. See <code><a href="../reference/gh_token.html">?gh_token</a></code> for details.</p></li>
+<li><p><code><a href="../reference/gh.html">gh()</a></code> can now POST raw data, which allows adding assets to releases (<a href='https://github.com/r-lib/gh/issues/56'>#56</a>).</p></li>
+</ul>
+</div>
+    <div id="gh-101" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.1">
+<a href="#gh-101" class="anchor"></a>gh 1.0.1<small> 2017-07-16 </small>
+</h1>
+<p>First public release.</p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -141,7 +172,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -153,18 +153,18 @@ body, as JSON.</p></li>
     </div>
 
     <pre class="usage"><span class='fu'>gh</span>(
-  <span class='no'>endpoint</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>per_page</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.destfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.api_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.method</span> <span class='kw'>=</span> <span class='st'>"GET"</span>,
-  <span class='kw'>.limit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.accept</span> <span class='kw'>=</span> <span class='st'>"application/vnd.github.v3+json"</span>,
-  <span class='kw'>.send_headers</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.progress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>endpoint</span>,
+  <span class='kw'>...</span>,
+  per_page = <span class='kw'>NULL</span>,
+  .token = <span class='kw'>NULL</span>,
+  .destfile = <span class='kw'>NULL</span>,
+  .overwrite = <span class='fl'>FALSE</span>,
+  .api_url = <span class='kw'>NULL</span>,
+  .method = <span class='st'>"GET"</span>,
+  .limit = <span class='kw'>NULL</span>,
+  .accept = <span class='st'>"application/vnd.github.v3+json"</span>,
+  .send_headers = <span class='kw'>NULL</span>,
+  .progress = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -275,16 +275,25 @@ generate a raw response will return a raw vector.</p>
 
 <p><code><a href='gh_gql.html'>gh_gql()</a></code> if you want to use the GitHub GraphQL API,
 <code><a href='gh_whoami.html'>gh_whoami()</a></code> for details on GitHub API token management.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p><strong>Maintainer</strong>: Gábor Csárdi <a href='mailto:csardi.gabor@gmail.com'>csardi.gabor@gmail.com</a> [contributor]</p>
+<p>Authors:</p><ul>
+<li><p>Jennifer Bryan</p></li>
+<li><p>Hadley Wickham</p></li>
+</ul>
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"IN_PKGDOWN"</span>), <span class='st'>"true"</span>)) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"IN_PKGDOWN"</span>), <span class='st'>"true"</span>)) (<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='op'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='kw'>withAutoprint</span> <span class='co'>else</span> <span class='kw'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## Repositories of a user, these are equivalent</span>
 <span class='fu'>gh</span>(<span class='st'>"/users/hadley/repos"</span>)
-<span class='fu'>gh</span>(<span class='st'>"/users/:username/repos"</span>, <span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>)
+<span class='fu'>gh</span>(<span class='st'>"/users/:username/repos"</span>, username = <span class='st'>"hadley"</span>)
 
 <span class='co'>## Starred repositories of a user</span>
 <span class='fu'>gh</span>(<span class='st'>"/users/hadley/starred"</span>)
-<span class='fu'>gh</span>(<span class='st'>"/users/:username/starred"</span>, <span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>)
+<span class='fu'>gh</span>(<span class='st'>"/users/:username/starred"</span>, username = <span class='st'>"hadley"</span>)
 }) <span class='co'># examplesIf</span></div><div class='output co'>#&gt; &gt; gh("/users/hadley/repos")
 #&gt; [
 #&gt;   {
@@ -6973,7 +6982,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": false,
 #&gt;     "has_pages": true,
-#&gt;     "forks_count": 1279,
+#&gt;     "forks_count": 1278,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
@@ -6985,7 +6994,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "url": {},
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
-#&gt;     "forks": 1279,
+#&gt;     "forks": 1278,
 #&gt;     "open_issues": 69,
 #&gt;     "watchers": 3428,
 #&gt;     "default_branch": "master",
@@ -7686,7 +7695,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/google/cctz/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/google/cctz/deployments",
 #&gt;     "created_at": "2015-09-14T14:42:18Z",
-#&gt;     "updated_at": "2020-07-27T19:14:23Z",
+#&gt;     "updated_at": "2020-07-28T19:50:38Z",
 #&gt;     "pushed_at": "2020-07-27T19:14:20Z",
 #&gt;     "git_url": "git://github.com/google/cctz.git",
 #&gt;     "ssh_url": "git@github.com:google/cctz.git",
@@ -8607,7 +8616,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/dkahle/ggmap/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/dkahle/ggmap/deployments",
 #&gt;     "created_at": "2011-11-29T17:14:54Z",
-#&gt;     "updated_at": "2020-07-27T09:36:47Z",
+#&gt;     "updated_at": "2020-07-28T20:55:41Z",
 #&gt;     "pushed_at": "2020-06-17T18:52:40Z",
 #&gt;     "git_url": "git://github.com/dkahle/ggmap.git",
 #&gt;     "ssh_url": "git@github.com:dkahle/ggmap.git",
@@ -8615,8 +8624,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/dkahle/ggmap",
 #&gt;     "homepage": "",
 #&gt;     "size": 28630,
-#&gt;     "stargazers_count": 606,
-#&gt;     "watchers_count": 606,
+#&gt;     "stargazers_count": 607,
+#&gt;     "watchers_count": 607,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
@@ -8631,7 +8640,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "license": {},
 #&gt;     "forks": 218,
 #&gt;     "open_issues": 101,
-#&gt;     "watchers": 606,
+#&gt;     "watchers": 607,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -10036,7 +10045,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": false,
 #&gt;     "has_pages": true,
-#&gt;     "forks_count": 1279,
+#&gt;     "forks_count": 1278,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
@@ -10048,7 +10057,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "url": {},
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
-#&gt;     "forks": 1279,
+#&gt;     "forks": 1278,
 #&gt;     "open_issues": 69,
 #&gt;     "watchers": 3428,
 #&gt;     "default_branch": "master",
@@ -10749,7 +10758,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/google/cctz/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/google/cctz/deployments",
 #&gt;     "created_at": "2015-09-14T14:42:18Z",
-#&gt;     "updated_at": "2020-07-27T19:14:23Z",
+#&gt;     "updated_at": "2020-07-28T19:50:38Z",
 #&gt;     "pushed_at": "2020-07-27T19:14:20Z",
 #&gt;     "git_url": "git://github.com/google/cctz.git",
 #&gt;     "ssh_url": "git@github.com:google/cctz.git",
@@ -11670,7 +11679,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/dkahle/ggmap/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/dkahle/ggmap/deployments",
 #&gt;     "created_at": "2011-11-29T17:14:54Z",
-#&gt;     "updated_at": "2020-07-27T09:36:47Z",
+#&gt;     "updated_at": "2020-07-28T20:55:41Z",
 #&gt;     "pushed_at": "2020-06-17T18:52:40Z",
 #&gt;     "git_url": "git://github.com/dkahle/ggmap.git",
 #&gt;     "ssh_url": "git@github.com:dkahle/ggmap.git",
@@ -11678,8 +11687,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/dkahle/ggmap",
 #&gt;     "homepage": "",
 #&gt;     "size": 28630,
-#&gt;     "stargazers_count": 606,
-#&gt;     "watchers_count": 606,
+#&gt;     "stargazers_count": 607,
+#&gt;     "watchers_count": 607,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
@@ -11694,7 +11703,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "license": {},
 #&gt;     "forks": 218,
 #&gt;     "open_issues": 101,
-#&gt;     "watchers": 606,
+#&gt;     "watchers": 607,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -12500,19 +12509,19 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "pull": false
 #&gt;     }
 #&gt;   }
-#&gt; ] </div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
+#&gt; ] </div><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) (<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='op'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='kw'>withAutoprint</span> <span class='co'>else</span> <span class='kw'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)</span>
 <span class='co'>## environment variable</span>
-<span class='fu'>gh</span>(<span class='st'>"POST /user/repos"</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"foobar"</span>)
+<span class='fu'>gh</span>(<span class='st'>"POST /user/repos"</span>, name = <span class='st'>"foobar"</span>)
 }) <span class='co'># examplesIf</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"IN_PKGDOWN"</span>), <span class='st'>"true"</span>)) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
+<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"IN_PKGDOWN"</span>), <span class='st'>"true"</span>)) (<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='op'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='kw'>withAutoprint</span> <span class='co'>else</span> <span class='kw'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## Issues of a repository</span>
 <span class='fu'>gh</span>(<span class='st'>"/repos/hadley/dplyr/issues"</span>)
-<span class='fu'>gh</span>(<span class='st'>"/repos/:owner/:repo/issues"</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>, <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"dplyr"</span>)
+<span class='fu'>gh</span>(<span class='st'>"/repos/:owner/:repo/issues"</span>, owner = <span class='st'>"hadley"</span>, repo = <span class='st'>"dplyr"</span>)
 
 <span class='co'>## Automatic pagination</span>
-<span class='no'>users</span> <span class='kw'>&lt;-</span> <span class='fu'>gh</span>(<span class='st'>"/users"</span>, <span class='kw'>.limit</span> <span class='kw'>=</span> <span class='fl'>50</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>users</span>)
+<span class='kw'>users</span> <span class='op'>&lt;-</span> <span class='fu'>gh</span>(<span class='st'>"/users"</span>, .limit = <span class='fl'>50</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>users</span>)
 }) <span class='co'># examplesIf</span></div><div class='output co'>#&gt; &gt; gh("/repos/hadley/dplyr/issues")
 #&gt; [
 #&gt;   {
@@ -15657,24 +15666,24 @@ generate a raw response will return a raw vector.</p>
 #&gt; ] 
 #&gt; &gt; users &lt;- gh("/users", .limit = 50)
 #&gt; &gt; length(users)
-#&gt; [1] 50</div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
+#&gt; [1] 50</div><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) (<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='op'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='kw'>withAutoprint</span> <span class='co'>else</span> <span class='kw'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## Access developer preview of Licenses API (in preview as of 2015-09-24)</span>
 <span class='fu'>gh</span>(<span class='st'>"/licenses"</span>) <span class='co'># used to error code 415</span>
-<span class='fu'>gh</span>(<span class='st'>"/licenses"</span>, <span class='kw'>.accept</span> <span class='kw'>=</span> <span class='st'>"application/vnd.github.drax-preview+json"</span>)
+<span class='fu'>gh</span>(<span class='st'>"/licenses"</span>, .accept = <span class='st'>"application/vnd.github.drax-preview+json"</span>)
 }) <span class='co'># examplesIf</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) (<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='op'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='kw'>withAutoprint</span> <span class='co'>else</span> <span class='kw'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## Access Github Enterprise API</span>
 <span class='co'>## Use GITHUB_API_URL environment variable to change the default.</span>
-<span class='fu'>gh</span>(<span class='st'>"/user/repos"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"public"</span>, <span class='kw'>.api_url</span> <span class='kw'>=</span> <span class='st'>"https://github.foobar.edu/api/v3"</span>)
+<span class='fu'>gh</span>(<span class='st'>"/user/repos"</span>, type = <span class='st'>"public"</span>, .api_url = <span class='st'>"https://github.foobar.edu/api/v3"</span>)
 }) <span class='co'># examplesIf</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) (<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='op'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='kw'>withAutoprint</span> <span class='co'>else</span> <span class='kw'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## Use I() to force body part to be sent as an array, even if length 1</span>
 <span class='co'>## This works whether assignees has length 1 or &gt; 1</span>
-<span class='no'>assignees</span> <span class='kw'>&lt;-</span> <span class='st'>"gh_user"</span>
-<span class='no'>assignees</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gh_user1"</span>, <span class='st'>"gh_user2"</span>)
-<span class='fu'>gh</span>(<span class='st'>"PATCH /repos/OWNER/REPO/issues/1"</span>, <span class='kw'>assignees</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>(<span class='no'>assignees</span>))
+<span class='kw'>assignees</span> <span class='op'>&lt;-</span> <span class='st'>"gh_user"</span>
+<span class='kw'>assignees</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"gh_user1"</span>, <span class='st'>"gh_user2"</span>)
+<span class='fu'>gh</span>(<span class='st'>"PATCH /repos/OWNER/REPO/issues/1"</span>, assignees = <span class='fu'><a href='https://rdrr.io/r/base/AsIs.html'>I</a></span>(<span class='kw'>assignees</span>))
 }) <span class='co'># examplesIf</span>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
+<span class='co'>if</span> (<span class='fl'>FALSE</span>) (<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='op'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='kw'>withAutoprint</span> <span class='co'>else</span> <span class='kw'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## There are two ways to send JSON data. One is that you supply one or</span>
 <span class='co'>## more objects that will be converted to JSON automatically via</span>
 <span class='co'>## jsonlite::toJSON(). In this case sometimes you need to use</span>
@@ -15683,29 +15692,29 @@ generate a raw response will return a raw vector.</p>
 <span class='co'>## case. For example this request turns on GitHub Pages, using this</span>
 <span class='co'>## API: https://developer.github.com/v3/repos/pages/#enable-a-pages-site</span>
 
-<span class='kw pkg'>gh</span><span class='kw ns'>::</span><span class='fu'>gh</span>(
+<span class='kw'>gh</span>::<span class='fu'>gh</span>(
   <span class='st'>"POST /repos/:owner/:repo/pages"</span>,
-  <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"gaborcsardi"</span>,
-  <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"playground"</span>,
-  <span class='kw'>source</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-    <span class='kw'>branch</span> <span class='kw'>=</span> <span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='https://jeroen.cran.dev/jsonlite/reference/unbox.html'>unbox</a></span>(<span class='st'>"master"</span>),
-    <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='https://jeroen.cran.dev/jsonlite/reference/unbox.html'>unbox</a></span>(<span class='st'>"/docs"</span>)
+  owner = <span class='st'>"gaborcsardi"</span>,
+  repo = <span class='st'>"playground"</span>,
+  source = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
+    branch = <span class='kw'>jsonlite</span>::<span class='fu'><a href='https://jeroen.cran.dev/jsonlite/reference/unbox.html'>unbox</a></span>(<span class='st'>"master"</span>),
+    path = <span class='kw'>jsonlite</span>::<span class='fu'><a href='https://jeroen.cran.dev/jsonlite/reference/unbox.html'>unbox</a></span>(<span class='st'>"/docs"</span>)
   ),
-  <span class='kw'>.send_headers</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>Accept</span> <span class='kw'>=</span> <span class='st'>"application/vnd.github.switcheroo-preview+json"</span>)
+  .send_headers = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(Accept = <span class='st'>"application/vnd.github.switcheroo-preview+json"</span>)
 )
 
 <span class='co'>## The second way is to handle the JSON encoding manually, and supply it</span>
 <span class='co'>## as a raw vector in an unnamed argument, and also a Content-Type header:</span>
 
-<span class='no'>body</span> <span class='kw'>&lt;-</span> <span class='st'>'{ "source": { "branch": "master", "path": "/docs" } }'</span>
-<span class='kw pkg'>gh</span><span class='kw ns'>::</span><span class='fu'>gh</span>(
+<span class='kw'>body</span> <span class='op'>&lt;-</span> <span class='st'>'{ "source": { "branch": "master", "path": "/docs" } }'</span>
+<span class='kw'>gh</span>::<span class='fu'>gh</span>(
   <span class='st'>"POST /repos/:owner/:repo/pages"</span>,
-  <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"gaborcsardi"</span>,
-  <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"playground"</span>,
-  <span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span>(<span class='no'>body</span>),
-  <span class='kw'>.send_headers</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
-    <span class='kw'>Accept</span> <span class='kw'>=</span> <span class='st'>"application/vnd.github.switcheroo-preview+json"</span>,
-    <span class='st'>"Content-Type"</span> <span class='kw'>=</span> <span class='st'>"application/json"</span>
+  owner = <span class='st'>"gaborcsardi"</span>,
+  repo = <span class='st'>"playground"</span>,
+  <span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span>(<span class='kw'>body</span>),
+  .send_headers = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
+    Accept = <span class='st'>"application/vnd.github.switcheroo-preview+json"</span>,
+    <span class='st'>"Content-Type"</span> = <span class='st'>"application/json"</span>
   )
 )
 }) <span class='co'># examplesIf</span></div></pre>
@@ -15724,7 +15733,7 @@ generate a raw response will return a raw vector.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

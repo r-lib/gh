@@ -133,13 +133,13 @@ https://developer.github.com/v4/" />
     </div>
 
     <pre class="usage"><span class='fu'>gh_gql</span>(
-  <span class='no'>query</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>.token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.destfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>.api_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>.send_headers</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>query</span>,
+  <span class='kw'>...</span>,
+  .token = <span class='kw'>NULL</span>,
+  .destfile = <span class='kw'>NULL</span>,
+  .overwrite = <span class='fl'>FALSE</span>,
+  .api_url = <span class='kw'>NULL</span>,
+  .send_headers = <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -202,7 +202,7 @@ If you need pagination with GraphQL, you'll need to do that manually.</p>
     <div class='dont-index'><p><code><a href='gh.html'>gh()</a></code> for the GitHub v3 API.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) (<span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='op'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='kw'>withAutoprint</span> <span class='co'>else</span> <span class='kw'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='fu'>gh_gql</span>(<span class='st'>"query { viewer { login }}"</span>)
 }) <span class='co'># examplesIf</span></div></pre>
   </div>
@@ -220,7 +220,7 @@ If you need pagination with GraphQL, you'll need to do that manually.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

@@ -62,14 +62,14 @@ Parameters can be passed as extra arguments. E.g.
 my_repos <- gh(
   "/users/:username/repos",
   username = "gaborcsardi",
-  sort = "pushed")
+  sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "r-source"    "roxygenlabs" "standalones" "secret"      "msgtools"   
-#>  [6] "parr"        "sankey"      "franc"       "svg-term"    "lpSolve"    
-#> [11] "r-font"      "falsy"       "ISA"         "rcorpora"    "spark"      
-#> [16] "disposables" "dotenv"      "alexr"       "prompt"      "parsedate"  
-#> [21] "altlist"     "keypress"    "keynote"     "notifier"    "argufy"     
-#> [26] "tamper"      "maxygen"     "MISO"        "macBriain"
+#>  [1] "keynote"     "lpSolve"     "roxygenlabs" "standalones" "altlist"    
+#>  [6] "svg-term"    "franc"       "sankey"      "r-source"    "secret"     
+#> [11] "msgtools"    "notifier"    "prompt"      "parr"        "tamper"     
+#> [16] "alexr"       "argufy"      "maxygen"     "keypress"    "macBriain"  
+#> [21] "MISO"        "rcorpora"    "disposables" "spark"       "dotenv"     
+#> [26] "parsedate"   "r-font"      "falsy"       "ISA"
 ```
 
 ### POST, PATCH, PUT and DELETE requests

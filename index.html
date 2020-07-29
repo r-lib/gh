@@ -78,66 +78,51 @@
 <div id="gh" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#gh" class="anchor"></a>gh</h1></div>
-<blockquote>
-<p>GitHub API</p>
-</blockquote>
 <!-- badges: start -->
-<p><a href="https://github.com/r-lib/gh/actions"><img src="https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg" alt="R build status"></a> <a href="https://codecov.io/gh/r-lib/gh?branch=master"><img src="https://codecov.io/gh/r-lib/gh/branch/master/graph/badge.svg" alt="Codecov test coverage"></a> <a href="http://www.r-pkg.org/pkg/gh"><img src="http://www.r-pkg.org/badges/version/gh"></a> <a href="http://www.r-pkg.org/pkg/gh"><img src="http://cranlogs.r-pkg.org/badges/gh" alt="CRAN RStudio mirror downloads"></a> <!-- badges: end --></p>
+
 <p>Minimalistic client to access GitHub’s <a href="https://docs.github.com/en/rest">REST</a> and <a href="https://docs.github.com/en/graphql">GraphQL</a> APIs.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Install the package from CRAN as usual:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"gh"</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"gh"</span>)</pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/r-lib/gh#readme">gh</a></span>)
-</pre></div>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gh</span>)</pre></div>
 <p>Use the <code><a href="reference/gh.html">gh()</a></code> function to access all API endpoints. The endpoints are listed in the <a href="https://developer.github.com/v3/">documentation</a>.</p>
 <p>The first argument of <code><a href="reference/gh.html">gh()</a></code> is the endpoint. You can just copy and paste the API endpoints from the documentation. Note that the leading slash must be included as well.</p>
 <p>From <a href="https://developer.github.com/v3/repos/#list-user-repositories" class="uri">https://developer.github.com/v3/repos/#list-user-repositories</a> you can copy and paste <code>GET /users/:username/repos</code> into your <code><a href="reference/gh.html">gh()</a></code> call. E.g.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"GET /users/:username/repos"</span>, username = <span class="st">"gaborcsardi"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="kw">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
+<div class="sourceCode" id="cb3"><pre class="r"><span class="no">my_repos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"GET /users/:username/repos"</span>, <span class="kw">username</span> <span class="kw">=</span> <span class="st">"gaborcsardi"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="no">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
 <span class="co">#&gt;  [1] "alexr"       "altlist"     "argufy"      "disposables" "dotenv"     </span>
 <span class="co">#&gt;  [6] "falsy"       "franc"       "ISA"         "keynote"     "keypress"   </span>
 <span class="co">#&gt; [11] "lpSolve"     "macBriain"   "maxygen"     "MISO"        "msgtools"   </span>
 <span class="co">#&gt; [16] "notifier"    "parr"        "parsedate"   "prompt"      "r-font"     </span>
 <span class="co">#&gt; [21] "r-source"    "rcorpora"    "roxygenlabs" "sankey"      "secret"     </span>
-<span class="co">#&gt; [26] "spark"       "standalones" "svg-term"    "tamper"</span>
-</pre></div>
+<span class="co">#&gt; [26] "spark"       "standalones" "svg-term"    "tamper"</span></pre></div>
 <p>The JSON result sent by the API is converted to an R object.</p>
 <p>Parameters can be passed as extra arguments. E.g.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(
+<div class="sourceCode" id="cb4"><pre class="r"><span class="no">my_repos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(
   <span class="st">"/users/:username/repos"</span>,
-  username = <span class="st">"gaborcsardi"</span>,
-  sort = <span class="st">"pushed"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="kw">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
-<span class="co">#&gt;  [1] "roxygenlabs" "r-source"    "standalones" "secret"      "msgtools"   </span>
+  <span class="kw">username</span> <span class="kw">=</span> <span class="st">"gaborcsardi"</span>,
+  <span class="kw">sort</span> <span class="kw">=</span> <span class="st">"pushed"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="no">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
+<span class="co">#&gt;  [1] "r-source"    "roxygenlabs" "standalones" "secret"      "msgtools"   </span>
 <span class="co">#&gt;  [6] "parr"        "sankey"      "franc"       "svg-term"    "lpSolve"    </span>
 <span class="co">#&gt; [11] "r-font"      "falsy"       "ISA"         "rcorpora"    "spark"      </span>
 <span class="co">#&gt; [16] "disposables" "dotenv"      "alexr"       "prompt"      "parsedate"  </span>
 <span class="co">#&gt; [21] "altlist"     "keypress"    "keynote"     "notifier"    "argufy"     </span>
-<span class="co">#&gt; [26] "tamper"      "maxygen"     "MISO"        "macBriain"</span>
-</pre></div>
+<span class="co">#&gt; [26] "tamper"      "maxygen"     "MISO"        "macBriain"</span></pre></div>
 <div id="post-patch-put-and-delete-requests" class="section level3">
 <h3 class="hasAnchor">
 <a href="#post-patch-put-and-delete-requests" class="anchor"></a>POST, PATCH, PUT and DELETE requests</h3>
 <p>POST, PATCH, PUT, and DELETE requests can be sent by including the HTTP verb before the endpoint, in the first argument. E.g. to create a repository:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">new_repo</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"POST /user/repos"</span>, name = <span class="st">"my-new-repo-for-gh-testing"</span>)
-</pre></div>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="no">new_repo</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"POST /user/repos"</span>, <span class="kw">name</span> <span class="kw">=</span> <span class="st">"my-new-repo-for-gh-testing"</span>)</pre></div>
 <p>and then delete it:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"DELETE /repos/:owner/:repo"</span>, owner = <span class="st">"gaborcsardi"</span>,
-   repo = <span class="st">"my-new-repo-for-gh-testing"</span>)
-</pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"DELETE /repos/:owner/:repo"</span>, <span class="kw">owner</span> <span class="kw">=</span> <span class="st">"gaborcsardi"</span>,
+   <span class="kw">repo</span> <span class="kw">=</span> <span class="st">"my-new-repo-for-gh-testing"</span>)</pre></div>
 </div>
 <div id="tokens" class="section level3">
 <h3 class="hasAnchor">
@@ -148,16 +133,14 @@
 <h3 class="hasAnchor">
 <a href="#pagination" class="anchor"></a>Pagination</h3>
 <p>Supply the <code>page</code> parameter to get subsequent pages:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">my_repos2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"GET /orgs/:org/repos"</span>, org = <span class="st">"r-lib"</span>, page = <span class="fl">2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="kw">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
+<div class="sourceCode" id="cb7"><pre class="r"><span class="no">my_repos2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"GET /orgs/:org/repos"</span>, <span class="kw">org</span> <span class="kw">=</span> <span class="st">"r-lib"</span>, <span class="kw">page</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="no">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
 <span class="co">#&gt;  [1] "rcmdcheck"   "vdiffr"      "callr"       "mockery"     "here"       </span>
 <span class="co">#&gt;  [6] "revdepcheck" "processx"    "vctrs"       "debugme"     "usethis"    </span>
 <span class="co">#&gt; [11] "rlang"       "pkgload"     "httrmock"    "pkgbuild"    "prettycode" </span>
 <span class="co">#&gt; [16] "roxygen2md"  "pkgapi"      "zeallot"     "liteq"       "keyring"    </span>
 <span class="co">#&gt; [21] "sloop"       "styler"      "ansistrings" "later"       "crancache"  </span>
-<span class="co">#&gt; [26] "zip"         "osname"      "sessioninfo" "available"   "cli"</span>
-</pre></div>
+<span class="co">#&gt; [26] "zip"         "osname"      "sessioninfo" "available"   "cli"</span></pre></div>
 </div>
 </div>
 <div id="environment-variables" class="section level2">
@@ -204,19 +187,30 @@
 <a href="https://jennybryan.org">Jennifer Bryan</a> <br><small class="roles"> Author </small>  </li>
 <li>
 <a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
+<li>
+<a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/r-lib/gh/actions"><img src="https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/r-lib/gh?branch=master"><img src="https://codecov.io/gh/r-lib/gh/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="http://www.r-pkg.org/pkg/gh"><img src="http://www.r-pkg.org/badges/version/gh"></a></li>
+<li><a href="http://www.r-pkg.org/pkg/gh"><img src="http://cranlogs.r-pkg.org/badges/gh" alt="CRAN RStudio mirror downloads"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Gábor Csárdi, <a href="https://jennybryan.org">Jennifer Bryan</a>, <a href="http://hadley.nz">Hadley Wickham</a>.</p>
+  <p>Developed by Gábor Csárdi, <a href="https://jennybryan.org">Jennifer Bryan</a>, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

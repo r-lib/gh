@@ -136,7 +136,7 @@ and you can access your PATs here (if logged in to GitHub):
 <a href='https://github.com/settings/tokens'>https://github.com/settings/tokens</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gh_token</span>(api_url = <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>gh_token</span>(<span class='kw'>api_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -191,7 +191,7 @@ gh first checks whether the key with that value is set in the system
 keyring, and if yes, it will use its value as the PAT. I.e. without a
 custom <code>GITHUB_API_URL</code> variable, it checks the
 <code>GITHUB_PAT_API_GITHUB_COM</code> key first, then the env var with the same
-name, then the <code>GITHUB_PAT</code> key, etc. Such a check looks like this:<div class="r"></p><pre><span class='kw'>keyring</span>::<span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_API_GITHUB_COM"</span>)</pre><p></div></p>
+name, then the <code>GITHUB_PAT</code> key, etc. Such a check looks like this:<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_API_GITHUB_COM"</span>)</pre><p></div></p>
 <p>and it uses the default keyring backend and the default keyring within
 that backend. See <code><a href='https://rdrr.io/pkg/keyring/man/backends.html'>keyring::default_backend()</a></code> for details and changing
 these defaults.</p>
@@ -205,7 +205,7 @@ system keyring. You can allow this separately for each access, or for
 all future accesses, until you update or re-install R. You typically
 need to give access to each R GUI (e.g. RStudio) and the command line
 R program separately.</p>
-<p>To store your PAT on the keyring run<div class="r"></p><pre><span class='kw'>keyring</span>::<span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_set</a></span>(<span class='st'>"GITHUB_PAT"</span>)</pre><p></div></p>
+<p>To store your PAT on the keyring run<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_set</a></span>(<span class='st'>"GITHUB_PAT"</span>)</pre><p></div></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='slugify_url.html'>slugify_url()</a></code> for computing the environment variables that
@@ -222,11 +222,11 @@ gh uses to search for API URL specific PATs.</p></div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Gábor Csárdi, <a href='https://jennybryan.org'>Jennifer Bryan</a>, <a href='http://hadley.nz'>Hadley Wickham</a>.</p>
+  <p>Developed by Gábor Csárdi, <a href='https://jennybryan.org'>Jennifer Bryan</a>, <a href='http://hadley.nz'>Hadley Wickham</a>, <a href='https://www.rstudio.com'><img src='https://www.tidyverse.org/rstudio-logo.svg' alt='RStudio' height='24' /></a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

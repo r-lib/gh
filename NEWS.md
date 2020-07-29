@@ -1,5 +1,15 @@
 # gh (development version)
 
+* The documentation for the GitHub REST API has moved to
+  <https://docs.github.com/en/rest> and endpoints are now documented using
+  the URI template style of [RFC 6570](https://tools.ietf.org/html/rfc6570):
+  
+  - Old: `GET /repos/:owner/:repo/issues`
+  - New: `GET /repos/{owner}/{repo}/issues`
+
+  gh accepts and prioritizes the new style. However, it still does parameter
+  substitution for the old style.
+
 * Fixed an error that occurred when calling `gh()` with `.progress = FALSE` 
   (@gadenbuie, #115).
 

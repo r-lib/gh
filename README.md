@@ -35,18 +35,19 @@ library(gh)
 ```
 
 Use the `gh()` function to access all API endpoints. The endpoints are
-listed in the [documentation](https://developer.github.com/v3/).
+listed in the [documentation](https://docs.github.com/en/rest).
 
 The first argument of `gh()` is the endpoint. You can just copy and
 paste the API endpoints from the documentation. Note that the leading
 slash must be included as well.
 
-From <https://developer.github.com/v3/repos/#list-user-repositories> you
-can copy and paste `GET /users/:username/repos` into your `gh()` call.
-E.g.
+From
+<https://docs.github.com/en/rest/reference/repos#list-repositories-for-a-user>
+you can copy and paste `GET /users/{username}/repos` into your `gh()`
+call. E.g.
 
 ``` r
-my_repos <- gh("GET /users/:username/repos", username = "gaborcsardi")
+my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
 #>  [1] "alexr"       "altlist"     "argufy"      "disposables" "dotenv"     
 #>  [6] "falsy"       "franc"       "ISA"         "keynote"     "keypress"   
@@ -62,11 +63,11 @@ Parameters can be passed as extra arguments. E.g.
 
 ``` r
 my_repos <- gh(
-  "/users/:username/repos",
+  "/users/{username}/repos",
   username = "gaborcsardi",
   sort = "pushed")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "roxygenlabs" "r-source"    "standalones" "secret"      "msgtools"   
+#>  [1] "r-source"    "roxygenlabs" "standalones" "secret"      "msgtools"   
 #>  [6] "parr"        "sankey"      "franc"       "svg-term"    "lpSolve"    
 #> [11] "r-font"      "falsy"       "ISA"         "rcorpora"    "spark"      
 #> [16] "disposables" "dotenv"      "alexr"       "prompt"      "parsedate"  
@@ -87,7 +88,7 @@ new_repo <- gh("POST /user/repos", name = "my-new-repo-for-gh-testing")
 and then delete it:
 
 ``` r
-gh("DELETE /repos/:owner/:repo", owner = "gaborcsardi",
+gh("DELETE /repos/{owner}/{repo}", owner = "gaborcsardi",
    repo = "my-new-repo-for-gh-testing")
 ```
 
@@ -101,7 +102,7 @@ one can set the `.token` argument of `gh()`.
 Supply the `page` parameter to get subsequent pages:
 
 ``` r
-my_repos2 <- gh("GET /orgs/:org/repos", org = "r-lib", page = 2)
+my_repos2 <- gh("GET /orgs/{org}/repos", org = "r-lib", page = 2)
 vapply(my_repos2, "[[", "", "name")
 #>  [1] "rcmdcheck"   "vdiffr"      "callr"       "mockery"     "here"       
 #>  [6] "revdepcheck" "processx"    "vctrs"       "debugme"     "usethis"    

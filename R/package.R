@@ -86,11 +86,11 @@
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Repositories of a user, these are equivalent
 #' gh("/users/hadley/repos")
-#' gh("/users/:username/repos", username = "hadley")
+#' gh("/users/{username}/repos", username = "hadley")
 #'
 #' ## Starred repositories of a user
 #' gh("/users/hadley/starred")
-#' gh("/users/:username/starred", username = "hadley")
+#' gh("/users/{username}/starred", username = "hadley")
 #'
 #' @examplesIf FALSE
 #' ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
@@ -100,7 +100,7 @@
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Issues of a repository
 #' gh("/repos/hadley/dplyr/issues")
-#' gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
+#' gh("/repos/{owner}/{repo}/issues", owner = "hadley", repo = "dplyr")
 #'
 #' ## Automatic pagination
 #' users <- gh("/users", .limit = 50)
@@ -133,7 +133,7 @@
 #' ## API: https://developer.github.com/v3/repos/pages/#enable-a-pages-site
 #'
 #' gh::gh(
-#'   "POST /repos/:owner/:repo/pages",
+#'   "POST /repos/{owner}/{repo}/pages",
 #'   owner = "gaborcsardi",
 #'   repo = "playground",
 #'   source = list(
@@ -148,7 +148,7 @@
 #'
 #' body <- '{ "source": { "branch": "master", "path": "/docs" } }'
 #' gh::gh(
-#'   "POST /repos/:owner/:repo/pages",
+#'   "POST /repos/{owner}/{repo}/pages",
 #'   owner = "gaborcsardi",
 #'   repo = "playground",
 #'   charToRaw(body),

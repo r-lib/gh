@@ -111,11 +111,11 @@ body, as JSON.
 \dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Repositories of a user, these are equivalent
 gh("/users/hadley/repos")
-gh("/users/:username/repos", username = "hadley")
+gh("/users/{username}/repos", username = "hadley")
 
 ## Starred repositories of a user
 gh("/users/hadley/starred")
-gh("/users/:username/starred", username = "hadley")
+gh("/users/{username}/starred", username = "hadley")
 \dontshow{\}) # examplesIf}
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
@@ -125,7 +125,7 @@ gh("POST /user/repos", name = "foobar")
 \dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Issues of a repository
 gh("/repos/hadley/dplyr/issues")
-gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
+gh("/repos/{owner}/{repo}/issues", owner = "hadley", repo = "dplyr")
 
 ## Automatic pagination
 users <- gh("/users", .limit = 50)
@@ -158,7 +158,7 @@ gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
 ## API: https://developer.github.com/v3/repos/pages/#enable-a-pages-site
 
 gh::gh(
-  "POST /repos/:owner/:repo/pages",
+  "POST /repos/{owner}/{repo}/pages",
   owner = "gaborcsardi",
   repo = "playground",
   source = list(
@@ -173,7 +173,7 @@ gh::gh(
 
 body <- '{ "source": { "branch": "master", "path": "/docs" } }'
 gh::gh(
-  "POST /repos/:owner/:repo/pages",
+  "POST /repos/{owner}/{repo}/pages",
   owner = "gaborcsardi",
   repo = "playground",
   charToRaw(body),

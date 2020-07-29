@@ -15,7 +15,7 @@ test_that("method arg sets default method", {
 
 test_that("parameter substitution is equivalent to direct specification", {
   subst <-
-    gh_build_request("POST /repos/:org/:repo/issues/:number/labels",
+    gh_build_request("POST /repos/{org}/{repo}/issues/{number}/labels",
                      params = list(org = "ORG", repo = "REPO", number = "1",
                                    "body"))
   spec <-

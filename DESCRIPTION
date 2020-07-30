@@ -11,7 +11,9 @@ Authors@R:
              role = "aut"),
       person(given = "Hadley",
              family = "Wickham",
-             role = "aut"))
+             role = "aut"),
+      person(given = "RStudio",
+             role = c("cph", "fnd")))
 Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
 URL: https://github.com/r-lib/gh#readme

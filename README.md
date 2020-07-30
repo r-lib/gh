@@ -3,8 +3,6 @@
 
 # gh
 
-> GitHub API
-
 <!-- badges: start -->
 
 [![R build
@@ -65,7 +63,7 @@ Parameters can be passed as extra arguments. E.g.
 my_repos <- gh(
   "/users/{username}/repos",
   username = "gaborcsardi",
-  sort = "pushed")
+  sort = "created")
 vapply(my_repos, "[[", "", "name")
 #>  [1] "r-source"    "roxygenlabs" "standalones" "secret"      "msgtools"   
 #>  [6] "parr"        "sankey"      "franc"       "svg-term"    "lpSolve"    

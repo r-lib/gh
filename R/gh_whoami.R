@@ -28,7 +28,7 @@
 #' `gh("/user")`.
 #'
 #' For token management via API (versus the browser), use the
-#' [Authorizations API](https://developer.github.com/v3/oauth_authorizations).
+#' [OAuth Authorizations API](https://docs.github.com/v3/oauth_authorizations/).
 #' This API requires Basic Authentication using your username and password,
 #' not tokens, and is outside the scope of the gh package.
 #'

@@ -40,6 +40,6 @@ either pulls this information from a previous successful request
 or directly from the GitHub API.
 }
 \details{
-Further details on GitHub's API rate limit policies are available
-\href{https://developer.github.com/v3/#rate-limiting}{here}
+Further details on GitHub's API rate limit policies are available at
+\url{https://docs.github.com/v3/#rate-limiting}.
 }

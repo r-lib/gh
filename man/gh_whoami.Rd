@@ -50,7 +50,7 @@ To get complete information on the authenticated user, call
 \code{gh("/user")}.
 
 For token management via API (versus the browser), use the
-\href{https://developer.github.com/v3/oauth_authorizations}{Authorizations API}.
+\href{https://docs.github.com/v3/oauth_authorizations/}{OAuth Authorizations API}.
 This API requires Basic Authentication using your username and password,
 not tokens, and is outside the scope of the gh package.
 }

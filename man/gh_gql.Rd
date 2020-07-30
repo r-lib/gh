@@ -48,7 +48,7 @@ used to override or augment the default \code{User-Agent} header:
 }
 \description{
 See more about the GraphQL API here:
-\url{https://developer.github.com/v4/}
+\url{https://docs.github.com/graphql}
 }
 \details{
 Note: pagination and the \code{.limit} argument does not work currently,

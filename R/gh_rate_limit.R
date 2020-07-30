@@ -4,8 +4,8 @@
 #' either pulls this information from a previous successful request
 #' or directly from the GitHub API.
 #'
-#' Further details on GitHub's API rate limit policies are available
-#' [here](https://developer.github.com/v3/#rate-limiting)
+#' Further details on GitHub's API rate limit policies are available at
+#' <https://docs.github.com/v3/#rate-limiting>.
 #'
 #' @param response `gh_response` object from a previous `gh` call, rate
 #' limit values are determined from values in the response header.

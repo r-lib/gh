@@ -155,7 +155,7 @@ gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
 ## jsonlite::unbox() because fromJSON() creates lists from scalar vectors
 ## by default. The Content-Type header is automatically added in this
 ## case. For example this request turns on GitHub Pages, using this
-## API: https://developer.github.com/v3/repos/pages/#enable-a-pages-site
+## API: https://docs.github.com/v3/repos/pages/#enable-a-pages-site
 
 gh::gh(
   "POST /repos/{owner}/{repo}/pages",

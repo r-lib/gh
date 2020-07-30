@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 Minimalistic client to access GitHub's
-[REST](https://docs.github.com/en/rest) and [GraphQL](https://docs.github.com/en/graphql) APIs.
+[REST](https://docs.github.com/rest) and [GraphQL](https://docs.github.com/graphql) APIs.
 
 ## Installation
 
@@ -40,13 +40,13 @@ library(gh)
 ```
 
 Use the `gh()` function to access all API endpoints. The endpoints are
-listed in the [documentation](https://docs.github.com/en/rest).
+listed in the [documentation](https://docs.github.com/rest).
 
 The first argument of `gh()` is the endpoint. You can just copy and paste the 
 API endpoints from the documentation. Note that the leading slash
 must be included as well. 
 
-From <https://docs.github.com/en/rest/reference/repos#list-repositories-for-a-user> you can copy and paste `GET /users/{username}/repos` into your `gh()`
+From <https://docs.github.com/rest/reference/repos#list-repositories-for-a-user> you can copy and paste `GET /users/{username}/repos` into your `gh()`
 call. E.g.
 
 ```{r}

@@ -1,7 +1,7 @@
 # gh (development version)
 
 * The documentation for the GitHub REST API has moved to
-  <https://docs.github.com/en/rest> and endpoints are now documented using
+  <https://docs.github.com/rest> and endpoints are now documented using
   the URI template style of [RFC 6570](https://tools.ietf.org/html/rfc6570):
   
   - Old: `GET /repos/:owner/:repo/issues`

@@ -26,6 +26,7 @@ Imports:
 Suggests:
     covr,
     keyring,
+    rprojroot,
     spelling,
     testthat (>= 2.3.2),
     withr

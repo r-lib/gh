@@ -29,7 +29,7 @@
 #' variable.
 #'
 #' If the API URL specific environment variable is not set, then gh falls
-#' back to `GITHUB_PAT` and then to `GITHUB_TOKEN'.
+#' back to `GITHUB_PAT` and then to `GITHUB_TOKEN`.
 #'
 #' @section Storing PATs in the system keyring:
 #'

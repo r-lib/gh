@@ -45,7 +45,7 @@ You can set the default API URL via the \code{GITHUB_API_URL} environment
 variable.
 
 If the API URL specific environment variable is not set, then gh falls
-back to \code{GITHUB_PAT} and then to `GITHUB_TOKEN'.
+back to \code{GITHUB_PAT} and then to \code{GITHUB_TOKEN}.
 }
 
 \section{Storing PATs in the system keyring}{

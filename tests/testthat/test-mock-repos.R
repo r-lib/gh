@@ -10,10 +10,10 @@ test_that("repos, some basics", {
   res <- gh("/user/repos", .token = tt())
   expect_true(all(c("id", "name", "full_name") %in% names(res[[1]])))
 
-  res <- gh("/users/:username/repos", username = "gaborcsardi", .token = tt())
+  res <- gh("/users/{username}/repos", username = "gaborcsardi", .token = tt())
   expect_true(all(c("id", "name", "full_name") %in% names(res[[1]])))
 
-  res <- gh("/orgs/:org/repos", org = "r-lib", type = "sources", .token = tt())
+  res <- gh("/orgs/{org}/repos", org = "r-lib", type = "sources", .token = tt())
   expect_true("desc" %in% vapply(res, "[[", "name", FUN.VALUE = ""))
 
   res <- gh("/repositories", .token = tt())
@@ -36,10 +36,10 @@ test_that("repos, some basics", {
   expect_false(res$has_issues)
   expect_false(res$has_wiki)
 
-  ## TODO: POST /orgs/:org/repos
+  ## TODO: POST /orgs/{org}/repos
 
   res <- gh(
-    "/repos/:owner/:repo",
+    "/repos/{owner}/{repo}",
     owner = gh_test_owner,
     repo = "gh-testing",
     .token = tt()
@@ -52,7 +52,7 @@ test_that("repos, some basics", {
   expect_false(res$has_wiki)
 
   res <- gh(
-    "PATCH /repos/:owner/:repo",
+    "PATCH /repos/{owner}/{repo}",
     owner = gh_test_owner,
     repo = "gh-testing",
     name = "gh-testing",
@@ -63,7 +63,7 @@ test_that("repos, some basics", {
   expect_equal(res$description, "Still a test repo")
 
   res <- gh(
-    "GET /repos/:owner/:repo/contributors",
+    "GET /repos/{owner}/{repo}/contributors",
     owner = gh_test_owner,
     repo = "myrepo",
     .token = tt()
@@ -71,17 +71,17 @@ test_that("repos, some basics", {
   expect_true("gh-testing" %in% vapply(res, "[[", "", "login"))
 
   res <- gh(
-    "GET /repos/:owner/:repo/languages",
+    "GET /repos/{owner}/{repo}/languages",
     owner = "r-lib",
     repo = "desc",
     .token = tt()
   )
   expect_true("R" %in% names(res))
 
-  ## TODO: GET /repos/:owner/:repo/teams does not seem to work
+  ## TODO: GET /repos/{owner}/{repo}/teams does not seem to work
 
   res <- gh(
-    "GET /repos/:owner/:repo/teams",
+    "GET /repos/{owner}/{repo}/teams",
     owner = "gh-testing-org",
     repo = "org-repo",
     .token = tt()
@@ -89,7 +89,7 @@ test_that("repos, some basics", {
   expect_true("myteam" %in% vapply(res, "[[", "", "name"))
 
   res <- gh(
-    "GET /repos/:owner/:repo/tags",
+    "GET /repos/{owner}/{repo}/tags",
     owner = "gh-testing",
     repo = "myrepo",
     .token = tt()
@@ -97,7 +97,7 @@ test_that("repos, some basics", {
   expect_true(res[[1]]$name == "v0.0.1")
 
   res <- gh(
-    "DELETE /repos/:owner/:repo",
+    "DELETE /repos/{owner}/{repo}",
     owner = "gh-testing",
     repo = "gh-testing",
     .token = tt()
@@ -111,7 +111,7 @@ test_that("repo files", {
   skip("needs mocking")
 
   res <- gh(
-    "GET /repos/:owner/:repo/contents/:path",
+    "GET /repos/{owner}/{repo}/contents/{path}",
     owner = "r-lib",
     repo = "gh",
     path = "DESCRIPTION",
@@ -124,8 +124,8 @@ test_that("repo files", {
   expect_equal(class(res), c("gh_response", "raw"))
 
   tmp <- tempfile()
-  res <- gh("/orgs/:org/repos", org = "r-lib", type = "sources", .token = tt())
-  res_file <- gh("/orgs/:org/repos", org = "r-lib", type = "sources",
+  res <- gh("/orgs/{org}/repos", org = "r-lib", type = "sources", .token = tt())
+  res_file <- gh("/orgs/{org}/repos", org = "r-lib", type = "sources",
                     destfile = tmp, .token = tt())
   expect_equal(class(res_file), c("gh_response", "path"))
   expect_equivalent(res, jsonlite::fromJSON(res_file,  simplifyVector = FALSE))

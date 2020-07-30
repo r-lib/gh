@@ -80,7 +80,7 @@
 <a href="#gh" class="anchor"></a>gh</h1></div>
 <!-- badges: start -->
 
-<p>Minimalistic client to access GitHub’s <a href="https://docs.github.com/en/rest">REST</a> and <a href="https://docs.github.com/en/graphql">GraphQL</a> APIs.</p>
+<p>Minimalistic client to access GitHub’s <a href="https://docs.github.com/rest">REST</a> and <a href="https://docs.github.com/graphql">GraphQL</a> APIs.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -91,9 +91,9 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gh</span>)</pre></div>
-<p>Use the <code><a href="reference/gh.html">gh()</a></code> function to access all API endpoints. The endpoints are listed in the <a href="https://docs.github.com/en/rest">documentation</a>.</p>
+<p>Use the <code><a href="reference/gh.html">gh()</a></code> function to access all API endpoints. The endpoints are listed in the <a href="https://docs.github.com/rest">documentation</a>.</p>
 <p>The first argument of <code><a href="reference/gh.html">gh()</a></code> is the endpoint. You can just copy and paste the API endpoints from the documentation. Note that the leading slash must be included as well.</p>
-<p>From <a href="https://docs.github.com/en/rest/reference/repos#list-repositories-for-a-user" class="uri">https://docs.github.com/en/rest/reference/repos#list-repositories-for-a-user</a> you can copy and paste <code>GET /users/{username}/repos</code> into your <code><a href="reference/gh.html">gh()</a></code> call. E.g.</p>
+<p>From <a href="https://docs.github.com/rest/reference/repos#list-repositories-for-a-user" class="uri">https://docs.github.com/rest/reference/repos#list-repositories-for-a-user</a> you can copy and paste <code>GET /users/{username}/repos</code> into your <code><a href="reference/gh.html">gh()</a></code> call. E.g.</p>
 <div class="sourceCode" id="cb3"><pre class="r"><span class="no">my_repos</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span>(<span class="st">"GET /users/{username}/repos"</span>, <span class="kw">username</span> <span class="kw">=</span> <span class="st">"gaborcsardi"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="no">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
 <span class="co">#&gt;  [1] "alexr"       "altlist"     "argufy"      "disposables" "dotenv"     </span>
@@ -109,12 +109,12 @@
   <span class="kw">username</span> <span class="kw">=</span> <span class="st">"gaborcsardi"</span>,
   <span class="kw">sort</span> <span class="kw">=</span> <span class="st">"created"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span>(<span class="no">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span>)
-<span class="co">#&gt;  [1] "r-source"    "roxygenlabs" "standalones" "secret"      "msgtools"   </span>
-<span class="co">#&gt;  [6] "parr"        "sankey"      "franc"       "svg-term"    "lpSolve"    </span>
-<span class="co">#&gt; [11] "r-font"      "falsy"       "ISA"         "rcorpora"    "spark"      </span>
-<span class="co">#&gt; [16] "disposables" "dotenv"      "alexr"       "prompt"      "parsedate"  </span>
-<span class="co">#&gt; [21] "altlist"     "keypress"    "keynote"     "notifier"    "argufy"     </span>
-<span class="co">#&gt; [26] "tamper"      "maxygen"     "MISO"        "macBriain"</span></pre></div>
+<span class="co">#&gt;  [1] "keynote"     "lpSolve"     "roxygenlabs" "standalones" "altlist"    </span>
+<span class="co">#&gt;  [6] "svg-term"    "franc"       "sankey"      "r-source"    "secret"     </span>
+<span class="co">#&gt; [11] "msgtools"    "notifier"    "prompt"      "parr"        "tamper"     </span>
+<span class="co">#&gt; [16] "alexr"       "argufy"      "maxygen"     "keypress"    "macBriain"  </span>
+<span class="co">#&gt; [21] "MISO"        "rcorpora"    "disposables" "spark"       "dotenv"     </span>
+<span class="co">#&gt; [26] "parsedate"   "r-font"      "falsy"       "ISA"</span></pre></div>
 <div id="post-patch-put-and-delete-requests" class="section level3">
 <h3 class="hasAnchor">
 <a href="#post-patch-put-and-delete-requests" class="anchor"></a>POST, PATCH, PUT and DELETE requests</h3>

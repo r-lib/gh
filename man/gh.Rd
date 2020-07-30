@@ -204,4 +204,9 @@ Authors:
   \item Hadley Wickham
 }
 
+Other contributors:
+\itemize{
+  \item RStudio [copyright holder, funder]
+}
+
 }

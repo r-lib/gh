@@ -147,8 +147,8 @@
 <a href="#gh-110" class="anchor"></a>gh 1.1.0<small> 2020-01-24 </small>
 </h1>
 <ul>
-<li><p>Raw reponses from GitHub are now returned as raw vector.</p></li>
-<li><p>Responses may be wrtten to disk by providing a path in the <code>.destfile</code> argument.</p></li>
+<li><p>Raw responses from GitHub are now returned as raw vector.</p></li>
+<li><p>Responses may be written to disk by providing a path in the <code>.destfile</code> argument.</p></li>
 <li><p>gh now sets <code>.Last.error</code> to the error object after an uncaught error, and <code>.Last.error.trace</code> to the stack trace of the error.</p></li>
 <li><p><code><a href="../reference/gh.html">gh()</a></code> now silently drops named <code>NULL</code> parameters, and throws an error for named <code>NA</code> parameters (<a href='https://github.com/r-lib/gh/issues/21'>#21</a>, <a href='https://github.com/r-lib/gh/issues/84'>#84</a>).</p></li>
 <li><p><code><a href="../reference/gh.html">gh()</a></code> now returns better values for empty responses, typically empty lists or dictionaries (<a href='https://github.com/r-lib/gh/issues/66'>#66</a>).</p></li>

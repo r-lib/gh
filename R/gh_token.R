@@ -82,6 +82,9 @@
 
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
+  if (is_github_dot_com(api_url) && can_load("credentials")) {
+    credentials::set_github_pat()
+  }
   token_env_var <- paste0("GITHUB_PAT_", slugify_url(api_url))
   get_first_token_found(c(token_env_var, "GITHUB_PAT", "GITHUB_TOKEN"))
 }
@@ -181,4 +184,8 @@ get_baseurl <- function(x) {
   rest <- sub("^https?://(.*)$", "\\1", x)
   host <- sub("/.*$", "", rest)
   paste0(prot, host)
+}
+
+is_github_dot_com <- function(api_url) {
+  identical(as.character(api_url), "https://api.github.com")
 }

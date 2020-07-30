@@ -15,9 +15,9 @@
 
 # gh 1.1.0
 
-* Raw reponses from GitHub are now returned as raw vector.
+* Raw responses from GitHub are now returned as raw vector.
 
-* Responses may be wrtten to disk by providing a path in the `.destfile`
+* Responses may be written to disk by providing a path in the `.destfile`
   argument.
 
 * gh now sets `.Last.error` to the error object after an uncaught error,

@@ -75,7 +75,7 @@ long time.}
 
 \item{.accept}{The value of the \code{Accept} HTTP header. Defaults to
 \code{"application/vnd.github.v3+json"} . If \code{Accept} is given in
-\code{.send_headers}, then that will be used. This paramter can be used to
+\code{.send_headers}, then that will be used. This parameter can be used to
 provide a custom media type, in order to access a preview feature of
 the API.}
 

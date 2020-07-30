@@ -61,7 +61,7 @@
 #'   long time.
 #' @param .accept The value of the `Accept` HTTP header. Defaults to
 #'   `"application/vnd.github.v3+json"` . If `Accept` is given in
-#'   `.send_headers`, then that will be used. This paramter can be used to
+#'   `.send_headers`, then that will be used. This parameter can be used to
 #'   provide a custom media type, in order to access a preview feature of
 #'   the API.
 #' @param .send_headers Named character vector of header field values

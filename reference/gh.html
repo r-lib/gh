@@ -280,11 +280,11 @@ generate a raw response will return a raw vector.</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"IN_PKGDOWN"</span>), <span class='st'>"true"</span>)) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## Repositories of a user, these are equivalent</span>
 <span class='fu'>gh</span>(<span class='st'>"/users/hadley/repos"</span>)
-<span class='fu'>gh</span>(<span class='st'>"/users/:username/repos"</span>, <span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>)
+<span class='fu'>gh</span>(<span class='st'>"/users/{username}/repos"</span>, <span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>)
 
 <span class='co'>## Starred repositories of a user</span>
 <span class='fu'>gh</span>(<span class='st'>"/users/hadley/starred"</span>)
-<span class='fu'>gh</span>(<span class='st'>"/users/:username/starred"</span>, <span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>)
+<span class='fu'>gh</span>(<span class='st'>"/users/{username}/starred"</span>, <span class='kw'>username</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>)
 }) <span class='co'># examplesIf</span></div><div class='output co'>#&gt; &gt; gh("/users/hadley/repos")
 #&gt; [
 #&gt;   {
@@ -657,16 +657,16 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/hadley/adv-r/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/hadley/adv-r/deployments",
 #&gt;     "created_at": "2013-08-20T11:43:03Z",
-#&gt;     "updated_at": "2020-07-27T22:28:20Z",
-#&gt;     "pushed_at": "2020-07-14T04:27:17Z",
+#&gt;     "updated_at": "2020-07-30T05:48:06Z",
+#&gt;     "pushed_at": "2020-07-29T22:30:49Z",
 #&gt;     "git_url": "git://github.com/hadley/adv-r.git",
 #&gt;     "ssh_url": "git@github.com:hadley/adv-r.git",
 #&gt;     "clone_url": "https://github.com/hadley/adv-r.git",
 #&gt;     "svn_url": "https://github.com/hadley/adv-r",
 #&gt;     "homepage": "http://adv-r.hadley.nz",
 #&gt;     "size": 38443,
-#&gt;     "stargazers_count": 1736,
-#&gt;     "watchers_count": 1736,
+#&gt;     "stargazers_count": 1738,
+#&gt;     "watchers_count": 1738,
 #&gt;     "language": "TeX",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": false,
@@ -677,7 +677,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
-#&gt;     "open_issues_count": 38,
+#&gt;     "open_issues_count": 40,
 #&gt;     "license": {
 #&gt;       "key": "other",
 #&gt;       "name": "Other",
@@ -686,8 +686,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
 #&gt;     "forks": 1568,
-#&gt;     "open_issues": 38,
-#&gt;     "watchers": 1736,
+#&gt;     "open_issues": 40,
+#&gt;     "watchers": 1738,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -3330,7 +3330,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     }
 #&gt;   }
 #&gt; ] 
-#&gt; &gt; gh("/users/:username/repos", username = "hadley")
+#&gt; &gt; gh("/users/{username}/repos", username = "hadley")
 #&gt; [
 #&gt;   {
 #&gt;     "id": 40423928,
@@ -3702,16 +3702,16 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/hadley/adv-r/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/hadley/adv-r/deployments",
 #&gt;     "created_at": "2013-08-20T11:43:03Z",
-#&gt;     "updated_at": "2020-07-27T22:28:20Z",
-#&gt;     "pushed_at": "2020-07-14T04:27:17Z",
+#&gt;     "updated_at": "2020-07-30T05:48:06Z",
+#&gt;     "pushed_at": "2020-07-29T22:30:49Z",
 #&gt;     "git_url": "git://github.com/hadley/adv-r.git",
 #&gt;     "ssh_url": "git@github.com:hadley/adv-r.git",
 #&gt;     "clone_url": "https://github.com/hadley/adv-r.git",
 #&gt;     "svn_url": "https://github.com/hadley/adv-r",
 #&gt;     "homepage": "http://adv-r.hadley.nz",
 #&gt;     "size": 38443,
-#&gt;     "stargazers_count": 1736,
-#&gt;     "watchers_count": 1736,
+#&gt;     "stargazers_count": 1738,
+#&gt;     "watchers_count": 1738,
 #&gt;     "language": "TeX",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": false,
@@ -3722,7 +3722,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
-#&gt;     "open_issues_count": 38,
+#&gt;     "open_issues_count": 40,
 #&gt;     "license": {
 #&gt;       "key": "other",
 #&gt;       "name": "Other",
@@ -3731,8 +3731,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
 #&gt;     "forks": 1568,
-#&gt;     "open_issues": 38,
-#&gt;     "watchers": 1736,
+#&gt;     "open_issues": 40,
+#&gt;     "watchers": 1738,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -6549,31 +6549,31 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/allisonhorst/stats-illustrations/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/allisonhorst/stats-illustrations/deployments",
 #&gt;     "created_at": "2018-12-15T23:16:36Z",
-#&gt;     "updated_at": "2020-07-28T11:34:34Z",
-#&gt;     "pushed_at": "2020-07-24T04:59:02Z",
+#&gt;     "updated_at": "2020-07-29T22:15:02Z",
+#&gt;     "pushed_at": "2020-07-29T21:47:26Z",
 #&gt;     "git_url": "git://github.com/allisonhorst/stats-illustrations.git",
 #&gt;     "ssh_url": "git@github.com:allisonhorst/stats-illustrations.git",
 #&gt;     "clone_url": "https://github.com/allisonhorst/stats-illustrations.git",
 #&gt;     "svn_url": "https://github.com/allisonhorst/stats-illustrations",
 #&gt;     "homepage": "",
-#&gt;     "size": 388267,
-#&gt;     "stargazers_count": 840,
-#&gt;     "watchers_count": 840,
+#&gt;     "size": 389140,
+#&gt;     "stargazers_count": 847,
+#&gt;     "watchers_count": 847,
 #&gt;     "language": {},
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": true,
 #&gt;     "has_pages": false,
-#&gt;     "forks_count": 73,
+#&gt;     "forks_count": 74,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
 #&gt;     "open_issues_count": 2,
 #&gt;     "license": {},
-#&gt;     "forks": 73,
+#&gt;     "forks": 74,
 #&gt;     "open_issues": 2,
-#&gt;     "watchers": 840,
+#&gt;     "watchers": 847,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -6957,7 +6957,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/tidyverse/dplyr/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/tidyverse/dplyr/deployments",
 #&gt;     "created_at": "2012-10-28T13:39:17Z",
-#&gt;     "updated_at": "2020-07-27T22:28:23Z",
+#&gt;     "updated_at": "2020-07-29T15:57:50Z",
 #&gt;     "pushed_at": "2020-07-28T15:07:47Z",
 #&gt;     "git_url": "git://github.com/tidyverse/dplyr.git",
 #&gt;     "ssh_url": "git@github.com:tidyverse/dplyr.git",
@@ -6965,15 +6965,15 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/tidyverse/dplyr",
 #&gt;     "homepage": "https://dplyr.tidyverse.org",
 #&gt;     "size": 37553,
-#&gt;     "stargazers_count": 3428,
-#&gt;     "watchers_count": 3428,
+#&gt;     "stargazers_count": 3429,
+#&gt;     "watchers_count": 3429,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": false,
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": false,
 #&gt;     "has_pages": true,
-#&gt;     "forks_count": 1278,
+#&gt;     "forks_count": 1279,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
@@ -6985,9 +6985,9 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "url": {},
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
-#&gt;     "forks": 1278,
+#&gt;     "forks": 1279,
 #&gt;     "open_issues": 69,
-#&gt;     "watchers": 3428,
+#&gt;     "watchers": 3429,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -7062,7 +7062,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/rudeboybert/fivethirtyeight/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/rudeboybert/fivethirtyeight/deployments",
 #&gt;     "created_at": "2016-12-03T19:25:21Z",
-#&gt;     "updated_at": "2020-07-28T05:03:10Z",
+#&gt;     "updated_at": "2020-07-29T19:18:27Z",
 #&gt;     "pushed_at": "2020-07-25T00:06:15Z",
 #&gt;     "git_url": "git://github.com/rudeboybert/fivethirtyeight.git",
 #&gt;     "ssh_url": "git@github.com:rudeboybert/fivethirtyeight.git",
@@ -7070,8 +7070,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/rudeboybert/fivethirtyeight",
 #&gt;     "homepage": "https://fivethirtyeight-r.netlify.com/",
 #&gt;     "size": 367379,
-#&gt;     "stargazers_count": 404,
-#&gt;     "watchers_count": 404,
+#&gt;     "stargazers_count": 405,
+#&gt;     "watchers_count": 405,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
@@ -7092,7 +7092,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     },
 #&gt;     "forks": 91,
 #&gt;     "open_issues": 3,
-#&gt;     "watchers": 404,
+#&gt;     "watchers": 405,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -7167,7 +7167,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/jennybc/googlesheets/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/jennybc/googlesheets/deployments",
 #&gt;     "created_at": "2014-10-24T04:47:51Z",
-#&gt;     "updated_at": "2020-07-03T22:13:14Z",
+#&gt;     "updated_at": "2020-07-30T00:15:35Z",
 #&gt;     "pushed_at": "2020-04-21T19:00:37Z",
 #&gt;     "git_url": "git://github.com/jennybc/googlesheets.git",
 #&gt;     "ssh_url": "git@github.com:jennybc/googlesheets.git",
@@ -7175,8 +7175,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/jennybc/googlesheets",
 #&gt;     "homepage": "",
 #&gt;     "size": 11626,
-#&gt;     "stargazers_count": 753,
-#&gt;     "watchers_count": 753,
+#&gt;     "stargazers_count": 754,
+#&gt;     "watchers_count": 754,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
@@ -7197,7 +7197,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     },
 #&gt;     "forks": 191,
 #&gt;     "open_issues": 92,
-#&gt;     "watchers": 753,
+#&gt;     "watchers": 754,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -7272,7 +7272,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/thomasp85/gganimate/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/thomasp85/gganimate/deployments",
 #&gt;     "created_at": "2016-02-01T21:28:54Z",
-#&gt;     "updated_at": "2020-07-26T22:02:42Z",
+#&gt;     "updated_at": "2020-07-29T10:06:31Z",
 #&gt;     "pushed_at": "2020-06-30T12:10:49Z",
 #&gt;     "git_url": "git://github.com/thomasp85/gganimate.git",
 #&gt;     "ssh_url": "git@github.com:thomasp85/gganimate.git",
@@ -7280,8 +7280,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/thomasp85/gganimate",
 #&gt;     "homepage": "https://gganimate.com",
 #&gt;     "size": 42417,
-#&gt;     "stargazers_count": 1575,
-#&gt;     "watchers_count": 1575,
+#&gt;     "stargazers_count": 1574,
+#&gt;     "watchers_count": 1574,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
@@ -7302,7 +7302,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     },
 #&gt;     "forks": 280,
 #&gt;     "open_issues": 126,
-#&gt;     "watchers": 1575,
+#&gt;     "watchers": 1574,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -8221,7 +8221,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": false,
 #&gt;     "has_pages": true,
-#&gt;     "forks_count": 243,
+#&gt;     "forks_count": 244,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
@@ -8233,7 +8233,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "url": {},
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
-#&gt;     "forks": 243,
+#&gt;     "forks": 244,
 #&gt;     "open_issues": 52,
 #&gt;     "watchers": 494,
 #&gt;     "default_branch": "master",
@@ -8920,7 +8920,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": false,
 #&gt;     "has_pages": true,
-#&gt;     "forks_count": 1963,
+#&gt;     "forks_count": 1965,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
@@ -8932,7 +8932,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "url": {},
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
-#&gt;     "forks": 1963,
+#&gt;     "forks": 1965,
 #&gt;     "open_issues": 41,
 #&gt;     "watchers": 850,
 #&gt;     "default_branch": "master",
@@ -9438,7 +9438,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     }
 #&gt;   }
 #&gt; ] 
-#&gt; &gt; gh("/users/:username/starred", username = "hadley")
+#&gt; &gt; gh("/users/{username}/starred", username = "hadley")
 #&gt; [
 #&gt;   {
 #&gt;     "id": 171599768,
@@ -9612,31 +9612,31 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/allisonhorst/stats-illustrations/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/allisonhorst/stats-illustrations/deployments",
 #&gt;     "created_at": "2018-12-15T23:16:36Z",
-#&gt;     "updated_at": "2020-07-28T11:34:34Z",
-#&gt;     "pushed_at": "2020-07-24T04:59:02Z",
+#&gt;     "updated_at": "2020-07-29T22:15:02Z",
+#&gt;     "pushed_at": "2020-07-29T21:47:26Z",
 #&gt;     "git_url": "git://github.com/allisonhorst/stats-illustrations.git",
 #&gt;     "ssh_url": "git@github.com:allisonhorst/stats-illustrations.git",
 #&gt;     "clone_url": "https://github.com/allisonhorst/stats-illustrations.git",
 #&gt;     "svn_url": "https://github.com/allisonhorst/stats-illustrations",
 #&gt;     "homepage": "",
-#&gt;     "size": 388267,
-#&gt;     "stargazers_count": 840,
-#&gt;     "watchers_count": 840,
+#&gt;     "size": 389140,
+#&gt;     "stargazers_count": 847,
+#&gt;     "watchers_count": 847,
 #&gt;     "language": {},
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": true,
 #&gt;     "has_pages": false,
-#&gt;     "forks_count": 73,
+#&gt;     "forks_count": 74,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
 #&gt;     "open_issues_count": 2,
 #&gt;     "license": {},
-#&gt;     "forks": 73,
+#&gt;     "forks": 74,
 #&gt;     "open_issues": 2,
-#&gt;     "watchers": 840,
+#&gt;     "watchers": 847,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -10020,7 +10020,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/tidyverse/dplyr/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/tidyverse/dplyr/deployments",
 #&gt;     "created_at": "2012-10-28T13:39:17Z",
-#&gt;     "updated_at": "2020-07-27T22:28:23Z",
+#&gt;     "updated_at": "2020-07-29T15:57:50Z",
 #&gt;     "pushed_at": "2020-07-28T15:07:47Z",
 #&gt;     "git_url": "git://github.com/tidyverse/dplyr.git",
 #&gt;     "ssh_url": "git@github.com:tidyverse/dplyr.git",
@@ -10028,15 +10028,15 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/tidyverse/dplyr",
 #&gt;     "homepage": "https://dplyr.tidyverse.org",
 #&gt;     "size": 37553,
-#&gt;     "stargazers_count": 3428,
-#&gt;     "watchers_count": 3428,
+#&gt;     "stargazers_count": 3429,
+#&gt;     "watchers_count": 3429,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": false,
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": false,
 #&gt;     "has_pages": true,
-#&gt;     "forks_count": 1278,
+#&gt;     "forks_count": 1279,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
@@ -10048,9 +10048,9 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "url": {},
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
-#&gt;     "forks": 1278,
+#&gt;     "forks": 1279,
 #&gt;     "open_issues": 69,
-#&gt;     "watchers": 3428,
+#&gt;     "watchers": 3429,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -10125,7 +10125,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/rudeboybert/fivethirtyeight/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/rudeboybert/fivethirtyeight/deployments",
 #&gt;     "created_at": "2016-12-03T19:25:21Z",
-#&gt;     "updated_at": "2020-07-28T05:03:10Z",
+#&gt;     "updated_at": "2020-07-29T19:18:27Z",
 #&gt;     "pushed_at": "2020-07-25T00:06:15Z",
 #&gt;     "git_url": "git://github.com/rudeboybert/fivethirtyeight.git",
 #&gt;     "ssh_url": "git@github.com:rudeboybert/fivethirtyeight.git",
@@ -10133,8 +10133,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/rudeboybert/fivethirtyeight",
 #&gt;     "homepage": "https://fivethirtyeight-r.netlify.com/",
 #&gt;     "size": 367379,
-#&gt;     "stargazers_count": 404,
-#&gt;     "watchers_count": 404,
+#&gt;     "stargazers_count": 405,
+#&gt;     "watchers_count": 405,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
@@ -10155,7 +10155,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     },
 #&gt;     "forks": 91,
 #&gt;     "open_issues": 3,
-#&gt;     "watchers": 404,
+#&gt;     "watchers": 405,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -10230,7 +10230,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/jennybc/googlesheets/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/jennybc/googlesheets/deployments",
 #&gt;     "created_at": "2014-10-24T04:47:51Z",
-#&gt;     "updated_at": "2020-07-03T22:13:14Z",
+#&gt;     "updated_at": "2020-07-30T00:15:35Z",
 #&gt;     "pushed_at": "2020-04-21T19:00:37Z",
 #&gt;     "git_url": "git://github.com/jennybc/googlesheets.git",
 #&gt;     "ssh_url": "git@github.com:jennybc/googlesheets.git",
@@ -10238,8 +10238,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/jennybc/googlesheets",
 #&gt;     "homepage": "",
 #&gt;     "size": 11626,
-#&gt;     "stargazers_count": 753,
-#&gt;     "watchers_count": 753,
+#&gt;     "stargazers_count": 754,
+#&gt;     "watchers_count": 754,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
@@ -10260,7 +10260,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     },
 #&gt;     "forks": 191,
 #&gt;     "open_issues": 92,
-#&gt;     "watchers": 753,
+#&gt;     "watchers": 754,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -10335,7 +10335,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "releases_url": "https://api.github.com/repos/thomasp85/gganimate/releases{/id}",
 #&gt;     "deployments_url": "https://api.github.com/repos/thomasp85/gganimate/deployments",
 #&gt;     "created_at": "2016-02-01T21:28:54Z",
-#&gt;     "updated_at": "2020-07-26T22:02:42Z",
+#&gt;     "updated_at": "2020-07-29T10:06:31Z",
 #&gt;     "pushed_at": "2020-06-30T12:10:49Z",
 #&gt;     "git_url": "git://github.com/thomasp85/gganimate.git",
 #&gt;     "ssh_url": "git@github.com:thomasp85/gganimate.git",
@@ -10343,8 +10343,8 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "svn_url": "https://github.com/thomasp85/gganimate",
 #&gt;     "homepage": "https://gganimate.com",
 #&gt;     "size": 42417,
-#&gt;     "stargazers_count": 1575,
-#&gt;     "watchers_count": 1575,
+#&gt;     "stargazers_count": 1574,
+#&gt;     "watchers_count": 1574,
 #&gt;     "language": "R",
 #&gt;     "has_issues": true,
 #&gt;     "has_projects": true,
@@ -10365,7 +10365,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     },
 #&gt;     "forks": 280,
 #&gt;     "open_issues": 126,
-#&gt;     "watchers": 1575,
+#&gt;     "watchers": 1574,
 #&gt;     "default_branch": "master",
 #&gt;     "permissions": {
 #&gt;       "admin": false,
@@ -11284,7 +11284,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": false,
 #&gt;     "has_pages": true,
-#&gt;     "forks_count": 243,
+#&gt;     "forks_count": 244,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
@@ -11296,7 +11296,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "url": {},
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
-#&gt;     "forks": 243,
+#&gt;     "forks": 244,
 #&gt;     "open_issues": 52,
 #&gt;     "watchers": 494,
 #&gt;     "default_branch": "master",
@@ -11983,7 +11983,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "has_downloads": true,
 #&gt;     "has_wiki": false,
 #&gt;     "has_pages": true,
-#&gt;     "forks_count": 1963,
+#&gt;     "forks_count": 1965,
 #&gt;     "mirror_url": {},
 #&gt;     "archived": false,
 #&gt;     "disabled": false,
@@ -11995,7 +11995,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;       "url": {},
 #&gt;       "node_id": "MDc6TGljZW5zZTA="
 #&gt;     },
-#&gt;     "forks": 1963,
+#&gt;     "forks": 1965,
 #&gt;     "open_issues": 41,
 #&gt;     "watchers": 850,
 #&gt;     "default_branch": "master",
@@ -12508,7 +12508,7 @@ generate a raw response will return a raw vector.</p>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"IN_PKGDOWN"</span>), <span class='st'>"true"</span>)) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
 <span class='co'>## Issues of a repository</span>
 <span class='fu'>gh</span>(<span class='st'>"/repos/hadley/dplyr/issues"</span>)
-<span class='fu'>gh</span>(<span class='st'>"/repos/:owner/:repo/issues"</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>, <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"dplyr"</span>)
+<span class='fu'>gh</span>(<span class='st'>"/repos/{owner}/{repo}/issues"</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"hadley"</span>, <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"dplyr"</span>)
 
 <span class='co'>## Automatic pagination</span>
 <span class='no'>users</span> <span class='kw'>&lt;-</span> <span class='fu'>gh</span>(<span class='st'>"/users"</span>, <span class='kw'>.limit</span> <span class='kw'>=</span> <span class='fl'>50</span>)
@@ -14084,7 +14084,7 @@ generate a raw response will return a raw vector.</p>
 #&gt;     "performed_via_github_app": {}
 #&gt;   }
 #&gt; ] 
-#&gt; &gt; gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
+#&gt; &gt; gh("/repos/{owner}/{repo}/issues", owner = "hadley", repo = "dplyr")
 #&gt; [
 #&gt;   {
 #&gt;     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/5446",
@@ -15684,7 +15684,7 @@ generate a raw response will return a raw vector.</p>
 <span class='co'>## API: https://developer.github.com/v3/repos/pages/#enable-a-pages-site</span>
 
 <span class='kw pkg'>gh</span><span class='kw ns'>::</span><span class='fu'>gh</span>(
-  <span class='st'>"POST /repos/:owner/:repo/pages"</span>,
+  <span class='st'>"POST /repos/{owner}/{repo}/pages"</span>,
   <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"gaborcsardi"</span>,
   <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"playground"</span>,
   <span class='kw'>source</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
@@ -15699,7 +15699,7 @@ generate a raw response will return a raw vector.</p>
 
 <span class='no'>body</span> <span class='kw'>&lt;-</span> <span class='st'>'{ "source": { "branch": "master", "path": "/docs" } }'</span>
 <span class='kw pkg'>gh</span><span class='kw ns'>::</span><span class='fu'>gh</span>(
-  <span class='st'>"POST /repos/:owner/:repo/pages"</span>,
+  <span class='st'>"POST /repos/{owner}/{repo}/pages"</span>,
   <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"gaborcsardi"</span>,
   <span class='kw'>repo</span> <span class='kw'>=</span> <span class='st'>"playground"</span>,
   <span class='fu'><a href='https://rdrr.io/r/base/rawConversion.html'>charToRaw</a></span>(<span class='no'>body</span>),

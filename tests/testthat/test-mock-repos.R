@@ -53,6 +53,7 @@ test_that("repos, some basics", {
 
   ## TODO: POST /orgs/{org}/repos
 
+  Sys.sleep(2)
   res <- gh(
     TMPL("/repos/{owner}/{repo}"),
     owner = "gh-testing",

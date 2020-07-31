@@ -265,6 +265,7 @@ set_github_pat2 <- function(api_url = default_api_url(),
     on.exit(Sys.unsetenv('GIT_ASKTOKEN_NAME'), add = TRUE)
     on.exit(Sys.unsetenv('GIT_ASKTOKEN'), add = TRUE)
   }
+
   for(i in 1:3) {
     # The username doesn't have to be real, Github seems to ignore username for PATs
     cred <- credentials::git_credential_ask(pat_url, verbose = verbose)
@@ -277,17 +278,20 @@ set_github_pat2 <- function(api_url = default_api_url(),
         credential_reject(cred)
         next
       }
-      if(isTRUE(validate)) {
+      if (isTRUE(validate)) {
         hx <- curl::handle_setheaders(curl::new_handle(), Authorization = paste("token", cred$password))
         req <- curl::curl_fetch_memory(sprintf("%s/user", api_url), handle = hx)
-        if(req$status_code >= 400){
+        if (req$status_code >= 400) {
           message2("Authentication failed. Token invalid.")
           credentials::credential_reject(cred)
           next
         }
-        if(isTRUE(verbose)) {
+        if (isTRUE(verbose)) {
           data <- jsonlite::fromJSON(rawToChar(req$content))
-          helper <- tryCatch(credentials::credential_helper_get()[1], error = function(e){"??"})
+          helper <- tryCatch(
+            credentials::credential_helper_get()[1],
+            error = function(e){"??"}
+          )
           message2(sprintf(
             "Using token stored for %s for user '%s' (credential helper: %s)",
             host, data$login, helper

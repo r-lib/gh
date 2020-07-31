@@ -26,7 +26,7 @@ test_that("api specific token is used", {
   })
 })
 
-test_that("fall back to GITHUB_PAT", {
+test_that("do not send GITHUB_PAT to non-github.com host", {
   env <- c(
     GH_KEYRING = "false",
     GITHUB_API_URL = "https://github.acme.com",
@@ -35,29 +35,19 @@ test_that("fall back to GITHUB_PAT", {
     GITHUB_TOKEN = "token"
   )
   withr::with_envvar(env, {
-    expect_equal(gh_token(), "pat")
-    expect_equal(gh_token("https://github.acme4.com"), "pat")
+    expect_equal(gh_token(), "")
   })
+})
 
-  env2 <- c(
-    GH_KEYRING = "false",
-    GITHUB_API_URL = "https://github.acme.com",
-    GITHUB_PAT = "pat",
-    GITHUB_TOKEN = "token"
-  )
-  withr::with_envvar(env2, {
-    expect_equal(gh_token(), "pat")
-    expect_equal(gh_token("https://github.acme4.com"), "pat")
-  })
-
-  env3 <- c(
+test_that("fall back to GITHUB_PAT", {
+  env <- c(
     GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_API_GITHUB_COM = NA,
     GITHUB_PAT = "pat",
     GITHUB_TOKEN = "token"
   )
-  withr::with_envvar(env3, {
+  withr::with_envvar(env, {
     expect_equal(gh_token(), "pat")
     expect_equal(gh_token("https://api.github.com"), "pat")
   })
@@ -66,35 +56,12 @@ test_that("fall back to GITHUB_PAT", {
 test_that("fall back to GITHUB_TOKEN", {
   env <- c(
     GH_KEYRING = "false",
-    GITHUB_API_URL = "https://github.acme.com",
-    GITHUB_PAT_GITHUB_ACME2_COM = "acme2",
-    GITHUB_PAT = NA,
-    GITHUB_TOKEN = "token"
-  )
-  withr::with_envvar(env, {
-    expect_equal(gh_token(), "token")
-    expect_equal(gh_token("https://github.acme4.com"), "token")
-  })
-
-  env2 <- c(
-    GH_KEYRING = "false",
-    GITHUB_API_URL = "https://github.acme.com",
-    GITHUB_PAT = NA,
-    GITHUB_TOKEN = "token"
-  )
-  withr::with_envvar(env2, {
-    expect_equal(gh_token(), "token")
-    expect_equal(gh_token("https://github.acme4.com"), "token")
-  })
-
-  env3 <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_API_GITHUB_COM = NA,
     GITHUB_PAT = NA,
     GITHUB_TOKEN = "token"
   )
-  withr::with_envvar(env3, {
+  withr::with_envvar(env, {
     expect_equal(gh_token(), "token")
     expect_equal(gh_token("https://api.github.com"), "token")
   })

@@ -209,9 +209,11 @@ is_github_dot_com <- function(api_url) {
 }
 
 # inlined from credentials and generalized to non-github.com URL
+# is_interactive() is an unexported helper defined in utils.R
+# morally, is rlang::is_interactive()
 set_github_pat2 <- function(api_url = default_api_url(),
                             force_new = FALSE,
-                            validate = interactive(),
+                            validate = is_interactive(),
                             verbose = validate) {
   if (!can_load("credentials")) {
     return(FALSE)
@@ -251,19 +253,26 @@ set_github_pat2 <- function(api_url = default_api_url(),
   if(isTRUE(force_new)) {
     git_credential_forget(pat_url)
   }
-  if(isTRUE(verbose)) {
-    message2("If prompted for GitHub credentials, enter your PAT in the password field")
-  }
-  askpass <- Sys.getenv('GIT_ASKPASS')
-  if(nchar(askpass)){
-    # Hack to override prompt sentence to say "Token" instead of "Password"
-    Sys.setenv(GIT_ASKTOKEN = askpass)
-    Sys.setenv(GIT_ASKPASS = system.file('ask_token.sh', package = 'credentials', mustWork = TRUE))
-    PAT_prompt <- sprintf("Personal Access Token (PAT) for %s", base_url)
-    Sys.setenv(GIT_ASKTOKEN_NAME = PAT_prompt)
-    on.exit(Sys.setenv(GIT_ASKPASS = askpass), add = TRUE)
-    on.exit(Sys.unsetenv('GIT_ASKTOKEN_NAME'), add = TRUE)
-    on.exit(Sys.unsetenv('GIT_ASKTOKEN'), add = TRUE)
+
+  # credentials does not put this behind a check for interactive session, but
+  # I think it should
+  if (is_interactive()) {
+    if(isTRUE(verbose)) {
+      message2("If prompted for GitHub credentials, enter your PAT in the password field")
+    }
+    askpass <- Sys.getenv('GIT_ASKPASS')
+    if(nchar(askpass)){
+      # Hack to override prompt sentence to say "Token" instead of "Password"
+      withr::local_envvar(c(
+        GIT_ASKTOKEN = askpass,
+        GIT_ASKPASS = system.file(
+          'ask_token.sh', package = 'credentials', mustWork = TRUE
+        ),
+        GIT_ASKTOKEN_NAME = sprintf(
+          "Personal Access Token (PAT) for %s", base_url
+        )
+      ))
+    }
   }
 
   for(i in 1:3) {

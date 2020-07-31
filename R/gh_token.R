@@ -232,10 +232,12 @@ set_github_pat2 <- function(api_url = default_api_url(),
   if (is_github_dot_com(api_url)) {
     # TODO: use same pattern for github.com and GHE?
     user_env_var <- "GITHUB_PAT_USER"
+    token_env_var <- "GITHUB_PAT"
     host <- "github.com"
   } else {
     user_env_var <- paste0("GITHUB_USER_", slugify_url(base_url))
     # "GITHUB_USER_GITHUB_UBC_CA"
+    token_env_var <- paste0("GITHUB_PAT_", slugify_url(base_url))
     host <- get_host(base_url)
     # "github.ubc.ca"
   }
@@ -289,7 +291,6 @@ set_github_pat2 <- function(api_url = default_api_url(),
           ))
         }
       }
-      token_env_var <- paste0("GITHUB_PAT_", slugify_url(base_url))
       return(do.call(Sys.setenv, setNames(list(cred$password), token_env_var)))
     }
   }

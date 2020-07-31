@@ -246,16 +246,17 @@ set_github_pat2 <- function(api_url = default_api_url(),
     host <- get_host(base_url)
     # "github.ubc.ca"
   }
-  pat_user <- Sys.getenv(user_env_var, "PersonalAccessToken")
 
+  # The username doesn't have to be real, Github seems to ignore username for PATs
+  pat_user <- Sys.getenv(user_env_var, "PersonalAccessToken")
   # credentials does: pat_url <- sprintf("https://%s@github.com", pat_user)
   pat_url <- sprintf("https://%s@%s", pat_user, host)
-  if(isTRUE(force_new)) {
-    git_credential_forget(pat_url)
+
+  if (isTRUE(force_new)) {
+    credentials::git_credential_forget(pat_url)
   }
 
-  # credentials does not put this behind a check for interactive session, but
-  # I think it should
+  # credentials does the "hack" unconditionally, but I think this is better
   if (is_interactive()) {
     if(isTRUE(verbose)) {
       message2("If prompted for GitHub credentials, enter your PAT in the password field")
@@ -266,25 +267,30 @@ set_github_pat2 <- function(api_url = default_api_url(),
       withr::local_envvar(c(
         GIT_ASKTOKEN = askpass,
         GIT_ASKPASS = system.file(
-          'ask_token.sh', package = 'credentials', mustWork = TRUE
+          "ask_token.sh", package = "gh", mustWork = TRUE
         ),
         GIT_ASKTOKEN_NAME = sprintf(
           "Personal Access Token (PAT) for %s", base_url
         )
       ))
     }
+  } else {
+    withr::local_envvar(c(
+      GIT_ASKPASS = system.file(
+        "empty_token.sh", package = "gh", mustWork = TRUE
+      )
+    ))
   }
 
   for(i in 1:3) {
-    # The username doesn't have to be real, Github seems to ignore username for PATs
     cred <- credentials::git_credential_ask(pat_url, verbose = verbose)
-    if (length(cred$password)) {
+    if (length(cred$password) && !is.na(cred$password)) {
       if (nchar(cred$password) < 40) {
         message2("Please enter a token in the password field, not your master password! Let's try again :-)")
         message2(sprintf(
           "To generate a new token, visit: %s/settings/tokens", base_url
         ))
-        credential_reject(cred)
+        credentials::credential_reject(cred)
         next
       }
       if (isTRUE(validate)) {
@@ -307,7 +313,9 @@ set_github_pat2 <- function(api_url = default_api_url(),
           ))
         }
       }
-      return(do.call(Sys.setenv, setNames(list(cred$password), token_env_var)))
+      return(
+        do.call(Sys.setenv, stats::setNames(list(cred$password), token_env_var))
+      )
     }
   }
   if (isTRUE(verbose)) {

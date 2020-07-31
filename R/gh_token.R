@@ -213,6 +213,9 @@ set_github_pat2 <- function(api_url = default_api_url(),
                             force_new = FALSE,
                             validate = interactive(),
                             verbose = validate) {
+  if (!can_load("credentials")) {
+    return(FALSE)
+  }
   # TODO: figure out right place and way to deal with asymmetry between
   # github.com vs GHE
   # GHE URLs look like:

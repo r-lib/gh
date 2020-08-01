@@ -15,7 +15,7 @@ library(gh)
 
 gh generally sends a Personal Access Token (PAT) with its requests. Some endpoints of the GitHub API can be accessed without authenticating yourself. But once your API use becomes more frequent, you will want a PAT to prevent problems with rate limits and to access all possible endpoints.
 
-More resource on how and why to get a PAT:
+More resources on how and why to get a PAT:
 
   * `gh::gh_token()`
   * Resources in the usethis package:

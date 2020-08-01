@@ -15,11 +15,17 @@ library(gh)
 
 gh generally sends a Personal Access Token (PAT) with its requests. Some endpoints of the GitHub API can be accessed without authenticating yourself. But once your API use becomes more frequent, you will want a PAT to prevent problems with rate limits and to access all possible endpoints.
 
-See *fill this in* for info on getting a PAT.
+More resource on how and why to get a PAT:
 
+  * `gh::gh_token()`
+  * Resources in the usethis package:
+    - [Setup advice re: PATs](https://usethis.r-lib.org/articles/articles/usethis-setup.html#get-and-store-a-github-personal-access-token-1)
+    - `usethis::create_github_token()`
+  * `credentials::set_github_pat()`
+    
 ## PAT and host
 
-`gh::gh()` allows the user to provide a PAT via the `.token` argument and to specify a host other than `github.com` via the `.api_url` argument.
+`gh::gh()` allows the user to provide a PAT via the `.token` argument and to specify a host other than "github.com" via the `.api_url` argument. (Some companies and universities run their own instance of GitHub Enterprise.)
 
 ```{r, eval = FALSE}
 gh(endpoint, ..., .token = NULL, ..., .api_url = NULL, ...)
@@ -32,8 +38,8 @@ However, it's annoying to always provide your PAT or host and it's unsafe for yo
 How are `.api_url` and `.token` determined when the user does not provide them?
 
 1. `.api_url` defaults to the value of the `GITHUB_API_URL` environment variable
-and, if that is unset, falls back to `"https://api.github.com"`.
-2. Once the API URL is set, the token is determined via a call to `gh_token(.api_url)`. The token is looked up based on the URL.
+and, if that is unset, falls back to `"https://api.github.com"`. This is always done before worrying about the PAT.
+2. The PAT is obtained via a call to `gh_token(.api_url)`. That is, the token is looked up based on the URL.
 
 Here's the flow of token lookup:
 
@@ -41,16 +47,18 @@ Here's the flow of token lookup:
     - `GITHUB_PAT_XXX`, where `XXX` is determined from `.api_url` (see below)
     - `GITHUB_PAT`, if and only if we're targetting "github.com"
     - `GITHUB_TOKEN`, if and only if we're targetting "github.com"
+    
     *TODO: Explain how we check these env vars in the usual `Sys.getenv()` way
     and, potentially, also via keyring. Currently, we check keyring then
-    env var, but https://github.com/r-lib/gh/issues/110 says to swap this order.*
+    env var, but https://github.com/r-lib/gh/issues/110 says to swap this order.
+    Does keyring also set a regular env var?*
 2. If the suggested credentials package is available:
     - Ask if the Git credential store already has a PAT stored for this host and
-      username (see below). Otherwise, if in an interactive session, ask the user
-      for their PAT.
-    - If the discovered or provided PAT validates, approve it for the Git
-      credential store and store it as an environment variable for the current
-      session:
+      username (see below). If it does not, in an interactive session, this can
+      lead to prompting the user for their PAT.
+    - If the discovered or provided PAT validates with the host, approve it for
+      the Git credential store and store it as an environment variable for the
+      current session:
       - `GITHUB_PAT`, if and only if we're targetting "github.com"
       - `GITHUB_PAT_XXX`, where `XXX` is determined from `.api_url` (see below),
         otherwise
@@ -59,22 +67,47 @@ Here's the flow of token lookup:
 
 Notice that the above flow, if successful, always stores the PAT for the current session as a host-specific environment variable. And that's always where it checks first. This is intentional.
 
-This allows for PAT reuse, potentially by multiple packages, for the lifetime of the current R session.
+Also note that, if the PAT is initially retrieved from the Git credential store, its validity is checked prior to making it available as an environment variable.
 
-If there is no PAT to be had, `gh::gh()` sends a request with no token.
+This allows for reuse of a PAT, that is known to be valid, potentially by multiple packages, for the lifetime of the current R session.
 
-What does failure look like?
+For a normal user, on a machine used for interactive development, we recommend:
 
-If the endpoint requires no auth, the request probably succeeds! At least until you run up against rate limits.
+  * Store your PAT(s) in an official credential store or keychain for your
+    OS. For an R user, that means use an approach that relies on either the
+    credentials or keyring package.
+  * Do **not** store your PAT(s) in plain text in, e.g., `.Renviron`. In the
+    past, this has been a common and recommended practice for pragmatic reasons.
+    However, credentials/keyring/gh have now evolved to the point where it's
+    possible for all of us to follow better security practices.
+  * If you use a general-purpose password manager, like 1Password or LastPass,
+    you may also want to store your PAT(s) there. Why? If your PAT is
+    "forgotten" from the OS-level credential store, intentionally or not, you'll
+    need to provide it again when prompted. For security reasons, none of the
+    other tools involved will help you re-discover a PAT.
+    
+    If you don't have any other record of your PAT, you'll have to get a new
+    PAT whenever this happens. This is not the end of the world. But if you
+    aren't disciplined about deleting lost PATs from
+    <https://github.com/settings/tokens>, you will eventually find yourself in a
+    confusing situation where you can't be sure which PAT(s) are in use.
 
-If a PAT is discovered in an environment variable (or in the keyring?), it is not pre-emptively validated, i.e. it is taken at face value. The two most common ways to get here are specification via `.Renviron` or as a secret in a CI/CD platform, such as GitHub Actions. If the PAT is invalid (or it is improperly scoped), the first affected request will fail.
+On a headless system, such as on a CI/CD platform like GitHub Actions, provide the necessary PAT(s) via secure environment variables. Regular environment variables can be used to configure less sensitive settings, such as the API host. Don't expose your PAT by doing something silly like dumping all environment variables to a log file.
 
-If the PAT is retrieved from the Git credential store or is provided by the user, the PAT is immediately and explicitly checked for basic validity. A valid PAT could still lead to a downstream error, if it has insufficient scopes with respect to a specific request.
+## Failure
+
+If there is no PAT to be had, `gh::gh()` sends a request with no token. (Internally, the `Authorization` header is omitted if the PAT is found to be the empty string, `""`.)
+
+What do PAT-related failures look like?
+
+If no PAT is sent and the endpoint requires no auth, the request probably succeeds! At least until you run up against rate limits.
+
+If a PAT is discovered in an environment variable, it is taken at face value. The two most common ways to get here are specification via `.Renviron` or as a secret in a CI/CD platform, such as GitHub Actions. If the PAT is invalid, the first affected request will fail. This will also be the experience if an invalid PAT is provided directly via `.token`.
+
+If the PAT is retrieved from the Git credential store or is elicited from the user via prompt, the PAT is immediately and explicitly checked for basic validity.
+
+Even a valid PAT can lead to a downstream error, if it has insufficient scopes with respect to a specific request.
 
 ## API URL specifications
 
 *TODO: a table showing different acceptable forms for `.api_url` and the associated env vars or keys for keyring or the Git credential store.*
-
-## Advice on PAT storage
-
-*TODO: normal users, on machines used for interactive development, should call `set_github_pat[2]()` for every relevant host to place a PAT into the Git credential store. Or use keyring? Either is preferable to plain text storage in `.Renviron`. On CI, rely on secure env vars*

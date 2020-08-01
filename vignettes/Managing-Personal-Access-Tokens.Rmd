@@ -1,5 +1,10 @@
 ---
 title: "Managing Personal Access Tokens"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Managing Personal Access Tokens}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}

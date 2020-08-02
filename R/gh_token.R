@@ -117,6 +117,7 @@ should_use_keyring <- function() {
   err <- FALSE
   tryCatch(
     locked <- keyring::keyring_is_locked(),
+    # TODO: Shouldn't this be <<- ?
     error = function(e) err <- TRUE
   )
   if (err) return(TRUE)
@@ -132,6 +133,7 @@ should_use_keyring <- function() {
   # It is better to fail here, once and for all.
   if (locked) {
     err <- FALSE
+    # TODO: Shouldn't this be <<- ?
     tryCatch(keyring::keyring_unlock(), error = function(e) err <- TRUE)
     if (err) {
       cli_alert_info("{.pkg gh}: failed to unlock default keyring")
@@ -150,8 +152,8 @@ get_first_token_found <- function(vars) {
     if (has_keyring) tryCatch(keyring::key_get(v), error = function(e) NULL)
   }
   for (var in vars) {
-    if ((val <- key_get(var) %||% "") != "") break
     if ((val <- Sys.getenv(var, "")) != "") break
+    if ((val <- key_get(var) %||% "") != "") break
   }
 
   val

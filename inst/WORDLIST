@@ -1,4 +1,6 @@
 Codecov
+EDU
+Env
 Github
 GraphQL
 HTTPS
@@ -10,14 +12,18 @@ PATs
 URI
 api
 auth
+behaviour
+edu
 env
 funder
 github
+hostname
 https
 keychain
 keyring
 macOS
 repo
 repos
+slugify
 targetting
 usethis

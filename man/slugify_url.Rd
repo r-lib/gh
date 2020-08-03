@@ -7,20 +7,26 @@
 slugify_url(url)
 }
 \arguments{
-\item{url}{Character vector HTTP/HTTPS URLs.}
+\item{url}{Character vector of HTTP/HTTPS URLs. They don't have to be in the
+API-specific form, although they can be.}
 }
 \value{
 Character vector of suffixes.
 }
 \description{
-Compute the suffix that gh uses for GitHub API URL specific PATs
+\code{slugify_url()} determines a suffix from a URL and this suffix is used to
+construct the names of environment variables that hold the username or PAT
+for a specific GitHub URL. This is mostly relevant to people using GitHub
+Enterprise.
 }
 \examples{
-# The main GH site
+# main github.com site
 slugify_url("https://api.github.com")
+slugify_url("https://github.com")
 
-# A custom one
+# an instance of GitHub Enterprise
 slugify_url("https://github.acme.com")
+slugify_url("https://github.acme.com/api/v3")
 }
 \seealso{
 \code{\link[=gh_token]{gh_token()}}

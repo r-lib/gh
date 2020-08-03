@@ -82,8 +82,7 @@
 
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
-  base_url <- get_baseurl(api_url)
-  token_env_var <- paste0("GITHUB_PAT_", slugify_url(base_url))
+  token_env_var <- paste0("GITHUB_PAT_", slugify_url(api_url))
   candidates <- c(
     token_env_var,
     if (is_github_dot_com(api_url)) c("GITHUB_PAT", "GITHUB_TOKEN")
@@ -181,33 +180,48 @@ gh_auth <- function(token) {
 #' # A custom one
 #' slugify_url("https://github.acme.com")
 
-slugify_url <- function(url) {
+slugify_url <- function(url) {           # https://jane@github.uni.edu/api/v3
+  url <- get_baseurl(url)                # https://jane@github.uni.edu
+  url <- normalize_host(url)
+  x2 <- sub("^.*://([^/]*@)?", "", url)  # github.uni.edu
+  x3 <- gsub("[.]+", "_", x2)            # github_uni_edu
+  x4 <- gsub("[^-a-zA-Z0-9_]", "", x3)
+  toupper(x4)                            # GITHUB_UNI_EDU
+}
+
+get_baseurl <- function(url) {               # https://github.uni.edu/api/v3/
   if (!any(grepl("^https?://", url))) {
     stop("Only works with HTTP(S) protocols")
   }
-  x2 <- sub("^.*://([^/]*@)?", "", url)
-  x3 <- sub("/+$", "", x2)
-  x4 <- gsub("[./]+", "_", x3)
-  x5 <- gsub("[^-a-zA-Z0-9_]", "", x4)
-  toupper(x5)
+  prot <- sub("^(https?://).*$", "\\1", url) # https://
+  rest <- sub("^https?://(.*)$", "\\1", url) #         github.uni.edu/api/v3/
+  host <- sub("/.*$", "", rest)              #         github.uni.edu
+  paste0(prot, host)                         # https://github.uni.edu
 }
 
-get_baseurl <- function(x) {
-  if (!any(grepl("^https?://", x))) stop("Only works with HTTP(S) protocols")
-  prot <- sub("^(https?://).*$", "\\1", x)
-  rest <- sub("^https?://(.*)$", "\\1", x)
-  host <- sub("/.*$", "", rest)
-  paste0(prot, host)
+normalize_host <- function(x) {
+  sub("api.github.com", "github.com", x)
 }
 
-get_host <- function(x) {
-  if (!any(grepl("^https?://", x))) stop("Only works with HTTP(S) protocols")
-  rest <- sub("^https?://(.*)$", "\\1", x)
-  sub("/.*$", "", rest)
+get_hosturl <- function(url) {
+  url <- get_baseurl(url)
+  normalize_host(url)
 }
 
-is_github_dot_com <- function(api_url) {
-  identical(as.character(api_url), "https://api.github.com")
+get_apiurl <- function(url) {
+  host_url <- get_hosturl(url)
+  prot_host <- strsplit(host_url, "://", fixed = TRUE)[[1]]
+  if (is_github_dot_com(host_url)) {
+    paste0(prot_host[[1]], "://api.github.com")
+  } else {
+    paste0(host_url, "/api/v3")
+  }
+}
+
+is_github_dot_com <- function(url) {
+  url <- get_baseurl(url)
+  url <- normalize_host(url)
+  grepl("^https?://github.com", url)
 }
 
 # inlined from credentials and generalized to non-github.com URL
@@ -220,39 +234,29 @@ set_github_pat2 <- function(api_url = default_api_url(),
   if (!can_load("credentials")) {
     return(FALSE)
   }
-  # TODO: figure out right place and way to deal with asymmetry between
-  # github.com vs GHE
-  # GHE URLs look like:
-  # http(s)://[hostname]/api/v3, e.g., https://github.ubc.ca/api/v3
-  # e.g., api.github.com vs github.ubc.ca or github.ubc.ca/api/v3
 
-  # TODO: generally accept either form
-  # https://github.com or https://api.github.com
-  # https://github.ubc.ca or https://github.ubc.ca/api/v3
-
-  base_url <- get_baseurl(api_url)
-  # https://api.github.com       --> https://api.github.com
-  # https://github.ubc.ca/api/v3 --> https://github.ubc.ca
-
-  # following what's currently in credentials
-  # pat_user <- Sys.getenv("GITHUB_PAT_USER", 'PersonalAccessToken')
+  host_url <- get_hosturl(api_url)
+  prot_host <- strsplit(host_url, "://", fixed = TRUE)[[1]]
   if (is_github_dot_com(api_url)) {
-    # TODO: use same pattern for github.com and GHE?
+    # what's currently in credentials
+    # pat_user <- Sys.getenv("GITHUB_PAT_USER", 'PersonalAccessToken')
+    # TODO: I propose we change the user env var to GITHUB_USER
     user_env_var <- "GITHUB_PAT_USER"
     token_env_var <- "GITHUB_PAT"
-    host <- "github.com"
   } else {
-    user_env_var <- paste0("GITHUB_USER_", slugify_url(base_url))
-    # "GITHUB_USER_GITHUB_UBC_CA"
-    token_env_var <- paste0("GITHUB_PAT_", slugify_url(base_url))
-    host <- get_host(base_url)
-    # "github.ubc.ca"
+    user_env_var <- paste0("GITHUB_USER_", slugify_url(api_url))
+    token_env_var <- paste0("GITHUB_PAT_", slugify_url(api_url))
   }
+  api_url <- get_apiurl(api_url)
 
   # The username doesn't have to be real, Github seems to ignore username for PATs
   pat_user <- Sys.getenv(user_env_var, "PersonalAccessToken")
   # credentials does: pat_url <- sprintf("https://%s@github.com", pat_user)
-  pat_url <- sprintf("https://%s@%s", pat_user, host)
+
+  pat_url <- sprintf(
+    "%s://%s@%s",
+    prot_host[[1]], pat_user, prot_host[[2]]
+  )
 
   if (isTRUE(force_new)) {
     credentials::git_credential_forget(pat_url)
@@ -264,7 +268,7 @@ set_github_pat2 <- function(api_url = default_api_url(),
       message2("If prompted for GitHub credentials, enter your PAT in the password field")
     }
     askpass <- Sys.getenv('GIT_ASKPASS')
-    if(nchar(askpass)){
+    if (nchar(askpass)) {
       # Hack to override prompt sentence to say "Token" instead of "Password"
       withr::local_envvar(c(
         GIT_ASKTOKEN = askpass,
@@ -272,7 +276,7 @@ set_github_pat2 <- function(api_url = default_api_url(),
           "ask_token.sh", package = "gh", mustWork = TRUE
         ),
         GIT_ASKTOKEN_NAME = sprintf(
-          "Personal Access Token (PAT) for %s", base_url
+          "Personal Access Token (PAT) for %s", host_url
         )
       ))
     }
@@ -290,7 +294,8 @@ set_github_pat2 <- function(api_url = default_api_url(),
       if (nchar(cred$password) < 40) {
         message2("Please enter a token in the password field, not your master password! Let's try again :-)")
         message2(sprintf(
-          "To generate a new token, visit: %s/settings/tokens", base_url
+          "To generate a new token, visit: %s/settings/tokens",
+          host_url
         ))
         credentials::credential_reject(cred)
         next
@@ -311,7 +316,7 @@ set_github_pat2 <- function(api_url = default_api_url(),
           )
           message2(sprintf(
             "Using token stored for %s for user '%s' (credential helper: %s)",
-            host, data$login, helper
+            host_url, data$login, helper
           ))
         }
       }
@@ -322,7 +327,8 @@ set_github_pat2 <- function(api_url = default_api_url(),
   }
   if (isTRUE(verbose)) {
     message2(sprintf(
-      "Failed to obtain a valid token for %s after 3 attempts", base_url
+      "Failed to obtain a valid token for %s after 3 attempts",
+      host_url
     ))
   }
   return(FALSE)

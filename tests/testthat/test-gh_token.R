@@ -120,3 +120,27 @@ test_that("is_github_dot_com() works", {
   expect_false(is_github_dot_com("https://github.acme.com/api/v3"))
   expect_false(is_github_dot_com("https://github.acme.com/api/v3/user"))
 })
+
+test_that("get_hosturl() works", {
+  x <- "https://github.com"
+  expect_equal(get_hosturl("https://github.com"), x)
+  expect_equal(get_hosturl("https://api.github.com"), x)
+
+  x <- "https://github.acme.com"
+  expect_equal(get_hosturl("https://github.acme.com"), x)
+  expect_equal(get_hosturl("https://github.acme.com/api/v3"), x)
+})
+
+test_that("get_apiurl() works", {
+  x <- "https://api.github.com"
+  expect_equal(get_apiurl("https://github.com"), x)
+  expect_equal(get_apiurl("https://github.com/"), x)
+  expect_equal(get_apiurl("https://github.com/r-lib/gh/issues"), x)
+  expect_equal(get_apiurl("https://api.github.com"), x)
+  expect_equal(get_apiurl("https://api.github.com/rate_limit"), x)
+
+  x <- "https://github.acme.com/api/v3"
+  expect_equal(get_apiurl("https://github.acme.com"), x)
+  expect_equal(get_apiurl("https://github.acme.com/OWNER/REPO"), x)
+  expect_equal(get_apiurl("https://github.acme.com/api/v3"), x)
+})

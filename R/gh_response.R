@@ -38,7 +38,7 @@ gh_process_response <- function(response) {
   res
 }
 
-## https://developer.github.com/v3/#client-errors
+# https://docs.github.com/v3/#client-errors
 gh_error <- function(response, call = sys.call(-1)) {
   heads <- headers(response)
   res <- content(response)

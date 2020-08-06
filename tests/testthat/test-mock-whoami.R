@@ -2,7 +2,7 @@ context("whoami")
 
 test_that("whoami works in presence of PAT", {
 
-  skip_if_offline()
+  skip_if_offline("github.com")
   skip_on_cran()
   skip_if_no_token()
   
@@ -15,7 +15,7 @@ test_that("whoami works in presence of PAT", {
 
 test_that("whoami works in absence of PAT", {
 
-  skip_if_offline()
+  skip_if_offline("github.com")
   skip_on_cran()
   
   expect_message(res <- gh_whoami(.token = ""),
@@ -26,7 +26,7 @@ test_that("whoami works in absence of PAT", {
 test_that("whoami errors with bad PAT", {
   skip("re-activate when request matching sorted out (gaborcsardi/httrmock#3)")
 
-  skip_if_offline()
+  skip_if_offline("github.com")
   skip_on_cran()
     
   e <- tryCatch(gh_whoami(.token = NA), error = identity)

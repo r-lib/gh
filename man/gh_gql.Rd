@@ -30,12 +30,12 @@ and named \code{NA} values trigger an error.}
 See \code{\link[=gh_token]{gh_token()}} if you need more flexibility, e.g. different tokens
 for different GitHub Enterprise deployments.}
 
-\item{.destfile}{path to write response to disk.  If NULL (default), response will
-be processed and returned as an object.  If path is given, response will
-be written to disk in the form sent.}
+\item{.destfile}{Path to write response to disk. If \code{NULL} (default),
+response will be processed and returned as an object. If path is given,
+response will be written to disk in the form sent.}
 
-\item{.overwrite}{if \code{.destfile} is provided, whether to overwrite an
-existing file.  Defaults to FALSE.}
+\item{.overwrite}{If \code{.destfile} is provided, whether to overwrite an
+existing file.  Defaults to \code{FALSE}.}
 
 \item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
 if \code{endpoint} just contains a path. Defaults to \code{GITHUB_API_URL}
@@ -48,7 +48,7 @@ used to override or augment the default \code{User-Agent} header:
 }
 \description{
 See more about the GraphQL API here:
-\url{https://developer.github.com/v4/}
+\url{https://docs.github.com/graphql}
 }
 \details{
 Note: pagination and the \code{.limit} argument does not work currently,

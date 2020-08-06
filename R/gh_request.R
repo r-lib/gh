@@ -49,7 +49,7 @@ gh_set_verb <- function(x) {
 
 gh_set_endpoint <- function(x) {
   params <- x$params
-  if (!grepl(":", x$endpoint) || length(params) == 0L || has_no_names(params)) {
+  if (!is_template(x$endpoint) || length(params) == 0L || has_no_names(params)) {
     return(x)
   }
 
@@ -58,12 +58,17 @@ gh_set_endpoint <- function(x) {
   endpoint <- endpoint2 <- x$endpoint
 
   for (i in named_params) {
-    n <- names(params)[i]
-    p <- params[[i]][1]
-    endpoint2 <- gsub(paste0(":", n, "\\b"), p, endpoint)
+    endpoint2 <- expand_variable(
+      varname  = names(params)[i],
+      value    = params[[i]][1],
+      template = endpoint
+    )
     if (endpoint2 != endpoint) {
       endpoint <- endpoint2
       done[i] <- TRUE
+    }
+    if (!is_template(endpoint)) {
+      break
     }
   }
 
@@ -71,7 +76,6 @@ gh_set_endpoint <- function(x) {
   x$params <- x$params[!done]
   x$params <- cleanse_names(x$params)
   x
-
 }
 
 gh_set_query <- function(x) {
@@ -99,14 +103,6 @@ gh_set_body <- function(x) {
   x
 }
 
-gh_set_headers <- function(x) {
-  # x$api_url must be set properly at this point
-  auth <- gh_auth(x$token %||% gh_token(x$api_url))
-  send_headers <- gh_send_headers(x$accept, x$send_headers)
-  x$headers <- c(send_headers, auth)
-  x
-}
-
 gh_set_url <- function(x) {
   if (grepl("^https?://", x$endpoint)) {
     x$url <- URLencode(x$endpoint)
@@ -119,6 +115,21 @@ gh_set_url <- function(x) {
   x
 }
 
+gh_set_headers <- function(x) {
+  # x$api_url must be set properly at this point
+  auth <- gh_auth(x$token %||% gh_token(x$api_url))
+  send_headers <- gh_send_headers(x$accept, x$send_headers)
+  x$headers <- c(send_headers, auth)
+  x
+}
+
+gh_send_headers <- function(accept_header = NULL, headers = NULL) {
+  modify_vector(
+    modify_vector(default_send_headers, accept_header),
+    headers
+  )
+}
+
 #' @importFrom httr write_disk write_memory
 gh_set_dest <- function(x) {
   if (is.null(x$dest)) {
@@ -129,9 +140,37 @@ gh_set_dest <- function(x) {
   x
 }
 
-gh_send_headers <- function(accept_header = NULL, headers = NULL) {
-  modify_vector(
-    modify_vector(default_send_headers, accept_header),
-    headers
+# helpers ----
+# https://tools.ietf.org/html/rfc6570
+# we support what the RFC calls "Level 1 templates", which only require
+# simple string expansion of a placeholder consisting of [A-Za-z0-9_]
+is_template <- function(x) {
+ is_colon_template(x) || is_uri_template(x)
+}
+
+is_colon_template <- function(x) grepl(":", x)
+
+is_uri_template <- function(x) grepl("[{]\\w+?[}]", x)
+
+template_type <- function(x) {
+  if (is_uri_template(x)) {
+    return("uri")
+  }
+  if (is_colon_template(x)) {
+    return("colon")
+  }
+}
+
+expand_variable <- function(varname, value, template) {
+  type <- template_type(template)
+  if (is.null(type)) {
+    return(template)
+  }
+  pattern <- switch(
+    type,
+    uri   = paste0("[{]", varname, "[}]"),
+    colon = paste0(":",   varname, "\\b"),
+    stop("Internal error: unrecognized template type")
   )
+  gsub(pattern, value, template)
 }

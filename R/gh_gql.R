@@ -1,7 +1,7 @@
 #' A simple interface for the GitHub GraphQL API v4.
 #'
 #' See more about the GraphQL API here:
-#' <https://developer.github.com/v4/>
+#' <https://docs.github.com/graphql>
 #'
 #' Note: pagination and the `.limit` argument does not work currently,
 #' as pagination in the GraphQL API is different from the v3 API.

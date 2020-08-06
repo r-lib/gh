@@ -50,12 +50,12 @@ otherwise determined by the API (never greater than 100).}
 See \code{\link[=gh_token]{gh_token()}} if you need more flexibility, e.g. different tokens
 for different GitHub Enterprise deployments.}
 
-\item{.destfile}{path to write response to disk.  If NULL (default), response will
-be processed and returned as an object.  If path is given, response will
-be written to disk in the form sent.}
+\item{.destfile}{Path to write response to disk. If \code{NULL} (default),
+response will be processed and returned as an object. If path is given,
+response will be written to disk in the form sent.}
 
-\item{.overwrite}{if \code{.destfile} is provided, whether to overwrite an
-existing file.  Defaults to FALSE.}
+\item{.overwrite}{If \code{.destfile} is provided, whether to overwrite an
+existing file.  Defaults to \code{FALSE}.}
 
 \item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
 if \code{endpoint} just contains a path. Defaults to \code{GITHUB_API_URL}
@@ -75,7 +75,7 @@ long time.}
 
 \item{.accept}{The value of the \code{Accept} HTTP header. Defaults to
 \code{"application/vnd.github.v3+json"} . If \code{Accept} is given in
-\code{.send_headers}, then that will be used. This paramter can be used to
+\code{.send_headers}, then that will be used. This parameter can be used to
 provide a custom media type, in order to access a preview feature of
 the API.}
 
@@ -111,11 +111,11 @@ body, as JSON.
 \dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Repositories of a user, these are equivalent
 gh("/users/hadley/repos")
-gh("/users/:username/repos", username = "hadley")
+gh("/users/{username}/repos", username = "hadley")
 
 ## Starred repositories of a user
 gh("/users/hadley/starred")
-gh("/users/:username/starred", username = "hadley")
+gh("/users/{username}/starred", username = "hadley")
 \dontshow{\}) # examplesIf}
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
@@ -125,7 +125,7 @@ gh("POST /user/repos", name = "foobar")
 \dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Issues of a repository
 gh("/repos/hadley/dplyr/issues")
-gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
+gh("/repos/{owner}/{repo}/issues", owner = "hadley", repo = "dplyr")
 
 ## Automatic pagination
 users <- gh("/users", .limit = 50)
@@ -155,10 +155,10 @@ gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
 ## jsonlite::unbox() because fromJSON() creates lists from scalar vectors
 ## by default. The Content-Type header is automatically added in this
 ## case. For example this request turns on GitHub Pages, using this
-## API: https://developer.github.com/v3/repos/pages/#enable-a-pages-site
+## API: https://docs.github.com/v3/repos/pages/#enable-a-pages-site
 
 gh::gh(
-  "POST /repos/:owner/:repo/pages",
+  "POST /repos/{owner}/{repo}/pages",
   owner = "gaborcsardi",
   repo = "playground",
   source = list(
@@ -173,7 +173,7 @@ gh::gh(
 
 body <- '{ "source": { "branch": "master", "path": "/docs" } }'
 gh::gh(
-  "POST /repos/:owner/:repo/pages",
+  "POST /repos/{owner}/{repo}/pages",
   owner = "gaborcsardi",
   repo = "playground",
   charToRaw(body),
@@ -202,6 +202,11 @@ Authors:
 \itemize{
   \item Jennifer Bryan
   \item Hadley Wickham
+}
+
+Other contributors:
+\itemize{
+  \item RStudio [copyright holder, funder]
 }
 
 }

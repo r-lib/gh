@@ -1,14 +1,23 @@
+# gh (development version)
 
-# development version
+* The documentation for the GitHub REST API has moved to
+  <https://docs.github.com/rest> and endpoints are now documented using
+  the URI template style of [RFC 6570](https://tools.ietf.org/html/rfc6570):
+  
+  - Old: `GET /repos/:owner/:repo/issues`
+  - New: `GET /repos/{owner}/{repo}/issues`
+
+  gh accepts and prioritizes the new style. However, it still does parameter
+  substitution for the old style.
 
 * Fixed an error that occurred when calling `gh()` with `.progress = FALSE` 
   (@gadenbuie, #115).
 
-# 1.1.0
+# gh 1.1.0
 
-* Raw reponses from GitHub are now returned as raw vector.
+* Raw responses from GitHub are now returned as raw vector.
 
-* Responses may be wrtten to disk by providing a path in the `.destfile`
+* Responses may be written to disk by providing a path in the `.destfile`
   argument.
 
 * gh now sets `.Last.error` to the error object after an uncaught error,
@@ -34,6 +43,6 @@
 
 * `gh()` can now POST raw data, which allows adding assets to releases (#56).
 
-# 1.0.1
+# gh 1.0.1
 
 First public release.

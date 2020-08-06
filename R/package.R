@@ -37,11 +37,11 @@
 #' @param per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).
-#' @param .destfile path to write response to disk.  If NULL (default), response will
-#'   be processed and returned as an object.  If path is given, response will
-#'   be written to disk in the form sent.
-#' @param .overwrite if `.destfile` is provided, whether to overwrite an
-#'   existing file.  Defaults to FALSE.
+#' @param .destfile Path to write response to disk. If `NULL` (default),
+#'   response will be processed and returned as an object. If path is given,
+#'   response will be written to disk in the form sent.
+#' @param .overwrite If `.destfile` is provided, whether to overwrite an
+#'   existing file.  Defaults to `FALSE`.
 #' @param .token Authentication token. Defaults to `GITHUB_PAT` or
 #'   `GITHUB_TOKEN` environment variables, in this order if any is set.
 #'   See [gh_token()] if you need more flexibility, e.g. different tokens
@@ -61,7 +61,7 @@
 #'   long time.
 #' @param .accept The value of the `Accept` HTTP header. Defaults to
 #'   `"application/vnd.github.v3+json"` . If `Accept` is given in
-#'   `.send_headers`, then that will be used. This paramter can be used to
+#'   `.send_headers`, then that will be used. This parameter can be used to
 #'   provide a custom media type, in order to access a preview feature of
 #'   the API.
 #' @param .send_headers Named character vector of header field values
@@ -86,11 +86,11 @@
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Repositories of a user, these are equivalent
 #' gh("/users/hadley/repos")
-#' gh("/users/:username/repos", username = "hadley")
+#' gh("/users/{username}/repos", username = "hadley")
 #'
 #' ## Starred repositories of a user
 #' gh("/users/hadley/starred")
-#' gh("/users/:username/starred", username = "hadley")
+#' gh("/users/{username}/starred", username = "hadley")
 #'
 #' @examplesIf FALSE
 #' ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
@@ -100,7 +100,7 @@
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Issues of a repository
 #' gh("/repos/hadley/dplyr/issues")
-#' gh("/repos/:owner/:repo/issues", owner = "hadley", repo = "dplyr")
+#' gh("/repos/{owner}/{repo}/issues", owner = "hadley", repo = "dplyr")
 #'
 #' ## Automatic pagination
 #' users <- gh("/users", .limit = 50)
@@ -130,10 +130,10 @@
 #' ## jsonlite::unbox() because fromJSON() creates lists from scalar vectors
 #' ## by default. The Content-Type header is automatically added in this
 #' ## case. For example this request turns on GitHub Pages, using this
-#' ## API: https://developer.github.com/v3/repos/pages/#enable-a-pages-site
+#' ## API: https://docs.github.com/v3/repos/pages/#enable-a-pages-site
 #'
 #' gh::gh(
-#'   "POST /repos/:owner/:repo/pages",
+#'   "POST /repos/{owner}/{repo}/pages",
 #'   owner = "gaborcsardi",
 #'   repo = "playground",
 #'   source = list(
@@ -148,7 +148,7 @@
 #'
 #' body <- '{ "source": { "branch": "master", "path": "/docs" } }'
 #' gh::gh(
-#'   "POST /repos/:owner/:repo/pages",
+#'   "POST /repos/{owner}/{repo}/pages",
 #'   owner = "gaborcsardi",
 #'   repo = "playground",
 #'   charToRaw(body),

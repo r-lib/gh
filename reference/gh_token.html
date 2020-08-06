@@ -187,11 +187,12 @@ and Linux, using the keyring package. To turn on keyring support, you
 need to set the <code>GH_KEYRING</code> environment variables to <code>true</code>, in your
 <code>.Renviron</code> file or profile.</p>
 <p>If keyring support is turned on, then for each PAT environment variable,
-gh first checks whether the key with that value is set in the system
-keyring, and if yes, it will use its value as the PAT. I.e. without a
-custom <code>GITHUB_API_URL</code> variable, it checks the
-<code>GITHUB_PAT_API_GITHUB_COM</code> key first, then the env var with the same
-name, then the <code>GITHUB_PAT</code> key, etc. Such a check looks like this:<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_API_GITHUB_COM"</span>)</pre><p></div></p>
+gh first checks for it via <code><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv()</a></code> and, if unset, gh then checks
+whether such a key exists in the system keyring and, if yes, it uses
+its value as the PAT. I.e. without a custom <code>GITHUB_API_URL</code> variable,
+gh checks the <code>GITHUB_PAT_API_GITHUB_COM</code> env var first, then checks
+for that key in the keyring, then moves on to do same with
+<code>GITHUB_PAT</code>, etc. The keyring check looks like this:<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_API_GITHUB_COM"</span>)</pre><p></div></p>
 <p>and it uses the default keyring backend and the default keyring within
 that backend. See <code><a href='https://rdrr.io/pkg/keyring/man/backends.html'>keyring::default_backend()</a></code> for details and changing
 these defaults.</p>

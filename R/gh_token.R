@@ -135,8 +135,8 @@ get_first_token_found <- function(vars) {
     if (has_keyring) tryCatch(keyring::key_get(v), error = function(e) NULL)
   }
   for (var in vars) {
-    if ((val <- key_get(var) %||% "") != "") break
     if ((val <- Sys.getenv(var, "")) != "") break
+    if ((val <- key_get(var) %||% "") != "") break
   }
 
   val

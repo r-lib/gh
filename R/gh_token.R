@@ -39,11 +39,12 @@
 #' `.Renviron` file or profile.
 #'
 #' If keyring support is turned on, then for each PAT environment variable,
-#' gh first checks whether the key with that value is set in the system
-#' keyring, and if yes, it will use its value as the PAT. I.e. without a
-#' custom `GITHUB_API_URL` variable, it checks the
-#' `GITHUB_PAT_API_GITHUB_COM` key first, then the env var with the same
-#' name, then the `GITHUB_PAT` key, etc. Such a check looks like this:
+#' gh first checks for it via `Sys.getenv()` and, if unset, gh then checks
+#' whether such a key exists in the system keyring and, if yes, it uses
+#' its value as the PAT. I.e. without a custom `GITHUB_API_URL` variable,
+#' gh checks the `GITHUB_PAT_API_GITHUB_COM` env var first, then checks
+#' for that key in the keyring, then moves on to do same with
+#' `GITHUB_PAT`, etc. The keyring check looks like this:
 #'
 #' ```r
 #' keyring::key_get("GITHUB_PAT_API_GITHUB_COM")

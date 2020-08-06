@@ -102,7 +102,7 @@ should_use_keyring <- function() {
   err <- FALSE
   tryCatch(
     locked <- keyring::keyring_is_locked(),
-    error = function(e) err <- TRUE
+    error = function(e) err <<- TRUE
   )
   if (err) return(TRUE)
 
@@ -117,7 +117,7 @@ should_use_keyring <- function() {
   # It is better to fail here, once and for all.
   if (locked) {
     err <- FALSE
-    tryCatch(keyring::keyring_unlock(), error = function(e) err <- TRUE)
+    tryCatch(keyring::keyring_unlock(), error = function(e) err <<- TRUE)
     if (err) {
       cli_alert_info("{.pkg gh}: failed to unlock default keyring")
       return(FALSE)

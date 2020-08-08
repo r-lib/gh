@@ -59,9 +59,9 @@ need to set the \code{GH_KEYRING} environment variables to \code{true}, in your
 If keyring support is turned on, then for each PAT environment variable,
 gh first checks for it via \code{Sys.getenv()} and, if unset, gh then checks
 whether such a key exists in the system keyring and, if yes, it uses
-its value as the PAT. I.e. without a custom \code{GITHUB_API_URL} variable,
-gh checks the \code{GITHUB_PAT_API_GITHUB_COM} env var first, then checks
-for that key in the keyring, then moves on to do same with
+the associated value as the PAT. I.e. without a custom \code{GITHUB_API_URL}
+variable, gh checks the \code{GITHUB_PAT_API_GITHUB_COM} env var first, then
+checks for that key in the keyring, then moves on to do same with
 \code{GITHUB_PAT}, etc. The keyring check looks like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
 }\if{html}{\out{</div>}}
 

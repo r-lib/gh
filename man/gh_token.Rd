@@ -11,8 +11,10 @@ gh_token(api_url = NULL)
 environment variable if set, otherwise \url{https://api.github.com}.}
 }
 \value{
-A string, with the token, or a zero length string scalar,
-if no token is available.
+A string of 40 hexadecimal digits, if token is available, or the
+empty string, otherwise. For convenience, the return value has an S3 class
+in order to ensure that simple printing strategies don't reveal the entire
+token.
 }
 \description{
 You can read more about PATs here:
@@ -85,6 +87,15 @@ To store your PAT on the keyring run\if{html}{\out{<div class="r">}}\preformatte
 }\if{html}{\out{</div>}}
 }
 
+\examples{
+\dontrun{
+gh_token()
+
+format(gh_token())
+
+str(gh_token())
+}
+}
 \seealso{
 \code{\link[=slugify_url]{slugify_url()}} for computing the environment variables that
 gh uses to search for API URL specific PATs.

@@ -74,12 +74,23 @@
 #' @param api_url Github API url. Defaults to `GITHUB_API_URL`
 #' environment variable if set, otherwise <https://api.github.com>.
 #'
-#' @return A string, with the token, or a zero length string scalar,
-#' if no token is available.
+#' @return A string of 40 hexadecimal digits, if token is available, or the
+#'   empty string, otherwise. For convenience, the return value has an S3 class
+#'   in order to ensure that simple printing strategies don't reveal the entire
+#'   token.
 #'
 #' @seealso [slugify_url()] for computing the environment variables that
 #' gh uses to search for API URL specific PATs.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' gh_token()
+#'
+#' format(gh_token())
+#'
+#' str(gh_token())
+#' }
 
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()

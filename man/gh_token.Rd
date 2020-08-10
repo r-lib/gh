@@ -11,8 +11,10 @@ gh_token(api_url = NULL)
 environment variable if set, otherwise \url{https://api.github.com}.}
 }
 \value{
-A string, with the token, or a zero length string scalar,
-if no token is available.
+A string of 40 hexadecimal digits, if token is available, or the
+empty string, otherwise. For convenience, the return value has an S3 class
+in order to ensure that simple printing strategies don't reveal the entire
+token.
 }
 \description{
 You can read more about PATs here:
@@ -59,9 +61,9 @@ need to set the \code{GH_KEYRING} environment variables to \code{true}, in your
 If keyring support is turned on, then for each PAT environment variable,
 gh first checks for it via \code{Sys.getenv()} and, if unset, gh then checks
 whether such a key exists in the system keyring and, if yes, it uses
-its value as the PAT. I.e. without a custom \code{GITHUB_API_URL} variable,
-gh checks the \code{GITHUB_PAT_API_GITHUB_COM} env var first, then checks
-for that key in the keyring, then moves on to do same with
+the associated value as the PAT. I.e. without a custom \code{GITHUB_API_URL}
+variable, gh checks the \code{GITHUB_PAT_API_GITHUB_COM} env var first, then
+checks for that key in the keyring, then moves on to do same with
 \code{GITHUB_PAT}, etc. The keyring check looks like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
 }\if{html}{\out{</div>}}
 
@@ -85,6 +87,15 @@ To store your PAT on the keyring run\if{html}{\out{<div class="r">}}\preformatte
 }\if{html}{\out{</div>}}
 }
 
+\examples{
+\dontrun{
+gh_token()
+
+format(gh_token())
+
+str(gh_token())
+}
+}
 \seealso{
 \code{\link[=slugify_url]{slugify_url()}} for computing the environment variables that
 gh uses to search for API URL specific PATs.

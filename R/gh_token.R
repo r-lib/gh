@@ -41,9 +41,9 @@
 #' If keyring support is turned on, then for each PAT environment variable,
 #' gh first checks for it via `Sys.getenv()` and, if unset, gh then checks
 #' whether such a key exists in the system keyring and, if yes, it uses
-#' its value as the PAT. I.e. without a custom `GITHUB_API_URL` variable,
-#' gh checks the `GITHUB_PAT_API_GITHUB_COM` env var first, then checks
-#' for that key in the keyring, then moves on to do same with
+#' the associated value as the PAT. I.e. without a custom `GITHUB_API_URL`
+#' variable, gh checks the `GITHUB_PAT_API_GITHUB_COM` env var first, then
+#' checks for that key in the keyring, then moves on to do same with
 #' `GITHUB_PAT`, etc. The keyring check looks like this:
 #'
 #' ```r
@@ -74,17 +74,30 @@
 #' @param api_url Github API url. Defaults to `GITHUB_API_URL`
 #' environment variable if set, otherwise <https://api.github.com>.
 #'
-#' @return A string, with the token, or a zero length string scalar,
-#' if no token is available.
+#' @return A string of 40 hexadecimal digits, if token is available, or the
+#'   empty string, otherwise. For convenience, the return value has an S3 class
+#'   in order to ensure that simple printing strategies don't reveal the entire
+#'   token.
 #'
 #' @seealso [slugify_url()] for computing the environment variables that
 #' gh uses to search for API URL specific PATs.
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' gh_token()
+#'
+#' format(gh_token())
+#'
+#' str(gh_token())
+#' }
 
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
   token_env_var <- paste0("GITHUB_PAT_", slugify_url(api_url))
-  get_first_token_found(c(token_env_var, "GITHUB_PAT", "GITHUB_TOKEN"))
+  gh_pat(get_first_token_found(
+    c(token_env_var, "GITHUB_PAT", "GITHUB_TOKEN")
+  ))
 }
 
 #' @importFrom cli cli_alert_info
@@ -182,4 +195,56 @@ get_baseurl <- function(x) {
   rest <- sub("^https?://(.*)$", "\\1", x)
   host <- sub("/.*$", "", rest)
   paste0(prot, host)
+}
+
+# gh_pat class: exists in order have a print method that hides info ----
+new_gh_pat <- function(x) {
+  if (is.character(x) && length(x) == 1) {
+    structure(x, class = "gh_pat")
+  } else {
+    throw(new_error("A GitHub PAT must be a string"))
+  }
+}
+
+# validates PAT only in a very narrow, technical, and local sense
+validate_gh_pat <- function(x) {
+  stopifnot(inherits(x, "gh_pat"))
+  if (x == "" || grepl("[[:xdigit:]]{40}", x)) {
+    x
+  } else {
+    throw(new_error("A GitHub PAT must consist of 40 hexadecimal digits"))
+  }
+}
+
+gh_pat <- function(x) {
+  validate_gh_pat(new_gh_pat(x))
+}
+
+#' @export
+format.gh_pat <- function(x, ...) {
+  if (x == "") {
+    "<no PAT>"
+  } else {
+    obfuscate(x)
+  }
+}
+
+#' @export
+print.gh_pat <- function(x, ...) {
+  cat(format(x), sep = "\n")
+  invisible(x)
+}
+
+#' @export
+str.gh_pat <- function(object, ...) {
+  cat(paste0("<gh_pat> ", format(object), "\n", collapse = ""))
+  invisible()
+}
+
+obfuscate <- function(x, first = 4, last = 2) {
+  paste0(
+    substr(x, start = 1, stop = first),
+    "...",
+    substr(x, start = nchar(x) - last + 1, stop = nchar(x))
+  )
 }

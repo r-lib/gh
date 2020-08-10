@@ -59,14 +59,8 @@ gh_whoami <- function(.token = NULL, .api_url = NULL, .send_headers = NULL) {
   scopes <- attr(res, "response")[["x-oauth-scopes"]]
   res <- res[c("name", "login", "html_url")]
   res$scopes <- scopes
-  res$token <- obfuscate(.token)
+  res$token <- format(gh_pat(.token))
   ## 'gh_response' class has to be restored
   class(res) <- c("gh_response", "list")
   res
-}
-
-obfuscate <- function(x, first = 2, last = 0) {
-  paste0(substr(x, start = 1, stop = first),
-         "...",
-         substr(x, start = nchar(x) - last + 1, stop = nchar(x)))
 }

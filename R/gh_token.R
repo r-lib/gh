@@ -222,7 +222,11 @@ gh_pat <- function(x) {
 
 #' @export
 format.gh_pat <- function(x, ...) {
-  obfuscate(x)
+  if (x == "") {
+    "<no PAT>"
+  } else {
+    obfuscate(x)
+  }
 }
 
 #' @export

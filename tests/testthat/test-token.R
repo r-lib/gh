@@ -76,3 +76,7 @@ test_that("str.gh_pat() indicates it's a `gh_pat`", {
   pat <- paste0(strrep("a", 10), strrep("4", 20), strrep("F", 10))
   expect_output(str(gh_pat(pat)), "gh_pat")
 })
+
+test_that("format.gh_pat() handles empty string", {
+  expect_match(format(gh_pat("")), "<no PAT>")
+})

@@ -168,17 +168,33 @@ below.</p>
 
 
 <p>gh lets you use different PATs for different GitHub API URLs, by looking
-for the PAT in an URL specific environment variable first. It uses
-<code><a href='slugify_url.html'>slugify_url()</a></code> to compute a suffix from the API URL, by extracting the
-host name and removing the protocol and the path from it, and replacing
-special characters with underscores. This suffix is added to
-<code>GITHUB_PAT_</code> then. For example for the default API URL:
-<a href='https://api.github.com'>https://api.github.com</a>, the <code>GITHUB_PAT_API_GITHUB_COM</code> environment
-variable is consulted first.</p>
-<p>You can set the default API URL via the <code>GITHUB_API_URL</code> environment
+for the PAT in an URL-specific environment variable first. The helper
+<code><a href='slugify_url.html'>slugify_url()</a></code> computes a suffix from the API URL like so:</p><ul>
+<li><p>Extract the host name, i.e. drop both the protocol and any path</p></li>
+<li><p>Substitute "github.com" for "api.github.com"</p></li>
+<li><p>Replace special characters with underscores</p></li>
+<li><p>Convert to ALL CAPS</p></li>
+</ul>
+
+<p>This suffix is then added to <code>GITHUB_PAT_</code> to form the name of an environment
+variable. It's probably easiest to just look at some examples.<div class="r"></p><pre><span class='co'># both give same result</span>
+<span class='fu'><a href='slugify_url.html'>slugify_url</a></span>(<span class='st'>"https://api.github.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_COM"
+</pre><p><div class="r"></p><pre><span class='fu'><a href='slugify_url.html'>slugify_url</a></span>(<span class='st'>"https://github.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_COM"
+</pre><p><div class="r"></p><pre><span class='co'># an instance of GitHub Enterprise</span>
+<span class='co'># both give same result</span>
+<span class='fu'><a href='slugify_url.html'>slugify_url</a></span>(<span class='st'>"https://github.acme.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_ACME_COM"
+</pre><p><div class="r"></p><pre><span class='fu'><a href='slugify_url.html'>slugify_url</a></span>(<span class='st'>"https://github.acme.com/api/v3"</span>)</pre><p></div></p><pre>## [1] "GITHUB_ACME_COM"
+</pre>
+
+<p>This implies that, for the default API URL <a href='https://api.github.com'>https://api.github.com</a>, these
+env vars are consulted, in this order:</p><ul>
+<li><p><code>GITHUB_PAT_GITHUB_COM</code></p></li>
+<li><p><code>GTIHUB_PAT</code></p></li>
+<li><p><code>GITHUB_TOKEN</code></p></li>
+</ul>
+
+<p>You can customize the default API URL via the <code>GITHUB_API_URL</code> environment
 variable.</p>
-<p>If the API URL specific environment variable is not set, then gh falls
-back to <code>GITHUB_PAT</code> and then to <code>GITHUB_TOKEN</code>.</p>
     <h2 class="hasAnchor" id="storing-pats-in-the-system-keyring"><a class="anchor" href="#storing-pats-in-the-system-keyring"></a>Storing PATs in the system keyring</h2>
 
     
@@ -186,15 +202,15 @@ back to <code>GITHUB_PAT</code> and then to <code>GITHUB_TOKEN</code>.</p>
 
 <p>gh supports storing your PAT in the system keyring, on Windows, macOS
 and Linux, using the keyring package. To turn on keyring support, you
-need to set the <code>GH_KEYRING</code> environment variables to <code>true</code>, in your
-<code>.Renviron</code> file or profile.</p>
+need to set the <code>GH_KEYRING</code> environment variables to <code>true</code>, e.g. in your
+<code>.Renviron</code> file.</p>
 <p>If keyring support is turned on, then for each PAT environment variable,
 gh first checks for it via <code><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv()</a></code> and, if unset, gh then checks
 whether such a key exists in the system keyring and, if yes, it uses
 the associated value as the PAT. I.e. without a custom <code>GITHUB_API_URL</code>
-variable, gh checks the <code>GITHUB_PAT_API_GITHUB_COM</code> env var first, then
+variable, gh checks the <code>GITHUB_PAT_GITHUB_COM</code> env var first, then
 checks for that key in the keyring, then moves on to do same with
-<code>GITHUB_PAT</code>, etc. The keyring check looks like this:<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_API_GITHUB_COM"</span>)</pre><p></div></p>
+<code>GITHUB_PAT</code> and perhaps <code>GITHUB_TOKEN</code>. The keyring check looks like this:<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_GITHUB_COM"</span>)</pre><p></div></p>
 <p>and it uses the default keyring backend and the default keyring within
 that backend. See <code><a href='https://rdrr.io/pkg/keyring/man/backends.html'>keyring::default_backend()</a></code> for details and changing
 these defaults.</p>

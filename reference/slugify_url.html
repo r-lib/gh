@@ -40,7 +40,10 @@
 
 
 <meta property="og:title" content="Compute the suffix that gh uses for GitHub API URL specific PATs — slugify_url" />
-<meta property="og:description" content="Compute the suffix that gh uses for GitHub API URL specific PATs" />
+<meta property="og:description" content="slugify_url() determines a suffix from a URL and this suffix is used to
+construct the name of an environment variable that holds the PAT for a
+specific GitHub URL. This is mostly relevant to people using GitHub
+Enterprise." />
 
 
 
@@ -127,7 +130,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Compute the suffix that gh uses for GitHub API URL specific PATs</p>
+    <p><code>slugify_url()</code> determines a suffix from a URL and this suffix is used to
+construct the name of an environment variable that holds the PAT for a
+specific GitHub URL. This is mostly relevant to people using GitHub
+Enterprise.</p>
     </div>
 
     <pre class="usage"><span class='fu'>slugify_url</span>(<span class='no'>url</span>)</pre>
@@ -137,7 +143,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>url</th>
-      <td><p>Character vector HTTP/HTTPS URLs.</p></td>
+      <td><p>Character vector of HTTP/HTTPS URLs. They don't have to be in the
+API-specific form, although they can be.</p></td>
     </tr>
     </table>
 
@@ -149,10 +156,10 @@
     <div class='dont-index'><p><code><a href='gh_token.html'>gh_token()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># The main GH site</span>
-<span class='fu'>slugify_url</span>(<span class='st'>"https://api.github.com"</span>)</div><div class='output co'>#&gt; [1] "API_GITHUB_COM"</div><div class='input'>
-<span class='co'># A custom one</span>
-<span class='fu'>slugify_url</span>(<span class='st'>"https://github.acme.com"</span>)</div><div class='output co'>#&gt; [1] "GITHUB_ACME_COM"</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># main github.com site</span>
+<span class='fu'>slugify_url</span>(<span class='st'>"https://api.github.com"</span>)</div><div class='output co'>#&gt; [1] "GITHUB_COM"</div><div class='input'><span class='fu'>slugify_url</span>(<span class='st'>"https://github.com"</span>)</div><div class='output co'>#&gt; [1] "GITHUB_COM"</div><div class='input'>
+<span class='co'># an instance of GitHub Enterprise</span>
+<span class='fu'>slugify_url</span>(<span class='st'>"https://github.acme.com"</span>)</div><div class='output co'>#&gt; [1] "GITHUB_ACME_COM"</div><div class='input'><span class='fu'>slugify_url</span>(<span class='st'>"https://github.acme.com/api/v3"</span>)</div><div class='output co'>#&gt; [1] "GITHUB_ACME_COM"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

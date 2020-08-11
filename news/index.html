@@ -130,6 +130,15 @@
 </h1>
 <ul>
 <li>
+<p>The environment variables consulted for URL-specific GitHub PATs have changed.</p>
+<ul>
+<li>For “<a href="https://api.github.com" class="uri">https://api.github.com</a>”: <code>GITHUB_PAT_GITHUB_COM</code> now, instead of <code>GITHUB_PAT_API_GITHUB_COM</code>
+</li>
+<li>For “<a href="https://github.acme.com/api/v3" class="uri">https://github.acme.com/api/v3</a>”: <code>GITHUB_PAT_GITHUB_ACME_COM</code> now, instead of <code>GITHUB_PAT_GITHUB_ACME_COM_API_V3</code>
+</li>
+</ul>
+</li>
+<li>
 <p>The documentation for the GitHub REST API has moved to <a href="https://docs.github.com/rest" class="uri">https://docs.github.com/rest</a> and endpoints are now documented using the URI template style of <a href="https://tools.ietf.org/html/rfc6570">RFC 6570</a>:</p>
 <ul>
 <li>Old: <code>GET /repos/:owner/:repo/issues</code>

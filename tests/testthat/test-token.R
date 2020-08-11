@@ -20,7 +20,7 @@ test_that("URL specific token is used", {
   env <- c(
     GH_KEYRING = "false",
     GITHUB_API_URL = NA,
-    GITHUB_PAT_API_GITHUB_COM = good,
+    GITHUB_PAT_GITHUB_COM = good,
     GITHUB_PAT = bad,
     GITHUB_TOKEN = bad2
   )
@@ -37,7 +37,7 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
   env <- c(
     GH_KEYRING = "false",
     GITHUB_API_URL = NA,
-    GITHUB_PAT_API_GITHUB_COM = NA,
+    GITHUB_PAT_GITHUB_COM = NA,
     GITHUB_PAT = pat,
     GITHUB_TOKEN = token
   )
@@ -49,7 +49,7 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
   env <- c(
     GH_KEYRING = "false",
     GITHUB_API_URL = NA,
-    GITHUB_PAT_API_GITHUB_COM = NA,
+    GITHUB_PAT_GITHUB_COM = NA,
     GITHUB_PAT = NA,
     GITHUB_TOKEN = token
   )
@@ -59,7 +59,7 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
   })
 })
 
-# gh_pat class
+# gh_pat class ----
 test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
   expect_error(gh_pat(strrep("a", 40)), NA)
   expect_error(gh_pat(strrep("g", 40)), "40 hexadecimal digits")
@@ -79,4 +79,82 @@ test_that("str.gh_pat() indicates it's a `gh_pat`", {
 
 test_that("format.gh_pat() handles empty string", {
   expect_match(format(gh_pat("")), "<no PAT>")
+})
+
+# URL processing helpers ----
+test_that("get_baseurl() insists on http(s)", {
+  expect_error(get_baseurl("github.com"), "protocols")
+  expect_error(get_baseurl("github.acme.com"), "protocols")
+})
+
+test_that("get_baseurl() works", {
+  x <- "https://github.com"
+  expect_equal(get_baseurl("https://github.com"), x)
+  expect_equal(get_baseurl("https://github.com/"), x)
+  expect_equal(get_baseurl("https://github.com/stuff"), x)
+  expect_equal(get_baseurl("https://github.com/stuff/"), x)
+  expect_equal(get_baseurl("https://github.com/more/stuff"), x)
+
+  x <- "https://api.github.com"
+  expect_equal(get_baseurl("https://api.github.com"), x)
+  expect_equal(get_baseurl("https://api.github.com/rate_limit"), x)
+
+  x <- "https://github.acme.com"
+  expect_equal(get_baseurl("https://github.acme.com"), x)
+  expect_equal(get_baseurl("https://github.acme.com/"), x)
+  expect_equal(get_baseurl("https://github.acme.com/api/v3"), x)
+
+  # so (what little) support we have for user@host doesn't regress
+  expect_equal(
+    get_baseurl("https://jane@github.acme.com/api/v3"),
+    "https://jane@github.acme.com"
+  )
+})
+
+test_that("slugify_url() works", {
+  x <- "GITHUB_COM"
+  expect_equal(slugify_url("https://github.com"), x)
+  expect_equal(slugify_url("https://github.com/more/stuff"), x)
+  expect_equal(slugify_url("https://api.github.com"), x)
+  expect_equal(slugify_url("https://api.github.com/rate_limit"), x)
+
+  x <- "GITHUB_ACME_COM"
+  expect_equal(slugify_url("https://github.acme.com"), x)
+  expect_equal(slugify_url("https://github.acme.com/"), x)
+  expect_equal(slugify_url("https://github.acme.com/api/v3"), x)
+})
+
+test_that("is_github_dot_com() works", {
+  expect_true(is_github_dot_com("https://github.com"))
+  expect_true(is_github_dot_com("https://api.github.com"))
+  expect_true(is_github_dot_com("https://api.github.com/rate_limit"))
+  expect_true(is_github_dot_com("https://api.github.com/graphql"))
+
+  expect_false(is_github_dot_com("https://github.acme.com"))
+  expect_false(is_github_dot_com("https://github.acme.com/api/v3"))
+  expect_false(is_github_dot_com("https://github.acme.com/api/v3/user"))
+})
+
+test_that("get_hosturl() works", {
+  x <- "https://github.com"
+  expect_equal(get_hosturl("https://github.com"), x)
+  expect_equal(get_hosturl("https://api.github.com"), x)
+
+  x <- "https://github.acme.com"
+  expect_equal(get_hosturl("https://github.acme.com"), x)
+  expect_equal(get_hosturl("https://github.acme.com/api/v3"), x)
+})
+
+test_that("get_apiurl() works", {
+  x <- "https://api.github.com"
+  expect_equal(get_apiurl("https://github.com"), x)
+  expect_equal(get_apiurl("https://github.com/"), x)
+  expect_equal(get_apiurl("https://github.com/r-lib/gh/issues"), x)
+  expect_equal(get_apiurl("https://api.github.com"), x)
+  expect_equal(get_apiurl("https://api.github.com/rate_limit"), x)
+
+  x <- "https://github.acme.com/api/v3"
+  expect_equal(get_apiurl("https://github.acme.com"), x)
+  expect_equal(get_apiurl("https://github.acme.com/OWNER/REPO"), x)
+  expect_equal(get_apiurl("https://github.acme.com/api/v3"), x)
 })

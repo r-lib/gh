@@ -78,3 +78,16 @@ test_that("gh_set_endpoint() works", {
     list(endpoint = "/repos/OWNER/REPO/issues", params = list(state = "open"))
   )
 })
+
+test_that("gh_set_url() ensures URL is in 'API form'", {
+  input <- list(
+    endpoint = "/user/repos",
+    api_url = "https://github.com"
+  )
+  out <- gh_set_url(input)
+  expect_equal(out$api_url, "https://api.github.com")
+
+  input$api_url <- "https://github.acme.com"
+  out <- gh_set_url(input)
+  expect_equal(out$api_url, "https://github.acme.com/api/v3")
+})

@@ -35,19 +35,39 @@ below.
 
 
 gh lets you use different PATs for different GitHub API URLs, by looking
-for the PAT in an URL specific environment variable first. It uses
-\code{\link[=slugify_url]{slugify_url()}} to compute a suffix from the API URL, by extracting the
-host name and removing the protocol and the path from it, and replacing
-special characters with underscores. This suffix is added to
-\code{GITHUB_PAT_} then. For example for the default API URL:
-\url{https://api.github.com}, the \code{GITHUB_PAT_API_GITHUB_COM} environment
-variable is consulted first.
+for the PAT in an URL-specific environment variable first. The helper
+\code{\link[=slugify_url]{slugify_url()}} computes a suffix from the API URL like so:
+\itemize{
+\item Extract the host name, i.e. drop both the protocol and any path
+\item Substitute "github.com" for "api.github.com"
+\item Replace special characters with underscores
+\item Convert to ALL CAPS
+}
 
-You can set the default API URL via the \code{GITHUB_API_URL} environment
+This suffix is then added to \code{GITHUB_PAT_} to form the name of an environment
+variable. It's probably easiest to just look at some examples.\if{html}{\out{<div class="r">}}\preformatted{# both give same result
+slugify_url("https://api.github.com")
+}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_COM"
+}\if{html}{\out{<div class="r">}}\preformatted{slugify_url("https://github.com")
+}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_COM"
+}\if{html}{\out{<div class="r">}}\preformatted{# an instance of GitHub Enterprise
+# both give same result
+slugify_url("https://github.acme.com")
+}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_ACME_COM"
+}\if{html}{\out{<div class="r">}}\preformatted{slugify_url("https://github.acme.com/api/v3")
+}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_ACME_COM"
+}
+
+This implies that, for the default API URL \url{https://api.github.com}, these
+env vars are consulted, in this order:
+\itemize{
+\item \code{GITHUB_PAT_GITHUB_COM}
+\item \code{GTIHUB_PAT}
+\item \code{GITHUB_TOKEN}
+}
+
+You can customize the default API URL via the \code{GITHUB_API_URL} environment
 variable.
-
-If the API URL specific environment variable is not set, then gh falls
-back to \code{GITHUB_PAT} and then to \code{GITHUB_TOKEN}.
 }
 
 \section{Storing PATs in the system keyring}{
@@ -55,16 +75,16 @@ back to \code{GITHUB_PAT} and then to \code{GITHUB_TOKEN}.
 
 gh supports storing your PAT in the system keyring, on Windows, macOS
 and Linux, using the keyring package. To turn on keyring support, you
-need to set the \code{GH_KEYRING} environment variables to \code{true}, in your
-\code{.Renviron} file or profile.
+need to set the \code{GH_KEYRING} environment variables to \code{true}, e.g. in your
+\code{.Renviron} file.
 
 If keyring support is turned on, then for each PAT environment variable,
 gh first checks for it via \code{Sys.getenv()} and, if unset, gh then checks
 whether such a key exists in the system keyring and, if yes, it uses
 the associated value as the PAT. I.e. without a custom \code{GITHUB_API_URL}
-variable, gh checks the \code{GITHUB_PAT_API_GITHUB_COM} env var first, then
+variable, gh checks the \code{GITHUB_PAT_GITHUB_COM} env var first, then
 checks for that key in the keyring, then moves on to do same with
-\code{GITHUB_PAT}, etc. The keyring check looks like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
+\code{GITHUB_PAT} and perhaps \code{GITHUB_TOKEN}. The keyring check looks like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_GITHUB_COM")
 }\if{html}{\out{</div>}}
 
 and it uses the default keyring backend and the default keyring within

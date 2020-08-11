@@ -1,5 +1,11 @@
 # gh (development version)
 
+* The environment variables consulted for URL-specific GitHub PATs have changed.
+  - For "https://api.github.com": `GITHUB_PAT_GITHUB_COM` now, instead of
+    `GITHUB_PAT_API_GITHUB_COM`
+  - For "https://github.acme.com/api/v3": `GITHUB_PAT_GITHUB_ACME_COM` now,
+    instead of `GITHUB_PAT_GITHUB_ACME_COM_API_V3`
+
 * The documentation for the GitHub REST API has moved to
   <https://docs.github.com/rest> and endpoints are now documented using
   the URI template style of [RFC 6570](https://tools.ietf.org/html/rfc6570):

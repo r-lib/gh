@@ -1,4 +1,3 @@
-
 test_that("named NULL is dropped", {
 
   tcs <- list(

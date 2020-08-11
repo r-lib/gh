@@ -1,5 +1,3 @@
-context("github_error")
-
 test_that("errors return a github_error object", {
 
   skip_if_offline("github.com")

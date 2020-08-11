@@ -1,4 +1,3 @@
-
 test_that("spelling", {
   skip_on_cran()
   skip_on_covr()

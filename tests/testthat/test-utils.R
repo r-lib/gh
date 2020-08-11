@@ -1,5 +1,3 @@
-context("utils")
-
 test_that("can detect presence vs absence names", {
   expect_identical(has_name(list("foo", "bar")), c(FALSE, FALSE))
   expect_identical(has_name(list(a = "foo", "bar")), c(TRUE, FALSE))

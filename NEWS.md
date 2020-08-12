@@ -8,7 +8,7 @@
 This also affects the keys searched keyring support is turned on.
 
 * gh only consults the `GITHUB_PAT` or `GITHUB_TOKEN` environment variables
-  when the targetted host is "github.com". For other GitHub deployments, e.g.
+  when the targeted host is "github.com". For other GitHub deployments, e.g.
   "github.acme.com", only the URL-specific environment variable is consulted,
   e.g. `GITHUB_PAT_GITHUB_ACME_COM`.
 

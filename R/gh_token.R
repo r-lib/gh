@@ -220,6 +220,8 @@ get_baseurl <- function(url) {               # https://github.uni.edu/api/v3/
   paste0(prot, host)                         # https://github.uni.edu
 }
 
+# https://api.github.com --> https://github.com
+# api.github.com --> github.com
 normalize_host <- function(x) {
   sub("api[.]github[.]com", "github.com", x)
 }
@@ -229,6 +231,9 @@ get_hosturl <- function(url) {
   normalize_host(url)
 }
 
+# (almost) the inverse of get_hosturl()
+# https://github.com     --> https://api.github.com
+# https://github.uni.edu --> https://github.uni.edu/api/v3
 get_apiurl <- function(url) {
   host_url <- get_hosturl(url)
   prot_host <- strsplit(host_url, "://", fixed = TRUE)[[1]]

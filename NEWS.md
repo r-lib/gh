@@ -5,6 +5,12 @@
     `GITHUB_PAT_API_GITHUB_COM`
   - For "https://github.acme.com/api/v3": `GITHUB_PAT_GITHUB_ACME_COM` now,
     instead of `GITHUB_PAT_GITHUB_ACME_COM_API_V3`
+This also affects the keys searched keyring support is turned on.
+
+* gh only consults the `GITHUB_PAT` or `GITHUB_TOKEN` environment variables
+  when the targetted host is "github.com". For other GitHub deployments, e.g.
+  "github.acme.com", only the URL-specific environment variable is consulted,
+  e.g. `GITHUB_PAT_GITHUB_ACME_COM`.
 
 * The documentation for the GitHub REST API has moved to
   <https://docs.github.com/rest> and endpoints are now documented using

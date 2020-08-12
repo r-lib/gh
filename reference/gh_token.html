@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Return the local user's GitHub Personal Access Token (PAT) — gh_token" />
 <meta property="og:description" content="You can read more about PATs here:
-https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
+https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
 and you can access your PATs here (if logged in to GitHub):
 https://github.com/settings/tokens." />
 
@@ -131,7 +131,7 @@ https://github.com/settings/tokens." />
 
     <div class="ref-description">
     <p>You can read more about PATs here:
-<a href='https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/'>https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/</a>
+<a href='https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token'>https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token</a>
 and you can access your PATs here (if logged in to GitHub):
 <a href='https://github.com/settings/tokens'>https://github.com/settings/tokens</a>.</p>
     </div>
@@ -204,16 +204,13 @@ variable.</p>
 and Linux, using the keyring package. To turn on keyring support, you
 need to set the <code>GH_KEYRING</code> environment variables to <code>true</code>, e.g. in your
 <code>.Renviron</code> file.</p>
-<p>If keyring support is turned on, then for each PAT environment variable,
-gh first checks for it via <code><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv()</a></code> and, if unset, gh then checks
-whether such a key exists in the system keyring and, if yes, it uses
-the associated value as the PAT. I.e. without a custom <code>GITHUB_API_URL</code>
-variable, gh checks the <code>GITHUB_PAT_GITHUB_COM</code> env var first, then
-checks for that key in the keyring, then moves on to do same with
-<code>GITHUB_PAT</code> and perhaps <code>GITHUB_TOKEN</code>. The keyring check looks like this:<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_GITHUB_COM"</span>)</pre><p></div></p>
-<p>and it uses the default keyring backend and the default keyring within
-that backend. See <code><a href='https://rdrr.io/pkg/keyring/man/backends.html'>keyring::default_backend()</a></code> for details and changing
-these defaults.</p>
+<p>If keyring support is turned on and no PAT was found in an environment
+variable (see above), then gh searches for those same keys, in the same
+order, in the system keyring. If successful, the associated value is used as
+the PAT. The first keyring check looks like this for "github.com":<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_GITHUB_COM"</span>)</pre><p></div></p>
+<p>gh uses the default keyring backend and the default keyring within that
+backend. See <code><a href='https://rdrr.io/pkg/keyring/man/backends.html'>keyring::default_backend()</a></code> for details and changing these
+defaults.</p>
 <p>If the selected keyring is locked, and the session is interactive,
 then gh will try to unlock it. If the keyring is locked, and the session
 is not interactive, then gh will not use the keyring. Note that some

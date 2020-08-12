@@ -4,11 +4,19 @@
 \alias{gh_token}
 \title{Return the local user's GitHub Personal Access Token (PAT)}
 \usage{
-gh_token(api_url = NULL)
+gh_token(api_url = NULL, strategy = NULL)
 }
 \arguments{
-\item{api_url}{Github API url. Defaults to \code{GITHUB_API_URL}
-environment variable if set, otherwise \url{https://api.github.com}.}
+\item{api_url}{Github API url. Defaults to the \code{GITHUB_API_URL} environment
+variable, if set, and otherwise to \url{https://api.github.com}.}
+
+\item{strategy}{Where to look for a GitHub personal access token (PAT). If
+specified, must be a comma-delimited string consisting of "env", "git",
+and/or "key". Examples: "env", "env,git", "key,git,env". gh searches for a
+PAT in these places, in this order.
+
+By default, \code{strategy} is "env,git" if the credential package is available
+and "env" if it is not.}
 }
 \value{
 A string of 40 hexadecimal digits, if token is available, or the
@@ -17,71 +25,89 @@ in order to ensure that simple printing strategies don't reveal the entire
 token.
 }
 \description{
-You can read more about PATs here:
-\url{https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token}
-and you can access your PATs here (if logged in to GitHub):
-\url{https://github.com/settings/tokens}.
-}
-\details{
-Set the \code{GITHUB_PAT} environment variable to avoid having to include
-your PAT in the code. If you work with multiple GitHub deployments,
-e.g. via GitHub Enterprise, then read 'PATs for GitHub Enterprise' below.
+If gh can find a personal access token (PAT) via \code{gh_token()}, it includes
+the PAT in its requests. Some requests succeed without a PAT, but many
+require a PAT to prove the request is authorized by a specific GitHub user. A
+PAT also helps with rate limiting. If your gh use is more than casual, you
+want a PAT.
 
-If you want a more secure solution than putting authentication tokens
-into environment variables, read 'Storing PATs in the system keyring'
-below.
-}
-\section{PATs for GitHub Enterprise}{
-
-
-gh lets you use different PATs for different GitHub API URLs, by looking
-for the PAT in an URL-specific environment variable first. The helper
-\code{\link[=slugify_url]{slugify_url()}} computes a suffix from the API URL like so:
+The PAT corresponding to \code{api_url} is searched for with a \code{strategy} that
+looks in one or more of these places (details below):
 \itemize{
-\item Extract the host name, i.e. drop both the protocol and any path
-\item Substitute "github.com" for "api.github.com"
-\item Replace special characters with underscores
-\item Convert to ALL CAPS
+\item \code{"env"}: environment variable(s)
+\item \code{"git"}: Git credential store (requires the credentials package)
+\item \code{"key"}: OS-level keychain (requires the keyring package)
 }
 
-This suffix is then added to \code{GITHUB_PAT_} to form the name of an environment
-variable. It's probably easiest to just look at some examples.\if{html}{\out{<div class="r">}}\preformatted{# both give same result
-slugify_url("https://api.github.com")
-}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_COM"
-}\if{html}{\out{<div class="r">}}\preformatted{slugify_url("https://github.com")
-}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_COM"
-}\if{html}{\out{<div class="r">}}\preformatted{# an instance of GitHub Enterprise
-# both give same result
-slugify_url("https://github.acme.com")
-}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_ACME_COM"
-}\if{html}{\out{<div class="r">}}\preformatted{slugify_url("https://github.acme.com/api/v3")
-}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_ACME_COM"
+Read more about PATs at
+\url{https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token}.
+Manage your PATs at \url{https://github.com/settings/tokens}, when logged in to
+GitHub.
 }
+\section{PAT in an environment variable}{
 
-This implies that, for the default API URL \url{https://api.github.com}, these
-env vars are consulted, in this order:
+
+The "env" search strategy looks for a PAT in specific environment variables.
+If \code{api_url} targets "github.com", these variables are consulted, in order:
 \itemize{
 \item \code{GITHUB_PAT_GITHUB_COM}
 \item \code{GTIHUB_PAT}
 \item \code{GITHUB_TOKEN}
 }
 
-You can customize the default API URL via the \code{GITHUB_API_URL} environment
-variable.
+If \code{api_url} targets another GitHub deployment, such as "github.acme.com",
+this variable is consulted:
+\itemize{
+\item \code{GITHUB_PAT_GITHUB_ACME_COM}
 }
 
-\section{Storing PATs in the system keyring}{
+In both cases, the suffix in \verb{GITHUB_PAT_<SUFFIX>} is derived from \code{api_url}
+using the helper \code{\link[=slugify_url]{slugify_url()}}.
+
+Looking up the PAT in an environment variable is definitely more secure than
+including it explicitly in your code, i.e. providing via \code{gh(token = "xyz")}.
+Remember you can define environment variables in your \code{.Renviron} startup
+file. However, there are also potential security problems with storing your
+PAT in plain text and with making your PAT available to all R sessions,
+regardless of the need. Therefore, it is strongly recommended to store your
+PAT in the Git credential store or system keychain and allow gh to retrieve
+it on-demand. See the next two sections for more.
+}
+
+\section{PAT in the Git credential store}{
 
 
-gh supports storing your PAT in the system keyring, on Windows, macOS
-and Linux, using the keyring package. To turn on keyring support, you
-need to set the \code{GH_KEYRING} environment variables to \code{true}, e.g. in your
+The "git" search \code{strategy} uses the Suggested credentials package to look up
+the PAT corresponding to \code{api_url} in the Git credential store. This means gh
+and command line Git using HTTPS can potentially share the same credentials.
+
+The first time the "git" \code{strategy} is invoked, you may be prompted for your
+PAT and, if it validates, it is stored for future re-use with this \code{api_url}.
+For the remainder of the current R session, the PAT is also available via an
+environment variable:
+\itemize{
+\item \code{GITHUB_PAT} for "github.com"
+\item \code{GITHUB_PAT_GITHUB_ACME_COM} for "github.acme.com"
+}
+
+This pattern of retrieving the PAT from the store upon first need and caching
+it in an environment variable is why "env,git"\verb{is the default}strategy`.
+
+Learn more in \code{\link[credentials:set_github_pat]{credentials::set_github_pat()}}.
+}
+
+\section{PAT in the system keyring}{
+
+
+The "key" search \code{strategy} uses the Suggested keyring package to retrieve
+your PAT from the system keyring, on Windows, macOS and Linux, using the
+keyring package. To activate keyring, specify a \code{strategy} that includes
+"key" or set the \code{GH_KEYRING} environment variable to \code{true}, e.g. in your
 \code{.Renviron} file.
 
-If keyring support is turned on and no PAT was found in an environment
-variable (see above), then gh searches for those same keys, in the same
-order, in the system keyring. If successful, the associated value is used as
-the PAT. The first keyring check looks like this for "github.com":\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_GITHUB_COM")
+The keys queried for a PAT are exactly the same as the environment variable
+names consulted for the "env" \code{strategy}. For "github.com", the first keyring
+check looks like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_GITHUB_COM")
 }\if{html}{\out{</div>}}
 
 gh uses the default keyring backend and the default keyring within that
@@ -114,6 +140,6 @@ str(gh_token())
 }
 }
 \seealso{
-\code{\link[=slugify_url]{slugify_url()}} for computing the environment variables that
-gh uses to search for API URL specific PATs.
+\code{\link[=slugify_url]{slugify_url()}} for computing the environment variables or keys that
+gh uses to search for URL-specific PATs.
 }

@@ -12,6 +12,7 @@ env
 funder
 github
 https
+keychain
 keyring
 macOS
 repo

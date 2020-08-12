@@ -1,63 +1,76 @@
 #' Return the local user's GitHub Personal Access Token (PAT)
 #'
-#' You can read more about PATs here:
-#' <https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token>
-#' and you can access your PATs here (if logged in to GitHub):
-#' <https://github.com/settings/tokens>.
+#' @description
+#' If gh can find a personal access token (PAT) via `gh_token()`, it includes
+#' the PAT in its requests. Some requests succeed without a PAT, but many
+#' require a PAT to prove the request is authorized by a specific GitHub user. A
+#' PAT also helps with rate limiting. If your gh use is more than casual, you
+#' want a PAT.
 #'
-#' Set the `GITHUB_PAT` environment variable to avoid having to include
-#' your PAT in the code. If you work with multiple GitHub deployments,
-#' e.g. via GitHub Enterprise, then read 'PATs for GitHub Enterprise' below.
+#' The PAT corresponding to `api_url` is searched for with a `strategy` that
+#' looks in one or more of these places (details below):
+#' * `"env"`: environment variable(s)
+#' * `"git"`: Git credential store (requires the credentials package)
+#' * `"key"`: OS-level keychain (requires the keyring package)
 #'
-#' If you want a more secure solution than putting authentication tokens
-#' into environment variables, read 'Storing PATs in the system keyring'
-#' below.
+#' Read more about PATs at
+#' <https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token>.
+#' Manage your PATs at <https://github.com/settings/tokens>, when logged in to
+#' GitHub.
 #'
-#' @section PATs for GitHub Enterprise:
+#' @section PAT in an environment variable:
 #'
-#' gh lets you use different PATs for different GitHub API URLs, by looking
-#' for the PAT in an URL-specific environment variable first. The helper
-#' [slugify_url()] computes a suffix from the API URL like so:
-#' * Extract the host name, i.e. drop both the protocol and any path
-#' * Substitute "github.com" for "api.github.com"
-#' * Replace special characters with underscores
-#' * Convert to ALL CAPS
-#'
-#' This suffix is then added to `GITHUB_PAT_` to form the name of an environment
-#' variable. It's probably easiest to just look at some examples.
-#'
-#' ```{r}
-#' # both give same result
-#' slugify_url("https://api.github.com")
-#' slugify_url("https://github.com")
-#'
-#' # an instance of GitHub Enterprise
-#' # both give same result
-#' slugify_url("https://github.acme.com")
-#' slugify_url("https://github.acme.com/api/v3")
-#' ```
-#'
-#' This implies that, for the default API URL <https://api.github.com>, these
-#' env vars are consulted, in this order:
+#' The "env" search strategy looks for a PAT in specific environment variables.
+#' If `api_url` targets "github.com", these variables are consulted, in order:
 #' * `GITHUB_PAT_GITHUB_COM`
 #' * `GTIHUB_PAT`
 #' * `GITHUB_TOKEN`
 #'
-#' You can customize the default API URL via the `GITHUB_API_URL` environment
-#' variable.
+#' If `api_url` targets another GitHub deployment, such as "github.acme.com",
+#' this variable is consulted:
+#' * `GITHUB_PAT_GITHUB_ACME_COM`
 #'
-#' @section Storing PATs in the system keyring:
+#' In both cases, the suffix in `GITHUB_PAT_<SUFFIX>` is derived from `api_url`
+#' using the helper [slugify_url()].
 #'
-#' gh supports storing your PAT in the system keyring, on Windows, macOS
-#' and Linux, using the keyring package. To turn on keyring support, you
-#' need to set the `GH_KEYRING` environment variables to `true`, e.g. in your
+#' Looking up the PAT in an environment variable is definitely more secure than
+#' including it explicitly in your code, i.e. providing via `gh(token = "xyz")`.
+#' Remember you can define environment variables in your `.Renviron` startup
+#' file. However, there are also potential security problems with storing your
+#' PAT in plain text and with making your PAT available to all R sessions,
+#' regardless of the need. Therefore, it is strongly recommended to store your
+#' PAT in the Git credential store or system keychain and allow gh to retrieve
+#' it on-demand. See the next two sections for more.
+#'
+#' @section PAT in the Git credential store:
+#'
+#' The "git" search `strategy` uses the Suggested credentials package to look up
+#' the PAT corresponding to `api_url` in the Git credential store. This means gh
+#' and command line Git using HTTPS can potentially share the same credentials.
+#'
+#' The first time the "git" `strategy` is invoked, you may be prompted for your
+#' PAT and, if it validates, it is stored for future re-use with this `api_url`.
+#' For the remainder of the current R session, the PAT is also available via an
+#' environment variable:
+#' * `GITHUB_PAT` for "github.com"
+#' * `GITHUB_PAT_GITHUB_ACME_COM` for "github.acme.com"
+#'
+#' This pattern of retrieving the PAT from the store upon first need and caching
+#' it in an environment variable is why "env,git"` is the default `strategy`.
+#'
+#' Learn more in [credentials::set_github_pat()].
+#'
+#' @section PAT in the system keyring:
+#'
+#' The "key" search `strategy` uses the Suggested keyring package to retrieve
+#' your PAT from the system keyring, on Windows, macOS and Linux, using the
+#' keyring package. To activate keyring, specify a `strategy` that includes
+#' "key" or set the `GH_KEYRING` environment variable to `true`, e.g. in your
 #' `.Renviron` file.
 #'
-
-#' If keyring support is turned on and no PAT was found in an environment
-#' variable (see above), then gh searches for those same keys, in the same
-#' order, in the system keyring. If successful, the associated value is used as
-#' the PAT. The first keyring check looks like this for "github.com":
+#' The keys queried for a PAT are exactly the same as the environment variable
+#' names consulted for the "env" `strategy`. For "github.com", the first keyring
+#' check looks like this:
 #'
 #' ```r
 #' keyring::key_get("GITHUB_PAT_GITHUB_COM")
@@ -85,16 +98,23 @@
 #' keyring::key_set("GITHUB_PAT")
 #' ```
 #'
-#' @param api_url Github API url. Defaults to `GITHUB_API_URL`
-#' environment variable if set, otherwise <https://api.github.com>.
+#' @param api_url Github API url. Defaults to the `GITHUB_API_URL` environment
+#'   variable, if set, and otherwise to <https://api.github.com>.
+#' @param strategy Where to look for a GitHub personal access token (PAT). If
+#'   specified, must be a comma-delimited string consisting of "env", "git",
+#'   and/or "key". Examples: "env", "env,git", "key,git,env". gh searches for a
+#'   PAT in these places, in this order.
+#'
+#'   By default, `strategy` is "env,git" if the credential package is available
+#'   and "env" if it is not.
 #'
 #' @return A string of 40 hexadecimal digits, if token is available, or the
 #'   empty string, otherwise. For convenience, the return value has an S3 class
 #'   in order to ensure that simple printing strategies don't reveal the entire
 #'   token.
 #'
-#' @seealso [slugify_url()] for computing the environment variables that
-#' gh uses to search for API URL specific PATs.
+#' @seealso [slugify_url()] for computing the environment variables or keys that
+#'   gh uses to search for URL-specific PATs.
 #' @export
 #'
 #' @examples
@@ -105,17 +125,40 @@
 #'
 #' str(gh_token())
 #' }
-gh_token <- function(api_url = NULL) {
+gh_token <- function(api_url = NULL, strategy = NULL) {
   api_url <- api_url %||% default_api_url()
-  pat <- pat_envvar(make_envvar_names(api_url))
-  if (pat == "" && should_use_keyring()) {
-    pat <- pat_keyring(make_envvar_names(api_url))
+  stopifnot(is.character(api_url), length(api_url) == 1)
+
+  strategy <- strategy %||% default_pat_strategy()
+  stopifnot(is.character(strategy), length(strategy) == 1)
+
+  strategy <- strsplit(strategy, split = ",")[[1]]
+  match.arg(strategy, c("env", "git", "key"), several.ok = TRUE)
+  pat <- ""
+  for(s in strategy) {
+    f <- switch(
+      s,
+      env = pat_envvar,
+      git = pat_gitcred,
+      key = pat_keyring
+    )
+    if ((pat <- f(api_url)) != "") break
   }
   gh_pat(pat)
 }
 
-pat_envvar <- function(vars) {
+default_pat_strategy <- function() {
+  out <- c(
+    "env",
+    if (can_load("credentials")) "git",
+    if (should_use_keyring()) "key"
+  )
+  paste0(out, collapse = ",")
+}
+
+pat_envvar <- function(api_url = default_api_url()) {
   val <- ""
+  vars <- make_envvar_names(api_url)
   if (length(vars) == 0) {
     return(val)
   }
@@ -125,7 +168,18 @@ pat_envvar <- function(vars) {
   val
 }
 
-pat_keyring <- function(vars) {
+pat_gitcred <- function(api_url = default_api_url()) {
+  if (is_github_dot_com(api_url)) {
+    credentials::set_github_pat()
+    Sys.getenv("GITHUB_PAT")
+  } else {
+    # TODO: support for non-github.com API URL
+    ""
+  }
+}
+
+pat_keyring <- function(api_url = default_api_url()) {
+  vars <- make_envvar_names(api_url)
   val <- ""
   if (length(vars) == 0 || !should_use_keyring()) {
     return(val)
@@ -189,10 +243,29 @@ gh_auth <- function(token) {
 
 #' Compute the suffix that gh uses for GitHub API URL specific PATs
 #'
+#' @description
 #' `slugify_url()` determines a suffix from a URL and this suffix is used to
 #' construct the name of an environment variable that holds the PAT for a
 #' specific GitHub URL. This is mostly relevant to people using GitHub
-#' Enterprise.
+#' Enterprise. `slugify_url()` processes the API URL like so:
+#' * Extract the host name, i.e. drop both the protocol and any path
+#' * Substitute "github.com" for "api.github.com"
+#' * Replace special characters with underscores
+#' * Convert to ALL CAPS
+#'
+#' This suffix is then added to `GITHUB_PAT_` to form the name of an environment
+#' variable. It's probably easiest to just look at some examples.
+#'
+#' ```{r}
+#' # both give same result
+#' slugify_url("https://api.github.com")
+#' slugify_url("https://github.com")
+#'
+#' # an instance of GitHub Enterprise
+#' # both give same result
+#' slugify_url("https://github.acme.com")
+#' slugify_url("https://github.acme.com/api/v3")
+#' ```
 #'
 #' @param url Character vector of HTTP/HTTPS URLs. They don't have to be in the
 #'   API-specific form, although they can be.

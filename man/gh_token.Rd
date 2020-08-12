@@ -18,7 +18,7 @@ token.
 }
 \description{
 You can read more about PATs here:
-\url{https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/}
+\url{https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token}
 and you can access your PATs here (if logged in to GitHub):
 \url{https://github.com/settings/tokens}.
 }

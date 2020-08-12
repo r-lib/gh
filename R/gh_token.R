@@ -53,21 +53,19 @@
 #' need to set the `GH_KEYRING` environment variables to `true`, e.g. in your
 #' `.Renviron` file.
 #'
-#' If keyring support is turned on, then for each PAT environment variable,
-#' gh first checks for it via `Sys.getenv()` and, if unset, gh then checks
-#' whether such a key exists in the system keyring and, if yes, it uses
-#' the associated value as the PAT. I.e. without a custom `GITHUB_API_URL`
-#' variable, gh checks the `GITHUB_PAT_GITHUB_COM` env var first, then
-#' checks for that key in the keyring, then moves on to do same with
-#' `GITHUB_PAT` and perhaps `GITHUB_TOKEN`. The keyring check looks like this:
+
+#' If keyring support is turned on and no PAT was found in an environment
+#' variable (see above), then gh searches for those same keys, in the same
+#' order, in the system keyring. If successful, the associated value is used as
+#' the PAT. The first keyring check looks like this for "github.com":
 #'
 #' ```r
 #' keyring::key_get("GITHUB_PAT_GITHUB_COM")
 #' ```
 #'
-#' and it uses the default keyring backend and the default keyring within
-#' that backend. See [keyring::default_backend()] for details and changing
-#' these defaults.
+#' gh uses the default keyring backend and the default keyring within that
+#' backend. See [keyring::default_backend()] for details and changing these
+#' defaults.
 #'
 #' If the selected keyring is locked, and the session is interactive,
 #' then gh will try to unlock it. If the keyring is locked, and the session
@@ -82,6 +80,7 @@
 #' R program separately.
 #'
 #' To store your PAT on the keyring run
+#'
 #' ```r
 #' keyring::key_set("GITHUB_PAT")
 #' ```
@@ -108,11 +107,36 @@
 #' }
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
-  gh_pat(
-    get_first_token_found(
-      make_envvar_names(api_url)
-    )
-  )
+  pat <- pat_envvar(make_envvar_names(api_url))
+  if (pat == "" && should_use_keyring()) {
+    pat <- pat_keyring(make_envvar_names(api_url))
+  }
+  gh_pat(pat)
+}
+
+pat_envvar <- function(vars) {
+  val <- ""
+  if (length(vars) == 0) {
+    return(val)
+  }
+  for (var in vars) {
+    if ((val <- Sys.getenv(var, "")) != "") break
+  }
+  val
+}
+
+pat_keyring <- function(vars) {
+  val <- ""
+  if (length(vars) == 0 || !should_use_keyring()) {
+    return(val)
+  }
+  key_get <- function(v) {
+    tryCatch(keyring::key_get(v), error = function(e) NULL)
+  }
+  for (var in vars) {
+    if ((val <- key_get(var) %||% "") != "") break
+  }
+  val
 }
 
 #' @importFrom cli cli_alert_info
@@ -153,21 +177,6 @@ should_use_keyring <- function() {
   }
 
   TRUE
-}
-
-get_first_token_found <- function(vars) {
-  if (length(vars) == 0) return("")
-  has_keyring <- should_use_keyring()
-  val <- ""
-  key_get <- function(v) {
-    if (has_keyring) tryCatch(keyring::key_get(v), error = function(e) NULL)
-  }
-  for (var in vars) {
-    if ((val <- Sys.getenv(var, "")) != "") break
-    if ((val <- key_get(var) %||% "") != "") break
-  }
-
-  val
 }
 
 gh_auth <- function(token) {

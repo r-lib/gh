@@ -78,18 +78,15 @@ and Linux, using the keyring package. To turn on keyring support, you
 need to set the \code{GH_KEYRING} environment variables to \code{true}, e.g. in your
 \code{.Renviron} file.
 
-If keyring support is turned on, then for each PAT environment variable,
-gh first checks for it via \code{Sys.getenv()} and, if unset, gh then checks
-whether such a key exists in the system keyring and, if yes, it uses
-the associated value as the PAT. I.e. without a custom \code{GITHUB_API_URL}
-variable, gh checks the \code{GITHUB_PAT_GITHUB_COM} env var first, then
-checks for that key in the keyring, then moves on to do same with
-\code{GITHUB_PAT} and perhaps \code{GITHUB_TOKEN}. The keyring check looks like this:\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_GITHUB_COM")
+If keyring support is turned on and no PAT was found in an environment
+variable (see above), then gh searches for those same keys, in the same
+order, in the system keyring. If successful, the associated value is used as
+the PAT. The first keyring check looks like this for "github.com":\if{html}{\out{<div class="r">}}\preformatted{keyring::key_get("GITHUB_PAT_GITHUB_COM")
 }\if{html}{\out{</div>}}
 
-and it uses the default keyring backend and the default keyring within
-that backend. See \code{\link[keyring:backends]{keyring::default_backend()}} for details and changing
-these defaults.
+gh uses the default keyring backend and the default keyring within that
+backend. See \code{\link[keyring:backends]{keyring::default_backend()}} for details and changing these
+defaults.
 
 If the selected keyring is locked, and the session is interactive,
 then gh will try to unlock it. If the keyring is locked, and the session

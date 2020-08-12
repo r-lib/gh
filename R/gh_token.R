@@ -107,17 +107,16 @@
 #'
 #' str(gh_token())
 #' }
-
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
-  token_env_var <- paste0("GITHUB_PAT_", slugify_url(api_url))
-  gh_pat(get_first_token_found(
-    c(token_env_var, "GITHUB_PAT", "GITHUB_TOKEN")
-  ))
+  gh_pat(
+    get_first_token_found(
+      make_envvar_names(api_url)
+    )
+  )
 }
 
 #' @importFrom cli cli_alert_info
-
 should_use_keyring <- function() {
   # Opt in?
   if (tolower(Sys.getenv("GH_KEYRING", "")) != "true") return(FALSE)
@@ -248,6 +247,14 @@ is_github_dot_com <- function(url) {
   url <- get_baseurl(url)
   url <- normalize_host(url)
   grepl("^https?://github.com", url)
+}
+
+make_envvar_names <- function(api_url) {
+  stopifnot(is.character(api_url), length(api_url) == 1)
+  c(
+    paste0("GITHUB_PAT_", slugify_url(api_url)),
+    if (is_github_dot_com(api_url)) c("GITHUB_PAT", "GITHUB_TOKEN")
+  )
 }
 
 # gh_pat class: exists in order have a print method that hides info ----

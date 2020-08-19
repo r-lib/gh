@@ -19,7 +19,7 @@
 #' GITHUB_PAT=8c70fd8419398999c9ac5bacf3192882193cadf2
 #' ```
 #'
-#' Put a line break at the end! If you’re using an editor that shows line
+#' Put a line break at the end! If you're using an editor that shows line
 #' numbers, there should be (at least) two lines, where the second one is empty.
 #' Restart R for this to take effect. Call `gh_whoami()` to confirm
 #' success.

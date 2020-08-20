@@ -43,7 +43,23 @@
 <meta property="og:description" content="slugify_url() determines a suffix from a URL and this suffix is used to
 construct the name of an environment variable that holds the PAT for a
 specific GitHub URL. This is mostly relevant to people using GitHub
-Enterprise." />
+Enterprise. slugify_url() processes the API URL like so:
+Extract the host name, i.e. drop both the protocol and any path
+Substitute &quot;github.com&quot; for &quot;api.github.com&quot;
+Replace special characters with underscores
+Convert to ALL CAPS
+
+
+This suffix is then added to GITHUB_PAT_ to form the name of an environment
+variable. It's probably easiest to just look at some examples.# both give same result
+slugify_url(&quot;https://api.github.com&quot;)## [1] &quot;GITHUB_COM&quot;
+slugify_url(&quot;https://github.com&quot;)## [1] &quot;GITHUB_COM&quot;
+# an instance of GitHub Enterprise
+# both give same result
+slugify_url(&quot;https://github.acme.com&quot;)## [1] &quot;GITHUB_ACME_COM&quot;
+slugify_url(&quot;https://github.acme.com/api/v3&quot;)## [1] &quot;GITHUB_ACME_COM&quot;
+
+" />
 
 
 
@@ -100,6 +116,18 @@ Enterprise." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/managing-personal-access-tokens.html">Managing Personal Access Tokens</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -133,7 +161,23 @@ Enterprise." />
     <p><code>slugify_url()</code> determines a suffix from a URL and this suffix is used to
 construct the name of an environment variable that holds the PAT for a
 specific GitHub URL. This is mostly relevant to people using GitHub
-Enterprise.</p>
+Enterprise. <code>slugify_url()</code> processes the API URL like so:</p><ul>
+<li><p>Extract the host name, i.e. drop both the protocol and any path</p></li>
+<li><p>Substitute "github.com" for "api.github.com"</p></li>
+<li><p>Replace special characters with underscores</p></li>
+<li><p>Convert to ALL CAPS</p></li>
+</ul>
+
+<p>This suffix is then added to <code>GITHUB_PAT_</code> to form the name of an environment
+variable. It's probably easiest to just look at some examples.<div class="r"></p><pre><span class='co'># both give same result</span>
+<span class='fu'>slugify_url</span>(<span class='st'>"https://api.github.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_COM"
+</pre><p><div class="r"></p><pre><span class='fu'>slugify_url</span>(<span class='st'>"https://github.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_COM"
+</pre><p><div class="r"></p><pre><span class='co'># an instance of GitHub Enterprise</span>
+<span class='co'># both give same result</span>
+<span class='fu'>slugify_url</span>(<span class='st'>"https://github.acme.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_ACME_COM"
+</pre><p><div class="r"></p><pre><span class='fu'>slugify_url</span>(<span class='st'>"https://github.acme.com/api/v3"</span>)</pre><p></div></p><pre>## [1] "GITHUB_ACME_COM"
+</pre>
+
     </div>
 
     <pre class="usage"><span class='fu'>slugify_url</span>(<span class='no'>url</span>)</pre>

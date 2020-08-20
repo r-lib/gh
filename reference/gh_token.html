@@ -40,10 +40,19 @@
 
 
 <meta property="og:title" content="Return the local user's GitHub Personal Access Token (PAT) — gh_token" />
-<meta property="og:description" content="You can read more about PATs here:
-https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token
-and you can access your PATs here (if logged in to GitHub):
-https://github.com/settings/tokens." />
+<meta property="og:description" content="If gh can find a personal access token (PAT) via gh_token(), it includes
+the PAT in its requests. Some requests succeed without a PAT, but many
+require a PAT to prove the request is authorized by a specific GitHub user. A
+PAT also helps with rate limiting. If your gh use is more than casual, you
+want a PAT.
+The PAT corresponding to api_url is searched for with a strategy that
+looks in one or more of these places:
+&quot;env&quot;: environment variable(s)
+&quot;git&quot;: Git credential store (requires the credentials package)
+&quot;key&quot;: OS-level keychain (requires the keyring package)
+
+
+Details are in the Managing Personal Access Tokens vignette." />
 
 
 
@@ -100,6 +109,18 @@ https://github.com/settings/tokens." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/managing-personal-access-tokens.html">Managing Personal Access Tokens</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -130,102 +151,53 @@ https://github.com/settings/tokens." />
     </div>
 
     <div class="ref-description">
-    <p>You can read more about PATs here:
-<a href='https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token'>https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token</a>
-and you can access your PATs here (if logged in to GitHub):
-<a href='https://github.com/settings/tokens'>https://github.com/settings/tokens</a>.</p>
+    <p>If gh can find a personal access token (PAT) via <code>gh_token()</code>, it includes
+the PAT in its requests. Some requests succeed without a PAT, but many
+require a PAT to prove the request is authorized by a specific GitHub user. A
+PAT also helps with rate limiting. If your gh use is more than casual, you
+want a PAT.</p>
+<p>The PAT corresponding to <code>api_url</code> is searched for with a <code>strategy</code> that
+looks in one or more of these places:</p><ul>
+<li><p><code>"env"</code>: environment variable(s)</p></li>
+<li><p><code>"git"</code>: Git credential store (requires the credentials package)</p></li>
+<li><p><code>"key"</code>: OS-level keychain (requires the keyring package)</p></li>
+</ul>
+
+<p>Details are in the <a href='https://gh.r-lib.org/articles/managing-personal-access-tokens.html'>Managing Personal Access Tokens</a> vignette.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gh_token</span>(<span class='kw'>api_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>gh_token</span>(<span class='kw'>api_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strategy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>api_url</th>
-      <td><p>Github API url. Defaults to <code>GITHUB_API_URL</code>
-environment variable if set, otherwise <a href='https://api.github.com'>https://api.github.com</a>.</p></td>
+      <td><p>GitHub API URL. Defaults to the <code>GITHUB_API_URL</code> environment
+variable, if set, and otherwise to <a href='https://api.github.com'>https://api.github.com</a>.</p></td>
+    </tr>
+    <tr>
+      <th>strategy</th>
+      <td><p>Where to look for a PAT. If specified, must be a
+comma-delimited string consisting of "env", "git", and/or "key". Examples:
+"env", "env,git", "key,git,env". gh searches for a PAT in these places, in
+this order.</p>
+<p>By default, <code>strategy</code> is "env,git" if the credential package is available
+and "env" if it is not.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A string of 40 hexadecimal digits, if token is available, or the
-empty string, otherwise. For convenience, the return value has an S3 class
-in order to ensure that simple printing strategies don't reveal the entire
-token.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Set the <code>GITHUB_PAT</code> environment variable to avoid having to include
-your PAT in the code. If you work with multiple GitHub deployments,
-e.g. via GitHub Enterprise, then read 'PATs for GitHub Enterprise' below.</p>
-<p>If you want a more secure solution than putting authentication tokens
-into environment variables, read 'Storing PATs in the system keyring'
-below.</p>
-    <h2 class="hasAnchor" id="pats-for-github-enterprise"><a class="anchor" href="#pats-for-github-enterprise"></a>PATs for GitHub Enterprise</h2>
-
-    
-
-
-<p>gh lets you use different PATs for different GitHub API URLs, by looking
-for the PAT in an URL-specific environment variable first. The helper
-<code><a href='slugify_url.html'>slugify_url()</a></code> computes a suffix from the API URL like so:</p><ul>
-<li><p>Extract the host name, i.e. drop both the protocol and any path</p></li>
-<li><p>Substitute "github.com" for "api.github.com"</p></li>
-<li><p>Replace special characters with underscores</p></li>
-<li><p>Convert to ALL CAPS</p></li>
-</ul>
-
-<p>This suffix is then added to <code>GITHUB_PAT_</code> to form the name of an environment
-variable. It's probably easiest to just look at some examples.<div class="r"></p><pre><span class='co'># both give same result</span>
-<span class='fu'><a href='slugify_url.html'>slugify_url</a></span>(<span class='st'>"https://api.github.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_COM"
-</pre><p><div class="r"></p><pre><span class='fu'><a href='slugify_url.html'>slugify_url</a></span>(<span class='st'>"https://github.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_COM"
-</pre><p><div class="r"></p><pre><span class='co'># an instance of GitHub Enterprise</span>
-<span class='co'># both give same result</span>
-<span class='fu'><a href='slugify_url.html'>slugify_url</a></span>(<span class='st'>"https://github.acme.com"</span>)</pre><p></div></p><pre>## [1] "GITHUB_ACME_COM"
-</pre><p><div class="r"></p><pre><span class='fu'><a href='slugify_url.html'>slugify_url</a></span>(<span class='st'>"https://github.acme.com/api/v3"</span>)</pre><p></div></p><pre>## [1] "GITHUB_ACME_COM"
-</pre>
-
-<p>This implies that, for the default API URL <a href='https://api.github.com'>https://api.github.com</a>, these
-env vars are consulted, in this order:</p><ul>
-<li><p><code>GITHUB_PAT_GITHUB_COM</code></p></li>
-<li><p><code>GTIHUB_PAT</code></p></li>
-<li><p><code>GITHUB_TOKEN</code></p></li>
-</ul>
-
-<p>You can customize the default API URL via the <code>GITHUB_API_URL</code> environment
-variable.</p>
-    <h2 class="hasAnchor" id="storing-pats-in-the-system-keyring"><a class="anchor" href="#storing-pats-in-the-system-keyring"></a>Storing PATs in the system keyring</h2>
-
-    
-
-
-<p>gh supports storing your PAT in the system keyring, on Windows, macOS
-and Linux, using the keyring package. To turn on keyring support, you
-need to set the <code>GH_KEYRING</code> environment variables to <code>true</code>, e.g. in your
-<code>.Renviron</code> file.</p>
-<p>If keyring support is turned on and no PAT was found in an environment
-variable (see above), then gh searches for those same keys, in the same
-order, in the system keyring. If successful, the associated value is used as
-the PAT. The first keyring check looks like this for "github.com":<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_get</a></span>(<span class='st'>"GITHUB_PAT_GITHUB_COM"</span>)</pre><p></div></p>
-<p>gh uses the default keyring backend and the default keyring within that
-backend. See <code><a href='https://rdrr.io/pkg/keyring/man/backends.html'>keyring::default_backend()</a></code> for details and changing these
-defaults.</p>
-<p>If the selected keyring is locked, and the session is interactive,
-then gh will try to unlock it. If the keyring is locked, and the session
-is not interactive, then gh will not use the keyring. Note that some
-keyring backends cannot be locked (e.g. the one that uses environment
-variables).</p>
-<p>On some OSes, e.g. typically on macOS, you need to allow R to access the
-system keyring. You can allow this separately for each access, or for
-all future accesses, until you update or re-install R. You typically
-need to give access to each R GUI (e.g. RStudio) and the command line
-R program separately.</p>
-<p>To store your PAT on the keyring run<div class="r"></p><pre><span class='kw pkg'>keyring</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/keyring/man/key_get.html'>key_set</a></span>(<span class='st'>"GITHUB_PAT"</span>)</pre><p></div></p>
+    <p>A string of 40 hexadecimal digits, if a PAT is found, or the empty
+string, otherwise. For convenience, the return value has an S3 class in
+order to ensure that simple printing strategies don't reveal the entire
+PAT.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='slugify_url.html'>slugify_url()</a></code> for computing the environment variables that
-gh uses to search for API URL specific PATs.</p></div>
+    <div class='dont-index'><p><code><a href='slugify_url.html'>slugify_url()</a></code> for computing the environment variables or keys that
+gh uses to search for URL-specific PATs. <code><a href='gh_whoami.html'>gh_whoami()</a></code> to see details
+about a token.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

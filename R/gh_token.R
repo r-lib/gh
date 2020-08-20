@@ -179,11 +179,16 @@ pat_envvar <- function(api_url = default_api_url()) {
 }
 
 pat_gitcred <- function(api_url = default_api_url()) {
+  # TODO: drop Gabor's git credentials approach in here
   if (is_github_dot_com(api_url)) {
-    credentials::set_github_pat()
-    Sys.getenv("GITHUB_PAT")
+    tryCatch(
+      {
+        suppressMessages(credentials::set_github_pat())
+        Sys.getenv("GITHUB_PAT")
+      },
+      error = function(e) ""
+    )
   } else {
-    # TODO: support for non-github.com API URL
     ""
   }
 }

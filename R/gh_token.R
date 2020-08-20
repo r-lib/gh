@@ -180,7 +180,7 @@ pat_envvar <- function(api_url = default_api_url()) {
 
 pat_gitcred <- function(api_url = default_api_url()) {
   # TODO: drop Gabor's git credentials approach in here
-  if (is_github_dot_com(api_url)) {
+  if (is_github_dot_com(api_url) && can_load("credentials")) {
     tryCatch(
       {
         suppressMessages(credentials::set_github_pat())

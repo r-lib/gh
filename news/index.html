@@ -141,12 +141,13 @@
 <a href="#gh-development-version" class="anchor"></a>gh (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p>gh can retrieve a PAT from the Git credential store, where the lookup is based on the targeted API URL. <em>Currently limited to “github.com”, but that will change.</em></p></li>
 <li>
 <p>The environment variables consulted for URL-specific GitHub PATs have changed.</p>
 <ul>
 <li>For “<a href="https://api.github.com" class="uri">https://api.github.com</a>”: <code>GITHUB_PAT_GITHUB_COM</code> now, instead of <code>GITHUB_PAT_API_GITHUB_COM</code>
 </li>
-<li>For “<a href="https://github.acme.com/api/v3" class="uri">https://github.acme.com/api/v3</a>”: <code>GITHUB_PAT_GITHUB_ACME_COM</code> now, instead of <code>GITHUB_PAT_GITHUB_ACME_COM_API_V3</code> This also affects the keys searched keyring support is turned on.</li>
+<li>For “<a href="https://github.acme.com/api/v3" class="uri">https://github.acme.com/api/v3</a>”: <code>GITHUB_PAT_GITHUB_ACME_COM</code> now, instead of <code>GITHUB_PAT_GITHUB_ACME_COM_API_V3</code> This also affects the keys searched when keyring support is turned on.</li>
 </ul>
 </li>
 <li><p>gh only consults the <code>GITHUB_PAT</code> or <code>GITHUB_TOKEN</code> environment variables when the targeted host is “github.com”. For other GitHub deployments, e.g. “github.acme.com”, only the URL-specific environment variable is consulted, e.g. <code>GITHUB_PAT_GITHUB_ACME_COM</code>.</p></li>

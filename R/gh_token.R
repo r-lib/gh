@@ -8,107 +8,14 @@
 #' want a PAT.
 #'
 #' The PAT corresponding to `api_url` is searched for with a `strategy` that
-#' looks in one or more of these places (details below):
+#' looks in one or more of these places:
 #' * `"env"`: environment variable(s)
 #' * `"git"`: Git credential store (requires the credentials package)
 #' * `"key"`: OS-level keychain (requires the keyring package)
 #'
-#' Read more about PATs at
-#' <https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token>.
-#' Manage your PATs at <https://github.com/settings/tokens>, when logged in to
-#' GitHub. The `usethis::create_github_token()` function guides you through the
-#' process of getting a new PAT.
+#' Details are in the [Managing Personal Access Tokens](https://gh.r-lib.org/articles/managing-personal-access-tokens.html) vignette.
 #'
-#' @section PAT in an environment variable:
-#'
-#' The "env" search strategy looks for a PAT in specific environment variables.
-#' If `api_url` targets "github.com", these variables are consulted, in order:
-#' 1. `GITHUB_PAT_GITHUB_COM`
-#' 2. `GTIHUB_PAT`
-#' 3. `GITHUB_TOKEN`
-#'
-#' If `api_url` targets another GitHub deployment, such as "github.acme.com",
-#' this variable is consulted:
-#' * `GITHUB_PAT_GITHUB_ACME_COM`
-#'
-#' In both cases, the suffix in `GITHUB_PAT_<SUFFIX>` is derived from `api_url`
-#' using the helper [slugify_url()].
-#'
-#' Looking up the PAT in an environment variable is definitely more secure than
-#' including it explicitly in your code, i.e. providing via `gh(token = "xyz")`.
-#' The simplest way to set this up is to define, e.g., `GITHUB_PAT` in your
-#' `.Renviron` startup file. This is the entry-level solution.
-#'
-#' However, ideally you would not store your PAT in plain text like this. It is
-#' also undesirable to make your PAT available to all your R sessions,
-#' regardless of actual need. Both make it more likely you will expose your PAT
-#' publicly, by accident.
-#'
-#' Therefore, it is strongly recommended to store your PAT in the Git credential
-#' store or system keychain and allow gh to retrieve it on-demand. See the next
-#' two sections for more.
-#'
-#' @section PAT in the Git credential store:
-#'
-#' The "git" search `strategy` uses the Suggested credentials package to look up
-#' the PAT corresponding to `api_url` in the Git credential store. This
-#' `strategy` has the advantage of using official Git tooling, specific to your
-#' operating system, for managing secrets.
-#'
-#' The first time the "git" `strategy` is invoked, you may be prompted for your
-#' PAT and, if it validates, it is stored for future re-use with this `api_url`.
-#' For the remainder of the current R session, the PAT is also available via one
-#' of the usual environment variables:
-#' * `GITHUB_PAT` for "github.com"
-#' * `GITHUB_PAT_GITHUB_ACME_COM` for "github.acme.com"
-#'
-#' This pattern of retrieving the PAT from the store upon first need and caching
-#' it in an environment variable is why "env,git" is the default `strategy`:
-#' 1. The initial "env" search fails.
-#' 2. The "git" search succeeds and sets an environment variable in the session.
-#' 3. Subsequent "env" searches succeed.
-#'
-#' Learn more in [credentials::set_github_pat()].
-#'
-#' @section PAT in the system keyring:
-#'
-#' The "key" search `strategy` uses the Suggested keyring package to retrieve
-#' your PAT from the system keyring, on Windows, macOS and Linux, using the
-#' keyring package. To activate keyring, specify a `strategy` that includes
-#' "key" or set the `GH_KEYRING` environment variable to `true`, e.g. in your
-#' `.Renviron` file.
-#'
-#' The keys queried for a PAT are exactly the same as the environment variable
-#' names consulted for the "env" `strategy`. For "github.com", the first keyring
-#' check looks like this:
-#'
-#' ```r
-#' keyring::key_get("GITHUB_PAT_GITHUB_COM")
-#' ```
-#'
-#' gh uses the default keyring backend and the default keyring within that
-#' backend. See [keyring::default_backend()] for details and changing these
-#' defaults.
-#'
-#' If the selected keyring is locked, and the session is interactive,
-#' then gh will try to unlock it. If the keyring is locked, and the session
-#' is not interactive, then gh will not use the keyring. Note that some
-#' keyring backends cannot be locked, e.g. the one that uses environment
-#' variables.
-#'
-#' On some OSes, e.g. typically on macOS, you need to allow R to access the
-#' system keyring. You can allow this separately for each access, or for
-#' all future accesses, until you update or re-install R. You typically
-#' need to give access to each R GUI (e.g. RStudio) and the command line
-#' R program separately.
-#'
-#' To store your PAT on the keyring run
-#'
-#' ```r
-#' keyring::key_set("GITHUB_PAT")
-#' ```
-#'
-#' @param api_url Github API url. Defaults to the `GITHUB_API_URL` environment
+#' @param api_url GitHub API URL. Defaults to the `GITHUB_API_URL` environment
 #'   variable, if set, and otherwise to <https://api.github.com>.
 #' @param strategy Where to look for a PAT. If specified, must be a
 #'   comma-delimited string consisting of "env", "git", and/or "key". Examples:
@@ -124,7 +31,9 @@
 #'   PAT.
 #'
 #' @seealso [slugify_url()] for computing the environment variables or keys that
-#'   gh uses to search for URL-specific PATs.
+#'   gh uses to search for URL-specific PATs. [gh_whoami()] to see details
+#'   about a token.
+#'
 #' @export
 #'
 #' @examples

@@ -25,11 +25,16 @@ Imports:
     jsonlite
 Suggests:
     covr,
+    credentials (>= 1.3.0),
     keyring,
+    knitr,
+    rmarkdown,
     rprojroot,
     spelling,
     testthat (>= 2.3.2),
     withr
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 Language: en-US
 LazyData: true

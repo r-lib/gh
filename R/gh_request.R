@@ -108,7 +108,7 @@ gh_set_url <- function(x) {
     x$url <- URLencode(x$endpoint)
     x$api_url <- get_baseurl(x$url)
   } else {
-    x$api_url <- x$api_url %||% default_api_url()
+    x$api_url <- get_apiurl(x$api_url %||% default_api_url())
     x$url <- URLencode(paste0(x$api_url, x$endpoint))
   }
 

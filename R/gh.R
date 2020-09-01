@@ -1,12 +1,3 @@
-
-#' GitHub API
-#'
-#' Minimal wrapper to access GitHub's API.
-#'
-#' @docType package
-#' @name gh
-"_PACKAGE"
-
 #' Query the GitHub API
 #'
 #' This is an extremely minimal client. You need to know the API
@@ -75,11 +66,6 @@
 #'   `list`. Failed requests will generate an R error. Requests that
 #'   generate a raw response will return a raw vector.
 #'
-#' @importFrom httr content add_headers headers
-#'   status_code http_type RETRY
-#' @importFrom jsonlite fromJSON toJSON
-#' @importFrom utils URLencode capture.output
-#' @importFrom cli cli_status cli_status_update
 #' @export
 #' @seealso [gh_gql()] if you want to use the GitHub GraphQL API,
 #' [gh_whoami()] for details on GitHub API token management.
@@ -157,7 +143,6 @@
 #'     "Content-Type" = "application/json"
 #'   )
 #' )
-
 gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                .overwrite = FALSE, .api_url = NULL, .method = "GET",
                .limit = NULL, .accept = "application/vnd.github.v3+json",

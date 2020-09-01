@@ -1,5 +1,3 @@
-context("gh_rate_limit")
-
 test_that("good input", {
   mock_res = structure(
     list(),

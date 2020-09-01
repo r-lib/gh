@@ -1,6 +1,3 @@
-
-context("repos")
-
 if (!exists("TMPL", environment(), inherits = FALSE)) {
   TMPL <- function(x) x
 }

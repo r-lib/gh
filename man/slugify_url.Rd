@@ -7,20 +7,46 @@
 slugify_url(url)
 }
 \arguments{
-\item{url}{Character vector HTTP/HTTPS URLs.}
+\item{url}{Character vector of HTTP/HTTPS URLs. They don't have to be in the
+API-specific form, although they can be.}
 }
 \value{
 Character vector of suffixes.
 }
 \description{
-Compute the suffix that gh uses for GitHub API URL specific PATs
+\code{slugify_url()} determines a suffix from a URL and this suffix is used to
+construct the name of an environment variable that holds the PAT for a
+specific GitHub URL. This is mostly relevant to people using GitHub
+Enterprise. \code{slugify_url()} processes the API URL like so:
+\itemize{
+\item Extract the host name, i.e. drop both the protocol and any path
+\item Substitute "github.com" for "api.github.com"
+\item Replace special characters with underscores
+\item Convert to ALL CAPS
+}
+
+This suffix is then added to \code{GITHUB_PAT_} to form the name of an environment
+variable. It's probably easiest to just look at some examples.\if{html}{\out{<div class="r">}}\preformatted{# both give same result
+slugify_url("https://api.github.com")
+}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_COM"
+}\if{html}{\out{<div class="r">}}\preformatted{slugify_url("https://github.com")
+}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_COM"
+}\if{html}{\out{<div class="r">}}\preformatted{# an instance of GitHub Enterprise
+# both give same result
+slugify_url("https://github.acme.com")
+}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_ACME_COM"
+}\if{html}{\out{<div class="r">}}\preformatted{slugify_url("https://github.acme.com/api/v3")
+}\if{html}{\out{</div>}}\preformatted{## [1] "GITHUB_ACME_COM"
+}
 }
 \examples{
-# The main GH site
+# main github.com site
 slugify_url("https://api.github.com")
+slugify_url("https://github.com")
 
-# A custom one
+# an instance of GitHub Enterprise
 slugify_url("https://github.acme.com")
+slugify_url("https://github.acme.com/api/v3")
 }
 \seealso{
 \code{\link[=gh_token]{gh_token()}}

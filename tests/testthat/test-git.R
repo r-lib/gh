@@ -1,5 +1,3 @@
-context("github_remote")
-
 test_that("picks origin if available", {
   remotes <- list(
     upstream = "https://github.com/x/1",

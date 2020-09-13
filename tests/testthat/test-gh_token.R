@@ -158,14 +158,3 @@ test_that("get_apiurl() works", {
   expect_equal(get_apiurl("https://github.acme.com/OWNER/REPO"), x)
   expect_equal(get_apiurl("https://github.acme.com/api/v3"), x)
 })
-
-test_that("make_envvar_names() works", {
-  expect_equal(
-    make_envvar_names("https://github.com"),
-    c("GITHUB_PAT_GITHUB_COM", "GITHUB_PAT", "GITHUB_TOKEN")
-  )
-  expect_equal(
-    make_envvar_names("https://github.acme.com"),
-    "GITHUB_PAT_GITHUB_ACME_COM"
-  )
-})

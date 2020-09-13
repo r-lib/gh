@@ -84,7 +84,7 @@ You can call `gitcreds_get()$password` to see the actual PAT.
 
 If you don't have a git installation, or your git installation does not have a working credential store, then you can specify the PAT in an environment variables.
 For `github.com` you can set the `GITHUB_PAT_GITHUB_COM` or `GITHUB_PAT` variable.
-For a different GitHub host, call `gitcreds::gitcreds_cache_envvar()` sith the API URL to see the environment variable you need to set.
+For a different GitHub host, call `gitcreds::gitcreds_cache_envvar()` with the API URL to see the environment variable you need to set.
 For example:
 
 ```{r}

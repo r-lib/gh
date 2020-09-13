@@ -13,7 +13,8 @@
 #' [gitcreds::gitcreds_get()] function to see if this is the case. This
 #' function errors if it cannot find any PAT.
 #'
-#' gh calls [gitcreds::gitcreds_get()] with the `api_url`.
+#' gh calls [gitcreds::gitcreds_get()] with the `api_url` to get a token
+#' that is suitable for the selected GitHub host.
 #'
 #' To add a GitHub PAT, create one online at (see
 #' https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token),
@@ -43,7 +44,7 @@ gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
   stopifnot(is.character(api_url), length(api_url) == 1)
   token <- tryCatch(
-    gitcreds::gitcreds_get(),
+    gitcreds::gitcreds_get(api_url),
     error = function(e) NULL
   )
   gh_pat(token$password %||% "")

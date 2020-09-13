@@ -62,8 +62,8 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
 # gh_pat class ----
 test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
   expect_error(gh_pat(strrep("a", 40)), NA)
-  expect_error(gh_pat(strrep("g", 40)), "40 hexadecimal digits")
-  expect_error(gh_pat("aa"), "40 hexadecimal digits")
+  expect_error(gh_pat(strrep("g", 40)), "40 hexadecimal digits", class = "error")
+  expect_error(gh_pat("aa"), "40 hexadecimal digits", class = "error")
 })
 
 test_that("format.gh_pat() and str.gh_pat() hide the middle stuff", {
@@ -109,19 +109,6 @@ test_that("get_baseurl() works", {
     get_baseurl("https://jane@github.acme.com/api/v3"),
     "https://jane@github.acme.com"
   )
-})
-
-test_that("slugify_url() works", {
-  x <- "GITHUB_COM"
-  expect_equal(slugify_url("https://github.com"), x)
-  expect_equal(slugify_url("https://github.com/more/stuff"), x)
-  expect_equal(slugify_url("https://api.github.com"), x)
-  expect_equal(slugify_url("https://api.github.com/rate_limit"), x)
-
-  x <- "GITHUB_ACME_COM"
-  expect_equal(slugify_url("https://github.acme.com"), x)
-  expect_equal(slugify_url("https://github.acme.com/"), x)
-  expect_equal(slugify_url("https://github.acme.com/api/v3"), x)
 })
 
 test_that("is_github_dot_com() works", {

@@ -33,7 +33,7 @@ Suggests:
     testthat (>= 2.3.2),
     withr
 Remotes:
-    gitcreds
+    r-lib/gitcreds
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

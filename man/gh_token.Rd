@@ -4,19 +4,11 @@
 \alias{gh_token}
 \title{Return the local user's GitHub Personal Access Token (PAT)}
 \usage{
-gh_token(api_url = NULL, strategy = NULL)
+gh_token(api_url = NULL)
 }
 \arguments{
 \item{api_url}{GitHub API URL. Defaults to the \code{GITHUB_API_URL} environment
 variable, if set, and otherwise to \url{https://api.github.com}.}
-
-\item{strategy}{Where to look for a PAT. If specified, must be a
-comma-delimited string consisting of "env", "git", and/or "key". Examples:
-"env", "env,git", "key,git,env". gh searches for a PAT in these places, in
-this order.
-
-By default, \code{strategy} is "env,git" if the credential package is available
-and "env" if it is not.}
 }
 \value{
 A string of 40 hexadecimal digits, if a PAT is found, or the empty
@@ -31,15 +23,21 @@ require a PAT to prove the request is authorized by a specific GitHub user. A
 PAT also helps with rate limiting. If your gh use is more than casual, you
 want a PAT.
 
-The PAT corresponding to \code{api_url} is searched for with a \code{strategy} that
-looks in one or more of these places:
-\itemize{
-\item \code{"env"}: environment variable(s)
-\item \code{"git"}: Git credential store (requires the credentials package)
-\item \code{"key"}: OS-level keychain (requires the keyring package)
-}
+gh calls \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} with the \code{api_url}, which checks session
+environment variables and then the local Git credential store for a PAT
+appropriate to the \code{api_url}. Therefore, if you have previously used a PAT
+with, e.g., command line Git, gh may retrieve and re-use it. You can call
+\code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} directly, yourself, if you want to see what is
+found for a specific URL. If no matching PAT is found,
+\code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} errors, whereas \code{gh_token()} does not and,
+instead, returns \code{""}.
 
-Details are in the \href{https://gh.r-lib.org/articles/managing-personal-access-tokens.html}{Managing Personal Access Tokens} vignette.
+See GitHub's documentation on \href{https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token}{Creating a personal access token},
+or use \code{usethis::create_github_token()} for a guided experience, including
+pre-selection of recommended scopes. Once you have a PAT, you can use
+\code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_set()}} to add it to the Git credential store. From that
+point on, gh (via \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}}) should be able to find it
+without further effort on your part.
 }
 \examples{
 \dontrun{
@@ -49,9 +47,4 @@ format(gh_token())
 
 str(gh_token())
 }
-}
-\seealso{
-\code{\link[=slugify_url]{slugify_url()}} for computing the environment variables or keys that
-gh uses to search for URL-specific PATs. \code{\link[=gh_whoami]{gh_whoami()}} to see details
-about a token.
 }

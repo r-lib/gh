@@ -1,20 +1,14 @@
 # gh (development version)
 
 * gh can retrieve a PAT from the Git credential store, where the lookup is based
-  on the targeted API URL. *Currently limited to "github.com", but that will
-  change.*
-
-* The environment variables consulted for URL-specific GitHub PATs have changed.
+  on the targeted API URL. This now uses the gitcreds package. The environment
+  variables consulted for URL-specific GitHub PATs have changed.
   - For "https://api.github.com": `GITHUB_PAT_GITHUB_COM` now, instead of
     `GITHUB_PAT_API_GITHUB_COM`
   - For "https://github.acme.com/api/v3": `GITHUB_PAT_GITHUB_ACME_COM` now,
     instead of `GITHUB_PAT_GITHUB_ACME_COM_API_V3`
-This also affects the keys searched when keyring support is turned on.
 
-* gh only consults the `GITHUB_PAT` or `GITHUB_TOKEN` environment variables
-  when the targeted host is "github.com". For other GitHub deployments, e.g.
-  "github.acme.com", only the URL-specific environment variable is consulted,
-  e.g. `GITHUB_PAT_GITHUB_ACME_COM`.
+* The keyring package is no longer used, in favor of the Git credential store.
 
 * The documentation for the GitHub REST API has moved to
   <https://docs.github.com/rest> and endpoints are now documented using

@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 *NOTE: This aspect of gh is under active development, so there may be brief periods where things are out of sync.
-Please bear with and feel free to let us know in a GitHub issue.*
+Please bear with us and feel free to let us know in a GitHub issue.*
 
 ```{r setup}
 library(gh)
@@ -36,7 +36,8 @@ More resources on how and why to get a PAT:
     - [Setup advice re: PATs](https://usethis.r-lib.org/articles/articles/usethis-setup.html#get-and-store-a-github-personal-access-token-1)
     - `usethis::create_github_token()` guides you through the process of getting
       a new PAT
-  * `credentials::set_github_pat()`
+  * `gitcreds::gitcreds_set())` helps you explicitly put a PAT into the Git
+    credential store.
   
 ## PAT and host
 
@@ -58,103 +59,59 @@ How are `.api_url` and `.token` determined when the user does not provide them?
     This is always done before worrying about the PAT.
   1. The PAT is obtained via a call to `gh_token(.api_url)`. That is, the token
     is looked up based on the host.
-    
-`gh_token()` actually has a second argument, `strategy`:
 
-```{r, eval = FALSE}
-gh_token(api_url = NULL, strategy = NULL)
+## The gitcreds package
+
+gh now uses the gitcreds package  in the git credential store.
+If you use git from the command line, with a GUI or from RStudio, then chances are, you already have a PAT and gitcreds/gh can reuse it.
+Call `gitcreds::gitcreds_get()` to try it:
+
+gh calls `gitcreds::gitcreds_get()` with a URL to try to find a matching PAT.
+`gitcreds::gitcreds_get()` checks session environment variables and then the local Git credential store.
+Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it.
+You can call [gitcreds::gitcreds_get()] directly, yourself, if you want to see what is found for a specific URL.
+
+``` r
+gitcreds::gitcreds_get()
 ```
 
-The PAT corresponding to `api_url` is searched for with a `strategy` that
-looks in one or more of these places, usually in this order:
+If you see something like this:
+``` r
+#> <gitcreds>
+#>   protocol: https
+#>   host    : github.com
+#>   username: token
+#>   password: <-- hidden -->
+```
+that means that gitcreds could get the PAT from the git credential store.
+You can call `gitcreds_get()$password` to see the actual PAT.
 
-* "env": environment variable(s)
-* "git": Git credential store
-* "key": OS-level keychain (requires the keyring package)
+If no matching PAT is found, [gitcreds::gitcreds_get()] errors.
 
 ## PAT in an environment variable
 
-The "env" search strategy looks for a PAT in specific environment variables.
-If `api_url` targets "github.com", these variables are consulted, in order:
+If you don't have a Git installation, or your Git installation does not have a working credential store, then you can specify the PAT in an environment variable.
+For `github.com` you can set the `GITHUB_PAT_GITHUB_COM` or `GITHUB_PAT` variable.
+For a different GitHub host, call `gitcreds::gitcreds_cache_envvar()` with the API URL to see the environment variable you need to set.
+For example:
 
-1. `GITHUB_PAT_GITHUB_COM`
-1. `GTIHUB_PAT`
-1. `GITHUB_TOKEN`
-
-If `api_url` targets another GitHub deployment, such as "github.acme.com", this variable is consulted:
-
-* `GITHUB_PAT_GITHUB_ACME_COM`
-
-In both cases, the suffix in `GITHUB_PAT_<SUFFIX>` is derived from `api_url` using the helper `slugify_url()`.
-
-Looking up the PAT in an environment variable is definitely more secure than including it explicitly in your code, i.e. providing via `gh(token = "xyz")`.
-The simplest way to set this up is to define, e.g., `GITHUB_PAT` in your `.Renviron` startup file.
-This is the entry-level solution.
-
-However, ideally you would not store your PAT in plain text like this.
-It is also undesirable to make your PAT available to all your R sessions, regardless of actual need.
-Both make it more likely you will expose your PAT publicly, by accident.
-Therefore, it is strongly recommended to store your PAT in the Git credential store or system keychain and allow gh to retrieve it on-demand.
-See the next two sections for more.
-
-## PAT in the Git credential store
-
-The "git" search `strategy` looks up the PAT corresponding to `api_url` in the Git credential store.
-This `strategy` has the advantage of using official Git tooling, specific to your operating system, for managing secrets.
-The first time the "git" `strategy` is invoked, you may be prompted for your PAT and, if it validates, it is stored for future re-use with this `api_url`.
-For the remainder of the current R session, the PAT is also available via one of the usual environment variables:
-
-* `GITHUB_PAT` for "github.com"
-* `GITHUB_PAT_GITHUB_ACME_COM` for "github.acme.com"
-
-This pattern of retrieving the PAT from the store upon first need and caching it in an environment variable is why the default `strategy` tries "env" and then "git":
-
-1. The initial "env" search fails.
-2. The "git" search succeeds and sets an environment variable in the session.
-3. Subsequent "env" searches succeed.
-
-*TO BE FILLED IN: How to get your PAT into the Git credential store.*
-
-## PAT in the system keyring:
-
-The "key" search `strategy` uses the Suggested keyring package to retrieve your PAT from the system keyring, on Windows, macOS and Linux.
-To activate keyring, specify a `strategy` that includes "key" or set the `GH_KEYRING` environment variable to `true`, e.g. in your `.Renviron` file.
-The keys queried for a PAT are exactly the same as the environment variable names consulted for the "env" `strategy`. For "github.com", the first keyring check looks like this:
-
-```r
-keyring::key_get("GITHUB_PAT_GITHUB_COM")
-```
-
-gh uses the default keyring backend and the default keyring within that backend.
-See `keyring::default_backend()` for details and changing these defaults.
-
-If the selected keyring is locked, and the session is interactive, then gh will try to unlock it.
-If the keyring is locked, and the session is not interactive, then gh will not use the keyring.
-Note that some keyring backends cannot be locked, e.g. the one that uses environment variables.
-On some OSes, e.g. typically on macOS, you need to allow R to access the system keyring.
-You can allow this separately for each access, or for all future accesses, until you update or re-install R.
-You typically need to give access to each R GUI (e.g. RStudio) and the command line R program separately.
-To store your PAT on the keyring, run:
-
-```r
-keyring::key_set("GITHUB_PAT")
+```{r}
+gitcreds::gitcreds_cache_envvar("https://github.acme.com")
 ```
 
 ## Recommendations
 
 For a normal user, on a machine used for interactive development, we recommend:
 
-  * Store your PAT(s) in an official credential store or keychain for your
-    OS.
+  * Store your PAT(s) in an official credential store.
   * Do **not** store your PAT(s) in plain text in, e.g., `.Renviron`. In the
     past, this has been a common and recommended practice for pragmatic reasons.
-    However, credentials/keyring/gh have now evolved to the point where it's
+    However, gitcreds/gh have now evolved to the point where it's
     possible for all of us to follow better security practices.
   * If you use a general-purpose password manager, like 1Password or LastPass,
     you may *also* want to store your PAT(s) there. Why? If your PAT is
     "forgotten" from the OS-level credential store, intentionally or not, you'll
-    need to provide it again when prompted. For security reasons, none of the
-    tools involved will help you re-discover a PAT.
+    need to provide it again when prompted.
     
     If you don't have any other record of your PAT, you'll have to get a new
     PAT whenever this happens. This is not the end of the world. But if you
@@ -162,7 +119,8 @@ For a normal user, on a machine used for interactive development, we recommend:
     <https://github.com/settings/tokens>, you will eventually find yourself in a
     confusing situation where you can't be sure which PAT(s) are in use.
 
-On a headless system, such as on a CI/CD platform, provide the necessary PAT(s) via secure environment variables. Regular environment variables can be used to configure less sensitive settings, such as the API host.
+On a headless system, such as on a CI/CD platform, provide the necessary PAT(s) via secure environment variables.
+Regular environment variables can be used to configure less sensitive settings, such as the API host.
 Don't expose your PAT by doing something silly like dumping all environment variables to a log file.
 
 Note that on GitHub Actions, specifically, a personal access token is [automatically available to the workflow](https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) as the `GITHUB_TOKEN` secret.
@@ -203,44 +161,4 @@ Message: Bad credentials
 
 This will also be the experience if an invalid PAT is provided directly via `.token`.
 
-If the PAT is retrieved from the Git credential store or is elicited from the user via prompt, the PAT is immediately and explicitly checked for basic validity.
-
 Even a valid PAT can lead to a downstream error, if it has insufficient scopes with respect to a specific request.
-
-## API URL specifications
-
-Above we explained that environment variables are consulted during token lookup and that their names are based on the target host.
-The table below shows which environment variables are consulted when targeting "github.com" or "github.uni.edu", a fictional instance of GitHub Enterprise hosted by a university.
-
-Environment variables that depart from the `<LABEL>_<SLUG>` pattern are included for compatibility with credentials (\*) or to uphold a convention that's been adopted by the wider package ecosystem (\*\*).
-
-*TODO: Maybe credentials is new enough that we can eliminate `GITHUB_PAT_USER` in favor of `GITHUB_USER_GITHUB_COM`? Even making `GITHUB_USER` an acceptable short form would be more consistent with the overall pattern.*
-
-| URL from user or<br>GITHUB_API_URL                            | host<br>SLUG = slugify_host(host) | Env var for user:<br>GITHUB_USER_\<SLUG\>     | Env var for PAT:<br>GITHUB_PAT_\<SLUG\>                       |
-|---------------------------------------------------------------|-----------------------------------|-----------------------------------------------|---------------------------------------------------------------|
-| https://api.github.com<br>OR<br>https://github.com            | github.com<br>GITHUB_COM          | GITHUB_USER_GITHUB_COM<br>GITHUB_PAT_USER (\*) | GITHUB_PAT_GITHUB_COM<br>GITHUB_PAT (\*\*)<br>GITHUB_TOKEN (\*\*) |
-| https://github.uni.edu/api/v3<br>OR<br>https://github.uni.edu | github.uni.edu<br>GITHUB_UNI_EDU  | GITHUB_USER_GITHUB_UNI_EDU                    | GITHUB_PAT_GITHUB_UNI_EDU                                     |
-
-What is this column about the *user*? That hasn't been explained yet.
-This is related to how credentials are retrieved from the Git credential store.
-The TL;DR is that most users should not worry about this and accept default behaviour.
-
-### Role of `username` for the Git credential store
-
-When one interacts with the Git credential store, accessed via [`git credential <fill|approve|reject>`](https://git-scm.com/docs/git-credential), it's necessary to describe the credential of interest.
-
-Suppressing a lot of detail, a key for each credential is built from:
-
-  * `host`: The remote hostname for a network credential.
-  * `username`: The credential’s username.
-
-When using a PAT, GitHub doesn't actually consult or need the `username`.
-It's implicit in the PAT.
-And yet `username` is still a necessary part of a credential's key.
-The credentials package follows a convention from [Git Credential Manager Core](https://github.blog/2020-07-02-git-credential-manager-core-building-a-universal-authentication-experience/) and, by default, uses `"PersonalAccessToken"` as the `username` for all PATs.
-There is a good reason to *not* use the user's actual `username`. If the user has already stored a credential through normal HTTPS Git operations, we don't want to clobber it with the PAT.
-
-Neither credentials nor gh makes it easy to explicitly store a PAT with a particular `username`.
-The environment variable `GITHUB_USER_<SLUG>` already provides some access, if it is defined prior to a PAT prompt.
-The `username` could provide a method for working with more than one PAT for a given host, perhaps for different users and/or with different scopes.
-If needed, such workflows could be built out in the future.

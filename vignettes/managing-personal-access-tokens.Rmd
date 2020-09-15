@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 *NOTE: This aspect of gh is under active development, so there may be brief periods where things are out of sync.
-Please bear with and feel free to let us know in a GitHub issue.*
+Please bear with us and feel free to let us know in a GitHub issue.*
 
 ```{r setup}
 library(gh)
@@ -36,7 +36,8 @@ More resources on how and why to get a PAT:
     - [Setup advice re: PATs](https://usethis.r-lib.org/articles/articles/usethis-setup.html#get-and-store-a-github-personal-access-token-1)
     - `usethis::create_github_token()` guides you through the process of getting
       a new PAT
-  * `gitcreds::set()`
+  * `gitcreds::gitcreds_set())` helps you explicitly put a PAT into the Git
+    credential store.
   
 ## PAT and host
 
@@ -61,9 +62,14 @@ How are `.api_url` and `.token` determined when the user does not provide them?
 
 ## The gitcreds package
 
-gh now uses the gitcreds package to try to find a PAT in the git credential store.
+gh now uses the gitcreds package  in the git credential store.
 If you use git from the command line, with a GUI or from RStudio, then chances are, you already have a PAT and gitcreds/gh can reuse it.
 Call `gitcreds::gitcreds_get()` to try it:
+
+gh calls `gitcreds::gitcreds_get()` with a URL to try to find a matching PAT.
+`gitcreds::gitcreds_get()` checks session environment variables and then the local Git credential store. Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it. You can call
+[gitcreds::gitcreds_get()] directly, yourself, if you want to see what is
+found for a specific URL.
 
 ``` r
 gitcreds::gitcreds_get()
@@ -80,9 +86,11 @@ If you see something like this:
 that means that gitcreds could get the PAT from the git credential store.
 You can call `gitcreds_get()$password` to see the actual PAT.
 
+If no matching PAT is found, [gitcreds::gitcreds_get()] errors.
+
 ## PAT in an environment variable
 
-If you don't have a git installation, or your git installation does not have a working credential store, then you can specify the PAT in an environment variables.
+If you don't have a Git installation, or your Git installation does not have a working credential store, then you can specify the PAT in an environment variable.
 For `github.com` you can set the `GITHUB_PAT_GITHUB_COM` or `GITHUB_PAT` variable.
 For a different GitHub host, call `gitcreds::gitcreds_cache_envvar()` with the API URL to see the environment variable you need to set.
 For example:

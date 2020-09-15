@@ -67,9 +67,9 @@ If you use git from the command line, with a GUI or from RStudio, then chances a
 Call `gitcreds::gitcreds_get()` to try it:
 
 gh calls `gitcreds::gitcreds_get()` with a URL to try to find a matching PAT.
-`gitcreds::gitcreds_get()` checks session environment variables and then the local Git credential store. Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it. You can call
-[gitcreds::gitcreds_get()] directly, yourself, if you want to see what is
-found for a specific URL.
+`gitcreds::gitcreds_get()` checks session environment variables and then the local Git credential store.
+Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it.
+You can call [gitcreds::gitcreds_get()] directly, yourself, if you want to see what is found for a specific URL.
 
 ``` r
 gitcreds::gitcreds_get()

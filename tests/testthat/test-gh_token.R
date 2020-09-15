@@ -5,7 +5,6 @@ test_that("URL specific token is used", {
   bad2  <- gh_pat(strrep("1", 40))
 
   env <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = "https://github.acme.com",
     GITHUB_PAT_GITHUB_ACME_COM = good,
     GITHUB_PAT_GITHUB_ACME2_COM = good2,
@@ -18,7 +17,6 @@ test_that("URL specific token is used", {
   })
 
   env <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_GITHUB_COM = good,
     GITHUB_PAT = bad,
@@ -35,7 +33,6 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
   token <- gh_pat(strrep("0", 40))
 
   env <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_GITHUB_COM = NA,
     GITHUB_PAT = pat,
@@ -47,7 +44,6 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
   })
 
   env <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_GITHUB_COM = NA,
     GITHUB_PAT = NA,

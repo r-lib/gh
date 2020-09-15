@@ -45,14 +45,20 @@ the PAT in its requests. Some requests succeed without a PAT, but many
 require a PAT to prove the request is authorized by a specific GitHub user. A
 PAT also helps with rate limiting. If your gh use is more than casual, you
 want a PAT.
-The PAT corresponding to api_url is searched for with a strategy that
-looks in one or more of these places:
-&quot;env&quot;: environment variable(s)
-&quot;git&quot;: Git credential store (requires the credentials package)
-&quot;key&quot;: OS-level keychain (requires the keyring package)
-
-
-Details are in the Managing Personal Access Tokens vignette." />
+gh calls gitcreds::gitcreds_get() with the api_url, which checks session
+environment variables and then the local Git credential store for a PAT
+appropriate to the api_url. Therefore, if you have previously used a PAT
+with, e.g., command line Git, gh may retrieve and re-use it. You can call
+gitcreds::gitcreds_get() directly, yourself, if you want to see what is
+found for a specific URL. If no matching PAT is found,
+gitcreds::gitcreds_get() errors, whereas gh_token() does not and,
+instead, returns &quot;&quot;.
+See GitHub's documentation on Creating a personal access token,
+or use usethis::create_github_token() for a guided experience, including
+pre-selection of recommended scopes. Once you have a PAT, you can use
+gitcreds::gitcreds_set() to add it to the Git credential store. From that
+point on, gh (via gitcreds::gitcreds_get()) should be able to find it
+without further effort on your part." />
 
 
 
@@ -156,17 +162,23 @@ the PAT in its requests. Some requests succeed without a PAT, but many
 require a PAT to prove the request is authorized by a specific GitHub user. A
 PAT also helps with rate limiting. If your gh use is more than casual, you
 want a PAT.</p>
-<p>The PAT corresponding to <code>api_url</code> is searched for with a <code>strategy</code> that
-looks in one or more of these places:</p><ul>
-<li><p><code>"env"</code>: environment variable(s)</p></li>
-<li><p><code>"git"</code>: Git credential store (requires the credentials package)</p></li>
-<li><p><code>"key"</code>: OS-level keychain (requires the keyring package)</p></li>
-</ul>
-
-<p>Details are in the <a href='https://gh.r-lib.org/articles/managing-personal-access-tokens.html'>Managing Personal Access Tokens</a> vignette.</p>
+<p>gh calls <code><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds::gitcreds_get()</a></code> with the <code>api_url</code>, which checks session
+environment variables and then the local Git credential store for a PAT
+appropriate to the <code>api_url</code>. Therefore, if you have previously used a PAT
+with, e.g., command line Git, gh may retrieve and re-use it. You can call
+<code><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds::gitcreds_get()</a></code> directly, yourself, if you want to see what is
+found for a specific URL. If no matching PAT is found,
+<code><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds::gitcreds_get()</a></code> errors, whereas <code>gh_token()</code> does not and,
+instead, returns <code>""</code>.</p>
+<p>See GitHub's documentation on <a href='https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token'>Creating a personal access token</a>,
+or use <code>usethis::create_github_token()</code> for a guided experience, including
+pre-selection of recommended scopes. Once you have a PAT, you can use
+<code><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds::gitcreds_set()</a></code> to add it to the Git credential store. From that
+point on, gh (via <code><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds::gitcreds_get()</a></code>) should be able to find it
+without further effort on your part.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gh_token</span>(<span class='kw'>api_url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strategy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>gh_token</span>(api_url = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -176,15 +188,6 @@ looks in one or more of these places:</p><ul>
       <td><p>GitHub API URL. Defaults to the <code>GITHUB_API_URL</code> environment
 variable, if set, and otherwise to <a href='https://api.github.com'>https://api.github.com</a>.</p></td>
     </tr>
-    <tr>
-      <th>strategy</th>
-      <td><p>Where to look for a PAT. If specified, must be a
-comma-delimited string consisting of "env", "git", and/or "key". Examples:
-"env", "env,git", "key,git,env". gh searches for a PAT in these places, in
-this order.</p>
-<p>By default, <code>strategy</code> is "env,git" if the credential package is available
-and "env" if it is not.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -193,20 +196,16 @@ and "env" if it is not.</p></td>
 string, otherwise. For convenience, the return value has an S3 class in
 order to ensure that simple printing strategies don't reveal the entire
 PAT.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='slugify_url.html'>slugify_url()</a></code> for computing the environment variables or keys that
-gh uses to search for URL-specific PATs. <code><a href='gh_whoami.html'>gh_whoami()</a></code> to see details
-about a token.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>gh_token</span>()
 
 <span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='fu'>gh_token</span>())
 
 <span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span>(<span class='fu'>gh_token</span>())
-}</div></pre>
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -222,7 +221,7 @@ about a token.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

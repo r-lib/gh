@@ -142,13 +142,13 @@
     <p>Get the next, previous, first or last page of results</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gh_next</span>(<span class='no'>gh_response</span>)
+    <pre class="usage"><span class='fu'>gh_next</span>(<span class='kw'>gh_response</span>)
 
-<span class='fu'>gh_prev</span>(<span class='no'>gh_response</span>)
+<span class='fu'>gh_prev</span>(<span class='kw'>gh_response</span>)
 
-<span class='fu'>gh_first</span>(<span class='no'>gh_response</span>)
+<span class='fu'>gh_first</span>(<span class='kw'>gh_response</span>)
 
-<span class='fu'>gh_last</span>(<span class='no'>gh_response</span>)</pre>
+<span class='fu'>gh_last</span>(<span class='kw'>gh_response</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,22 +175,16 @@ next page defined, etc.</p>
 one page.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span>(<span class='st'>"IN_PKGDOWN"</span>), <span class='st'>"true"</span>)) (<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/numeric_version.html'>getRversion</a></span>() <span class='kw'>&gt;=</span> <span class='st'>"3.4"</span>) <span class='no'>withAutoprint</span> <span class='kw'>else</span> <span class='no'>force</span>)({ <span class='co'># examplesIf</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gh.html'>gh</a></span>(<span class='st'>"/users"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span>(<span class='no'>x</span>, <span class='st'>"[["</span>, <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>1</span>), <span class='st'>"login"</span>)
-<span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'>gh_next</span>(<span class='no'>x</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span>(<span class='no'>x2</span>, <span class='st'>"[["</span>, <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>1</span>), <span class='st'>"login"</span>)
-}) <span class='co'># examplesIf</span></div><div class='output co'>#&gt; &gt; x &lt;- gh("/users")
-#&gt; &gt; vapply(x, "[[", character(1), "login")
-#&gt;  [1] "mojombo"      "defunkt"      "pjhyett"      "wycats"       "ezmobius"    
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gh.html'>gh</a></span>(<span class='st'>"/users"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span>(<span class='kw'>x</span>, <span class='st'>"[["</span>, <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>1</span>), <span class='st'>"login"</span>)
+</div><div class='output co'>#&gt;  [1] "mojombo"      "defunkt"      "pjhyett"      "wycats"       "ezmobius"    
 #&gt;  [6] "ivey"         "evanphx"      "vanpelt"      "wayneeseguin" "brynary"     
 #&gt; [11] "kevinclark"   "technoweenie" "macournoyer"  "takeo"        "caged"       
 #&gt; [16] "topfunky"     "anotherjesse" "roland"       "lukas"        "fanvsfan"    
 #&gt; [21] "tomtt"        "railsjitsu"   "nitay"        "kevwil"       "KirinDave"   
-#&gt; [26] "jamesgolick"  "atmos"        "errfree"      "mojodna"      "bmizerany"   
-#&gt; &gt; x2 &lt;- gh_next(x)
-#&gt; &gt; vapply(x2, "[[", character(1), "login")
-#&gt;  [1] "jnewland"    "joshknowles" "hornbeck"    "jwhitmire"   "elbowdonkey"
+#&gt; [26] "jamesgolick"  "atmos"        "errfree"      "mojodna"      "bmizerany"   </div><div class='input'><span class='kw'>x2</span> <span class='op'>&lt;-</span> <span class='fu'>gh_next</span>(<span class='kw'>x</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>vapply</a></span>(<span class='kw'>x2</span>, <span class='st'>"[["</span>, <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>1</span>), <span class='st'>"login"</span>)
+</div><div class='output co'>#&gt;  [1] "jnewland"    "joshknowles" "hornbeck"    "jwhitmire"   "elbowdonkey"
 #&gt;  [6] "reinh"       "knzconnor"   "bs"          "rsanheim"    "schacon"    
 #&gt; [11] "uggedal"     "bruce"       "sam"         "mmower"      "abhay"      
 #&gt; [16] "rabble"      "benburkert"  "indirect"    "fearoffish"  "ry"         
@@ -211,7 +205,7 @@ one page.</p></div>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

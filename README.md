@@ -47,12 +47,12 @@ call. E.g.
 ``` r
 my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "alexr"       "altlist"     "argufy"      "disposables" "dotenv"     
-#>  [6] "falsy"       "franc"       "ISA"         "keynote"     "keypress"   
-#> [11] "lpSolve"     "macBriain"   "maxygen"     "MISO"        "msgtools"   
-#> [16] "notifier"    "parr"        "parsedate"   "prompt"      "r-font"     
-#> [21] "r-source"    "rcorpora"    "roxygenlabs" "sankey"      "secret"     
-#> [26] "spark"       "standalones" "svg-term"    "tamper"
+#>  [1] "alexr"        "altlist"      "argufy"       "disposables"  "dotenv"      
+#>  [6] "falsy"        "franc"        "ISA"          "keypress"     "lpSolve"     
+#> [11] "macBriain"    "maxygen"      "MISO"         "msgtools"     "notifier"    
+#> [16] "parr"         "parsedate"    "prompt"       "r-font"       "r-source"    
+#> [21] "rcorpora"     "roxygenlabs"  "sankey"       "secret"       "spark"       
+#> [26] "standalones"  "svg-term"     "tamper"       "testthatlabs"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -65,12 +65,12 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "keynote"     "lpSolve"     "roxygenlabs" "standalones" "altlist"    
-#>  [6] "svg-term"    "franc"       "sankey"      "r-source"    "secret"     
-#> [11] "msgtools"    "notifier"    "prompt"      "parr"        "tamper"     
-#> [16] "alexr"       "argufy"      "maxygen"     "keypress"    "macBriain"  
-#> [21] "MISO"        "rcorpora"    "disposables" "spark"       "dotenv"     
-#> [26] "parsedate"   "r-font"      "falsy"       "ISA"
+#>  [1] "testthatlabs" "lpSolve"      "roxygenlabs"  "standalones"  "altlist"     
+#>  [6] "svg-term"     "franc"        "sankey"       "r-source"     "secret"      
+#> [11] "msgtools"     "notifier"     "prompt"       "parr"         "tamper"      
+#> [16] "alexr"        "argufy"       "maxygen"      "keypress"     "macBriain"   
+#> [21] "MISO"         "rcorpora"     "disposables"  "spark"        "dotenv"      
+#> [26] "parsedate"    "r-font"       "falsy"        "ISA"
 ```
 
 ### POST, PATCH, PUT and DELETE requests

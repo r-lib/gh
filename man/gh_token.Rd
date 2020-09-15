@@ -23,18 +23,21 @@ require a PAT to prove the request is authorized by a specific GitHub user. A
 PAT also helps with rate limiting. If your gh use is more than casual, you
 want a PAT.
 
-gh uses the gitcreds package to find a PAT on the system. If you use
-git from the command line or with a GUI, then chances are that you already
-have a PAT and gitcreds and gh can re-use it. Call the
-\code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} function to see if this is the case. This
-function errors if it cannot find any PAT.
+gh calls \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} with the \code{api_url}, which checks session
+environment variables and then the local Git credential store for a PAT
+appropriate to the \code{api_url}. Therefore, if you have previously used a PAT
+with, e.g., command line Git, gh may retrieve and re-use it. You can call
+\code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} directly, yourself, if you want to see what is
+found for a specific URL. If no matching PAT is found,
+\code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} errors, whereas \code{gh_token()} does not and,
+instead, returns \code{""}.
 
-gh calls \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} with the \code{api_url}.
-
-To add a GitHub PAT, create one online at (see
-https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token),
-and they use the \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_set()}} to add it to your git
-credential store.
+See GitHub's documentation on \href{https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token}{Creating a personal access token},
+or use \code{usethis::create_github_token()} for a guided experience, including
+pre-selection of recommended scopes. Once you have a PAT, you can use
+\code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_set()}} to add it to the Git credential store. From that
+point on, gh (via \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}}) should be able to find it
+without further effort on your part.
 }
 \examples{
 \dontrun{

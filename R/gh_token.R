@@ -7,20 +7,23 @@
 #' PAT also helps with rate limiting. If your gh use is more than casual, you
 #' want a PAT.
 #'
-#' gh uses the gitcreds package to find a PAT on the system. If you use
-#' git from the command line or with a GUI, then chances are that you already
-#' have a PAT and gitcreds and gh can re-use it. Call the
-#' [gitcreds::gitcreds_get()] function to see if this is the case. This
-#' function errors if it cannot find any PAT.
+#' gh calls [gitcreds::gitcreds_get()] with the `api_url`, which checks session
+#' environment variables and then the local Git credential store for a PAT
+#' appropriate to the `api_url`. Therefore, if you have previously used a PAT
+#' with, e.g., command line Git, gh may retrieve and re-use it. You can call
+#' [gitcreds::gitcreds_get()] directly, yourself, if you want to see what is
+#' found for a specific URL. If no matching PAT is found,
+#' [gitcreds::gitcreds_get()] errors, whereas `gh_token()` does not and,
+#' instead, returns `""`.
 #'
-#' gh calls [gitcreds::gitcreds_get()] with the `api_url` to get a token
-#' that is suitable for the selected GitHub host.
+#' See GitHub's documentation on [Creating a personal access
+#' token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token),
+#' or use `usethis::create_github_token()` for a guided experience, including
+#' pre-selection of recommended scopes. Once you have a PAT, you can use
+#' [gitcreds::gitcreds_set()] to add it to the Git credential store. From that
+#' point on, gh (via [gitcreds::gitcreds_get()]) should be able to find it
+#' without further effort on your part.
 #'
-#' To add a GitHub PAT, create one online at (see
-#' https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token),
-#' and they use the [gitcreds::gitcreds_set()] to add it to your git
-#' credential store.
-#' 
 #' @param api_url GitHub API URL. Defaults to the `GITHUB_API_URL` environment
 #'   variable, if set, and otherwise to <https://api.github.com>.
 #'
@@ -39,7 +42,6 @@
 #'
 #' str(gh_token())
 #' }
-
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
   stopifnot(is.character(api_url), length(api_url) == 1)

@@ -5,7 +5,6 @@ test_that("URL specific token is used", {
   bad2  <- gh_pat(strrep("1", 40))
 
   env <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = "https://github.acme.com",
     GITHUB_PAT_GITHUB_ACME_COM = good,
     GITHUB_PAT_GITHUB_ACME2_COM = good2,
@@ -18,7 +17,6 @@ test_that("URL specific token is used", {
   })
 
   env <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_GITHUB_COM = good,
     GITHUB_PAT = bad,
@@ -35,7 +33,6 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
   token <- gh_pat(strrep("0", 40))
 
   env <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_GITHUB_COM = NA,
     GITHUB_PAT = pat,
@@ -47,7 +44,6 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
   })
 
   env <- c(
-    GH_KEYRING = "false",
     GITHUB_API_URL = NA,
     GITHUB_PAT_GITHUB_COM = NA,
     GITHUB_PAT = NA,
@@ -62,8 +58,8 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
 # gh_pat class ----
 test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
   expect_error(gh_pat(strrep("a", 40)), NA)
-  expect_error(gh_pat(strrep("g", 40)), "40 hexadecimal digits")
-  expect_error(gh_pat("aa"), "40 hexadecimal digits")
+  expect_error(gh_pat(strrep("g", 40)), "40 hexadecimal digits", class = "error")
+  expect_error(gh_pat("aa"), "40 hexadecimal digits", class = "error")
 })
 
 test_that("format.gh_pat() and str.gh_pat() hide the middle stuff", {
@@ -111,19 +107,6 @@ test_that("get_baseurl() works", {
   )
 })
 
-test_that("slugify_url() works", {
-  x <- "GITHUB_COM"
-  expect_equal(slugify_url("https://github.com"), x)
-  expect_equal(slugify_url("https://github.com/more/stuff"), x)
-  expect_equal(slugify_url("https://api.github.com"), x)
-  expect_equal(slugify_url("https://api.github.com/rate_limit"), x)
-
-  x <- "GITHUB_ACME_COM"
-  expect_equal(slugify_url("https://github.acme.com"), x)
-  expect_equal(slugify_url("https://github.acme.com/"), x)
-  expect_equal(slugify_url("https://github.acme.com/api/v3"), x)
-})
-
 test_that("is_github_dot_com() works", {
   expect_true(is_github_dot_com("https://github.com"))
   expect_true(is_github_dot_com("https://api.github.com"))
@@ -157,15 +140,4 @@ test_that("get_apiurl() works", {
   expect_equal(get_apiurl("https://github.acme.com"), x)
   expect_equal(get_apiurl("https://github.acme.com/OWNER/REPO"), x)
   expect_equal(get_apiurl("https://github.acme.com/api/v3"), x)
-})
-
-test_that("make_envvar_names() works", {
-  expect_equal(
-    make_envvar_names("https://github.com"),
-    c("GITHUB_PAT_GITHUB_COM", "GITHUB_PAT", "GITHUB_TOKEN")
-  )
-  expect_equal(
-    make_envvar_names("https://github.acme.com"),
-    "GITHUB_PAT_GITHUB_ACME_COM"
-  )
 })

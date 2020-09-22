@@ -46,7 +46,7 @@ gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
   stopifnot(is.character(api_url), length(api_url) == 1)
   token <- tryCatch(
-    gitcreds::gitcreds_get(api_url),
+    gitcreds::gitcreds_get(host_url(api_url)),
     error = function(e) NULL
   )
   gh_pat(token$password %||% "")

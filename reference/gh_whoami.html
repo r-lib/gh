@@ -200,10 +200,10 @@ not tokens, and is outside the scope of the gh package.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>gh_whoami</span>()
-</div><div class='output co'>#&gt; <span class='message'>No personal access token (PAT) available.</span>
-#&gt; <span class='message'>Obtain a PAT from here:</span>
-#&gt; <span class='message'>https://github.com/settings/tokens</span>
-#&gt; <span class='message'>For more on what to do with the PAT, see ?gh_whoami.</span></div><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+</div><div class='output co'>#&gt; <span class='error'>Error in gh_process_response(raw): </span>
+#&gt; <span class='error'>GitHub API error (403): 403 Forbidden</span>
+#&gt; <span class='error'>Message: Resource not accessible by integration</span>
+#&gt; <span class='error'>Read more at https://docs.github.com/rest/reference/users#get-the-authenticated-user</span></div><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'>## explicit token + use with GitHub Enterprise</span>
 <span class='fu'>gh_whoami</span>(.token = <span class='st'>"8c70fd8419398999c9ac5bacf3192882193cadf2"</span>,
           .api_url = <span class='st'>"https://github.foobar.edu/api/v3"</span>)

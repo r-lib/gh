@@ -16,7 +16,7 @@ Authors@R:
              role = c("cph", "fnd")))
 Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
-URL: https://github.com/r-lib/gh#readme
+URL: https://gh.r-lib.org/, https://github.com/r-lib/gh#readme
 BugReports: https://github.com/r-lib/gh/issues
 Imports:
     cli (>= 2.0.1),

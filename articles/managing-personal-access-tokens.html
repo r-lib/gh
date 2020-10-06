@@ -100,8 +100,7 @@
     
 <p><em>NOTE: This aspect of gh is under active development, so there may be brief periods where things are out of sync. Please bear with us and feel free to let us know in a GitHub issue.</em></p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/r-lib/gh#readme">gh</a></span>)
-</pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gh.r-lib.org/">gh</a></span><span class="op">)</span></pre></div>
 <!-- This vignette uses a convention of "one sentence per line" in prose. -->
 <p>gh generally sends a Personal Access Token (PAT) with its requests. Some endpoints of the GitHub API can be accessed without authenticating yourself. But once your API use becomes more frequent, you will want a PAT to prevent problems with rate limits and to access all possible endpoints.</p>
 <p>This article describes how to store your PAT, so that gh can find it (automatically, in most cases). The function gh uses for this is <code><a href="../reference/gh_token.html">gh_token()</a></code>.</p>
@@ -124,8 +123,7 @@
 <a href="#pat-and-host" class="anchor"></a>PAT and host</h2>
 <p><code><a href="../reference/gh.html">gh::gh()</a></code> allows the user to provide a PAT via the <code>.token</code> argument and to specify a host other than “github.com” via the <code>.api_url</code> argument. (Some companies and universities run their own instance of GitHub Enterprise.)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu"><a href="../reference/gh.html">gh</a></span>(<span class="kw">endpoint</span>, <span class="kw">...</span>, .token = <span class="kw">NULL</span>, <span class="kw">...</span>, .api_url = <span class="kw">NULL</span>, <span class="kw">...</span>)
-</pre></div>
+<span class="fu"><a href="../reference/gh.html">gh</a></span><span class="op">(</span><span class="va">endpoint</span>, <span class="va">...</span>, .token <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, .api_url <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></pre></div>
 <p>However, it’s annoying to always provide your PAT or host and it’s unsafe for your PAT to appear explicitly in your R code. It’s important to make it <em>possible</em> for the user to provide the PAT and/or API URL directly, but it should rarely be necessary. <code><a href="../reference/gh.html">gh::gh()</a></code> is designed to play well with more secure, less fiddly methods for expressing what you want.</p>
 <p>How are <code>.api_url</code> and <code>.token</code> determined when the user does not provide them?</p>
 <ol style="list-style-type: decimal">
@@ -140,16 +138,14 @@
 <p>gh now uses the gitcreds package in the git credential store. If you use git from the command line, with a GUI or from RStudio, then chances are, you already have a PAT and gitcreds/gh can reuse it. Call <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_get()</a></code> to try it:</p>
 <p>gh calls <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_get()</a></code> with a URL to try to find a matching PAT. <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_get()</a></code> checks session environment variables and then the local Git credential store. Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it. You can call [gitcreds::gitcreds_get()] directly, yourself, if you want to see what is found for a specific URL.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">gitcreds</span>::<span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds_get</a></span>()
-</pre></div>
+<span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds_get</a></span><span class="op">(</span><span class="op">)</span></pre></div>
 <p>If you see something like this:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co">#&gt; &lt;gitcreds&gt;</span>
 <span class="co">#&gt;   protocol: https</span>
 <span class="co">#&gt;   host    : github.com</span>
 <span class="co">#&gt;   username: token</span>
-<span class="co">#&gt;   password: &lt;-- hidden --&gt;</span>
-</pre></div>
+<span class="co">#&gt;   password: &lt;-- hidden --&gt;</span></pre></div>
 <p>that means that gitcreds could get the PAT from the git credential store. You can call <code>gitcreds_get()$password</code> to see the actual PAT.</p>
 <p>If no matching PAT is found, [gitcreds::gitcreds_get()] errors.</p>
 </div>
@@ -158,9 +154,8 @@
 <a href="#pat-in-an-environment-variable" class="anchor"></a>PAT in an environment variable</h2>
 <p>If you don’t have a Git installation, or your Git installation does not have a working credential store, then you can specify the PAT in an environment variable. For <code>github.com</code> you can set the <code>GITHUB_PAT_GITHUB_COM</code> or <code>GITHUB_PAT</code> variable. For a different GitHub host, call <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_cache_envvar.html">gitcreds::gitcreds_cache_envvar()</a></code> with the API URL to see the environment variable you need to set. For example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">gitcreds</span>::<span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_cache_envvar.html">gitcreds_cache_envvar</a></span>(<span class="st">"https://github.acme.com"</span>)
-<span class="co">#&gt; [1] "GITHUB_PAT_GITHUB_ACME_COM"</span>
-</pre></div>
+<span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_cache_envvar.html">gitcreds_cache_envvar</a></span><span class="op">(</span><span class="st">"https://github.acme.com"</span><span class="op">)</span>
+<span class="co">#&gt; [1] "GITHUB_PAT_GITHUB_ACME_COM"</span></pre></div>
 </div>
 <div id="recommendations" class="section level2">
 <h2 class="hasAnchor">

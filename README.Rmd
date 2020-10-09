@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 # gh
 
 <!-- badges: start -->
-[![R build status](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
+[![R-CMD-check](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
 [![Codecov test coverage](https://codecov.io/gh/r-lib/gh/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/gh?branch=master)
 [![](http://www.r-pkg.org/badges/version/gh)](http://www.r-pkg.org/pkg/gh)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/gh)](http://www.r-pkg.org/pkg/gh)

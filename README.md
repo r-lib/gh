@@ -5,8 +5,7 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
+[![R-CMD-check](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/r-lib/gh/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/gh?branch=master)
 [![](http://www.r-pkg.org/badges/version/gh)](http://www.r-pkg.org/pkg/gh)
@@ -50,9 +49,9 @@ vapply(my_repos, "[[", "", "name")
 #>  [1] "alexr"        "altlist"      "argufy"       "disposables"  "dotenv"      
 #>  [6] "falsy"        "franc"        "ISA"          "keypress"     "lpSolve"     
 #> [11] "macBriain"    "maxygen"      "MISO"         "msgtools"     "notifier"    
-#> [16] "parr"         "parsedate"    "prompt"       "r-font"       "r-source"    
-#> [21] "rcorpora"     "roxygenlabs"  "sankey"       "secret"       "spark"       
-#> [26] "standalones"  "svg-term"     "tamper"       "testthatlabs"
+#> [16] "oskeyring"    "parr"         "parsedate"    "prompt"       "r-font"      
+#> [21] "r-source"     "rcorpora"     "roxygenlabs"  "sankey"       "secret"      
+#> [26] "spark"        "standalones"  "svg-term"     "tamper"       "testthatlabs"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -65,12 +64,12 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "testthatlabs" "lpSolve"      "roxygenlabs"  "standalones"  "altlist"     
-#>  [6] "svg-term"     "franc"        "sankey"       "r-source"     "secret"      
-#> [11] "msgtools"     "notifier"     "prompt"       "parr"         "tamper"      
-#> [16] "alexr"        "argufy"       "maxygen"      "keypress"     "macBriain"   
-#> [21] "MISO"         "rcorpora"     "disposables"  "spark"        "dotenv"      
-#> [26] "parsedate"    "r-font"       "falsy"        "ISA"
+#>  [1] "oskeyring"    "testthatlabs" "lpSolve"      "roxygenlabs"  "standalones" 
+#>  [6] "altlist"      "svg-term"     "franc"        "sankey"       "r-source"    
+#> [11] "secret"       "msgtools"     "notifier"     "prompt"       "parr"        
+#> [16] "tamper"       "alexr"        "argufy"       "maxygen"      "keypress"    
+#> [21] "macBriain"    "MISO"         "rcorpora"     "disposables"  "spark"       
+#> [26] "dotenv"       "parsedate"    "r-font"       "falsy"        "ISA"
 ```
 
 ### POST, PATCH, PUT and DELETE requests

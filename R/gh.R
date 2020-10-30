@@ -185,7 +185,8 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
           if (is.atomic(z)) unique(z)
           else z
         },
-        res, res2
+        res, res2,
+        SIMPLIFY = FALSE
       )
     } else {                    # Handle unnamed array case
       res3 <- c(res, res2)      # e.g. GET /orgs/:org/invitations

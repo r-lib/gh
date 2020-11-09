@@ -1,6 +1,6 @@
 Package: gh
 Title: 'GitHub' 'API'
-Version: 1.1.0.9001
+Version: 1.1.0.9002
 Authors@R:
     c(person(given = "Gábor",
              family = "Csárdi",
@@ -11,6 +11,9 @@ Authors@R:
              role = "aut"),
       person(given = "Hadley",
              family = "Wickham",
+             role = "aut"),
+      person(given = "Jeroen",
+             family = "Ooms",
              role = "aut"),
       person(given = "RStudio",
              role = c("cph", "fnd")))
@@ -23,6 +26,7 @@ Imports:
     gitcreds,
     httr (>= 1.2),
     ini,
+    jose,
     jsonlite
 Suggests:
     covr,

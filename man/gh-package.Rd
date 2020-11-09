@@ -24,6 +24,7 @@ Authors:
 \itemize{
   \item Jennifer Bryan
   \item Hadley Wickham
+  \item Jeroen Ooms
 }
 
 Other contributors:

@@ -23,8 +23,9 @@
 #'   requests, and as a JSON body of POST requests. If there is only one
 #'   unnamed parameter, and it is a raw vector, then it will not be JSON
 #'   encoded, but sent as raw data, as is. This can be used for example to
-#'   add assets to releases. Named `NULL` values are silently dropped,
-#'   and named `NA` values trigger an error.
+#'   add assets to releases. Named `NULL` values are silently dropped.
+#'   For GET requests named `NA` values trigger an error. For other methods
+#'   they are included in the body of the request, as JSON `null`.
 #' @param per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).
@@ -150,7 +151,6 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
 
   params <- list(...)
   params <- drop_named_nulls(params)
-  check_named_nas(params)
 
   if (is.null(per_page)) {
     if (!is.null(.limit)) {
@@ -167,6 +167,9 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                           overwrite = .overwrite, accept = .accept,
                           send_headers = .send_headers,
                           api_url = .api_url, method = .method)
+
+
+  if (req$method == "GET") check_named_nas(params)
 
   if (.progress) prbr <- make_progress_bar(req)
 

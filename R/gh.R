@@ -3,7 +3,7 @@
 #' This is an extremely minimal client. You need to know the API
 #' to be able to use this client. All this function does is:
 #' * Try to substitute each listed parameter into `endpoint`, using the
-#'   `:parameter` notation.
+#'   `{parameter}` notation.
 #' * If a GET request (the default), then add all other listed parameters
 #'   as query parameters.
 #' * If not a GET request, then send the other parameters in the request

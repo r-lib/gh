@@ -18,14 +18,14 @@
 #'
 #'    If the method is not supplied, will use `.method`, which defaults
 #'    to `"GET"`.
-#' @param ... Name-value pairs giving API parameters. Will be matched
-#'   into `endpoint` placeholders, sent as query parameters in GET
-#'   requests, and as a JSON body of POST requests. If there is only one
-#'   unnamed parameter, and it is a raw vector, then it will not be JSON
-#'   encoded, but sent as raw data, as is. This can be used for example to
-#'   add assets to releases. Named `NULL` values are silently dropped.
-#'   For GET requests named `NA` values trigger an error. For other methods,
-#'   named `NA` values are included in the body of the request, as JSON `null`.
+#' @param ... Name-value pairs giving API parameters. Will be matched into
+#'   `endpoint` placeholders, sent as query parameters in GET requests, and as a
+#'   JSON body of POST requests. If there is only one unnamed parameter, and it
+#'   is a raw vector, then it will not be JSON encoded, but sent as raw data, as
+#'   is. This can be used for example to add assets to releases. Named `NULL`
+#'   values are silently dropped. For GET requests, named `NA` values trigger an
+#'   error. For other methods, named `NA` values are included in the body of the
+#'   request, as JSON `null`.
 #' @param per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).

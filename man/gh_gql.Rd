@@ -17,13 +17,14 @@ gh_gql(
 \arguments{
 \item{query}{The GraphQL query, as a string.}
 
-\item{...}{Name-value pairs giving API parameters. Will be matched
-into \code{endpoint} placeholders, sent as query parameters in GET
-requests, and as a JSON body of POST requests. If there is only one
-unnamed parameter, and it is a raw vector, then it will not be JSON
-encoded, but sent as raw data, as is. This can be used for example to
-add assets to releases. Named \code{NULL} values are silently dropped,
-and named \code{NA} values trigger an error.}
+\item{...}{Name-value pairs giving API parameters. Will be matched into
+\code{endpoint} placeholders, sent as query parameters in GET requests, and as a
+JSON body of POST requests. If there is only one unnamed parameter, and it
+is a raw vector, then it will not be JSON encoded, but sent as raw data, as
+is. This can be used for example to add assets to releases. Named \code{NULL}
+values are silently dropped. For GET requests, named \code{NA} values trigger an
+error. For other methods, named \code{NA} values are included in the body of the
+request, as JSON \code{null}.}
 
 \item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
 \code{GITHUB_TOKEN} environment variables, in this order if any is set.

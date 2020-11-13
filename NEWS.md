@@ -23,6 +23,9 @@
 * Fixed an error that occurred when calling `gh()` with `.progress = FALSE` 
   (@gadenbuie, #115).
 
+* `gh()` accepts named `NA` parameters that are destined for the request body
+  (#139).
+
 # gh 1.1.0
 
 * Raw responses from GitHub are now returned as raw vector.

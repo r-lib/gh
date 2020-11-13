@@ -83,7 +83,7 @@ https://docs.github.com/graphql" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gh</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9001</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0.9002</span>
       </span>
     </div>
 
@@ -163,13 +163,14 @@ https://docs.github.com/graphql" />
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Name-value pairs giving API parameters. Will be matched
-into <code>endpoint</code> placeholders, sent as query parameters in GET
-requests, and as a JSON body of POST requests. If there is only one
-unnamed parameter, and it is a raw vector, then it will not be JSON
-encoded, but sent as raw data, as is. This can be used for example to
-add assets to releases. Named <code>NULL</code> values are silently dropped,
-and named <code>NA</code> values trigger an error.</p></td>
+      <td><p>Name-value pairs giving API parameters. Will be matched into
+<code>endpoint</code> placeholders, sent as query parameters in GET requests, and as a
+JSON body of POST requests. If there is only one unnamed parameter, and it
+is a raw vector, then it will not be JSON encoded, but sent as raw data, as
+is. This can be used for example to add assets to releases. Named <code>NULL</code>
+values are silently dropped. For GET requests, named <code>NA</code> values trigger an
+error. For other methods, named <code>NA</code> values are included in the body of the
+request, as JSON <code>null</code>.</p></td>
     </tr>
     <tr>
       <th>.token</th>

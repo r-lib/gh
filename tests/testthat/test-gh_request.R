@@ -70,13 +70,11 @@ test_that("gh_set_endpoint() works", {
   # expansion, with extra params
   input <- list(
     endpoint = "/repos/{owner}/{repo}/issues",
-    params = list(owner = "OWNER", repo = "REPO", state = "open")
+    params = list(state = "open", owner = "OWNER", repo = "REPO", page = 2)
   )
   out <- gh_set_endpoint(input)
-  expect_equal(
-    out,
-    list(endpoint = "/repos/OWNER/REPO/issues", params = list(state = "open"))
-  )
+  expect_equal(out$endpoint, "/repos/OWNER/REPO/issues")
+  expect_equal(out$params, list(state = "open", page = 2))
 })
 
 test_that("gh_set_endpoint() refuses to substitute an NA", {

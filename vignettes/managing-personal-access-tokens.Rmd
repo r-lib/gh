@@ -14,9 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-*NOTE: This aspect of gh is under active development, so there may be brief periods where things are out of sync.
-Please bear with us and feel free to let us know in a GitHub issue.*
-
 ```{r setup}
 library(gh)
 ```
@@ -29,15 +26,18 @@ But once your API use becomes more frequent, you will want a PAT to prevent prob
 
 This article describes how to store your PAT, so that gh can find it (automatically, in most cases). The function gh uses for this is `gh_token()`.
 
-More resources on how and why to get a PAT:
+More resources on PAT management:
 
   * GitHub documentation on [Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
-  * In the usethis package:
-    - [Setup advice re: PATs](https://usethis.r-lib.org/articles/articles/usethis-setup.html#get-and-store-a-github-personal-access-token-1)
+  * In the [usethis package](https://usethis.r-lib.org):
+    - Vignette: [Managing Git(Hub) Credentials](https://usethis.r-lib.org/articles/articles/git-credentials.html) 
+    - `usethis::gh_token_help()` and `usethis::git_sitrep()` help you check if
+      a PAT is discoverable and has suitable scopes
     - `usethis::create_github_token()` guides you through the process of getting
       a new PAT
-  * `gitcreds::gitcreds_set())` helps you explicitly put a PAT into the Git
-    credential store.
+  * In the [gitcreds package](https://github.com/r-lib/gitcreds):
+    - `gitcreds::gitcreds_set()` helps you explicitly put your PAT into the Git
+      credential store
   
 ## PAT and host
 
@@ -62,9 +62,7 @@ How are `.api_url` and `.token` determined when the user does not provide them?
 
 ## The gitcreds package
 
-gh now uses the gitcreds package  in the git credential store.
-If you use git from the command line, with a GUI or from RStudio, then chances are, you already have a PAT and gitcreds/gh can reuse it.
-Call `gitcreds::gitcreds_get()` to try it:
+gh now uses the gitcreds package to interact with the Git credential store.
 
 gh calls `gitcreds::gitcreds_get()` with a URL to try to find a matching PAT.
 `gitcreds::gitcreds_get()` checks session environment variables and then the local Git credential store.
@@ -80,13 +78,13 @@ If you see something like this:
 #> <gitcreds>
 #>   protocol: https
 #>   host    : github.com
-#>   username: token
+#>   username: PersonalAccessToken
 #>   password: <-- hidden -->
 ```
-that means that gitcreds could get the PAT from the git credential store.
+that means that gitcreds could get the PAT from the Git credential store.
 You can call `gitcreds_get()$password` to see the actual PAT.
 
-If no matching PAT is found, [gitcreds::gitcreds_get()] errors.
+If no matching PAT is found, `gitcreds::gitcreds_get()` errors.
 
 ## PAT in an environment variable
 

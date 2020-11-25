@@ -10,6 +10,7 @@ PATs
 URI
 api
 auth
+discoverable
 funder
 gitcreds
 github

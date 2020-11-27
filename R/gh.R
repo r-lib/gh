@@ -184,12 +184,18 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
 
     if (!is.null(names(res2)) && identical(names(res), names(res2))) {
       res3 <- mapply(           # Handle named array case
-        function(x, y) {        # e.g. GET /search/repositories
+        function(x, y, n) {        # e.g. GET /search/repositories
           z <- c(x, y)
-          if (is.atomic(z)) unique(z)
-          else z
+          atm <- is.atomic(z)
+          if (atm && n %in% c("total_count", "incomplete_results")) {
+            y
+          } else if (atm) {
+            unique(z)
+          } else {
+            z
+          }
         },
-        res, res2,
+        res, res2, names(res),
         SIMPLIFY = FALSE
       )
     } else {                    # Handle unnamed array case

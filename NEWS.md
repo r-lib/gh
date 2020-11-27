@@ -1,3 +1,6 @@
+
+# gh development version
+
 # gh 1.2.0
 
 * `gh_gql()` now passes all arguments to `gh()` (#124).

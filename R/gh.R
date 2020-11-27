@@ -223,7 +223,6 @@ gh_response_length <- function(res) {
     )
     tgt <- which(lst[nm])[1]
     if (is.na(tgt)) length(res) else length(res[[ nm[tgt] ]])
-    length(res[[2]])
   } else {
     length(res)
   }

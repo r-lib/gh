@@ -119,7 +119,7 @@
 <code>usethis::create_github_token()</code> guides you through the process of getting a new PAT</li>
 </ul>
 </li>
-<li>In the <a href="https://github.com/r-lib/gitcreds">gitcreds package</a>:
+<li>In the <a href="https://r-lib.github.io/gitcreds/">gitcreds package</a>:
 <ul>
 <li>
 <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_set()</a></code> helps you explicitly put your PAT into the Git credential store</li>
@@ -144,7 +144,7 @@
 <h2 class="hasAnchor">
 <a href="#the-gitcreds-package" class="anchor"></a>The gitcreds package</h2>
 <p>gh now uses the gitcreds package to interact with the Git credential store.</p>
-<p>gh calls <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_get()</a></code> with a URL to try to find a matching PAT. <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_get()</a></code> checks session environment variables and then the local Git credential store. Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it. You can call [gitcreds::gitcreds_get()] directly, yourself, if you want to see what is found for a specific URL.</p>
+<p>gh calls <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_get()</a></code> with a URL to try to find a matching PAT. <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_get()</a></code> checks session environment variables and then the local Git credential store. Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it. You can call <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds::gitcreds_get()</a></code> directly, yourself, if you want to see what is found for a specific URL.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds_get</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>If you see something like this:</p>
@@ -168,7 +168,7 @@
 <div id="recommendations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#recommendations" class="anchor"></a>Recommendations</h2>
-<p>For a normal user, on a machine used for interactive development, we recommend:</p>
+<p>On a machine used for interactive development, we recommend:</p>
 <ul>
 <li><p>Store your PAT(s) in an official credential store.</p></li>
 <li><p>Do <strong>not</strong> store your PAT(s) in plain text in, e.g., <code>.Renviron</code>. In the past, this has been a common and recommended practice for pragmatic reasons. However, gitcreds/gh have now evolved to the point where it’s possible for all of us to follow better security practices.</p></li>

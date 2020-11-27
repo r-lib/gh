@@ -144,15 +144,7 @@ https://docs.github.com/graphql" />
 <a href='https://docs.github.com/graphql'>https://docs.github.com/graphql</a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>gh_gql</span><span class='op'>(</span>
-  <span class='va'>query</span>,
-  <span class='va'>...</span>,
-  .token <span class='op'>=</span> <span class='cn'>NULL</span>,
-  .destfile <span class='op'>=</span> <span class='cn'>NULL</span>,
-  .overwrite <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  .api_url <span class='op'>=</span> <span class='cn'>NULL</span>,
-  .send_headers <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gh_gql</span><span class='op'>(</span><span class='va'>query</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,37 +163,6 @@ is. This can be used for example to add assets to releases. Named <code>NULL</co
 values are silently dropped. For GET requests, named <code>NA</code> values trigger an
 error. For other methods, named <code>NA</code> values are included in the body of the
 request, as JSON <code>null</code>.</p></td>
-    </tr>
-    <tr>
-      <th>.token</th>
-      <td><p>Authentication token. Defaults to <code>GITHUB_PAT</code> or
-<code>GITHUB_TOKEN</code> environment variables, in this order if any is set.
-See <code><a href='gh_token.html'>gh_token()</a></code> if you need more flexibility, e.g. different tokens
-for different GitHub Enterprise deployments.</p></td>
-    </tr>
-    <tr>
-      <th>.destfile</th>
-      <td><p>Path to write response to disk. If <code>NULL</code> (default),
-response will be processed and returned as an object. If path is given,
-response will be written to disk in the form sent.</p></td>
-    </tr>
-    <tr>
-      <th>.overwrite</th>
-      <td><p>If <code>.destfile</code> is provided, whether to overwrite an
-existing file.  Defaults to <code>FALSE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>.api_url</th>
-      <td><p>Github API url (default: <a href='https://api.github.com'>https://api.github.com</a>). Used
-if <code>endpoint</code> just contains a path. Defaults to <code>GITHUB_API_URL</code>
-environment variable if set.</p></td>
-    </tr>
-    <tr>
-      <th>.send_headers</th>
-      <td><p>Named character vector of header field values
-(except <code>Authorization</code>, which is handled via <code>.token</code>). This can be
-used to override or augment the default <code>User-Agent</code> header:
-<code>"https://github.com/r-lib/gh"</code>.</p></td>
     </tr>
     </table>
 

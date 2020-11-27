@@ -12,6 +12,7 @@
     `GITHUB_PAT_API_GITHUB_COM`
   - For "https://github.acme.com/api/v3": `GITHUB_PAT_GITHUB_ACME_COM` now,
     instead of `GITHUB_PAT_GITHUB_ACME_COM_API_V3`
+
   See the documentation of the gitcreds package for details.
 
 * The keyring package is no longer used, in favor of the Git credential
@@ -22,6 +23,7 @@
   the URI template style of [RFC 6570](https://tools.ietf.org/html/rfc6570):
   - Old: `GET /repos/:owner/:repo/issues`
   - New: `GET /repos/{owner}/{repo}/issues`
+
   gh accepts and prioritizes the new style. However, it still does parameter
   substitution for the old style.
 

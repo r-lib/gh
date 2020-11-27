@@ -35,7 +35,7 @@ More resources on PAT management:
       a PAT is discoverable and has suitable scopes
     - `usethis::create_github_token()` guides you through the process of getting
       a new PAT
-  * In the [gitcreds package](https://github.com/r-lib/gitcreds):
+  * In the [gitcreds package](https://r-lib.github.io/gitcreds/):
     - `gitcreds::gitcreds_set()` helps you explicitly put your PAT into the Git
       credential store
   
@@ -67,7 +67,7 @@ gh now uses the gitcreds package to interact with the Git credential store.
 gh calls `gitcreds::gitcreds_get()` with a URL to try to find a matching PAT.
 `gitcreds::gitcreds_get()` checks session environment variables and then the local Git credential store.
 Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it.
-You can call [gitcreds::gitcreds_get()] directly, yourself, if you want to see what is found for a specific URL.
+You can call `gitcreds::gitcreds_get()` directly, yourself, if you want to see what is found for a specific URL.
 
 ``` r
 gitcreds::gitcreds_get()
@@ -99,7 +99,7 @@ gitcreds::gitcreds_cache_envvar("https://github.acme.com")
 
 ## Recommendations
 
-For a normal user, on a machine used for interactive development, we recommend:
+On a machine used for interactive development, we recommend:
 
   * Store your PAT(s) in an official credential store.
   * Do **not** store your PAT(s) in plain text in, e.g., `.Renviron`. In the

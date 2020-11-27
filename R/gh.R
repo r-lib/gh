@@ -180,7 +180,21 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
   while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
     if (.progress) update_progress_bar(prbr, res)
     res2 <- gh_next(res)
-    res3 <- c(res, res2)
+
+    if (!is.null(names(res2)) && identical(names(res), names(res2))) {
+      res3 <- mapply(           # Handle named array case
+        function(x, y) {        # e.g. GET /search/repositories
+          z <- c(x, y)
+          if (is.atomic(z)) unique(z)
+          else z
+        },
+        res, res2,
+        SIMPLIFY = FALSE
+      )
+    } else {                    # Handle unnamed array case
+      res3 <- c(res, res2)      # e.g. GET /orgs/:org/invitations
+    }
+
     attributes(res3) <- attributes(res2)
     res <- res3
   }

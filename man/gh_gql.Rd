@@ -4,15 +4,7 @@
 \alias{gh_gql}
 \title{A simple interface for the GitHub GraphQL API v4.}
 \usage{
-gh_gql(
-  query,
-  ...,
-  .token = NULL,
-  .destfile = NULL,
-  .overwrite = FALSE,
-  .api_url = NULL,
-  .send_headers = NULL
-)
+gh_gql(query, ...)
 }
 \arguments{
 \item{query}{The GraphQL query, as a string.}
@@ -25,27 +17,6 @@ is. This can be used for example to add assets to releases. Named \code{NULL}
 values are silently dropped. For GET requests, named \code{NA} values trigger an
 error. For other methods, named \code{NA} values are included in the body of the
 request, as JSON \code{null}.}
-
-\item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
-\code{GITHUB_TOKEN} environment variables, in this order if any is set.
-See \code{\link[=gh_token]{gh_token()}} if you need more flexibility, e.g. different tokens
-for different GitHub Enterprise deployments.}
-
-\item{.destfile}{Path to write response to disk. If \code{NULL} (default),
-response will be processed and returned as an object. If path is given,
-response will be written to disk in the form sent.}
-
-\item{.overwrite}{If \code{.destfile} is provided, whether to overwrite an
-existing file.  Defaults to \code{FALSE}.}
-
-\item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
-if \code{endpoint} just contains a path. Defaults to \code{GITHUB_API_URL}
-environment variable if set.}
-
-\item{.send_headers}{Named character vector of header field values
-(except \code{Authorization}, which is handled via \code{.token}). This can be
-used to override or augment the default \code{User-Agent} header:
-\code{"https://github.com/r-lib/gh"}.}
 }
 \description{
 See more about the GraphQL API here:

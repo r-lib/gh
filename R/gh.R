@@ -208,7 +208,9 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
     res <- res3
   }
 
-  if (! is.null(.limit) && len > .limit) {
+  # We only subset for a non-named response.
+  if (! is.null(.limit) && len > .limit &&
+      ! "total_count" %in% names(res) && length(res) == len) {
     res_attr <- attributes(res)
     res <- res[seq_len(.limit)]
     attributes(res) <- res_attr

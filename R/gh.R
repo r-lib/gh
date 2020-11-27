@@ -176,8 +176,9 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
   raw <- gh_make_request(req)
 
   res <- gh_process_response(raw)
+  len <- gh_response_length(res)
 
-  while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
+  while (!is.null(.limit) && len < .limit && gh_has_next(res)) {
     if (.progress) update_progress_bar(prbr, res)
     res2 <- gh_next(res)
 
@@ -195,17 +196,37 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
       res3 <- c(res, res2)      # e.g. GET /orgs/:org/invitations
     }
 
+    len <- len + gh_response_length(res2)
+
     attributes(res3) <- attributes(res2)
     res <- res3
   }
 
-  if (! is.null(.limit) && length(res) > .limit) {
+  if (! is.null(.limit) && len > .limit) {
     res_attr <- attributes(res)
     res <- res[seq_len(.limit)]
     attributes(res) <- res_attr
   }
 
   res
+}
+
+gh_response_length <- function(res) {
+  if (!is.null(names(res)) && length(res) > 1 &&
+      names(res)[1] == "total_count") {
+    # Ignore total_count, incomplete_results, repository_selection
+    # and take the first list element to get the length
+    lst <- vapply(res, is.list, logical(1))
+    nm <- setdiff(
+      names(res),
+      c("total_count", "incomplete_results", "repository_selection")
+    )
+    tgt <- which(lst[nm])[1]
+    if (is.na(tgt)) length(res) else length(res[[ nm[tgt] ]])
+    length(res[[2]])
+  } else {
+    length(res)
+  }
 }
 
 gh_make_request <- function(x) {

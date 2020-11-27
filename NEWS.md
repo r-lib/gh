@@ -1,5 +1,7 @@
 # gh (development version)
 
+* `gh_gql()` now passes all arguments to `gh()` (#124).
+
 * gh can retrieve a PAT from the Git credential store, where the lookup is based
   on the targeted API URL. This now uses the gitcreds package. The environment
   variables consulted for URL-specific GitHub PATs have changed.

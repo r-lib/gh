@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://gh.r-lib.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/gh-package.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/gh.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/gh_gql.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/gh_next.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/gh_rate_limit.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/gh_token.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/gh_tree_remote.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/gh_whoami.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/reference/print.gh_response.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/articles/managing-personal-access-tokens.html</loc>
+  </url>
+</urlset>

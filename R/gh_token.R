@@ -54,7 +54,10 @@ gh_token <- function(api_url = NULL) {
 
 gh_auth <- function(token) {
   if (isTRUE(token != "")) {
-    c("Authorization" = paste("token", token))
+    if(any(grepl("\\W", token))) {
+      warning("Token contains whitespace characters")
+    }
+    c("Authorization" = paste("token", trim_ws(token)))
   } else {
     character()
   }

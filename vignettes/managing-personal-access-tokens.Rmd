@@ -35,7 +35,7 @@ More resources on PAT management:
       a PAT is discoverable and has suitable scopes
     - `usethis::create_github_token()` guides you through the process of getting
       a new PAT
-  * In the [gitcreds package](https://r-lib.github.io/gitcreds/):
+  * In the [gitcreds package](https://gitcreds.r-lib.org/):
     - `gitcreds::gitcreds_set()` helps you explicitly put your PAT into the Git
       credential store
   

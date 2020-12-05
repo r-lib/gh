@@ -46,7 +46,7 @@ gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
   stopifnot(is.character(api_url), length(api_url) == 1)
   token <- tryCatch(
-    gitcreds::gitcreds_get(api_url),
+    gitcreds::gitcreds_get(get_hosturl(api_url)),
     error = function(e) NULL
   )
   gh_pat(token$password %||% "")
@@ -54,7 +54,10 @@ gh_token <- function(api_url = NULL) {
 
 gh_auth <- function(token) {
   if (isTRUE(token != "")) {
-    c("Authorization" = paste("token", token))
+    if(any(grepl("\\W", token))) {
+      warning("Token contains whitespace characters")
+    }
+    c("Authorization" = paste("token", trim_ws(token)))
   } else {
     character()
   }

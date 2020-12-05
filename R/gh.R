@@ -3,7 +3,7 @@
 #' This is an extremely minimal client. You need to know the API
 #' to be able to use this client. All this function does is:
 #' * Try to substitute each listed parameter into `endpoint`, using the
-#'   `:parameter` notation.
+#'   `{parameter}` notation.
 #' * If a GET request (the default), then add all other listed parameters
 #'   as query parameters.
 #' * If not a GET request, then send the other parameters in the request
@@ -18,13 +18,14 @@
 #'
 #'    If the method is not supplied, will use `.method`, which defaults
 #'    to `"GET"`.
-#' @param ... Name-value pairs giving API parameters. Will be matched
-#'   into `endpoint` placeholders, sent as query parameters in GET
-#'   requests, and as a JSON body of POST requests. If there is only one
-#'   unnamed parameter, and it is a raw vector, then it will not be JSON
-#'   encoded, but sent as raw data, as is. This can be used for example to
-#'   add assets to releases. Named `NULL` values are silently dropped,
-#'   and named `NA` values trigger an error.
+#' @param ... Name-value pairs giving API parameters. Will be matched into
+#'   `endpoint` placeholders, sent as query parameters in GET requests, and as a
+#'   JSON body of POST requests. If there is only one unnamed parameter, and it
+#'   is a raw vector, then it will not be JSON encoded, but sent as raw data, as
+#'   is. This can be used for example to add assets to releases. Named `NULL`
+#'   values are silently dropped. For GET requests, named `NA` values trigger an
+#'   error. For other methods, named `NA` values are included in the body of the
+#'   request, as JSON `null`.
 #' @param per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).
@@ -150,7 +151,6 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
 
   params <- list(...)
   params <- drop_named_nulls(params)
-  check_named_nas(params)
 
   if (is.null(per_page)) {
     if (!is.null(.limit)) {
@@ -168,27 +168,72 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                           send_headers = .send_headers,
                           api_url = .api_url, method = .method)
 
+
+  if (req$method == "GET") check_named_nas(params)
+
   if (.progress) prbr <- make_progress_bar(req)
 
   raw <- gh_make_request(req)
 
   res <- gh_process_response(raw)
+  len <- gh_response_length(res)
 
-  while (!is.null(.limit) && length(res) < .limit && gh_has_next(res)) {
+  while (!is.null(.limit) && len < .limit && gh_has_next(res)) {
     if (.progress) update_progress_bar(prbr, res)
     res2 <- gh_next(res)
-    res3 <- c(res, res2)
+
+    if (!is.null(names(res2)) && identical(names(res), names(res2))) {
+      res3 <- mapply(           # Handle named array case
+        function(x, y, n) {        # e.g. GET /search/repositories
+          z <- c(x, y)
+          atm <- is.atomic(z)
+          if (atm && n %in% c("total_count", "incomplete_results")) {
+            y
+          } else if (atm) {
+            unique(z)
+          } else {
+            z
+          }
+        },
+        res, res2, names(res),
+        SIMPLIFY = FALSE
+      )
+    } else {                    # Handle unnamed array case
+      res3 <- c(res, res2)      # e.g. GET /orgs/:org/invitations
+    }
+
+    len <- len + gh_response_length(res2)
+
     attributes(res3) <- attributes(res2)
     res <- res3
   }
 
-  if (! is.null(.limit) && length(res) > .limit) {
+  # We only subset for a non-named response.
+  if (! is.null(.limit) && len > .limit &&
+      ! "total_count" %in% names(res) && length(res) == len) {
     res_attr <- attributes(res)
     res <- res[seq_len(.limit)]
     attributes(res) <- res_attr
   }
 
   res
+}
+
+gh_response_length <- function(res) {
+  if (!is.null(names(res)) && length(res) > 1 &&
+      names(res)[1] == "total_count") {
+    # Ignore total_count, incomplete_results, repository_selection
+    # and take the first list element to get the length
+    lst <- vapply(res, is.list, logical(1))
+    nm <- setdiff(
+      names(res),
+      c("total_count", "incomplete_results", "repository_selection")
+    )
+    tgt <- which(lst[nm])[1]
+    if (is.na(tgt)) length(res) else length(res[[ nm[tgt] ]])
+  } else {
+    length(res)
+  }
 }
 
 gh_make_request <- function(x) {

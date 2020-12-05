@@ -14,12 +14,11 @@
 #' @examplesIf FALSE
 #' gh_gql("query { viewer { login }}")
 
-gh_gql <- function(query, ..., .token = NULL, .destfile = NULL,
-  .overwrite = FALSE, .api_url = NULL, .send_headers = NULL) {
+gh_gql <- function(query, ...) {
 
   if (".limit" %in% names(list(...))) {
     stop("`.limit` does not work with the GraphQL API")
   }
 
-  gh(endpoint = "POST /graphql", query = query, ..., .token = .token)
+  gh(endpoint = "POST /graphql", query = query, ...)
 }

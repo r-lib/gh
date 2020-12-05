@@ -70,13 +70,29 @@ test_that("gh_set_endpoint() works", {
   # expansion, with extra params
   input <- list(
     endpoint = "/repos/{owner}/{repo}/issues",
-    params = list(owner = "OWNER", repo = "REPO", state = "open")
+    params = list(state = "open", owner = "OWNER", repo = "REPO", page = 2)
   )
   out <- gh_set_endpoint(input)
-  expect_equal(
-    out,
-    list(endpoint = "/repos/OWNER/REPO/issues", params = list(state = "open"))
+  expect_equal(out$endpoint, "/repos/OWNER/REPO/issues")
+  expect_equal(out$params, list(state = "open", page = 2))
+})
+
+test_that("gh_set_endpoint() refuses to substitute an NA", {
+  input <- list(
+    endpoint = "POST /orgs/{org}/repos",
+    params = list(org = NA)
   )
+  expect_error(gh_set_endpoint(input), "Named NA")
+})
+
+test_that("gh_set_endpoint() allows a named NA in body for non-GET", {
+  input <- list(
+    endpoint = "PUT /repos/{owner}/{repo}/pages",
+    params = list(owner = "OWNER", repo = "REPO", cname = NA)
+  )
+  out <- gh_set_endpoint(input)
+  expect_equal(out$endpoint, "PUT /repos/OWNER/REPO/pages")
+  expect_equal(out$params, list(cname = NA))
 })
 
 test_that("gh_set_url() ensures URL is in 'API form'", {

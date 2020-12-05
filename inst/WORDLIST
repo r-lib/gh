@@ -1,3 +1,4 @@
+CMD
 Codecov
 Github
 GraphQL
@@ -9,6 +10,7 @@ PATs
 URI
 api
 auth
+discoverable
 funder
 gitcreds
 github

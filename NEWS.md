@@ -1,19 +1,29 @@
-# gh (development version)
 
-* gh can retrieve a PAT from the Git credential store, where the lookup is based
-  on the targeted API URL. This now uses the gitcreds package. The environment
-  variables consulted for URL-specific GitHub PATs have changed.
+# gh development version
+
+# gh 1.2.0
+
+* `gh_gql()` now passes all arguments to `gh()` (#124).
+
+* gh now handles responses from pagination better, and tries to properly
+  merge them (#136, @rundel).
+
+* gh can retrieve a PAT from the Git credential store, where the lookup is
+  based on the targeted API URL. This now uses the gitcreds package. The
+  environment variables consulted for URL-specific GitHub PATs have changed.
   - For "https://api.github.com": `GITHUB_PAT_GITHUB_COM` now, instead of
     `GITHUB_PAT_API_GITHUB_COM`
   - For "https://github.acme.com/api/v3": `GITHUB_PAT_GITHUB_ACME_COM` now,
     instead of `GITHUB_PAT_GITHUB_ACME_COM_API_V3`
 
-* The keyring package is no longer used, in favor of the Git credential store.
+  See the documentation of the gitcreds package for details.
+
+* The keyring package is no longer used, in favor of the Git credential
+  store.
 
 * The documentation for the GitHub REST API has moved to
   <https://docs.github.com/rest> and endpoints are now documented using
   the URI template style of [RFC 6570](https://tools.ietf.org/html/rfc6570):
-  
   - Old: `GET /repos/:owner/:repo/issues`
   - New: `GET /repos/{owner}/{repo}/issues`
 
@@ -22,6 +32,9 @@
 
 * Fixed an error that occurred when calling `gh()` with `.progress = FALSE` 
   (@gadenbuie, #115).
+
+* `gh()` accepts named `NA` parameters that are destined for the request
+  body (#139).
 
 # gh 1.1.0
 

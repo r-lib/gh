@@ -6,7 +6,7 @@ test_that("repos, some basics", {
 
   skip_if_offline("github.com")
   skip_on_cran()
-  if (is.na(tt())) skip("set GH_TESTING env var to run against GitHub")
+  skip_if_no_token()
 
   res <- gh("/user/repos", .token = tt())
   expect_true(all(c("id", "name", "full_name") %in% names(res[[1]])))
@@ -120,7 +120,7 @@ test_that("repos, some basics", {
 test_that("repo files", {
   skip_if_offline("github.com")
   skip_on_cran()
-  if (is.na(tt())) skip("set GH_TESTING env var to run against GitHub")
+  skip_if_no_token()
 
   res <- gh(
     TMPL("GET /repos/{owner}/{repo}/contents/{path}"),

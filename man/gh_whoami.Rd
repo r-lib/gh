@@ -30,10 +30,9 @@ authenticated user, the first bit of the token, and the associated scopes.
 }
 \details{
 Get a personal access token for the GitHub API from
-\url{https://github.com/settings/tokens} and select the scopes necessary for
-your planned tasks. The \code{repo} scope, for example, is one many are
-likely to need. The token itself is a string of 40 letters and digits. You
-can store it any way you like and provide explicitly via the \code{.token}
+\url{https://github.com/settings/tokens} and select the scopes necessary for your
+planned tasks. The \code{repo} scope, for example, is one many are likely to need.
+You can store it any way you like and provide explicitly via the \code{.token}
 argument to \code{\link[=gh]{gh()}}.
 
 However, many prefer to define an environment variable \code{GITHUB_PAT} (or

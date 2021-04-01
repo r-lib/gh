@@ -27,7 +27,7 @@
 #' @param api_url GitHub API URL. Defaults to the `GITHUB_API_URL` environment
 #'   variable, if set, and otherwise to <https://api.github.com>.
 #'
-#' @return A string of 40 hexadecimal digits, if a PAT is found, or the empty
+#' @return A string of characters, if a PAT is found, or the empty
 #'   string, otherwise. For convenience, the return value has an S3 class in
 #'   order to ensure that simple printing strategies don't reveal the entire
 #'   PAT.
@@ -68,17 +68,25 @@ new_gh_pat <- function(x) {
   if (is.character(x) && length(x) == 1) {
     structure(x, class = "gh_pat")
   } else {
-    throw(new_error("A GitHub PAT must be a string"))
+    throw(new_error("A GitHub PAT must be a string", call. = FALSE))
   }
 }
 
 # validates PAT only in a very narrow, technical, and local sense
 validate_gh_pat <- function(x) {
   stopifnot(inherits(x, "gh_pat"))
-  if (x == "" || grepl("[[:xdigit:]]{40}", x)) {
+  if (x == "" ||
+      # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
+      grepl("^gh[pousr]_[A-Za-z0-9_]{36,251}$", x) ||
+      grepl("[[:xdigit:]]{40}", x)) {
     x
   } else {
-    throw(new_error("A GitHub PAT must consist of 40 hexadecimal digits"))
+    throw(new_error(
+      "GitHub PAT must have one of these forms:",
+      "\n  * 40 hexadecimal digits (older PATs)",
+      "\n  * A 'ghp_' prefix followed by 36 to 251 more characters (newer PATs)",
+      call. = FALSE
+    ))
   }
 }
 
@@ -107,7 +115,7 @@ str.gh_pat <- function(object, ...) {
   invisible()
 }
 
-obfuscate <- function(x, first = 4, last = 2) {
+obfuscate <- function(x, first = 4, last = 4) {
   paste0(
     substr(x, start = 1, stop = first),
     "...",

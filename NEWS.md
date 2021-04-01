@@ -1,6 +1,8 @@
 
 # gh development version
 
+* Token validation accounts for the new format [announced 2021-03-04 ](https://github.blog/changelog/2021-03-04-authentication-token-format-updates/) and implemented on 2021-04-01 (#148, @fmichonneau).
+
 # gh 1.2.0
 
 * `gh_gql()` now passes all arguments to `gh()` (#124).

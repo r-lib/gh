@@ -5,10 +5,9 @@
 
 #'
 #' Get a personal access token for the GitHub API from
-#' <https://github.com/settings/tokens> and select the scopes necessary for
-#' your planned tasks. The `repo` scope, for example, is one many are
-#' likely to need. The token itself is a string of 40 letters and digits. You
-#' can store it any way you like and provide explicitly via the `.token`
+#' <https://github.com/settings/tokens> and select the scopes necessary for your
+#' planned tasks. The `repo` scope, for example, is one many are likely to need.
+#' You can store it any way you like and provide explicitly via the `.token`
 #' argument to [gh()].
 #'
 #' However, many prefer to define an environment variable `GITHUB_PAT` (or

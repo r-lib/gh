@@ -11,7 +11,7 @@ gh_token(api_url = NULL)
 variable, if set, and otherwise to \url{https://api.github.com}.}
 }
 \value{
-A string of 40 hexadecimal digits, if a PAT is found, or the empty
+A string of characters, if a PAT is found, or the empty
 string, otherwise. For convenience, the return value has an S3 class in
 order to ensure that simple printing strategies don't reveal the entire
 PAT.

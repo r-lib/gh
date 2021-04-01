@@ -57,9 +57,15 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
 
 # gh_pat class ----
 test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
+  # older PATs
   expect_error(gh_pat(strrep("a", 40)), NA)
   expect_error(gh_pat(strrep("g", 40)), "40 hexadecimal digits", class = "error")
   expect_error(gh_pat("aa"), "40 hexadecimal digits", class = "error")
+
+  # newer PATs
+  expect_error(gh_pat(paste0("ghp_", strrep("B", 36))), NA)
+  expect_error(gh_pat(paste0("ghp_", strrep("3", 251))), NA)
+  expect_error(gh_pat(paste0("ghJ_", strrep("a", 36))), "prefix", class = "error")
 })
 
 test_that("format.gh_pat() and str.gh_pat() hide the middle stuff", {

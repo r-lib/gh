@@ -126,7 +126,7 @@ str.gh_pat <- function(object, ...) {
   invisible()
 }
 
-obfuscate <- function(x, first = 4, last = 2) {
+obfuscate <- function(x, first = 4, last = 4) {
   paste0(
     substr(x, start = 1, stop = first),
     "...",

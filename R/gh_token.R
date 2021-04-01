@@ -75,7 +75,7 @@ new_gh_pat <- function(x) {
 # validates PAT only in a very narrow, technical, and local sense
 validate_gh_pat <- function(x) {
   stopifnot(inherits(x, "gh_pat"))
-  if (x == "" || grepl("^gh[pousr]_[A-Za-z0-9_]{36}$", x) || grepl("[[:xdigit:]]{40}", x)) {
+  if (x == "" || grepl("^gh[pousr]_[A-Za-z0-9_]{36,251}$", x) || grepl("[[:xdigit:]]{40}", x)) {
     x
   } else {
     throw(new_error("A GitHub PAT must consist of 40 characters."))

@@ -1,9 +1,7 @@
 
 # gh development version
 
-* The validation of the token takes into account changes introduced in their
-  formatting. Tokens generated starting on April 1st, 2021 have a prefix and are
-  in the set [A-Za-z0-9_] instead of being hexadecimal digits (#148).
+* Token validation accounts for the new format [announced 2021-03-04 ](https://github.blog/changelog/2021-03-04-authentication-token-format-updates/) and implemented on 2021-04-01 (#148, @fmichonneau).
 
 # gh 1.2.0
 

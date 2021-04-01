@@ -78,7 +78,7 @@ validate_gh_pat <- function(x) {
   if (x == "" || grepl("^gh[pousr]_[A-Za-z0-9_]{36}$", x) || grepl("[[:xdigit:]]{40}", x)) {
     x
   } else {
-    throw(new_error("A GitHub PAT must consist of 40 hexadecimal digits"))
+    throw(new_error("A GitHub PAT must consist of 40 characters."))
   }
 }
 

@@ -24,17 +24,6 @@
 #' point on, gh (via [gitcreds::gitcreds_get()]) should be able to find it
 #' without further effort on your part.
 #'
-#' Until March 31st, 2021, GitHub tokens were formed by a string of 40
-#' hexadecimal digits. After this date, newly generated tokens start with a
-#' prefix (`ghp_` for personal access tokens), and are composed of lower and
-#' upper case letters as well as digits and underscores. The total length of
-#' tokens remains set at 40 characters. GitHub has indicated that starting in
-#' June 2021, they plan to increase the length of PAT up to 255 characters. gh
-#' validates tokens by checking that they are formed of either 40 hexadecimal
-#' digits, or that they start with a prefix and are between 40 and 255
-#' characters. More information about this change is available on [GitHub's
-#' blog](https://github.blog/changelog/2021-03-04-authentication-token-format-updates/).
-#'
 #' @param api_url GitHub API URL. Defaults to the `GITHUB_API_URL` environment
 #'   variable, if set, and otherwise to <https://api.github.com>.
 #'

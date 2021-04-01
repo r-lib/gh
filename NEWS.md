@@ -1,6 +1,10 @@
 
 # gh development version
 
+* The validation of the token takes into account changes introduced in their
+  formatting. Tokens generated starting on April 1st, 2021 have a prefix and are
+  in the set [A-Za-z0-9_] instead of being hexadecimal digits (#148).
+
 # gh 1.2.0
 
 * `gh_gql()` now passes all arguments to `gh()` (#124).

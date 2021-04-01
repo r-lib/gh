@@ -1,6 +1,6 @@
 Package: gh
 Title: 'GitHub' 'API'
-Version: 1.2.1
+Version: 1.2.1.9000
 Authors@R:
     c(person(given = "Gábor",
              family = "Csárdi",

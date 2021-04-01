@@ -1,7 +1,7 @@
-# gh 1.2.1
-
 
 # gh development version
+
+# gh 1.2.1
 
 * Token validation accounts for the new format
   [announced 2021-03-04 ](https://github.blog/changelog/2021-03-04-authentication-token-format-updates/)

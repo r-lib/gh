@@ -100,7 +100,7 @@ without further effort on your part." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gh</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -171,7 +171,7 @@ found for a specific URL. If no matching PAT is found,
 <code><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds::gitcreds_get()</a></code> errors, whereas <code>gh_token()</code> does not and,
 instead, returns <code>""</code>.</p>
 <p>See GitHub's documentation on <a href='https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token'>Creating a personal access token</a>,
-or use <code>usethis::create_github_token()</code> for a guided experience, including
+or use <code><a href='https://usethis.r-lib.org/reference/github-token.html'>usethis::create_github_token()</a></code> for a guided experience, including
 pre-selection of recommended scopes. Once you have a PAT, you can use
 <code><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds::gitcreds_set()</a></code> to add it to the Git credential store. From that
 point on, gh (via <code><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds::gitcreds_get()</a></code>) should be able to find it

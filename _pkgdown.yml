@@ -1,5 +1,8 @@
 url: https://gh.r-lib.org
 
+development:
+  mode: auto
+
 authors:
    Jennifer Bryan:
      href: https://jennybryan.org

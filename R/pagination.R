@@ -110,7 +110,7 @@ make_progress_bar <- function(gh_request) {
 
 update_progress_bar <- function(state, gh_response) {
   state$pageno <- state$pageno + 1L
-  state$got <- state$got + length(gh_response)
+  state$got <- gh_response_length(gh_response)
   state$pages <- gh_extract_pages(gh_response) %||% state$pages
 
   if (is.null(state$status)) {

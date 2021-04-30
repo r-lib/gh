@@ -178,24 +178,17 @@ used to override or augment the default <code>User-Agent</code> header:
 
     <p>Get a personal access token for the GitHub API from
 <a href='https://github.com/settings/tokens'>https://github.com/settings/tokens</a> and select the scopes necessary for your
-planned tasks. The <code>repo</code> scope, for example, is one many are likely to need.
-You can store it any way you like and provide explicitly via the <code>.token</code>
-argument to <code><a href='gh.html'>gh()</a></code>.</p>
-<p>However, many prefer to define an environment variable <code>GITHUB_PAT</code> (or
-<code>GITHUB_TOKEN</code>) with this value in their <code>.Renviron</code> file. Add a
-line that looks like this, substituting your PAT:</p><pre>GITHUB_PAT=8c70fd8419398999c9ac5bacf3192882193cadf2
-</pre>
-
-<p>Put a line break at the end! If you're using an editor that shows line
-numbers, there should be (at least) two lines, where the second one is empty.
-Restart R for this to take effect. Call <code>gh_whoami()</code> to confirm
-success.</p>
-<p>To get complete information on the authenticated user, call
-<code><a href='gh.html'>gh("/user")</a></code>.</p>
-<p>For token management via API (versus the browser), use the
-<a href='https://docs.github.com/v3/oauth_authorizations/'>OAuth Authorizations API</a>.
-This API requires Basic Authentication using your username and password,
-not tokens, and is outside the scope of the gh package.</p>
+planned tasks. The <code>repo</code> scope, for example, is one many are likely to need.</p>
+<p>On macOS and Windows it is best to store the token in the git credential
+store, where most GitHub clients, including gh, can access it. You can
+use the gitcreds package to add your token to the credential store:<div class="r"></p><pre><span class='fu'>gitcreds</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html'>gitcreds_set</a></span><span class='op'>(</span><span class='op'>)</span>
+</pre><p></div></p>
+<p>See https://usethis.r-lib.org/articles/articles/git-credentials.html
+for more about managing GitHub (and generic git) credentials.</p>
+<p>On other systems, including Linux, the git credential store is
+typically not as convenient, and you might want to store your token in
+the <code>GITHUB_PAT</code> environment variable, which you can set in your
+<code>.Renviron</code> file.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>gh_whoami</span><span class='op'>(</span><span class='op'>)</span>

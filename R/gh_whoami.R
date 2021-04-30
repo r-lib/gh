@@ -15,7 +15,8 @@
 #' gitcreds::gitcreds_set()
 #' ```
 #'
-#' See https://usethis.r-lib.org/articles/articles/git-credentials.html
+#' See https://gh.r-lib.org/articles/managing-personal-access-tokens.html
+#' and https://usethis.r-lib.org/articles/articles/git-credentials.html
 #' for more about managing GitHub (and generic git) credentials.
 #'
 #' On other systems, including Linux, the git credential store is

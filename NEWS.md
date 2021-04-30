@@ -4,6 +4,9 @@
 * gh now shows the correct number of records in its progress bar when
   paginating (#147).
 
+* New `.params` argument in `gh()` to make it easier to pass parameters to
+  it programmatically (#140).
+
 # gh 1.2.1
 
 * Token validation accounts for the new format

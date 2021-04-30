@@ -62,6 +62,9 @@
 #'   `"https://github.com/r-lib/gh"`.
 #' @param .progress Whether to show a progress indicator for calls that
 #'   need more than one HTTP request.
+#' @param .params Additional list of parameters to append to `...`.
+#'   It is easier to use this than `...` if you have your parameters in
+#'   a list already.
 #'
 #' @return Answer from the API as a `gh_response` object, which is also a
 #'   `list`. Failed requests will generate an R error. Requests that
@@ -147,9 +150,9 @@
 gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                .overwrite = FALSE, .api_url = NULL, .method = "GET",
                .limit = NULL, .accept = "application/vnd.github.v3+json",
-               .send_headers = NULL, .progress = TRUE) {
+               .send_headers = NULL, .progress = TRUE, .params = list()) {
 
-  params <- list(...)
+  params <- c(list(...), .params)
   params <- drop_named_nulls(params)
 
   if (is.null(per_page)) {

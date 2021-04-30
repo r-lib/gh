@@ -16,7 +16,8 @@ gh(
   .limit = NULL,
   .accept = "application/vnd.github.v3+json",
   .send_headers = NULL,
-  .progress = TRUE
+  .progress = TRUE,
+  .params = list()
 )
 }
 \arguments{
@@ -85,6 +86,10 @@ used to override or augment the default \code{User-Agent} header:
 
 \item{.progress}{Whether to show a progress indicator for calls that
 need more than one HTTP request.}
+
+\item{.params}{Additional list of parameters to append to \code{...}.
+It is easier to use this than \code{...} if you have your parameters in
+a list already.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a

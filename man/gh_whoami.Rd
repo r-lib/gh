@@ -38,8 +38,8 @@ store, where most GitHub clients, including gh, can access it. You can
 use the gitcreds package to add your token to the credential store:\if{html}{\out{<div class="r">}}\preformatted{gitcreds::gitcreds_set()
 }\if{html}{\out{</div>}}
 
-See https://gh.r-lib.org/articles/managing-personal-access-tokens.html
-and https://usethis.r-lib.org/articles/articles/git-credentials.html
+See \url{https://gh.r-lib.org/articles/managing-personal-access-tokens.html}
+and \url{https://usethis.r-lib.org/articles/articles/git-credentials.html}
 for more about managing GitHub (and generic git) credentials.
 
 On other systems, including Linux, the git credential store is

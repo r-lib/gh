@@ -112,12 +112,12 @@ body, as JSON.
 \examples{
 \dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Repositories of a user, these are equivalent
-gh("/users/hadley/repos")
-gh("/users/{username}/repos", username = "hadley")
+gh("/users/hadley/repos", .limit = 2)
+gh("/users/{username}/repos", username = "hadley", .limit = 2)
 
 ## Starred repositories of a user
-gh("/users/hadley/starred")
-gh("/users/{username}/starred", username = "hadley")
+gh("/users/hadley/starred", .limit = 2)
+gh("/users/{username}/starred", username = "hadley", .limit = 2)
 \dontshow{\}) # examplesIf}
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)

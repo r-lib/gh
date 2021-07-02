@@ -75,12 +75,12 @@
 #' [gh_whoami()] for details on GitHub API token management.
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Repositories of a user, these are equivalent
-#' gh("/users/hadley/repos")
-#' gh("/users/{username}/repos", username = "hadley")
+#' gh("/users/hadley/repos", .limit = 2)
+#' gh("/users/{username}/repos", username = "hadley", .limit = 2)
 #'
 #' ## Starred repositories of a user
-#' gh("/users/hadley/starred")
-#' gh("/users/{username}/starred", username = "hadley")
+#' gh("/users/hadley/starred", .limit = 2)
+#' gh("/users/{username}/starred", username = "hadley", .limit = 2)
 #'
 #' @examplesIf FALSE
 #' ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)

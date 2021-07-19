@@ -240,13 +240,12 @@ gh_response_length <- function(res) {
 }
 
 gh_make_request <- function(x) {
+  valid_http_methods <- c("GET", "POST", "PATCH", "PUT", "DELETE")
+  http_method <- x$method
+  if (is.null(http_method) || !(http_method %in% valid_http_methods)) throw(new_error("Unknown HTTP verb"))
 
-  method_fun <- list("GET" = GET, "POST" = POST, "PATCH" = PATCH,
-                     "PUT" = PUT, "DELETE" = DELETE)[[x$method]]
-  if (is.null(method_fun)) throw(new_error("Unknown HTTP verb"))
-
-  raw <- do.call(method_fun,
-                 compact(list(url = x$url, query = x$query, body = x$body,
-                              add_headers(x$headers), x$dest)))
+  raw <- do.call(RETRY,
+                 compact(list(verb = http_method, url = x$url, query = x$query, body = x$body,
+                              add_headers(x$headers), x$dest, terminate_on = c(400, 401, 403, 404))))
   raw
 }

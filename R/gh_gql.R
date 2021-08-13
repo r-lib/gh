@@ -26,7 +26,7 @@
 #'   }
 #' }"
 #' 
-#' gh::gh_gql(ratelimit_query)
+#' gh_gql(ratelimit_query)
 
 gh_gql <- function(query, ...) {
 

@@ -37,5 +37,5 @@ VignetteBuilder:
     knitr
 Encoding: UTF-8
 Language: en-US
-Roxygen: { loadNamespace("roxygenlabs"); list(markdown = TRUE) }
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1.9001

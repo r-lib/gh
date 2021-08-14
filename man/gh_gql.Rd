@@ -30,6 +30,21 @@ If you need pagination with GraphQL, you'll need to do that manually.
 \examples{
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 gh_gql("query { viewer { login }}")
+
+# Get rate limit
+ratelimit_query <- "query {
+  viewer {
+    login
+  }
+  rateLimit {
+    limit
+    cost
+    remaining
+    resetAt
+  }
+}"
+
+gh_gql(ratelimit_query)
 \dontshow{\}) # examplesIf}
 }
 \seealso{

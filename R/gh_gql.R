@@ -13,7 +13,8 @@
 #' @seealso [gh()] for the GitHub v3 API.
 #' @examplesIf FALSE
 #' gh_gql("query { viewer { login }}")
-#' Get rate limit
+#'
+#' # Get rate limit
 #' ratelimit_query <- "query {
 #'   viewer {
 #'     login

@@ -7,7 +7,7 @@
 
 [![R-CMD-check](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/r-lib/gh/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/gh?branch=master)
+coverage](https://codecov.io/gh/r-lib/gh/branch/main/graph/badge.svg)](https://codecov.io/gh/r-lib/gh?branch=main)
 [![](https://www.r-pkg.org/badges/version/gh)](https://www.r-pkg.org/pkg/gh)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/gh)](https://www.r-pkg.org/pkg/gh)
@@ -46,12 +46,14 @@ call. E.g.
 ``` r
 my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "alexr"        "altlist"      "argufy"       "disposables"  "dotenv"      
-#>  [6] "falsy"        "franc"        "ISA"          "keypress"     "lpSolve"     
-#> [11] "macBriain"    "maxygen"      "MISO"         "msgtools"     "notifier"    
-#> [16] "oskeyring"    "parr"         "parsedate"    "prompt"       "r-font"      
-#> [21] "r-source"     "rcorpora"     "roxygenlabs"  "sankey"       "secret"      
-#> [26] "spark"        "standalones"  "svg-term"     "tamper"       "testthatlabs"
+#>  [1] "after"         "alexr"         "altlist"       "argufy"       
+#>  [5] "async"         "brokenPackage" "css"           "curl"         
+#>  [9] "disposables"   "dotenv"        "falsy"         "franc"        
+#> [13] "fswatch"       "ISA"           "keynote"       "keypress"     
+#> [17] "lpSolve"       "macBriain"     "maxygen"       "MISO"         
+#> [21] "msgtools"      "multicolor"    "notifier"      "odbc"         
+#> [25] "parr"          "parsedate"     "pkgdepends"    "pkgload"      
+#> [29] "prompt"        "purrr"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -64,12 +66,16 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "oskeyring"    "testthatlabs" "lpSolve"      "roxygenlabs"  "standalones" 
-#>  [6] "altlist"      "svg-term"     "franc"        "sankey"       "r-source"    
-#> [11] "secret"       "msgtools"     "notifier"     "prompt"       "parr"        
-#> [16] "tamper"       "alexr"        "argufy"       "maxygen"      "keypress"    
-#> [21] "macBriain"    "MISO"         "rcorpora"     "disposables"  "spark"       
-#> [26] "dotenv"       "parsedate"    "r-font"       "falsy"        "ISA"
+#>  [1] "tune"               "multicolor"         "pkgdepends"        
+#>  [4] "css"                "curl"               "usethis2"          
+#>  [7] "r-debug"            "purrr"              "redfish"           
+#> [10] "win32-console-docs" "vt100-emulator"     "RSQLite"           
+#> [13] "pkgload"            "rencfaq"            "renv"              
+#> [16] "stockfish"          "brokenPackage"      "textshaping"       
+#> [19] "odbc"               "testthatlabs"       "keynote"           
+#> [22] "lpSolve"            "roxygenlabs"        "standalones"       
+#> [25] "altlist"            "svg-term"           "franc"             
+#> [28] "sankey"             "async"              "r-source"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -101,19 +107,19 @@ Supply the `page` parameter to get subsequent pages:
 ``` r
 my_repos2 <- gh("GET /orgs/{org}/repos", org = "r-lib", page = 2)
 vapply(my_repos2, "[[", "", "name")
-#>  [1] "rcmdcheck"   "vdiffr"      "callr"       "mockery"     "here"       
-#>  [6] "revdepcheck" "processx"    "vctrs"       "debugme"     "usethis"    
-#> [11] "rlang"       "pkgload"     "httrmock"    "pkgbuild"    "prettycode" 
-#> [16] "roxygen2md"  "pkgapi"      "zeallot"     "liteq"       "keyring"    
-#> [21] "sloop"       "styler"      "ansistrings" "later"       "crancache"  
-#> [26] "zip"         "osname"      "sessioninfo" "available"   "cli"
+#>  [1] "jose"        "backports"   "rcmdcheck"   "vdiffr"      "callr"      
+#>  [6] "mockery"     "here"        "revdepcheck" "processx"    "vctrs"      
+#> [11] "debugme"     "usethis"     "rlang"       "pkgload"     "httrmock"   
+#> [16] "pkgbuild"    "prettycode"  "roxygen2md"  "pkgapi"      "zeallot"    
+#> [21] "liteq"       "keyring"     "sloop"       "styler"      "ansistrings"
+#> [26] "archive"     "later"       "crancache"   "zip"         "osname"
 ```
 
 ## Environment Variables
 
-  - The `GITHUB_API_URL` environment variable is used for the default
+-   The `GITHUB_API_URL` environment variable is used for the default
     github api url.
-  - One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used,
+-   One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used,
     in this order, as default token.
 
 ## License

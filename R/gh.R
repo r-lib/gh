@@ -239,7 +239,9 @@ gh_make_request <- function(x) {
     "GET" = GET, "POST" = POST, "PATCH" = PATCH,
     "PUT" = PUT, "DELETE" = DELETE
   )[[x$method]]
-  if (is.null(method_fun)) throw(new_error("Unknown HTTP verb"))
+  if (is.null(method_fun)) {
+    cli::cli_abort("Unknown HTTP verb: {.val {x$method}}")
+  }
 
   raw <- do.call(
     method_fun,

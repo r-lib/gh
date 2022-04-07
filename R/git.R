@@ -10,15 +10,15 @@
 #' @examplesIf interactive()
 #' gh_tree_remote()
 gh_tree_remote <- function(path = ".") {
-  github_remote(git_remotes(path))
+  github_remote(git_remotes(path), path)
 }
 
-github_remote <- function(x) {
+github_remote <- function(x, path) {
   remotes <- lapply(x, github_remote_parse)
   remotes <- remotes[!vapply(remotes, is.null, logical(1))]
 
   if (length(remotes) == 0) {
-    throw(new_error("No github remotes found", call. = FALSE))
+    cli::cli_abort("No GitHub remotes found at {.path {path}}")
   }
 
   if (length(remotes) > 1) {
@@ -75,20 +75,20 @@ git_remotes <- function(path = ".") {
 git_config <- function(path = ".") {
   config_path <- file.path(repo_root(path), ".git", "config")
   if (!file.exists(config_path)) {
-    throw(new_error("git config does not exist", call. = FALSE))
+    cli::cli_abort("git config does not exist at {.path {path}}")
   }
   ini::read.ini(config_path, "UTF-8")
 }
 
 repo_root <- function(path = ".") {
   if (!file.exists(path)) {
-    throw(new_error("Can't find '", path, "'.", call. = FALSE))
+    cli::cli_abort("Can't find repo at {.path {path}}")
   }
 
   # Walk up to root directory
   while (!has_git(path)) {
     if (is_root(path)) {
-      throw(new_error("Could not find git root.", call. = FALSE))
+      cli::cli_abort("Could not find git root from {.path {path}}.")
     }
 
     path <- dirname(path)

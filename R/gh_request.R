@@ -67,10 +67,9 @@ gh_set_endpoint <- function(x) {
       template = endpoint
     )
     if (is.na(endpoint2)) {
-      throw(new_error(
-        "Named NA parameters are not allowed: ", names(params)[i],
-        call. = FALSE
-      ))
+      cli::cli_abort(
+        "Named NA parameters are not allowed: {names(params)[i]}",
+      )
     }
     if (endpoint2 != endpoint) {
       endpoint <- endpoint2

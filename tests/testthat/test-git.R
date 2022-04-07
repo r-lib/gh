@@ -4,7 +4,7 @@ test_that("picks origin if available", {
     origin = "https://github.com/x/2"
   )
 
-  expect_warning(gr <- github_remote(remotes), "Using origin")
+  expect_warning(gr <- github_remote(remotes, "."), "Using origin")
   expect_equal(gr$repo, "2")
 })
 
@@ -14,7 +14,7 @@ test_that("otherwise picks first", {
     b = "https://github.com/x/2"
   )
 
-  expect_warning(gr <- github_remote(remotes), "Using first")
+  expect_warning(gr <- github_remote(remotes, "."), "Using first")
   expect_equal(gr$repo, "1")
 })
 

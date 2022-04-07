@@ -37,7 +37,7 @@ gh_link_request <- function(gh_response, link) {
   stopifnot(inherits(gh_response, "gh_response"))
 
   url <- extract_link(gh_response, link)
-  if (is.na(url)) throw(new_error("No ", link, " page"))
+  if (is.na(url)) cli::cli_abort("No {link} page")
 
   list(
     method = attr(gh_response, "method"),

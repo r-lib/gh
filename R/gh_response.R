@@ -39,24 +39,20 @@ gh_process_response <- function(response) {
 }
 
 # https://docs.github.com/v3/#client-errors
-gh_error <- function(response, call = sys.call(-1)) {
+gh_error <- function(response, call = rlang::caller_env()) {
   heads <- headers(response)
   res <- content(response)
   status <- status_code(response)
 
-  msg <- c(
-    "",
-    paste0("GitHub API error (", status, "): ", heads$status),
-    paste0("Message: ", res$message)
-  )
+  msg <- "GitHub API error ({status}): {heads$status %||% ''} {res$message}"
+
+  if (status == 404) {
+    msg <- c(msg, x = c("URL not found: {.url {response$request$url}}"))
+  }
 
   doc_url <- res$documentation_url
   if (!is.null(doc_url)) {
-    msg <- append(msg, paste0("Read more at ", doc_url))
-  }
-
-  if (status == 404) {
-    msg <- append(msg, c("", paste0("URL not found: ", response$request$url)))
+    msg <- c(msg, c("i" = "Read more at {.url {doc_url}}"))
   }
 
   errors <- res$errors
@@ -64,25 +60,15 @@ gh_error <- function(response, call = sys.call(-1)) {
     errors <- as.data.frame(do.call(rbind, errors))
     nms <- c("resource", "field", "code", "message")
     nms <- nms[nms %in% names(errors)]
-    msg <- append(
+    msg <- c(
       msg,
-      c(
-        "",
-        "Errors:",
-        capture.output(print(errors[nms], row.names = FALSE))
-      )
+      capture.output(print(errors[nms], row.names = FALSE))
     )
   }
-  cond <- structure(list(
-    call = call,
-    message = paste0(msg, collapse = "\n")
-  ),
-  class = c(
-    "github_error",
-    paste0("http_error_", status),
-    "error",
-    "condition"
+
+  cli::cli_abort(
+    msg,
+    class = c("github_error", paste0("http_error_", status)),
+    call = call
   )
-  )
-  throw(cond)
 }

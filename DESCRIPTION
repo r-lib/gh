@@ -1,19 +1,12 @@
 Package: gh
 Title: 'GitHub' 'API'
 Version: 1.3.0.9000
-Authors@R:
-    c(person(given = "Gábor",
-             family = "Csárdi",
-             role = c("cre", "ctb"),
-             email = "csardi.gabor@gmail.com"),
-      person(given = "Jennifer",
-             family = "Bryan",
-             role = "aut"),
-      person(given = "Hadley",
-             family = "Wickham",
-             role = "aut"),
-      person(given = "RStudio",
-             role = c("cph", "fnd")))
+Authors@R:c(
+    person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role = c("cre", "ctb")),
+    person("Jennifer", "Bryan", role = "aut"),
+    person("Hadley", "Wickham", role = "aut"),
+    person("RStudio", role = c("cph", "fnd"))
+  )
 Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
 URL: https://gh.r-lib.org/, https://github.com/r-lib/gh#readme

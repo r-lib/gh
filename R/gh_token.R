@@ -81,11 +81,13 @@ validate_gh_pat <- function(x) {
     grepl("[[:xdigit:]]{40}", x)) {
     x
   } else {
+    url <- "https://gh.r-lib.org/articles/managing-personal-access-tokens.html"
     cli::cli_abort(c(
       "Invalid GitHib PAT format",
-      "i" = "A GitHub PAT must have one of these forms:",
+      "i" = "A GitHub PAT must have one of two forms:",
       "*" = "40 hexadecimal digits (older PATs)",
-      "*" = "A 'ghp_' prefix followed by 36 to 251 more characters (newer PATs)"
+      "*" = "A 'ghp_' prefix followed by 36 to 251 more characters (newer PATs)",
+      "i" = "Read more at {.url {url}}."
     ))
   }
 }

@@ -1,7 +1,5 @@
-context("gh_rate_limit")
-
 test_that("good input", {
-  mock_res = structure(
+  mock_res <- structure(
     list(),
     class = "gh_response",
     response = list(
@@ -11,7 +9,7 @@ test_that("good input", {
     )
   )
 
-  limit = gh_rate_limit(mock_res)
+  limit <- gh_rate_limit(mock_res)
 
   expect_equal(limit$limit, 5000L)
   expect_equal(limit$remaining, 4999L)
@@ -24,14 +22,13 @@ test_that("errors", {
 })
 
 test_that("missing rate limit", {
-  mock_res = structure(
+  mock_res <- structure(
     list(),
     class = "gh_response",
-    response = list(
-    )
+    response = list()
   )
 
-  limit = gh_rate_limit(mock_res)
+  limit <- gh_rate_limit(mock_res)
 
   expect_equal(limit$limit, NA_integer_)
   expect_equal(limit$remaining, NA_integer_)

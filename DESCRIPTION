@@ -1,26 +1,37 @@
 Package: gh
 Title: 'GitHub' 'API'
-Version: 1.1.0.9000
-Authors@R:
-    c(person("Gábor", "Csárdi",, "csardi.gabor@gmail.com", c("cre", "ctb")),
-      person("Jennifer", "Bryan", role = "aut"),
-      person("Hadley", "Wickham", role = "aut"))
+Version: 1.3.0.9000
+Authors@R: c(
+    person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role = c("cre", "ctb")),
+    person("Jennifer", "Bryan", role = "aut"),
+    person("Hadley", "Wickham", role = "aut"),
+    person("RStudio", role = c("cph", "fnd"))
+  )
 Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
-LazyData: true
-URL: https://github.com/r-lib/gh#readme
+URL: https://gh.r-lib.org/, https://github.com/r-lib/gh#readme
 BugReports: https://github.com/r-lib/gh/issues
+Depends: R (>= 3.4)
+Imports:
+    cli (>= 3.0.1),
+    gitcreds,
+    httr (>= 1.2),
+    ini,
+    jsonlite
 Suggests:
     covr,
-    keyring,
-    pingr,
-    testthat,
+    knitr,
+    mockery,
+    rmarkdown,
+    rprojroot,
+    spelling,
+    testthat (>= 3.0.0),
     withr
-Imports:
-    cli (>= 2.0.1),
-    ini,
-    jsonlite,
-    httr (>= 1.2)
-RoxygenNote: 7.0.2.9000
-Roxygen: { loadNamespace("roxygenlabs"); list(markdown = TRUE) }
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
+Language: en-US
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2.9000
+Config/testthat/edition: 3
+Config/Needs/website: tidyverse/tidytemplate

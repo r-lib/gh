@@ -16,6 +16,6 @@ print.gh_response <- function(x, ...) {
     attr(x, ".send_headers") <- NULL
     print.default(x)
   } else {
-    print(toJSON(unclass(x), pretty = TRUE, auto_unbox = TRUE))
+    print(toJSON(unclass(x), pretty = TRUE, auto_unbox = TRUE, force = TRUE))
   }
 }

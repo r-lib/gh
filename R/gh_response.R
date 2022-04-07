@@ -16,7 +16,7 @@ gh_process_response <- function(response) {
   } else if (is_raw) {
     res <- content(response, as = "raw")
   } else if (content_type == "application/octet-stream" &&
-             length(content(response, as = "raw")) == 0) {
+    length(content(response, as = "raw")) == 0) {
     res <- NULL
   } else {
     if (grepl("^text/html", content_type, ignore.case = TRUE)) {
@@ -38,29 +38,21 @@ gh_process_response <- function(response) {
   res
 }
 
-## https://developer.github.com/v3/#client-errors
-gh_error <- function(response, call = sys.call(-1)) {
+# https://docs.github.com/v3/#client-errors
+gh_error <- function(response, call = rlang::caller_env()) {
   heads <- headers(response)
   res <- content(response)
   status <- status_code(response)
 
-  if (!length(res)) {
-    res <- list(message = "Empty Body\n")
-  }
+  msg <- "GitHub API error ({status}): {heads$status %||% ''} {res$message}"
 
-  msg <- c(
-    "",
-    paste0("GitHub API error (", status, "): ", heads$status),
-    paste0("Message: ", res$message)
-  )
+  if (status == 404) {
+    msg <- c(msg, x = c("URL not found: {.url {response$request$url}}"))
+  }
 
   doc_url <- res$documentation_url
   if (!is.null(doc_url)) {
-    msg <- append(msg, paste0("Read more at ", doc_url))
-  }
-
-  if (status == 404) {
-    msg <- append(msg, c("", paste0("URL not found: ", response$request$url)))
+    msg <- c(msg, c("i" = "Read more at {.url {doc_url}}"))
   }
 
   errors <- res$errors
@@ -68,25 +60,17 @@ gh_error <- function(response, call = sys.call(-1)) {
     errors <- as.data.frame(do.call(rbind, errors))
     nms <- c("resource", "field", "code", "message")
     nms <- nms[nms %in% names(errors)]
-    msg <- append(
+    msg <- c(
       msg,
-      c("",
-        "Errors:",
-        capture.output(print(errors[nms], row.names = FALSE))
-      )
+      capture.output(print(errors[nms], row.names = FALSE))
     )
   }
-  cond <- structure(list(
+
+  cli::cli_abort(
+    msg,
+    class = c("github_error", paste0("http_error_", status)),
     call = call,
-    message = paste0(msg, collapse = "\n"),
     response_headers = heads,
-    response_content = content(response)
-  ),
-  class = c(
-    "github_error",
-    paste0("http_error_", status),
-    "error",
-    "condition"
-  ))
-  throw(cond)
+    response_content = res
+  )
 }

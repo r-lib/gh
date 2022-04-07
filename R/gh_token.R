@@ -1,184 +1,126 @@
-
 #' Return the local user's GitHub Personal Access Token (PAT)
 #'
-#' You can read more about PATs here:
-#' <https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/>
-#' and you can access your PATs here (if logged in to GitHub):
-#' <https://github.com/settings/tokens>.
+#' @description
+#' If gh can find a personal access token (PAT) via `gh_token()`, it includes
+#' the PAT in its requests. Some requests succeed without a PAT, but many
+#' require a PAT to prove the request is authorized by a specific GitHub user. A
+#' PAT also helps with rate limiting. If your gh use is more than casual, you
+#' want a PAT.
 #'
-#' Set the `GITHUB_PAT` environment variable to avoid having to include
-#' your PAT in the code. If you work with multiple GitHub deployments,
-#' e.g. via GitHub Enterprise, then read 'PATs for GitHub Enterprise' below.
+#' gh calls [gitcreds::gitcreds_get()] with the `api_url`, which checks session
+#' environment variables and then the local Git credential store for a PAT
+#' appropriate to the `api_url`. Therefore, if you have previously used a PAT
+#' with, e.g., command line Git, gh may retrieve and re-use it. You can call
+#' [gitcreds::gitcreds_get()] directly, yourself, if you want to see what is
+#' found for a specific URL. If no matching PAT is found,
+#' [gitcreds::gitcreds_get()] errors, whereas `gh_token()` does not and,
+#' instead, returns `""`.
 #'
-#' If you want a more secure solution than putting authentication tokens
-#' into environment variables, read 'Storing PATs in the system keyring'
-#' below.
+#' See GitHub's documentation on [Creating a personal access
+#' token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token),
+#' or use `usethis::create_github_token()` for a guided experience, including
+#' pre-selection of recommended scopes. Once you have a PAT, you can use
+#' [gitcreds::gitcreds_set()] to add it to the Git credential store. From that
+#' point on, gh (via [gitcreds::gitcreds_get()]) should be able to find it
+#' without further effort on your part.
 #'
-#' @section PATs for GitHub Enterprise:
+#' @param api_url GitHub API URL. Defaults to the `GITHUB_API_URL` environment
+#'   variable, if set, and otherwise to <https://api.github.com>.
 #'
-#' gh lets you use different PATs for different GitHub API URLs, by looking
-#' for the PAT in an URL specific environment variable first. It uses
-#' [slugify_url()] to compute a suffix from the API URL, by extracting the
-#' host name and removing the protocol and the path from it, and replacing
-#' special characters with underscores. This suffix is added to
-#' `GITHUB_PAT_` then. For example for the default API URL:
-#' <https://api.github.com>, the `GITHUB_PAT_API_GITHUB_COM` environment
-#' variable is consulted first.
+#' @return A string of characters, if a PAT is found, or the empty
+#'   string, otherwise. For convenience, the return value has an S3 class in
+#'   order to ensure that simple printing strategies don't reveal the entire
+#'   PAT.
 #'
-#' You can set the default API URL via the `GITHUB_API_URL` environment
-#' variable.
-#'
-#' If the API URL specific environment variable is not set, then gh falls
-#' back to `GITHUB_PAT` and then to `GITHUB_TOKEN'.
-#'
-#' @section Storing PATs in the system keyring:
-#'
-#' gh supports storing your PAT in the system keyring, on Windows, macOS
-#' and Linux, using the keyring package. To turn on keyring support, you
-#' need to set the `GH_KEYRING` environment variables to `true`, in your
-#' `.Renviron` file or profile.
-#'
-#' If keyring support is turned on, then for each PAT environment variable,
-#' gh first checks whether the key with that value is set in the system
-#' keyring, and if yes, it will use its value as the PAT. I.e. without a
-#' custom `GITHUB_API_URL` variable, it checks the
-#' `GITHUB_PAT_API_GITHUB_COM` key first, then the env var with the same
-#' name, then the `GITHUB_PAT` key, etc. Such a check looks like this:
-#'
-#' ```r
-#' keyring::key_get("GITHUB_PAT_API_GITHUB_COM")
-#' ```
-#'
-#' and it uses the default keyring backend and the default keyring within
-#' that backend. See [keyring::default_backend()] for details and changing
-#' these defaults.
-#'
-#' If the selected keyring is locked, and the session is interactive,
-#' then gh will try to unlock it. If the keyring is locked, and the session
-#' is not interactive, then gh will not use the keyring. Note that some
-#' keyring backends cannot be locked (e.g. the one that uses environment
-#' variables).
-#'
-#' On some OSes, e.g. typically on macOS, you need to allow R to access the
-#' system keyring. You can allow this separately for each access, or for
-#' all future accesses, until you update or re-install R. You typically
-#' need to give access to each R GUI (e.g. RStudio) and the command line
-#' R program separately.
-#'
-#' To store your PAT on the keyring run
-#' ```r
-#' keyring::key_set("GITHUB_PAT")
-#' ```
-#'
-#' @param api_url Github API url. Defaults to `GITHUB_API_URL`
-#' environment variable if set, otherwise <https://api.github.com>.
-#'
-#' @return A string, with the token, or a zero length string scalar,
-#' if no token is available.
-#'
-#' @seealso [slugify_url()] for computing the environment variables that
-#' gh uses to search for API URL specific PATs.
 #' @export
-
+#'
+#' @examples
+#' \dontrun{
+#' gh_token()
+#'
+#' format(gh_token())
+#'
+#' str(gh_token())
+#' }
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
-  token_env_var <- paste0("GITHUB_PAT_", slugify_url(api_url))
-  get_first_token_found(c(token_env_var, "GITHUB_PAT", "GITHUB_TOKEN"))
-}
-
-#' @importFrom cli cli_alert_info
-
-should_use_keyring <- function() {
-  # Opt in?
-  if (tolower(Sys.getenv("GH_KEYRING", "")) != "true") return(FALSE)
-
-  # Can we load the package?
-  if (!can_load("keyring")) {
-    cli_alert_info("{.pkg gh}: the {.pkg keyring} package is not available")
-    return(FALSE)
-  }
-
-  # If is_locked() errors, the keyring cannot be locked, and we'll use it
-  err <- FALSE
-  tryCatch(
-    locked <- keyring::keyring_is_locked(),
-    error = function(e) err <- TRUE
+  stopifnot(is.character(api_url), length(api_url) == 1)
+  token <- tryCatch(
+    gitcreds::gitcreds_get(get_hosturl(api_url)),
+    error = function(e) NULL
   )
-  if (err) return(TRUE)
-
-  # Otherwise if locked, and non-interactive session, we won't use it
-  if (locked && ! is_interactive()) {
-    cli_alert_info("{.pkg gh}: default keyring is locked")
-    return(FALSE)
-  }
-
-  # Otherwise if locked, we try to unlock it here. Otherwise key_get()
-  # would unlock it, but if that fails, we'll get multiple unlock dialogs
-  # It is better to fail here, once and for all.
-  if (locked) {
-    err <- FALSE
-    tryCatch(keyring::keyring_unlock(), error = function(e) err <- TRUE)
-    if (err) {
-      cli_alert_info("{.pkg gh}: failed to unlock default keyring")
-      return(FALSE)
-    }
-  }
-
-  TRUE
-}
-
-get_first_token_found <- function(vars) {
-  if (length(vars) == 0) return("")
-  has_keyring <- should_use_keyring()
-  val <- ""
-  key_get <- function(v) {
-    if (has_keyring) tryCatch(keyring::key_get(v), error = function(e) NULL)
-  }
-  for (var in vars) {
-    if ((val <- key_get(var) %||% "") != "") break
-    if ((val <- Sys.getenv(var, "")) != "") break
-  }
-
-  val
+  gh_pat(token$password %||% "")
 }
 
 gh_auth <- function(token) {
   if (isTRUE(token != "")) {
-    c("Authorization" = paste("token", token))
+    if (any(grepl("\\W", token))) {
+      warning("Token contains whitespace characters")
+    }
+    c("Authorization" = paste("token", trim_ws(token)))
   } else {
     character()
   }
 }
 
-#' Compute the suffix that gh uses for GitHub API URL specific PATs
-#'
-#' @param url Character vector HTTP/HTTPS URLs.
-#' @return Character vector of suffixes.
-#'
-#' @seealso [gh_token()]
-#' @export
-#' @examples
-#' # The main GH site
-#' slugify_url("https://api.github.com")
-#'
-#' # A custom one
-#' slugify_url("https://github.acme.com")
-
-slugify_url <- function(url) {
-  if (!any(grepl("^https?://", url))) {
-    stop("Only works with HTTP(S) protocols")
+# gh_pat class: exists in order have a print method that hides info ----
+new_gh_pat <- function(x) {
+  if (is.character(x) && length(x) == 1) {
+    structure(x, class = "gh_pat")
+  } else {
+    cli::cli_abort("A GitHub PAT must be a string")
   }
-  x2 <- sub("^.*://([^/]*@)?", "", url)
-  x3 <- sub("/+$", "", x2)
-  x4 <- gsub("[./]+", "_", x3)
-  x5 <- gsub("[^-a-zA-Z0-9_]", "", x4)
-  toupper(x5)
 }
 
-get_baseurl <- function(x) {
-  if (!any(grepl("^https?://", x))) stop("Only works with HTTP(S) protocols")
-  prot <- sub("^(https?://).*$", "\\1", x)
-  rest <- sub("^https?://(.*)$", "\\1", x)
-  host <- sub("/.*$", "", rest)
-  paste0(prot, host)
+# validates PAT only in a very narrow, technical, and local sense
+validate_gh_pat <- function(x) {
+  stopifnot(inherits(x, "gh_pat"))
+  if (x == "" ||
+    # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
+    grepl("^gh[pousr]_[A-Za-z0-9_]{36,251}$", x) ||
+    grepl("[[:xdigit:]]{40}", x)) {
+    x
+  } else {
+    url <- "https://gh.r-lib.org/articles/managing-personal-access-tokens.html"
+    cli::cli_abort(c(
+      "Invalid GitHib PAT format",
+      "i" = "A GitHub PAT must have one of two forms:",
+      "*" = "40 hexadecimal digits (older PATs)",
+      "*" = "A 'ghp_' prefix followed by 36 to 251 more characters (newer PATs)",
+      "i" = "Read more at {.url {url}}."
+    ))
+  }
+}
+
+gh_pat <- function(x) {
+  validate_gh_pat(new_gh_pat(x))
+}
+
+#' @export
+format.gh_pat <- function(x, ...) {
+  if (x == "") {
+    "<no PAT>"
+  } else {
+    obfuscate(x)
+  }
+}
+
+#' @export
+print.gh_pat <- function(x, ...) {
+  cat(format(x), sep = "\n")
+  invisible(x)
+}
+
+#' @export
+str.gh_pat <- function(object, ...) {
+  cat(paste0("<gh_pat> ", format(object), "\n", collapse = ""))
+  invisible()
+}
+
+obfuscate <- function(x, first = 4, last = 4) {
+  paste0(
+    substr(x, start = 1, stop = first),
+    "...",
+    substr(x, start = nchar(x) - last + 1, stop = nchar(x))
+  )
 }

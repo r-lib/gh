@@ -1,12 +1,10 @@
-context("github_remote")
-
 test_that("picks origin if available", {
   remotes <- list(
     upstream = "https://github.com/x/1",
     origin = "https://github.com/x/2"
   )
 
-  expect_warning(gr <- github_remote(remotes), "Using origin")
+  expect_warning(gr <- github_remote(remotes, "."), "Using origin")
   expect_equal(gr$repo, "2")
 })
 
@@ -16,7 +14,7 @@ test_that("otherwise picks first", {
     b = "https://github.com/x/2"
   )
 
-  expect_warning(gr <- github_remote(remotes), "Using first")
+  expect_warning(gr <- github_remote(remotes, "."), "Using first")
   expect_equal(gr$repo, "1")
 })
 

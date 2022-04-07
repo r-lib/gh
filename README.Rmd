@@ -1,25 +1,30 @@
+---
+output: github_document
+---
 
-```{r, setup, echo = FALSE, message = FALSE}
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
+  collapse = TRUE,
   comment = "#>",
-  tidy = FALSE,
-  error = FALSE,
-  fig.width = 8,
-  fig.height = 8)
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
 ```
 
 # gh
 
-> GitHub API
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
+[![Codecov test coverage](https://codecov.io/gh/r-lib/gh/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/gh?branch=main)
+[![](https://www.r-pkg.org/badges/version/gh)](https://www.r-pkg.org/pkg/gh)
+[![CRAN RStudio mirror downloads](https://cranlogs.r-pkg.org/badges/gh)](https://www.r-pkg.org/pkg/gh)
+[![R-CMD-check](https://github.com/r-lib/gh/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/gh/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
-[![Linux Build Status](https://travis-ci.org/r-lib/gh.svg?branch=master)](https://travis-ci.org/r-lib/gh)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/r-lib/gh?svg=true)](https://ci.appveyor.com/project/gaborcsardi/gh)
-[![](http://www.r-pkg.org/badges/version/gh)](http://www.r-pkg.org/pkg/gh)
-[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/gh)](http://www.r-pkg.org/pkg/gh)
-[![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/gh/master.svg)](https://codecov.io/github/r-lib/gh?branch=master)
-
-Minimalistic client to access
-[GitHub's API v3](https://developer.github.com/v3/).
+Minimalistic client to access GitHub's
+[REST](https://docs.github.com/rest) and [GraphQL](https://docs.github.com/graphql) APIs.
 
 ## Installation
 
@@ -36,19 +41,17 @@ library(gh)
 ```
 
 Use the `gh()` function to access all API endpoints. The endpoints are
-listed in the [documentation](https://developer.github.com/v3/).
+listed in the [documentation](https://docs.github.com/rest).
 
 The first argument of `gh()` is the endpoint. You can just copy and paste the 
 API endpoints from the documentation. Note that the leading slash
 must be included as well. 
 
-From
-[https://developer.github.com/v3/repos/#list-user-repositories](https://developer.github.com/v3/repos/#list-user-repositories)
-you can copy and paste `GET /users/:username/repos` into your `gh()`
+From <https://docs.github.com/rest/reference/repos#list-repositories-for-a-user> you can copy and paste `GET /users/{username}/repos` into your `gh()`
 call. E.g.
 
 ```{r}
-my_repos <- gh("GET /users/:username/repos", username = "gaborcsardi")
+my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
 ```
 
@@ -57,11 +60,11 @@ The JSON result sent by the API is converted to an R object.
 Parameters can be passed as extra arguments. E.g.
 
 ```{r}
-my_public_repos <- gh(
-  "/users/:username/repos",
+my_repos <- gh(
+  "/users/{username}/repos",
   username = "gaborcsardi",
-  type = "public")
-vapply(my_public_repos, "[[", "", "name")
+  sort = "created")
+vapply(my_repos, "[[", "", "name")
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -77,7 +80,7 @@ new_repo <- gh("POST /user/repos", name = "my-new-repo-for-gh-testing")
 and then delete it:
 
 ```{r eval = FALSE}
-gh("DELETE /repos/:owner/:repo", owner = "gaborcsardi",
+gh("DELETE /repos/{owner}/{repo}", owner = "gaborcsardi",
    repo = "my-new-repo-for-gh-testing")
 ```
 
@@ -91,8 +94,7 @@ one can set the `.token` argument of `gh()`.
 Supply the `page` parameter to get subsequent pages:
 
 ```{r}
-my_repos2 <- gh("GET /users/:username/repos", username = "gaborcsardi",
-  type = "public", page = 2)
+my_repos2 <- gh("GET /orgs/{org}/repos", org = "r-lib", page = 2)
 vapply(my_repos2, "[[", "", "name")
 ```
 
@@ -103,6 +105,11 @@ vapply(my_repos2, "[[", "", "name")
 * One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in
   this order, as default token.
 
+## Code of Conduct
+
+Please note that the gh project is released with a
+[Contributor Code of Conduct](https://gh.r-lib.org/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
 
 ## License
 

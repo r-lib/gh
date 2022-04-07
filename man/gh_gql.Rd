@@ -4,51 +4,23 @@
 \alias{gh_gql}
 \title{A simple interface for the GitHub GraphQL API v4.}
 \usage{
-gh_gql(
-  query,
-  ...,
-  .token = NULL,
-  .destfile = NULL,
-  .overwrite = FALSE,
-  .api_url = NULL,
-  .send_headers = NULL
-)
+gh_gql(query, ...)
 }
 \arguments{
 \item{query}{The GraphQL query, as a string.}
 
-\item{...}{Name-value pairs giving API parameters. Will be matched
-into \code{endpoint} placeholders, sent as query parameters in GET
-requests, and as a JSON body of POST requests. If there is only one
-unnamed parameter, and it is a raw vector, then it will not be JSON
-encoded, but sent as raw data, as is. This can be used for example to
-add assets to releases. Named \code{NULL} values are silently dropped,
-and named \code{NA} values trigger an error.}
-
-\item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
-\code{GITHUB_TOKEN} environment variables, in this order if any is set.
-See \code{\link[=gh_token]{gh_token()}} if you need more flexibility, e.g. different tokens
-for different GitHub Enterprise deployments.}
-
-\item{.destfile}{path to write response to disk.  If NULL (default), response will
-be processed and returned as an object.  If path is given, response will
-be written to disk in the form sent.}
-
-\item{.overwrite}{if \code{.destfile} is provided, whether to overwrite an
-existing file.  Defaults to FALSE.}
-
-\item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
-if \code{endpoint} just contains a path. Defaults to \code{GITHUB_API_URL}
-environment variable if set.}
-
-\item{.send_headers}{Named character vector of header field values
-(except \code{Authorization}, which is handled via \code{.token}). This can be
-used to override or augment the default \code{User-Agent} header:
-\code{"https://github.com/r-lib/gh"}.}
+\item{...}{Name-value pairs giving API parameters. Will be matched into
+\code{endpoint} placeholders, sent as query parameters in GET requests, and as a
+JSON body of POST requests. If there is only one unnamed parameter, and it
+is a raw vector, then it will not be JSON encoded, but sent as raw data, as
+is. This can be used for example to add assets to releases. Named \code{NULL}
+values are silently dropped. For GET requests, named \code{NA} values trigger an
+error. For other methods, named \code{NA} values are included in the body of the
+request, as JSON \code{null}.}
 }
 \description{
 See more about the GraphQL API here:
-\url{https://developer.github.com/v4/}
+\url{https://docs.github.com/graphql}
 }
 \details{
 Note: pagination and the \code{.limit} argument does not work currently,
@@ -58,6 +30,21 @@ If you need pagination with GraphQL, you'll need to do that manually.
 \examples{
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 gh_gql("query { viewer { login }}")
+
+# Get rate limit
+ratelimit_query <- "query {
+  viewer {
+    login
+  }
+  rateLimit {
+    limit
+    cost
+    remaining
+    resetAt
+  }
+}"
+
+gh_gql(ratelimit_query)
 \dontshow{\}) # examplesIf}
 }
 \seealso{

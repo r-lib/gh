@@ -69,6 +69,8 @@ gh_error <- function(response, call = rlang::caller_env()) {
   cli::cli_abort(
     msg,
     class = c("github_error", paste0("http_error_", status)),
-    call = call
+    call = call,
+    response_headers = heads,
+    response_content = res
   )
 }

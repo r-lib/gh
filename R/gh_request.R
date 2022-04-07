@@ -1,6 +1,6 @@
 ## Main API URL
 default_api_url <- function() {
-  Sys.getenv('GITHUB_API_URL', unset = "https://api.github.com")
+  Sys.getenv("GITHUB_API_URL", unset = "https://api.github.com")
 }
 
 ## Headers to send with each API request
@@ -10,13 +10,14 @@ gh_build_request <- function(endpoint = "/user", params = list(),
                              token = NULL, destfile = NULL, overwrite = NULL,
                              accept = NULL, send_headers = NULL,
                              api_url = NULL, method = "GET") {
-
-  working <- list(method = method, url = character(), headers = NULL,
-                  query = NULL, body = NULL,
-                  endpoint = endpoint, params = params,
-                  token = token, accept = c(Accept = accept),
-                  send_headers = send_headers, api_url = api_url,
-                  dest = destfile, overwrite = overwrite)
+  working <- list(
+    method = method, url = character(), headers = NULL,
+    query = NULL, body = NULL,
+    endpoint = endpoint, params = params,
+    token = token, accept = c(Accept = accept),
+    send_headers = send_headers, api_url = api_url,
+    dest = destfile, overwrite = overwrite
+  )
 
   working <- gh_set_verb(working)
   working <- gh_set_endpoint(working)
@@ -34,7 +35,9 @@ gh_build_request <- function(endpoint = "/user", params = list(),
 ## x goes in, x comes out, possibly modified
 
 gh_set_verb <- function(x) {
-  if (!nzchar(x$endpoint)) return(x)
+  if (!nzchar(x$endpoint)) {
+    return(x)
+  }
 
   # No method defined, so use default
   if (grepl("^/", x$endpoint) || grepl("^http", x$endpoint)) {
@@ -96,7 +99,9 @@ gh_set_query <- function(x) {
 }
 
 gh_set_body <- function(x) {
-  if (length(x$params) == 0L) return(x)
+  if (length(x$params) == 0L) {
+    return(x)
+  }
   if (x$method == "GET") {
     warning("This is a 'GET' request and unnamed parameters are being ignored.")
     return(x)
@@ -121,14 +126,14 @@ gh_set_url <- function(x) {
   x
 }
 
-get_baseurl <- function(url) {               # https://github.uni.edu/api/v3/
+get_baseurl <- function(url) { # https://github.uni.edu/api/v3/
   if (!any(grepl("^https?://", url))) {
     stop("Only works with HTTP(S) protocols")
   }
   prot <- sub("^(https?://).*$", "\\1", url) # https://
   rest <- sub("^https?://(.*)$", "\\1", url) #         github.uni.edu/api/v3/
-  host <- sub("/.*$", "", rest)              #         github.uni.edu
-  paste0(prot, host)                         # https://github.uni.edu
+  host <- sub("/.*$", "", rest) #         github.uni.edu
+  paste0(prot, host) # https://github.uni.edu
 }
 
 # https://api.github.com --> https://github.com
@@ -191,7 +196,7 @@ gh_set_dest <- function(x) {
 # we support what the RFC calls "Level 1 templates", which only require
 # simple string expansion of a placeholder consisting of [A-Za-z0-9_]
 is_template <- function(x) {
- is_colon_template(x) || is_uri_template(x)
+  is_colon_template(x) || is_uri_template(x)
 }
 
 is_colon_template <- function(x) grepl(":", x)
@@ -212,10 +217,9 @@ expand_variable <- function(varname, value, template) {
   if (is.null(type)) {
     return(template)
   }
-  pattern <- switch(
-    type,
+  pattern <- switch(type,
     uri   = paste0("[{]", varname, "[}]"),
-    colon = paste0(":",   varname, "\\b"),
+    colon = paste0(":", varname, "\\b"),
     stop("Internal error: unrecognized template type")
   )
   gsub(pattern, value, template)

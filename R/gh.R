@@ -81,12 +81,10 @@
 #' ## Starred repositories of a user
 #' gh("/users/hadley/starred", .limit = 2)
 #' gh("/users/{username}/starred", username = "hadley", .limit = 2)
-#'
 #' @examplesIf FALSE
 #' ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
 #' ## environment variable
 #' gh("POST /user/repos", name = "foobar")
-#'
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Issues of a repository
 #' gh("/repos/hadley/dplyr/issues")
@@ -95,24 +93,20 @@
 #' ## Automatic pagination
 #' users <- gh("/users", .limit = 50)
 #' length(users)
-#'
 #' @examplesIf FALSE
 #' ## Access developer preview of Licenses API (in preview as of 2015-09-24)
 #' gh("/licenses") # used to error code 415
 #' gh("/licenses", .accept = "application/vnd.github.drax-preview+json")
-#'
 #' @examplesIf FALSE
 #' ## Access Github Enterprise API
 #' ## Use GITHUB_API_URL environment variable to change the default.
 #' gh("/user/repos", type = "public", .api_url = "https://github.foobar.edu/api/v3")
-#'
 #' @examplesIf FALSE
 #' ## Use I() to force body part to be sent as an array, even if length 1
 #' ## This works whether assignees has length 1 or > 1
 #' assignees <- "gh_user"
 #' assignees <- c("gh_user1", "gh_user2")
 #' gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
-#'
 #' @examplesIf FALSE
 #' ## There are two ways to send JSON data. One is that you supply one or
 #' ## more objects that will be converted to JSON automatically via
@@ -151,7 +145,6 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
                .overwrite = FALSE, .api_url = NULL, .method = "GET",
                .limit = NULL, .accept = "application/vnd.github.v3+json",
                .send_headers = NULL, .progress = TRUE, .params = list()) {
-
   params <- c(list(...), .params)
   params <- drop_named_nulls(params)
 
@@ -165,11 +158,13 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
     params <- c(params, list(per_page = per_page))
   }
 
-  req <- gh_build_request(endpoint = endpoint, params = params,
-                          token = .token, destfile = .destfile,
-                          overwrite = .overwrite, accept = .accept,
-                          send_headers = .send_headers,
-                          api_url = .api_url, method = .method)
+  req <- gh_build_request(
+    endpoint = endpoint, params = params,
+    token = .token, destfile = .destfile,
+    overwrite = .overwrite, accept = .accept,
+    send_headers = .send_headers,
+    api_url = .api_url, method = .method
+  )
 
 
   if (req$method == "GET") check_named_nas(params)
@@ -186,8 +181,8 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
     res2 <- gh_next(res)
 
     if (!is.null(names(res2)) && identical(names(res), names(res2))) {
-      res3 <- mapply(           # Handle named array case
-        function(x, y, n) {        # e.g. GET /search/repositories
+      res3 <- mapply( # Handle named array case
+        function(x, y, n) { # e.g. GET /search/repositories
           z <- c(x, y)
           atm <- is.atomic(z)
           if (atm && n %in% c("total_count", "incomplete_results")) {
@@ -201,8 +196,8 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
         res, res2, names(res),
         SIMPLIFY = FALSE
       )
-    } else {                    # Handle unnamed array case
-      res3 <- c(res, res2)      # e.g. GET /orgs/:org/invitations
+    } else { # Handle unnamed array case
+      res3 <- c(res, res2) # e.g. GET /orgs/:org/invitations
     }
 
     len <- len + gh_response_length(res2)
@@ -212,8 +207,8 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
   }
 
   # We only subset for a non-named response.
-  if (! is.null(.limit) && len > .limit &&
-      ! "total_count" %in% names(res) && length(res) == len) {
+  if (!is.null(.limit) && len > .limit &&
+    !"total_count" %in% names(res) && length(res) == len) {
     res_attr <- attributes(res)
     res <- res[seq_len(.limit)]
     attributes(res) <- res_attr
@@ -224,7 +219,7 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
 
 gh_response_length <- function(res) {
   if (!is.null(names(res)) && length(res) > 1 &&
-      names(res)[1] == "total_count") {
+    names(res)[1] == "total_count") {
     # Ignore total_count, incomplete_results, repository_selection
     # and take the first list element to get the length
     lst <- vapply(res, is.list, logical(1))
@@ -233,20 +228,25 @@ gh_response_length <- function(res) {
       c("total_count", "incomplete_results", "repository_selection")
     )
     tgt <- which(lst[nm])[1]
-    if (is.na(tgt)) length(res) else length(res[[ nm[tgt] ]])
+    if (is.na(tgt)) length(res) else length(res[[nm[tgt]]])
   } else {
     length(res)
   }
 }
 
 gh_make_request <- function(x) {
-
-  method_fun <- list("GET" = GET, "POST" = POST, "PATCH" = PATCH,
-                     "PUT" = PUT, "DELETE" = DELETE)[[x$method]]
+  method_fun <- list(
+    "GET" = GET, "POST" = POST, "PATCH" = PATCH,
+    "PUT" = PUT, "DELETE" = DELETE
+  )[[x$method]]
   if (is.null(method_fun)) throw(new_error("Unknown HTTP verb"))
 
-  raw <- do.call(method_fun,
-                 compact(list(url = x$url, query = x$query, body = x$body,
-                              add_headers(x$headers), x$dest)))
+  raw <- do.call(
+    method_fun,
+    compact(list(
+      url = x$url, query = x$query, body = x$body,
+      add_headers(x$headers), x$dest
+    ))
+  )
   raw
 }

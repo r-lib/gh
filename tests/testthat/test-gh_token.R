@@ -1,8 +1,8 @@
 test_that("URL specific token is used", {
-  good  <- gh_pat(strrep("a", 40))
+  good <- gh_pat(strrep("a", 40))
   good2 <- gh_pat(strrep("b", 40))
-  bad   <- gh_pat(strrep("0", 40))
-  bad2  <- gh_pat(strrep("1", 40))
+  bad <- gh_pat(strrep("0", 40))
+  bad2 <- gh_pat(strrep("1", 40))
 
   env <- c(
     GITHUB_API_URL = "https://github.acme.com",
@@ -29,7 +29,7 @@ test_that("URL specific token is used", {
 })
 
 test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
-  pat   <- gh_pat(strrep("a", 40))
+  pat <- gh_pat(strrep("a", 40))
   token <- gh_pat(strrep("0", 40))
 
   env <- c(

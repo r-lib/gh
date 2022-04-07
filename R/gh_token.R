@@ -54,7 +54,7 @@ gh_token <- function(api_url = NULL) {
 
 gh_auth <- function(token) {
   if (isTRUE(token != "")) {
-    if(any(grepl("\\W", token))) {
+    if (any(grepl("\\W", token))) {
       warning("Token contains whitespace characters")
     }
     c("Authorization" = paste("token", trim_ws(token)))
@@ -76,9 +76,9 @@ new_gh_pat <- function(x) {
 validate_gh_pat <- function(x) {
   stopifnot(inherits(x, "gh_pat"))
   if (x == "" ||
-      # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
-      grepl("^gh[pousr]_[A-Za-z0-9_]{36,251}$", x) ||
-      grepl("[[:xdigit:]]{40}", x)) {
+    # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
+    grepl("^gh[pousr]_[A-Za-z0-9_]{36,251}$", x) ||
+    grepl("[[:xdigit:]]{40}", x)) {
     x
   } else {
     throw(new_error(

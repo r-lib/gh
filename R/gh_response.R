@@ -16,7 +16,7 @@ gh_process_response <- function(response) {
   } else if (is_raw) {
     res <- content(response, as = "raw")
   } else if (content_type == "application/octet-stream" &&
-             length(content(response, as = "raw")) == 0) {
+    length(content(response, as = "raw")) == 0) {
     res <- NULL
   } else {
     if (grepl("^text/html", content_type, ignore.case = TRUE)) {
@@ -66,7 +66,8 @@ gh_error <- function(response, call = sys.call(-1)) {
     nms <- nms[nms %in% names(errors)]
     msg <- append(
       msg,
-      c("",
+      c(
+        "",
         "Errors:",
         capture.output(print(errors[nms], row.names = FALSE))
       )
@@ -81,6 +82,7 @@ gh_error <- function(response, call = sys.call(-1)) {
     paste0("http_error_", status),
     "error",
     "condition"
-  ))
+  )
+  )
   throw(cond)
 }

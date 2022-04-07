@@ -1,5 +1,4 @@
 test_that("whoami works in presence of PAT", {
-
   skip_if_offline("github.com")
   skip_on_cran()
   skip_if_no_token()
@@ -12,12 +11,13 @@ test_that("whoami works in presence of PAT", {
 })
 
 test_that("whoami works in absence of PAT", {
-
   skip_if_offline("github.com")
   skip_on_cran()
 
-  expect_message(res <- gh_whoami(.token = ""),
-                 "No personal access token \\(PAT\\) available.")
+  expect_message(
+    res <- gh_whoami(.token = ""),
+    "No personal access token \\(PAT\\) available."
+  )
   expect_null(res)
 })
 

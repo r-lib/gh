@@ -18,12 +18,14 @@
 #'
 #' @export
 
-gh_rate_limit = function(response = NULL, .token = NULL, .api_url = NULL, .send_headers = NULL) {
+gh_rate_limit <- function(response = NULL, .token = NULL, .api_url = NULL, .send_headers = NULL) {
   if (is.null(response)) {
     # This end point does not count against limit
     .token <- .token %||% gh_token(.api_url)
-    response <- gh("GET /rate_limit", .token = .token,
-                  .api_url = .api_url, .send_headers = .send_headers)
+    response <- gh("GET /rate_limit",
+      .token = .token,
+      .api_url = .api_url, .send_headers = .send_headers
+    )
   }
 
   stopifnot(inherits(response, "gh_response"))

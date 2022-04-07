@@ -9,7 +9,6 @@
 #' @export
 #' @examplesIf interactive()
 #' gh_tree_remote()
-
 gh_tree_remote <- function(path = ".") {
   github_remote(git_remotes(path))
 }
@@ -36,8 +35,12 @@ github_remote <- function(x) {
 }
 
 github_remote_parse <- function(x) {
-  if (length(x) == 0) return(NULL)
-  if (!grepl("github", x)) return(NULL)
+  if (length(x) == 0) {
+    return(NULL)
+  }
+  if (!grepl("github", x)) {
+    return(NULL)
+  }
 
   # https://github.com/hadley/devtools.git
   # https://github.com/hadley/devtools
@@ -46,8 +49,9 @@ github_remote_parse <- function(x) {
   m <- regexec(re, x)
   match <- regmatches(x, m)[[1]]
 
-  if (length(match) == 0)
+  if (length(match) == 0) {
     return(NULL)
+  }
 
   list(
     username = match[2],
@@ -72,7 +76,6 @@ git_config <- function(path = ".") {
   config_path <- file.path(repo_root(path), ".git", "config")
   if (!file.exists(config_path)) {
     throw(new_error("git config does not exist", call. = FALSE))
-
   }
   ini::read.ini(config_path, "UTF-8")
 }

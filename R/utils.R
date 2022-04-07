@@ -46,7 +46,9 @@ cleanse_names <- function(x) {
 ## http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2
 ## x will be default headers, y will be user-specified
 modify_vector <- function(x, y = NULL) {
-  if (length(y) == 0L) return(x)
+  if (length(y) == 0L) {
+    return(x)
+  }
   lnames <- function(x) tolower(names(x))
   c(x[!(lnames(x) %in% lnames(y))], y)
 }
@@ -66,14 +68,18 @@ probe <- function(.x, .p, ...) {
 }
 
 drop_named_nulls <- function(x) {
-  if (has_no_names(x)) return(x)
+  if (has_no_names(x)) {
+    return(x)
+  }
   named <- has_name(x)
   null <- vapply(x, is.null, logical(1))
-  cleanse_names(x[! named | ! null])
+  cleanse_names(x[!named | !null])
 }
 
 check_named_nas <- function(x) {
-  if (has_no_names(x)) return(x)
+  if (has_no_names(x)) {
+    return(x)
+  }
   named <- has_name(x)
   na <- vapply(x, FUN.VALUE = logical(1), function(v) {
     is.atomic(v) && anyNA(v)

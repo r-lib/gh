@@ -34,16 +34,16 @@ gh_has_next <- function(gh_response) {
 }
 
 gh_link_request <- function(gh_response, link) {
-
   stopifnot(inherits(gh_response, "gh_response"))
 
   url <- extract_link(gh_response, link)
-  if (is.na(url)) throw(new_error("No ", link, " page"))
+  if (is.na(url)) cli::cli_abort("No {link} page")
 
-  list(method = attr(gh_response, "method"),
-       url = url,
-       headers = attr(gh_response, ".send_headers"))
-
+  list(
+    method = attr(gh_response, "method"),
+    url = url,
+    headers = attr(gh_response, ".send_headers")
+  )
 }
 
 gh_link <- function(gh_response, link) {
@@ -82,7 +82,6 @@ gh_extract_pages <- function(gh_response) {
 #' vapply(x, "[[", character(1), "login")
 #' x2 <- gh_next(x)
 #' vapply(x2, "[[", character(1), "login")
-
 gh_next <- function(gh_response) gh_link(gh_response, "next")
 
 #' @name gh_next
@@ -128,8 +127,10 @@ update_progress_bar <- function(state, gh_response) {
 
   cli_status_update(
     state$status,
-    c("{.alert-info Running gh query, got {state$got} record{?s}}",
-      if (!is.null(total)) " of about {total}")
+    c(
+      "{.alert-info Running gh query, got {state$got} record{?s}}",
+      if (!is.null(total)) " of about {total}"
+    )
   )
 
   invisible(state)

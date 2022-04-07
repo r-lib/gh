@@ -161,11 +161,11 @@ gh("PATCH /repos/OWNER/REPO/issues/1", assignees = I(assignees))
 
 gh::gh(
   "POST /repos/{owner}/{repo}/pages",
-  owner = "gaborcsardi",
-  repo = "playground",
+  owner = "r-lib",
+  repo = "gh",
   source = list(
-    branch = jsonlite::unbox("master"),
-    path = jsonlite::unbox("/docs")
+    branch = jsonlite::unbox("gh-pages"),
+    path = jsonlite::unbox("/")
   ),
   .send_headers = c(Accept = "application/vnd.github.switcheroo-preview+json")
 )
@@ -173,11 +173,11 @@ gh::gh(
 ## The second way is to handle the JSON encoding manually, and supply it
 ## as a raw vector in an unnamed argument, and also a Content-Type header:
 
-body <- '{ "source": { "branch": "master", "path": "/docs" } }'
+body <- '{ "source": { "branch": "gh-pages", "path": "/" } }'
 gh::gh(
   "POST /repos/{owner}/{repo}/pages",
-  owner = "gaborcsardi",
-  repo = "playground",
+  owner = "r-lib",
+  repo = "gh",
   charToRaw(body),
   .send_headers = c(
     Accept = "application/vnd.github.switcheroo-preview+json",

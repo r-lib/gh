@@ -3,7 +3,6 @@ if (!exists("TMPL", environment(), inherits = FALSE)) {
 }
 
 test_that("repos, some basics", {
-
   skip_if_offline("github.com")
   skip_on_cran()
   skip_if_no_token()
@@ -131,8 +130,10 @@ test_that("repo files", {
     .token = tt()
   )
 
-  expect_equal(attr(res, "response")[["x-github-media-type"]],
-               "github.v3; param=raw")
+  expect_equal(
+    attr(res, "response")[["x-github-media-type"]],
+    "github.v3; param=raw"
+  )
   expect_equal(class(res), c("gh_response", "raw"))
 
   tmp <- tempfile()
@@ -150,6 +151,5 @@ test_that("repo files", {
     .token = tt()
   )
   expect_equal(class(res_file), c("gh_response", "path"))
-  expect_equivalent(res, jsonlite::fromJSON(res_file,  simplifyVector = FALSE))
-
-  })
+  expect_equivalent(res, jsonlite::fromJSON(res_file, simplifyVector = FALSE))
+})

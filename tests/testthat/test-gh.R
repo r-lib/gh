@@ -8,17 +8,20 @@ test_that(".params works", {
 
   expect_error(
     gh("POST /repos/:org/:repo/issues/:number/labels",
-       org = "ORG", repo = "REPO", number = "1")
+      org = "ORG", repo = "REPO", number = "1"
+    )
   )
 
   expect_error(
     gh("POST /repos/:org/:repo/issues/:number/labels",
-       org = "ORG", repo = "REPO", .params = list(number = "1"))
+      org = "ORG", repo = "REPO", .params = list(number = "1")
+    )
   )
 
   expect_error(
     gh("POST /repos/:org/:repo/issues/:number/labels",
-       .params = list(org = "ORG", repo = "REPO", number = "1"))
+      .params = list(org = "ORG", repo = "REPO", number = "1")
+    )
   )
 
   expect_identical(reqs[[1]], reqs[[2]])

@@ -7,10 +7,11 @@
 
 [![R-CMD-check](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/r-lib/gh/branch/main/graph/badge.svg)](https://codecov.io/gh/r-lib/gh?branch=main)
+coverage](https://codecov.io/gh/r-lib/gh/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/gh?branch=main)
 [![](https://www.r-pkg.org/badges/version/gh)](https://www.r-pkg.org/pkg/gh)
 [![CRAN RStudio mirror
 downloads](https://cranlogs.r-pkg.org/badges/gh)](https://www.r-pkg.org/pkg/gh)
+[![R-CMD-check](https://github.com/r-lib/gh/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/gh/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Minimalistic client to access GitHub’s
@@ -47,13 +48,13 @@ call. E.g.
 my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
 #>  [1] "after"         "alexr"         "altlist"       "argufy"       
-#>  [5] "async"         "brokenPackage" "css"           "curl"         
-#>  [9] "disposables"   "dotenv"        "falsy"         "franc"        
-#> [13] "fswatch"       "ISA"           "keynote"       "keypress"     
-#> [17] "lpSolve"       "macBriain"     "maxygen"       "MISO"         
-#> [21] "msgtools"      "multicolor"    "notifier"      "odbc"         
-#> [25] "parr"          "parsedate"     "pkgdepends"    "pkgload"      
-#> [29] "prompt"        "purrr"
+#>  [5] "ask"           "async"         "brokenPackage" "butcher"      
+#>  [9] "css"           "curl"          "disposables"   "dotenv"       
+#> [13] "empty"         "falsy"         "finmix"        "franc"        
+#> [17] "fswatch"       "homebrew-rim"  "ISA"           "keynote"      
+#> [21] "keypress"      "lpSolve"       "macBriain"     "maxygen"      
+#> [25] "MISO"          "msgtools"      "multicolor"    "notifier"     
+#> [29] "odbc"          "parr"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -66,16 +67,16 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "tune"               "multicolor"         "pkgdepends"        
-#>  [4] "css"                "curl"               "usethis2"          
-#>  [7] "r-debug"            "purrr"              "redfish"           
-#> [10] "win32-console-docs" "vt100-emulator"     "RSQLite"           
-#> [13] "pkgload"            "rencfaq"            "renv"              
-#> [16] "stockfish"          "brokenPackage"      "textshaping"       
-#> [19] "odbc"               "testthatlabs"       "keynote"           
-#> [22] "lpSolve"            "roxygenlabs"        "standalones"       
-#> [25] "altlist"            "svg-term"           "franc"             
-#> [28] "sankey"             "async"              "r-source"
+#>  [1] "r-builds"              "homebrew-rim"          "rgdal"                
+#>  [4] "readxl"                "sdcHierarchies"        "skopeo"               
+#>  [7] "playground"            "r-system-requirements" "butcher"              
+#> [10] "tidyr"                 "empty"                 "rim"                  
+#> [13] "tidyverse.org"         "finmix"                "tune"                 
+#> [16] "multicolor"            "pkgdepends"            "css"                  
+#> [19] "curl"                  "usethis2"              "r-debug"              
+#> [22] "purrr"                 "redfish"               "win32-console-docs"   
+#> [25] "vt100-emulator"        "RSQLite"               "pkgload"              
+#> [28] "rencfaq"               "renv"                  "stockfish"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -107,12 +108,12 @@ Supply the `page` parameter to get subsequent pages:
 ``` r
 my_repos2 <- gh("GET /orgs/{org}/repos", org = "r-lib", page = 2)
 vapply(my_repos2, "[[", "", "name")
-#>  [1] "jose"        "backports"   "rcmdcheck"   "vdiffr"      "callr"      
-#>  [6] "mockery"     "here"        "revdepcheck" "processx"    "vctrs"      
-#> [11] "debugme"     "usethis"     "rlang"       "pkgload"     "httrmock"   
-#> [16] "pkgbuild"    "prettycode"  "roxygen2md"  "pkgapi"      "zeallot"    
-#> [21] "liteq"       "keyring"     "sloop"       "styler"      "ansistrings"
-#> [26] "archive"     "later"       "crancache"   "zip"         "osname"
+#>  [1] "gargle"      "remotes"     "jose"        "backports"   "rcmdcheck"  
+#>  [6] "vdiffr"      "callr"       "mockery"     "here"        "revdepcheck"
+#> [11] "processx"    "vctrs"       "debugme"     "usethis"     "rlang"      
+#> [16] "pkgload"     "httrmock"    "pkgbuild"    "prettycode"  "roxygen2md" 
+#> [21] "pkgapi"      "zeallot"     "liteq"       "keyring"     "sloop"      
+#> [26] "styler"      "ansistrings" "archive"     "later"       "crancache"
 ```
 
 ## Environment Variables
@@ -121,6 +122,12 @@ vapply(my_repos2, "[[", "", "name")
     github api url.
 -   One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used,
     in this order, as default token.
+
+## Code of Conduct
+
+Please note that the gh project is released with a [Contributor Code of
+Conduct](https://gh.r-lib.org/CODE_OF_CONDUCT.html). By contributing to
+this project, you agree to abide by its terms.
 
 ## License
 

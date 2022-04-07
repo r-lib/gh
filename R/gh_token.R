@@ -54,7 +54,7 @@ gh_token <- function(api_url = NULL) {
 
 gh_auth <- function(token) {
   if (isTRUE(token != "")) {
-    if(any(grepl("\\W", token))) {
+    if (any(grepl("\\W", token))) {
       warning("Token contains whitespace characters")
     }
     c("Authorization" = paste("token", trim_ws(token)))
@@ -68,7 +68,7 @@ new_gh_pat <- function(x) {
   if (is.character(x) && length(x) == 1) {
     structure(x, class = "gh_pat")
   } else {
-    throw(new_error("A GitHub PAT must be a string", call. = FALSE))
+    cli::cli_abort("A GitHub PAT must be a string")
   }
 }
 
@@ -76,16 +76,18 @@ new_gh_pat <- function(x) {
 validate_gh_pat <- function(x) {
   stopifnot(inherits(x, "gh_pat"))
   if (x == "" ||
-      # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
-      grepl("^gh[pousr]_[A-Za-z0-9_]{36,251}$", x) ||
-      grepl("[[:xdigit:]]{40}", x)) {
+    # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
+    grepl("^gh[pousr]_[A-Za-z0-9_]{36,251}$", x) ||
+    grepl("[[:xdigit:]]{40}", x)) {
     x
   } else {
-    throw(new_error(
-      "GitHub PAT must have one of these forms:",
-      "\n  * 40 hexadecimal digits (older PATs)",
-      "\n  * A 'ghp_' prefix followed by 36 to 251 more characters (newer PATs)",
-      call. = FALSE
+    url <- "https://gh.r-lib.org/articles/managing-personal-access-tokens.html"
+    cli::cli_abort(c(
+      "Invalid GitHib PAT format",
+      "i" = "A GitHub PAT must have one of two forms:",
+      "*" = "40 hexadecimal digits (older PATs)",
+      "*" = "A 'ghp_' prefix followed by 36 to 251 more characters (newer PATs)",
+      "i" = "Read more at {.url {url}}."
     ))
   }
 }

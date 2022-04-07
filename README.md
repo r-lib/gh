@@ -116,6 +116,12 @@ vapply(my_repos2, "[[", "", "name")
   - One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used,
     in this order, as default token.
 
+## Code of Conduct
+
+Please note that the gh project is released with a [Contributor Code of
+Conduct](https://gh.r-lib.org/CODE_OF_CONDUCT.html). By contributing to
+this project, you agree to abide by its terms.
+
 ## License
 
 MIT © Gábor Csárdi, Jennifer Bryan, Hadley Wickham

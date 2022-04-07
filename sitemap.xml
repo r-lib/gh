@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://gh.r-lib.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/articles/managing-personal-access-tokens.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://gh.r-lib.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://gh.r-lib.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://gh.r-lib.org/reference/gh-package.html</loc>
@@ -28,9 +49,9 @@
     <loc>https://gh.r-lib.org/reference/gh_whoami.html</loc>
   </url>
   <url>
-    <loc>https://gh.r-lib.org/reference/print.gh_response.html</loc>
+    <loc>https://gh.r-lib.org/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://gh.r-lib.org/articles/managing-personal-access-tokens.html</loc>
+    <loc>https://gh.r-lib.org/reference/print.gh_response.html</loc>
   </url>
 </urlset>

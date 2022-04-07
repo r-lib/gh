@@ -4,113 +4,94 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="Minimal client to access the GitHub API.">
 <title>GitHub API • gh</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Source%20Sans%20Pro-0.4.1/font.css" rel="stylesheet">
+<link href="deps/_Source%20Code%20Pro-0.4.1/font.css" rel="stylesheet">
+<!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="GitHub API">
+<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="GitHub API">
 <meta property="og:description" content="Minimal client to access the GitHub API.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-115082821-1');
-</script>
+<![endif]--><script defer data-domain="gh.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-home">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">gh</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.0</span>
-      </span>
-    </div>
+<body>
+    <a href="#container" class="visually-hidden-focusable">Skip to content</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-none"><div class="container">
+    
+    <a class="navbar-brand me-2" href="index.html">gh</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.0</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/managing-personal-access-tokens.html">Managing Personal Access Tokens</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/r-lib/gh/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/managing-personal-access-tokens.html">Managing Personal Access Tokens</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/r-lib/gh/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
-
-      </header><div class="row">
-  <div class="contents col-md-9">
-<div id="gh" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#gh" class="anchor"></a>gh</h1></div>
+    
+  </div>
+</nav><div class="container template-home" id="container">
+<div class="row">
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="gh">gh<a class="anchor" aria-label="anchor" href="#gh"></a>
+</h1></div>
 <!-- badges: start -->
 
-<p>Minimalistic client to access GitHub’s <a href="https://docs.github.com/rest">REST</a> and <a href="https://docs.github.com/graphql">GraphQL</a> APIs.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<p>Minimalistic client to access GitHub’s <a href="https://docs.github.com/rest" class="external-link">REST</a> and <a href="https://docs.github.com/graphql" class="external-link">GraphQL</a> APIs.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>Install the package from CRAN as usual:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"gh"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gh"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://gh.r-lib.org/">gh</a></span><span class="op">)</span></code></pre></div>
-<p>Use the <code><a href="reference/gh.html">gh()</a></code> function to access all API endpoints. The endpoints are listed in the <a href="https://docs.github.com/rest">documentation</a>.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gh.r-lib.org/">gh</a></span><span class="op">)</span></code></pre></div>
+<p>Use the <code><a href="reference/gh.html">gh()</a></code> function to access all API endpoints. The endpoints are listed in the <a href="https://docs.github.com/rest" class="external-link">documentation</a>.</p>
 <p>The first argument of <code><a href="reference/gh.html">gh()</a></code> is the endpoint. You can just copy and paste the API endpoints from the documentation. Note that the leading slash must be included as well.</p>
-<p>From <a href="https://docs.github.com/rest/reference/repos#list-repositories-for-a-user" class="uri">https://docs.github.com/rest/reference/repos#list-repositories-for-a-user</a> you can copy and paste <code>GET /users/{username}/repos</code> into your <code><a href="reference/gh.html">gh()</a></code> call. E.g.</p>
+<p>From <a href="https://docs.github.com/rest/reference/repos#list-repositories-for-a-user" class="external-link uri">https://docs.github.com/rest/reference/repos#list-repositories-for-a-user</a> you can copy and paste <code>GET /users/{username}/repos</code> into your <code><a href="reference/gh.html">gh()</a></code> call. E.g.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /users/{username}/repos"</span>, username <span class="op">=</span> <span class="st">"gaborcsardi"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "alexr"        "altlist"      "argufy"       "disposables"  "dotenv"      </span>
 <span class="co">#&gt;  [6] "falsy"        "franc"        "ISA"          "keypress"     "lpSolve"     </span>
 <span class="co">#&gt; [11] "macBriain"    "maxygen"      "MISO"         "msgtools"     "notifier"    </span>
@@ -124,16 +105,16 @@
   <span class="st">"/users/{username}/repos"</span>,
   username <span class="op">=</span> <span class="st">"gaborcsardi"</span>,
   sort <span class="op">=</span> <span class="st">"created"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "oskeyring"    "testthatlabs" "lpSolve"      "roxygenlabs"  "standalones" </span>
 <span class="co">#&gt;  [6] "altlist"      "svg-term"     "franc"        "sankey"       "r-source"    </span>
 <span class="co">#&gt; [11] "secret"       "msgtools"     "notifier"     "prompt"       "parr"        </span>
 <span class="co">#&gt; [16] "tamper"       "alexr"        "argufy"       "maxygen"      "keypress"    </span>
 <span class="co">#&gt; [21] "macBriain"    "MISO"         "rcorpora"     "disposables"  "spark"       </span>
 <span class="co">#&gt; [26] "dotenv"       "parsedate"    "r-font"       "falsy"        "ISA"</span></code></pre></div>
-<div id="post-patch-put-and-delete-requests" class="section level3">
-<h3 class="hasAnchor">
-<a href="#post-patch-put-and-delete-requests" class="anchor"></a>POST, PATCH, PUT and DELETE requests</h3>
+<div class="section level3">
+<h3 id="post-patch-put-and-delete-requests">POST, PATCH, PUT and DELETE requests<a class="anchor" aria-label="anchor" href="#post-patch-put-and-delete-requests"></a>
+</h3>
 <p>POST, PATCH, PUT, and DELETE requests can be sent by including the HTTP verb before the endpoint, in the first argument. E.g. to create a repository:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">new_repo</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"POST /user/repos"</span>, name <span class="op">=</span> <span class="st">"my-new-repo-for-gh-testing"</span><span class="op">)</span></code></pre></div>
@@ -142,18 +123,18 @@
 <code class="sourceCode R"><span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"DELETE /repos/{owner}/{repo}"</span>, owner <span class="op">=</span> <span class="st">"gaborcsardi"</span>,
    repo <span class="op">=</span> <span class="st">"my-new-repo-for-gh-testing"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="tokens" class="section level3">
-<h3 class="hasAnchor">
-<a href="#tokens" class="anchor"></a>Tokens</h3>
+<div class="section level3">
+<h3 id="tokens">Tokens<a class="anchor" aria-label="anchor" href="#tokens"></a>
+</h3>
 <p>By default the <code>GITHUB_PAT</code> environment variable is used. Alternatively, one can set the <code>.token</code> argument of <code><a href="reference/gh.html">gh()</a></code>.</p>
 </div>
-<div id="pagination" class="section level3">
-<h3 class="hasAnchor">
-<a href="#pagination" class="anchor"></a>Pagination</h3>
+<div class="section level3">
+<h3 id="pagination">Pagination<a class="anchor" aria-label="anchor" href="#pagination"></a>
+</h3>
 <p>Supply the <code>page</code> parameter to get subsequent pages:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_repos2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /orgs/{org}/repos"</span>, org <span class="op">=</span> <span class="st">"r-lib"</span>, page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">vapply</a></span><span class="op">(</span><span class="va">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
 <span class="co">#&gt;  [1] "rcmdcheck"   "vdiffr"      "callr"       "mockery"     "here"       </span>
 <span class="co">#&gt;  [6] "revdepcheck" "processx"    "vctrs"       "debugme"     "usethis"    </span>
 <span class="co">#&gt; [11] "rlang"       "pkgload"     "httrmock"    "pkgbuild"    "prettycode" </span>
@@ -162,81 +143,97 @@
 <span class="co">#&gt; [26] "zip"         "osname"      "sessioninfo" "available"   "cli"</span></code></pre></div>
 </div>
 </div>
-<div id="environment-variables" class="section level2">
-<h2 class="hasAnchor">
-<a href="#environment-variables" class="anchor"></a>Environment Variables</h2>
+<div class="section level2">
+<h2 id="environment-variables">Environment Variables<a class="anchor" aria-label="anchor" href="#environment-variables"></a>
+</h2>
 <ul>
 <li>The <code>GITHUB_API_URL</code> environment variable is used for the default github api url.</li>
 <li>One of <code>GITHUB_PAT</code> or <code>GITHUB_TOKEN</code> environment variables is used, in this order, as default token.</li>
 </ul>
 </div>
-<div id="license" class="section level2">
-<h2 class="hasAnchor">
-<a href="#license" class="anchor"></a>License</h2>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
+<p>Please note that the gh project is released with a <a href="https://gh.r-lib.org/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+</div>
+<div class="section level2">
+<h2 id="license">License<a class="anchor" aria-label="anchor" href="#license"></a>
+</h2>
 <p>MIT © Gábor Csárdi, Jennifer Bryan, Hadley Wickham</p>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-    <div class="links">
-<h2>Links</h2>
+  </main><aside class="col-md-3"><div class="links">
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=gh">https://​cloud.r-project.org/​package=gh</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/r-lib/gh/">https://​github.com/​r-lib/​gh/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/r-lib/gh/issues">https://​github.com/​r-lib/​gh/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=gh" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/r-lib/gh/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/r-lib/gh/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
 </li>
 </ul>
 </div>
+
+<div class="community">
+<h2 data-toc-skip>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing gh</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Gábor Csárdi <br><small class="roles"> Maintainer, contributor </small>  </li>
 <li>
-<a href="https://jennybryan.org">Jennifer Bryan</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://github.com/gaborcsardi" class="external-link">Gábor Csárdi</a> <br><small class="roles"> Maintainer, contributor </small>  </li>
 <li>
-<a href="http://hadley.nz">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a> <br><small class="roles"> Author </small>  </li>
 <li>
-<a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
+<a href="http://hadley.nz" class="external-link">Hadley Wickham</a> <br><small class="roles"> Author </small>  </li>
+<li>
+<a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a> <br><small class="roles"> Copyright holder, funder </small>  </li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/r-lib/gh/actions"><img src="https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://codecov.io/gh/r-lib/gh?branch=master"><img src="https://codecov.io/gh/r-lib/gh/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://www.r-pkg.org/pkg/gh"><img src="https://www.r-pkg.org/badges/version/gh"></a></li>
-<li><a href="https://www.r-pkg.org/pkg/gh"><img src="https://cranlogs.r-pkg.org/badges/gh" alt="CRAN RStudio mirror downloads"></a></li>
+<li><a href="https://github.com/r-lib/gh/actions" class="external-link"><img src="https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/r-lib/gh?branch=master" class="external-link"><img src="https://codecov.io/gh/r-lib/gh/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/gh" class="external-link"><img src="https://www.r-pkg.org/badges/version/gh"></a></li>
+<li><a href="https://www.r-pkg.org/pkg/gh" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/gh" alt="CRAN RStudio mirror downloads"></a></li>
 </ul>
 </div>
-</div>
-</div>
 
-
-      <footer><div class="copyright">
-  <p>Developed by Gábor Csárdi, <a href="https://jennybryan.org">Jennifer Bryan</a>, <a href="http://hadley.nz">Hadley Wickham</a>, <a href="https://www.rstudio.com"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" height="24"></a>.</p>
+  </aside>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+
+   </div>
+  <footer><div class="container">
+  <div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by <a href="https://github.com/gaborcsardi" class="external-link">Gábor Csárdi</a>, <a href="https://jennybryan.org" class="external-link">Jennifer Bryan</a>, <a href="http://hadley.nz" class="external-link">Hadley Wickham</a>, <a href="https://www.rstudio.com" class="external-link"><img src="https://www.tidyverse.org/rstudio-logo.svg" alt="RStudio" width="72"></a>.</p>
 </div>
 
-      </footer>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
-  
-
-
-  </body>
+  </div></footer>
+</body>
 </html>

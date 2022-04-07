@@ -53,7 +53,9 @@ gh_whoami()
 \dontshow{\}) # examplesIf}
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 ## explicit token + use with GitHub Enterprise
-gh_whoami(.token = "8c70fd8419398999c9ac5bacf3192882193cadf2",
-          .api_url = "https://github.foobar.edu/api/v3")
+gh_whoami(
+  .token = "8c70fd8419398999c9ac5bacf3192882193cadf2",
+  .api_url = "https://github.foobar.edu/api/v3"
+)
 \dontshow{\}) # examplesIf}
 }

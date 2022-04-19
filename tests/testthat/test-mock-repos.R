@@ -64,7 +64,7 @@ test_that("repos, some basics", {
   expect_false(res$has_wiki)
 
   res <- gh(
-    TMPL("PATCH /repos/{owner}/{repo}"),
+    TMPL("patch /repos/{owner}/{repo}"),
     owner = "gh-testing",
     repo = test_repo,
     name = test_repo,

@@ -115,3 +115,7 @@ test_that("gh_set_url() ensures URL is in 'API form'", {
   out <- gh_set_url(input)
   expect_equal(out$api_url, "https://github.acme.com/api/v3")
 })
+
+test_that("gh_make_request() errors if unknown verb", {
+  expect_snapshot_error(gh("geeet /users/hadley/repos", .limit = 2))
+})

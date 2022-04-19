@@ -44,9 +44,11 @@ gh_set_verb <- function(x) {
     return(x)
   }
 
-  x$method <- gsub("^([^/ ]+)\\s+.*$", "\\1", x$endpoint)
-  stopifnot(x$method %in% c("GET", "POST", "PATCH", "PUT", "DELETE"))
-  x$endpoint <- gsub("^[A-Z]+ ", "", x$endpoint)
+  # Method can be lower-case (e.g. copy-pasting from API docs in Firefox)
+  method <- gsub("^([^/ ]+)\\s+.*$", "\\1", x$endpoint)
+  x$endpoint <- gsub(sprintf("^%s+ ", method), "", x$endpoint)
+  # Now switch method to upper-case
+  x$method <- toupper(method)
   x
 }
 

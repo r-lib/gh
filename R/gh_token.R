@@ -83,7 +83,7 @@ validate_gh_pat <- function(x) {
   } else {
     url <- "https://gh.r-lib.org/articles/managing-personal-access-tokens.html"
     cli::cli_abort(c(
-      "Invalid GitHib PAT format",
+      "Invalid GitHub PAT format",
       "i" = "A GitHub PAT must have one of two forms:",
       "*" = "40 hexadecimal digits (older PATs)",
       "*" = "A 'ghp_' prefix followed by 36 to 251 more characters (newer PATs)",

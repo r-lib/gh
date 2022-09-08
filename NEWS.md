@@ -1,5 +1,4 @@
-
-# gh (development version)
+# gh 1.3.1
 
 * gh now accepts lower-case methods i.e. both `gh::gh("get /users/hadley/repos")` and `gh::gh("GET /users/hadley/repos")` work (@maelle, #167).
 

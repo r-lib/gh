@@ -8,9 +8,9 @@
 <meta name="description" content="Minimal client to access the GitHub API.">
 <title>GitHub API • gh</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.0/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.0/bootstrap.bundle.min.js"></script><link href="deps/_Source%20Sans%20Pro-0.4.1/font.css" rel="stylesheet">
-<link href="deps/_Source%20Code%20Pro-0.4.1/font.css" rel="stylesheet">
+<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
+<link href="deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="GitHub API">
@@ -79,55 +79,55 @@
 </h2>
 <p>Install the package from CRAN as usual:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gh"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gh"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gh.r-lib.org/">gh</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gh.r-lib.org/">gh</a></span><span class="op">)</span></span></code></pre></div>
 <p>Use the <code><a href="reference/gh.html">gh()</a></code> function to access all API endpoints. The endpoints are listed in the <a href="https://docs.github.com/rest" class="external-link">documentation</a>.</p>
 <p>The first argument of <code><a href="reference/gh.html">gh()</a></code> is the endpoint. You can just copy and paste the API endpoints from the documentation. Note that the leading slash must be included as well.</p>
 <p>From <a href="https://docs.github.com/rest/reference/repos#list-repositories-for-a-user" class="external-link uri">https://docs.github.com/rest/reference/repos#list-repositories-for-a-user</a> you can copy and paste <code>GET /users/{username}/repos</code> into your <code><a href="reference/gh.html">gh()</a></code> call. E.g.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /users/{username}/repos"</span>, username <span class="op">=</span> <span class="st">"gaborcsardi"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "after"         "alexr"         "altlist"       "argufy"       </span>
-<span class="co">#&gt;  [5] "ask"           "async"         "brokenPackage" "butcher"      </span>
-<span class="co">#&gt;  [9] "css"           "curl"          "disposables"   "dotenv"       </span>
-<span class="co">#&gt; [13] "empty"         "falsy"         "finmix"        "franc"        </span>
-<span class="co">#&gt; [17] "fswatch"       "homebrew-rim"  "ISA"           "keynote"      </span>
-<span class="co">#&gt; [21] "keypress"      "lpSolve"       "macBriain"     "maxygen"      </span>
-<span class="co">#&gt; [25] "MISO"          "msgtools"      "multicolor"    "notifier"     </span>
-<span class="co">#&gt; [29] "odbc"          "parr"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /users/{username}/repos"</span>, username <span class="op">=</span> <span class="st">"gaborcsardi"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "after"         "alexr"         "altlist"       "argufy"       </span></span>
+<span><span class="co">#&gt;  [5] "ask"           "async"         "brokenPackage" "butcher"      </span></span>
+<span><span class="co">#&gt;  [9] "css"           "curl"          "disposables"   "dotenv"       </span></span>
+<span><span class="co">#&gt; [13] "empty"         "falsy"         "finmix"        "franc"        </span></span>
+<span><span class="co">#&gt; [17] "fswatch"       "homebrew-rim"  "ISA"           "keynote"      </span></span>
+<span><span class="co">#&gt; [21] "keypress"      "lpSolve"       "macBriain"     "maxygen"      </span></span>
+<span><span class="co">#&gt; [25] "MISO"          "msgtools"      "multicolor"    "notifier"     </span></span>
+<span><span class="co">#&gt; [29] "odbc"          "parr"</span></span></code></pre></div>
 <p>The JSON result sent by the API is converted to an R object.</p>
 <p>Parameters can be passed as extra arguments. E.g.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span>
-  <span class="st">"/users/{username}/repos"</span>,
-  username <span class="op">=</span> <span class="st">"gaborcsardi"</span>,
-  sort <span class="op">=</span> <span class="st">"created"</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "r-builds"              "homebrew-rim"          "rgdal"                </span>
-<span class="co">#&gt;  [4] "readxl"                "sdcHierarchies"        "skopeo"               </span>
-<span class="co">#&gt;  [7] "playground"            "r-system-requirements" "butcher"              </span>
-<span class="co">#&gt; [10] "tidyr"                 "empty"                 "rim"                  </span>
-<span class="co">#&gt; [13] "tidyverse.org"         "finmix"                "tune"                 </span>
-<span class="co">#&gt; [16] "multicolor"            "pkgdepends"            "css"                  </span>
-<span class="co">#&gt; [19] "curl"                  "usethis2"              "r-debug"              </span>
-<span class="co">#&gt; [22] "purrr"                 "redfish"               "win32-console-docs"   </span>
-<span class="co">#&gt; [25] "vt100-emulator"        "RSQLite"               "pkgload"              </span>
-<span class="co">#&gt; [28] "rencfaq"               "renv"                  "stockfish"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span></span>
+<span>  <span class="st">"/users/{username}/repos"</span>,</span>
+<span>  username <span class="op">=</span> <span class="st">"gaborcsardi"</span>,</span>
+<span>  sort <span class="op">=</span> <span class="st">"created"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "r-builds"              "homebrew-rim"          "rgdal"                </span></span>
+<span><span class="co">#&gt;  [4] "readxl"                "sdcHierarchies"        "skopeo"               </span></span>
+<span><span class="co">#&gt;  [7] "playground"            "r-system-requirements" "butcher"              </span></span>
+<span><span class="co">#&gt; [10] "tidyr"                 "empty"                 "rim"                  </span></span>
+<span><span class="co">#&gt; [13] "tidyverse.org"         "finmix"                "tune"                 </span></span>
+<span><span class="co">#&gt; [16] "multicolor"            "pkgdepends"            "css"                  </span></span>
+<span><span class="co">#&gt; [19] "curl"                  "usethis2"              "r-debug"              </span></span>
+<span><span class="co">#&gt; [22] "purrr"                 "redfish"               "win32-console-docs"   </span></span>
+<span><span class="co">#&gt; [25] "vt100-emulator"        "RSQLite"               "pkgload"              </span></span>
+<span><span class="co">#&gt; [28] "rencfaq"               "renv"                  "stockfish"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="post-patch-put-and-delete-requests">POST, PATCH, PUT and DELETE requests<a class="anchor" aria-label="anchor" href="#post-patch-put-and-delete-requests"></a>
 </h3>
 <p>POST, PATCH, PUT, and DELETE requests can be sent by including the HTTP verb before the endpoint, in the first argument. E.g. to create a repository:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">new_repo</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"POST /user/repos"</span>, name <span class="op">=</span> <span class="st">"my-new-repo-for-gh-testing"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">new_repo</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"POST /user/repos"</span>, name <span class="op">=</span> <span class="st">"my-new-repo-for-gh-testing"</span><span class="op">)</span></span></code></pre></div>
 <p>and then delete it:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"DELETE /repos/{owner}/{repo}"</span>, owner <span class="op">=</span> <span class="st">"gaborcsardi"</span>,
-   repo <span class="op">=</span> <span class="st">"my-new-repo-for-gh-testing"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"DELETE /repos/{owner}/{repo}"</span>, owner <span class="op">=</span> <span class="st">"gaborcsardi"</span>,</span>
+<span>   repo <span class="op">=</span> <span class="st">"my-new-repo-for-gh-testing"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="tokens">Tokens<a class="anchor" aria-label="anchor" href="#tokens"></a>
@@ -139,14 +139,14 @@
 </h3>
 <p>Supply the <code>page</code> parameter to get subsequent pages:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_repos2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /orgs/{org}/repos"</span>, org <span class="op">=</span> <span class="st">"r-lib"</span>, page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "gargle"      "remotes"     "jose"        "backports"   "rcmdcheck"  </span>
-<span class="co">#&gt;  [6] "vdiffr"      "callr"       "mockery"     "here"        "revdepcheck"</span>
-<span class="co">#&gt; [11] "processx"    "vctrs"       "debugme"     "usethis"     "rlang"      </span>
-<span class="co">#&gt; [16] "pkgload"     "httrmock"    "pkgbuild"    "prettycode"  "roxygen2md" </span>
-<span class="co">#&gt; [21] "pkgapi"      "zeallot"     "liteq"       "keyring"     "sloop"      </span>
-<span class="co">#&gt; [26] "styler"      "ansistrings" "archive"     "later"       "crancache"</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_repos2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /orgs/{org}/repos"</span>, org <span class="op">=</span> <span class="st">"r-lib"</span>, page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "gargle"      "remotes"     "jose"        "backports"   "rcmdcheck"  </span></span>
+<span><span class="co">#&gt;  [6] "vdiffr"      "callr"       "mockery"     "here"        "revdepcheck"</span></span>
+<span><span class="co">#&gt; [11] "processx"    "vctrs"       "debugme"     "usethis"     "rlang"      </span></span>
+<span><span class="co">#&gt; [16] "pkgload"     "httrmock"    "pkgbuild"    "prettycode"  "roxygen2md" </span></span>
+<span><span class="co">#&gt; [21] "pkgapi"      "zeallot"     "liteq"       "keyring"     "sloop"      </span></span>
+<span><span class="co">#&gt; [26] "styler"      "ansistrings" "archive"     "later"       "crancache"</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -238,7 +238,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
   </div></footer>

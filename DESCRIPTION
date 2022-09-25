@@ -17,7 +17,8 @@ Imports:
     gitcreds,
     httr (>= 1.2),
     ini,
-    jsonlite
+    jsonlite,
+    rlang
 Suggests:
     covr,
     knitr,

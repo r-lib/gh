@@ -93,19 +93,19 @@ the PAT in its requests. Some requests succeed without a PAT, but many
 require a PAT to prove the request is authorized by a specific GitHub user. A
 PAT also helps with rate limiting. If your gh use is more than casual, you
 want a PAT.</p>
-<p>gh calls <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> with the <code>api_url</code>, which checks session
+<p>gh calls <code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> with the <code>api_url</code>, which checks session
 environment variables and then the local Git credential store for a PAT
 appropriate to the <code>api_url</code>. Therefore, if you have previously used a PAT
 with, e.g., command line Git, gh may retrieve and re-use it. You can call
-<code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> directly, yourself, if you want to see what is
+<code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> directly, yourself, if you want to see what is
 found for a specific URL. If no matching PAT is found,
-<code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> errors, whereas <code>gh_token()</code> does not and,
+<code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> errors, whereas <code>gh_token()</code> does not and,
 instead, returns <code>""</code>.</p>
 <p>See GitHub's documentation on <a href="https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token" class="external-link">Creating a personal access token</a>,
 or use <code>usethis::create_github_token()</code> for a guided experience, including
 pre-selection of recommended scopes. Once you have a PAT, you can use
-<code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_set()</a></code> to add it to the Git credential store. From that
-point on, gh (via <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code>) should be able to find it
+<code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_set()</a></code> to add it to the Git credential store. From that
+point on, gh (via <code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code>) should be able to find it
 without further effort on your part.</p>
     </div>
 

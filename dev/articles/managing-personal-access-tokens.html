@@ -105,7 +105,7 @@
 <li>In the <a href="https://gitcreds.r-lib.org/" class="external-link">gitcreds package</a>:
 <ul>
 <li>
-<code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_set()</a></code> helps you explicitly put your PAT into the Git credential store</li>
+<code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_set()</a></code> helps you explicitly put your PAT into the Git credential store</li>
 </ul>
 </li>
 </ul>
@@ -127,9 +127,9 @@
 <h2 id="the-gitcreds-package">The gitcreds package<a class="anchor" aria-label="anchor" href="#the-gitcreds-package"></a>
 </h2>
 <p>gh now uses the gitcreds package to interact with the Git credential store.</p>
-<p>gh calls <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> with a URL to try to find a matching PAT. <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> checks session environment variables and then the local Git credential store. Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it. You can call <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> directly, yourself, if you want to see what is found for a specific URL.</p>
+<p>gh calls <code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> with a URL to try to find a matching PAT. <code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> checks session environment variables and then the local Git credential store. Therefore, if you have previously used a PAT with, e.g., command line Git, gh may retrieve and re-use it. You can call <code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> directly, yourself, if you want to see what is found for a specific URL.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds_get</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds_get</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you see something like this:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#&gt; &lt;gitcreds&gt;</span></span>
@@ -138,14 +138,14 @@
 <span><span class="co">#&gt;   username: PersonalAccessToken</span></span>
 <span><span class="co">#&gt;   password: &lt;-- hidden --&gt;</span></span></code></pre></div>
 <p>that means that gitcreds could get the PAT from the Git credential store. You can call <code>gitcreds_get()$password</code> to see the actual PAT.</p>
-<p>If no matching PAT is found, <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> errors.</p>
+<p>If no matching PAT is found, <code><a href="https://gitcreds.r-lib.org/reference/gitcreds_get.html" class="external-link">gitcreds::gitcreds_get()</a></code> errors.</p>
 </div>
 <div class="section level2">
 <h2 id="pat-in-an-environment-variable">PAT in an environment variable<a class="anchor" aria-label="anchor" href="#pat-in-an-environment-variable"></a>
 </h2>
-<p>If you don’t have a Git installation, or your Git installation does not have a working credential store, then you can specify the PAT in an environment variable. For <code>github.com</code> you can set the <code>GITHUB_PAT_GITHUB_COM</code> or <code>GITHUB_PAT</code> variable. For a different GitHub host, call <code><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_cache_envvar.html" class="external-link">gitcreds::gitcreds_cache_envvar()</a></code> with the API URL to see the environment variable you need to set. For example:</p>
+<p>If you don’t have a Git installation, or your Git installation does not have a working credential store, then you can specify the PAT in an environment variable. For <code>github.com</code> you can set the <code>GITHUB_PAT_GITHUB_COM</code> or <code>GITHUB_PAT</code> variable. For a different GitHub host, call <code><a href="https://gitcreds.r-lib.org/reference/gitcreds_cache_envvar.html" class="external-link">gitcreds::gitcreds_cache_envvar()</a></code> with the API URL to see the environment variable you need to set. For example:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_cache_envvar.html" class="external-link">gitcreds_cache_envvar</a></span><span class="op">(</span><span class="st">"https://github.acme.com"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://gitcreds.r-lib.org/reference/gitcreds_cache_envvar.html" class="external-link">gitcreds_cache_envvar</a></span><span class="op">(</span><span class="st">"https://github.acme.com"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "GITHUB_PAT_GITHUB_ACME_COM"</span></span></code></pre></div>
 </div>
 <div class="section level2">

@@ -3,7 +3,7 @@ pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
   managing-personal-access-tokens: managing-personal-access-tokens.html
-last_built: 2022-09-25T13:21Z
+last_built: 2022-10-21T08:45Z
 urls:
   reference: https://gh.r-lib.org/reference
   article: https://gh.r-lib.org/articles

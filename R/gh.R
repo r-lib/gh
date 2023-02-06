@@ -235,20 +235,21 @@ gh_response_length <- function(res) {
 }
 
 gh_make_request <- function(x) {
-  method_fun <- list(
-    "GET" = GET, "POST" = POST, "PATCH" = PATCH,
-    "PUT" = PUT, "DELETE" = DELETE
-  )[[x$method]]
-  if (is.null(method_fun)) {
+  if (!x$method %in% c("GET", "POST", "PATCH", "PUT", "DELETE")) {
     cli::cli_abort("Unknown HTTP verb: {.val {x$method}}")
   }
 
-  raw <- do.call(
-    method_fun,
-    compact(list(
-      url = x$url, query = x$query, body = x$body,
-      add_headers(x$headers), x$dest
-    ))
-  )
-  raw
+  req <- httr2::request(x$url)
+  req <- httr2::req_method(req, x$method)
+  req <- httr2::req_url_query(req, !!!x$query)
+  if (is.raw(x$body)) {
+    req <- httr2::req_body_raw(req, x$body)
+  } else {
+    req <- httr2::req_body_json(req, x$body)
+  }
+  req <- httr2::req_headers(req, !!!x$headers)
+
+  req <- httr2::req_error(req, body = gh_error)
+
+  httr2::req_perform(req, path = x$dest)
 }

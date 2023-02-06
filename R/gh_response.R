@@ -1,33 +1,29 @@
-gh_process_response <- function(response) {
-  stopifnot(inherits(response, "response"))
-  if (status_code(response) >= 300) {
-    gh_error(response)
-  }
+gh_process_response <- function(resp) {
+  stopifnot(inherits(resp, "httr2_response"))
 
-  content_type <- http_type(response)
-  gh_media_type <- headers(response)[["x-github-media-type"]]
+  content_type <- httr2::resp_content_type(resp)
+  gh_media_type <- httr2::resp_header(resp, "x-github-media-type")
   is_raw <- content_type == "application/octet-stream" ||
     isTRUE(grepl("param=raw$", gh_media_type, ignore.case = TRUE))
-  is_ondisk <- inherits(response$content, "path")
-  if (is_ondisk) {
-    res <- response$content
-  } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {
-    res <- fromJSON(content(response, as = "text"), simplifyVector = FALSE)
+
+  is_ondisk <- FALSE
+  if (grepl("^application/json", content_type, ignore.case = TRUE)) {
+    res <- httr2::resp_body_json(resp)
   } else if (is_raw) {
-    res <- content(response, as = "raw")
+    res <- httr2::resp_body_raw(resp)
   } else if (content_type == "application/octet-stream" &&
-    length(content(response, as = "raw")) == 0) {
+    length(httr2::resp_body_raw(resp)) == 0) {
     res <- NULL
   } else {
     if (grepl("^text/html", content_type, ignore.case = TRUE)) {
       warning("Response came back as html :(", call. = FALSE)
     }
-    res <- list(message = content(response, as = "text"))
+    res <- list(message = httr2::resp_body_string(resp))
   }
 
-  attr(res, "method") <- response$request$method
-  attr(res, "response") <- headers(response)
-  attr(res, ".send_headers") <- response$request$headers
+  # attr(res, "method") <-  response$request$method
+  # attr(res, "response") <- headers(response)
+  # attr(res, ".send_headers") <- response$request$headers
   if (is_ondisk) {
     class(res) <- c("gh_response", "path")
   } else if (is_raw) {
@@ -39,10 +35,10 @@ gh_process_response <- function(response) {
 }
 
 # https://docs.github.com/v3/#client-errors
-gh_error <- function(response, call = rlang::caller_env()) {
-  heads <- headers(response)
-  res <- content(response)
-  status <- status_code(response)
+gh_error <- function(response) {
+  heads <- httr2::resp_headers(response)
+  res <- httr2::resp_body_json(response)
+  status <- httr2::resp_status(response)
 
   msg <- "GitHub API error ({status}): {heads$status %||% ''} {res$message}"
 
@@ -66,11 +62,5 @@ gh_error <- function(response, call = rlang::caller_env()) {
     )
   }
 
-  cli::cli_abort(
-    msg,
-    class = c("github_error", paste0("http_error_", status)),
-    call = call,
-    response_headers = heads,
-    response_content = res
-  )
+  msg
 }

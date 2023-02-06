@@ -249,7 +249,8 @@ gh_make_request <- function(x) {
   }
   req <- httr2::req_headers(req, !!!x$headers)
 
-  req <- httr2::req_error(req, body = gh_error)
+  # allow custom handling with gh_error
+  req <- httr2::req_error(req, is_error = function(resp) FALSE)
 
   httr2::req_perform(req, path = x$dest)
 }

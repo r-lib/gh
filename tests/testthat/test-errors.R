@@ -1,3 +1,11 @@
+test_that("generates a useful message", {
+  skip_if_offline("github.com")
+  skip_on_cran()
+  skip_if_no_token()
+
+  expect_snapshot(gh("/missing", .token = tt()), error = TRUE)
+})
+
 test_that("errors return a github_error object", {
   skip_if_offline("github.com")
   skip_on_cran()

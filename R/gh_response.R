@@ -6,17 +6,20 @@ gh_process_response <- function(resp) {
 
   content_type <- httr2::resp_content_type(resp)
   gh_media_type <- httr2::resp_header(resp, "x-github-media-type")
-  is_raw <- content_type == "application/octet-stream" ||
-    isTRUE(grepl("param=raw$", gh_media_type, ignore.case = TRUE))
 
-  is_ondisk <- FALSE
-  if (grepl("^application/json", content_type, ignore.case = TRUE)) {
+  is_raw <- identical(content_type, "application/octet-stream") ||
+    isTRUE(grepl("param=raw$", gh_media_type, ignore.case = TRUE))
+  is_ondisk <- inherits(resp$body, "httr2_path")
+
+  if (is_ondisk) {
+    res <- as.character(resp$body)
+  } else if (is.na(content_type)) {
+    # empty body
+    res <- list()
+  } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {
     res <- httr2::resp_body_json(resp)
   } else if (is_raw) {
     res <- httr2::resp_body_raw(resp)
-  } else if (content_type == "application/octet-stream" &&
-    length(httr2::resp_body_raw(resp)) == 0) {
-    res <- NULL
   } else {
     if (grepl("^text/html", content_type, ignore.case = TRUE)) {
       warning("Response came back as html :(", call. = FALSE)

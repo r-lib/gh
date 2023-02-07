@@ -1,5 +1,5 @@
 skip_if_no_token <- function() {
-  if (Sys.getenv("GH_TESTING") == "") {
+  if (gh_token() == "") {
     skip("No GitHub token")
   }
 }

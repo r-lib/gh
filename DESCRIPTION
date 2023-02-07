@@ -18,7 +18,7 @@ Imports:
     httr2,
     ini,
     jsonlite,
-    rlang
+    rlang (>= 1.0.0)
 Suggests:
     covr,
     knitr,

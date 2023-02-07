@@ -3,7 +3,7 @@ test_that("generates a useful message", {
   skip_on_cran()
   skip_if_no_token()
 
-  expect_snapshot(gh("/missing", .token = tt()), error = TRUE)
+  expect_snapshot(gh("/missing"), error = TRUE)
 })
 
 test_that("errors return a github_error object", {
@@ -11,7 +11,7 @@ test_that("errors return a github_error object", {
   skip_on_cran()
   skip_if_no_token()
 
-  e <- tryCatch(gh("/missing", .token = tt()), error = identity)
+  e <- tryCatch(gh("/missing"), error = identity)
 
   expect_s3_class(e, "github_error")
   expect_s3_class(e, "http_error_404")
@@ -22,10 +22,7 @@ test_that("can catch a given status directly", {
   skip_on_cran()
   skip_if_no_token()
 
-  e <- tryCatch(
-    gh("/missing", .token = tt()),
-    "http_error_404" = identity
-  )
+  e <- tryCatch(gh("/missing"), "http_error_404" = identity)
 
   expect_s3_class(e, "github_error")
   expect_s3_class(e, "http_error_404")

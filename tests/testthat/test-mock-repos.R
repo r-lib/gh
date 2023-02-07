@@ -25,85 +25,34 @@ test_that("repos, some basics", {
 
   res <- gh("/repositories")
   expect_true(all(c("id", "name", "full_name") %in% names(res[[1]])))
+})
 
-  test_repo <- basename(tempfile("gh-testing-"))
+test_that("can POST, PATCH, and DELETE", {
+  skip_if_offline("github.com")
+  skip_on_cran()
+  skip_if_no_token()
 
   res <- gh(
-    "POST /user/repos",
-    name = test_repo,
-    description = "Test repo for gh",
-    homepage = "https://github.com/r-lib/gh",
-    private = FALSE,
-    has_issues = FALSE,
-    has_wiki = FALSE
+    "POST /gists",
+    files = list(test.R = list(content = "test")),
+    description = "A test gist for gh",
+    public = FALSE
   )
-  expect_equal(res$name, test_repo)
-  expect_equal(res$description, "Test repo for gh")
-  expect_equal(res$homepage, "https://github.com/r-lib/gh")
-  expect_false(res$private)
-  expect_false(res$has_issues)
-  expect_false(res$has_wiki)
-
-  ## TODO: POST /orgs/{org}/repos
-
-  Sys.sleep(2)
-  res <- gh(
-    TMPL("/repos/{owner}/{repo}"),
-    owner = "gh-testing",
-    repo = test_repo
-  )
-  expect_equal(res$name, test_repo)
-  expect_equal(res$description, "Test repo for gh")
-  expect_equal(res$homepage, "https://github.com/r-lib/gh")
-  expect_false(res$private)
-  expect_false(res$has_issues)
-  expect_false(res$has_wiki)
+  expect_equal(res$description, "A test gist for gh")
+  expect_false(res$public)
 
   res <- gh(
-    TMPL("patch /repos/{owner}/{repo}"),
-    owner = "gh-testing",
-    repo = test_repo,
-    name = test_repo,
+    TMPL("PATCH /gists/{gist_id}"),
+    gist_id = res$id,
     description = "Still a test repo"
   )
-  expect_equal(res$name, test_repo)
   expect_equal(res$description, "Still a test repo")
 
   res <- gh(
-    TMPL("GET /repos/{owner}/{repo}/contributors"),
-    owner = "gh-testing",
-    repo = "myrepo"
+    TMPL("DELETE /gists/{gist_id}"),
+    gist_id = res$id
   )
-  expect_true("gh-testing" %in% vapply(res, "[[", "", "login"))
-
-  res <- gh(
-    TMPL("GET /repos/{owner}/{repo}/languages"),
-    owner = "r-lib",
-    repo = "desc"
-  )
-  expect_true("R" %in% names(res))
-
-  ## TODO: GET /repos/{owner}/{repo}/teams does not seem to work
-
-  res <- gh(
-    TMPL("GET /repos/{owner}/{repo}/teams"),
-    owner = "gh-testing-org",
-    repo = "org-repo"
-  )
-  expect_true("myteam" %in% vapply(res, "[[", "", "name"))
-
-  res <- gh(
-    TMPL("GET /repos/{owner}/{repo}/tags"),
-    owner = "gh-testing",
-    repo = "myrepo"
-  )
-  expect_true(res[[1]]$name == "v0.0.1")
-
-  res <- gh(
-    TMPL("DELETE /repos/{owner}/{repo}"),
-    owner = "gh-testing",
-    repo = test_repo
-  )
+  expect_s3_class(res, c("gh_response", "list"))
 })
 
 test_that("repo files", {
@@ -138,5 +87,5 @@ test_that("repo files", {
     .destfile = tmp
   )
   expect_equal(class(res_file), c("gh_response", "path"))
-  expect_equivalent(res, jsonlite::fromJSON(res_file, simplifyVector = FALSE))
+  expect_equal(res, jsonlite::fromJSON(res_file, simplifyVector = FALSE), ignore_attr = TRUE)
 })

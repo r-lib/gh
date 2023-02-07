@@ -7,9 +7,6 @@ test_that("repos, some basics", {
   skip_on_cran()
   skip_if_no_token()
 
-  res <- gh("/user/repos")
-  expect_true(all(c("id", "name", "full_name") %in% names(res[[1]])))
-
   res <- gh(
     TMPL("/users/{username}/repos"),
     username = "gaborcsardi"
@@ -31,6 +28,7 @@ test_that("can POST, PATCH, and DELETE", {
   skip_if_offline("github.com")
   skip_on_cran()
   skip_if_no_token()
+  skip_on_ci() # no active user
 
   res <- gh(
     "POST /gists",

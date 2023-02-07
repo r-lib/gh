@@ -1,5 +1,12 @@
-# whoami errors with bad PAT
+# whoami errors with bad/absent PAT
 
+    Code
+      gh_whoami(.token = "")
+    Message
+      No personal access token (PAT) available.
+      Obtain a PAT from here:
+      https://github.com/settings/tokens
+      For more on what to do with the PAT, see ?gh_whoami.
     Code
       gh_whoami(.token = NA)
     Condition

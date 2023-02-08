@@ -245,7 +245,7 @@ gh_make_request <- function(x) {
   if (is.raw(x$body)) {
     req <- httr2::req_body_raw(req, x$body)
   } else {
-    req <- httr2::req_body_json(req, x$body)
+    req <- httr2::req_body_json(req, x$body, null = "list", digits = 4)
   }
   req <- httr2::req_headers(req, !!!x$headers)
 

@@ -248,6 +248,23 @@ gh_make_request <- function(x, error_call = caller_env()) {
   }
   req <- httr2::req_headers(req, !!!x$headers)
 
+  # use retry-after info when possible
+  # https://docs.github.com/en/rest/overview/resources-in-the-rest-api#exceeding-the-rate-limit
+  github_is_transient <- function(resp) {
+    httr2::resp_status(resp) == 403 &&
+      identical(httr2::resp_header(resp, "x-ratelimit-remaining"), "0")
+  }
+  github_after <- function(resp) {
+    time <- as.numeric(httr2::resp_header(resp, "x-ratelimit-reset"))
+    time - unclass(Sys.time())
+  }
+  req <- httr2::req_retry(
+    req,
+    max_tries = 3,
+    is_transient = github_is_transient,
+    after = github_after
+  )
+
   # allow custom handling with gh_error
   req <- httr2::req_error(req, is_error = function(resp) FALSE)
 

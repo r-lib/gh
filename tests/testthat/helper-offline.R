@@ -15,7 +15,7 @@ test_scopes <- function() {
   # whoami fails on GHA
   whoami <- env_cache(cache, "whoami", tryCatch(
     gh_whoami(),
-    error = function() list(scopes = "")
+    error = function(err) list(scopes = "")
   ))
   strsplit(whoami$scopes, ", ")[[1]]
 }

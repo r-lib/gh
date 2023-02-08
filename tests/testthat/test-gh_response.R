@@ -6,6 +6,10 @@ test_that("works with empty bodies", {
 
   out <- gh("POST /markdown", text = "")
   expect_equal(out, list(), ignore_attr = TRUE)
+})
+
+test_that("works with empty bodies from DELETE", {
+  skip_if_no_github(has_scope = "gist")
 
   out <- gh("POST /gists", files = list(x = list(content = "y")), public = FALSE)
   out <- gh("DELETE /gists/{gist_id}", gist_id = out$id)

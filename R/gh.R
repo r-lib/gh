@@ -258,12 +258,14 @@ gh_make_request <- function(x, error_call = caller_env()) {
     time <- as.numeric(httr2::resp_header(resp, "x-ratelimit-reset"))
     time - unclass(Sys.time())
   }
-  req <- httr2::req_retry(
-    req,
-    max_tries = 3,
-    is_transient = github_is_transient,
-    after = github_after
-  )
+  if (!is_testing()) {
+    req <- httr2::req_retry(
+      req,
+      max_tries = 3,
+      is_transient = github_is_transient,
+      after = github_after
+    )
+  }
 
   # allow custom handling with gh_error
   req <- httr2::req_error(req, is_error = function(resp) FALSE)

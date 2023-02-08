@@ -1,7 +1,5 @@
 test_that("works with empty bodies", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
+  skip_if_no_github()
 
   out <- gh("GET /orgs/{org}/repos", org = "gh-org-testing-no-repos")
   expect_equal(out, list(), ignore_attr = TRUE)
@@ -15,9 +13,7 @@ test_that("works with empty bodies", {
 })
 
 test_that("can get raw response", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
+  skip_if_no_github()
 
   res <- gh(
     "GET /repos/{owner}/{repo}/contents/{path}",
@@ -35,9 +31,7 @@ test_that("can get raw response", {
 })
 
 test_that("can download files", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
+  skip_if_no_github()
 
   tmp <- withr::local_tempfile()
   res_file <- gh(

@@ -3,9 +3,7 @@ if (!exists("TMPL", environment(), inherits = FALSE)) {
 }
 
 test_that("repos, some basics", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
+  skip_if_no_github()
 
   res <- gh(
     TMPL("/users/{username}/repos"),
@@ -25,10 +23,7 @@ test_that("repos, some basics", {
 })
 
 test_that("can POST, PATCH, and DELETE", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
-  skip_on_ci() # no active user
+  skip_if_no_github(has_scope = "gist")
 
   res <- gh(
     "POST /gists",

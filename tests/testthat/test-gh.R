@@ -29,17 +29,13 @@ test_that(".params works", {
 })
 
 test_that("generates a useful message", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
+  skip_if_no_github()
 
   expect_snapshot(gh("/missing"), error = TRUE)
 })
 
 test_that("errors return a github_error object", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
+  skip_if_no_github()
 
   e <- tryCatch(gh("/missing"), error = identity)
 
@@ -48,9 +44,7 @@ test_that("errors return a github_error object", {
 })
 
 test_that("can catch a given status directly", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
+  skip_if_no_github()
 
   e <- tryCatch(gh("/missing"), "http_error_404" = identity)
 

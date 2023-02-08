@@ -1,8 +1,5 @@
 gh_process_response <- function(resp) {
   stopifnot(inherits(resp, "httr2_response"))
-  if (httr2::resp_status(resp) >= 300) {
-    gh_error(resp)
-  }
 
   content_type <- httr2::resp_content_type(resp)
   gh_media_type <- httr2::resp_header(resp, "x-github-media-type")
@@ -38,41 +35,4 @@ gh_process_response <- function(resp) {
     class(res) <- c("gh_response", "list")
   }
   res
-}
-
-# https://docs.github.com/v3/#client-errors
-gh_error <- function(response, call = caller_env()) {
-  heads <- httr2::resp_headers(response)
-  res <- httr2::resp_body_json(response)
-  status <- httr2::resp_status(response)
-
-  msg <- "GitHub API error ({status}): {heads$status %||% ''} {res$message}"
-
-  if (status == 404) {
-    msg <- c(msg, x = c("URL not found: {.url {response$url}}"))
-  }
-
-  doc_url <- res$documentation_url
-  if (!is.null(doc_url)) {
-    msg <- c(msg, c("i" = "Read more at {.url {doc_url}}"))
-  }
-
-  errors <- res$errors
-  if (!is.null(errors)) {
-    errors <- as.data.frame(do.call(rbind, errors))
-    nms <- c("resource", "field", "code", "message")
-    nms <- nms[nms %in% names(errors)]
-    msg <- c(
-      msg,
-      capture.output(print(errors[nms], row.names = FALSE))
-    )
-  }
-
-  cli::cli_abort(
-    msg,
-    class = c("github_error", paste0("http_error_", status)),
-    call = call,
-    response_headers = heads,
-    response_content = res
-  )
 }

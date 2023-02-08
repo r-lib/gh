@@ -172,7 +172,6 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
   if (.progress) prbr <- make_progress_bar(req)
 
   raw <- gh_make_request(req)
-
   res <- gh_process_response(raw)
   len <- gh_response_length(res)
 
@@ -234,7 +233,7 @@ gh_response_length <- function(res) {
   }
 }
 
-gh_make_request <- function(x) {
+gh_make_request <- function(x, error_call = caller_env()) {
   if (!x$method %in% c("GET", "POST", "PATCH", "PUT", "DELETE")) {
     cli::cli_abort("Unknown HTTP verb: {.val {x$method}}")
   }
@@ -252,5 +251,47 @@ gh_make_request <- function(x) {
   # allow custom handling with gh_error
   req <- httr2::req_error(req, is_error = function(resp) FALSE)
 
-  httr2::req_perform(req, path = x$dest)
+  resp <- httr2::req_perform(req, path = x$dest)
+  if (httr2::resp_status(resp) >= 300) {
+    gh_error(resp, error_call = error_call)
+  }
+
+  resp
+}
+
+# https://docs.github.com/v3/#client-errors
+gh_error <- function(response, error_call = caller_env()) {
+  heads <- httr2::resp_headers(response)
+  res <- httr2::resp_body_json(response)
+  status <- httr2::resp_status(response)
+
+  msg <- "GitHub API error ({status}): {heads$status %||% ''} {res$message}"
+
+  if (status == 404) {
+    msg <- c(msg, x = c("URL not found: {.url {response$url}}"))
+  }
+
+  doc_url <- res$documentation_url
+  if (!is.null(doc_url)) {
+    msg <- c(msg, c("i" = "Read more at {.url {doc_url}}"))
+  }
+
+  errors <- res$errors
+  if (!is.null(errors)) {
+    errors <- as.data.frame(do.call(rbind, errors))
+    nms <- c("resource", "field", "code", "message")
+    nms <- nms[nms %in% names(errors)]
+    msg <- c(
+      msg,
+      capture.output(print(errors[nms], row.names = FALSE))
+    )
+  }
+
+  cli::cli_abort(
+    msg,
+    class = c("github_error", paste0("http_error_", status)),
+    call = error_call,
+    response_headers = heads,
+    response_content = res
+  )
 }

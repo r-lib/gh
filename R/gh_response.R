@@ -41,7 +41,7 @@ gh_process_response <- function(resp) {
 }
 
 # https://docs.github.com/v3/#client-errors
-gh_error <- function(response, call = rlang::caller_env()) {
+gh_error <- function(response, call = caller_env()) {
   heads <- httr2::resp_headers(response)
   res <- httr2::resp_body_json(response)
   status <- httr2::resp_status(response)

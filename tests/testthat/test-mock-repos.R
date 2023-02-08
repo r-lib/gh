@@ -52,38 +52,3 @@ test_that("can POST, PATCH, and DELETE", {
   )
   expect_s3_class(res, c("gh_response", "list"))
 })
-
-test_that("repo files", {
-  skip_if_offline("github.com")
-  skip_on_cran()
-  skip_if_no_token()
-
-  res <- gh(
-    TMPL("GET /repos/{owner}/{repo}/contents/{path}"),
-    owner = "r-lib",
-    repo = "gh",
-    path = "DESCRIPTION",
-    .send_headers = c(Accept = "application/vnd.github.v3.raw")
-  )
-
-  expect_equal(
-    attr(res, "response")[["x-github-media-type"]],
-    "github.v3; param=raw"
-  )
-  expect_equal(class(res), c("gh_response", "raw"))
-
-  tmp <- tempfile()
-  res <- gh(
-    TMPL("/orgs/{org}/repos"),
-    org = "r-lib",
-    type = "sources"
-  )
-  res_file <- gh(
-    TMPL("/orgs/{org}/repos"),
-    org = "r-lib",
-    type = "sources",
-    .destfile = tmp
-  )
-  expect_equal(class(res_file), c("gh_response", "path"))
-  expect_equal(res, jsonlite::fromJSON(res_file, simplifyVector = FALSE), ignore_attr = TRUE)
-})

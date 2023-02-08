@@ -7,11 +7,11 @@ gh_process_response <- function(resp) {
   is_raw <- identical(content_type, "application/octet-stream") ||
     isTRUE(grepl("param=raw$", gh_media_type, ignore.case = TRUE))
   is_ondisk <- inherits(resp$body, "httr2_path")
+  is_empty <- length(resp$body) == 0
 
   if (is_ondisk) {
     res <- as.character(resp$body)
-  } else if (is.na(content_type)) {
-    # empty body
+  } else if (is_empty) {
     res <- list()
   } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {
     res <- httr2::resp_body_json(resp)

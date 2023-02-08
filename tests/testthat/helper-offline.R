@@ -7,7 +7,7 @@ skip_if_no_github <- function(has_scope = NULL) {
   }
 
   if (!is.null(has_scope) && !has_scope %in% test_scopes()) {
-    skip(glue::glue("Current token lacks '{has_scope}' scope"))
+    skip(cli::format_inline("Current token lacks '{has_scope}' scope"))
   }
 }
 

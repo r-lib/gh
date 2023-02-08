@@ -3,7 +3,7 @@ test_that("whoami works in presence of PAT", {
 
   res <- gh_whoami()
   expect_s3_class(res, "gh_response")
-  expect_match(res[["scopes"]], "\\brepo\\b")
+  expect_match(res[["scopes"]], "\\buser\\b")
 })
 
 test_that("whoami errors with bad/absent PAT", {

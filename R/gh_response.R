@@ -24,9 +24,10 @@ gh_process_response <- function(resp) {
     res <- list(message = httr2::resp_body_string(resp))
   }
 
-  # attr(res, "method") <-  response$request$method
+  attr(res, "method") <- resp$method
   attr(res, "response") <- httr2::resp_headers(resp)
-  # attr(res, ".send_headers") <- response$request$headers
+  attr(res, ".send_headers") <- httr2::last_request()$headers
+
   if (is_ondisk) {
     class(res) <- c("gh_response", "path")
   } else if (is_raw) {

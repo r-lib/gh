@@ -65,7 +65,7 @@
 #' @param .params Additional list of parameters to append to `...`.
 #'   It is easier to use this than `...` if you have your parameters in
 #'   a list already.
-#'
+#' @param .max_wait Maximum number of minutes to wait if rate limited.
 #' @return Answer from the API as a `gh_response` object, which is also a
 #'   `list`. Failed requests will generate an R error. Requests that
 #'   generate a raw response will return a raw vector.
@@ -141,10 +141,20 @@
 #'     "Content-Type" = "application/json"
 #'   )
 #' )
-gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
-               .overwrite = FALSE, .api_url = NULL, .method = "GET",
-               .limit = NULL, .accept = "application/vnd.github.v3+json",
-               .send_headers = NULL, .progress = TRUE, .params = list()) {
+gh <- function(endpoint,
+               ...,
+               per_page = NULL,
+               .token = NULL,
+               .destfile = NULL,
+               .overwrite = FALSE,
+               .api_url = NULL,
+               .method = "GET",
+               .limit = NULL,
+               .accept = "application/vnd.github.v3+json",
+               .send_headers = NULL,
+               .progress = TRUE,
+               .params = list(),
+               .max_wait = 10) {
   params <- c(list(...), .params)
   params <- drop_named_nulls(params)
 
@@ -159,11 +169,16 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
   }
 
   req <- gh_build_request(
-    endpoint = endpoint, params = params,
-    token = .token, destfile = .destfile,
-    overwrite = .overwrite, accept = .accept,
+    endpoint = endpoint,
+    params = params,
+    token = .token,
+    destfile = .destfile,
+    overwrite = .overwrite,
+    accept = .accept,
     send_headers = .send_headers,
-    api_url = .api_url, method = .method
+    max_wait = .max_wait,
+    api_url = .api_url,
+    method = .method
   )
 
 
@@ -248,21 +263,11 @@ gh_make_request <- function(x, error_call = caller_env()) {
   }
   req <- httr2::req_headers(req, !!!x$headers)
 
-  # use retry-after info when possible
-  # https://docs.github.com/en/rest/overview/resources-in-the-rest-api#exceeding-the-rate-limit
-  github_is_transient <- function(resp) {
-    httr2::resp_status(resp) == 403 &&
-      identical(httr2::resp_header(resp, "x-ratelimit-remaining"), "0")
-  }
-  github_after <- function(resp) {
-    time <- as.numeric(httr2::resp_header(resp, "x-ratelimit-reset"))
-    time - unclass(Sys.time())
-  }
   if (!is_testing()) {
     req <- httr2::req_retry(
       req,
       max_tries = 3,
-      is_transient = github_is_transient,
+      is_transient = function(resp) github_is_transient(resp, x$max_wait),
       after = github_after
     )
   }
@@ -313,4 +318,29 @@ gh_error <- function(response, error_call = caller_env()) {
     response_headers = heads,
     response_content = res
   )
+}
+
+
+# use retry-after info when possible
+# https://docs.github.com/en/rest/overview/resources-in-the-rest-api#exceeding-the-rate-limit
+github_is_transient <- function(resp, max_wait) {
+  if (httr2::resp_status(resp) != 403) {
+    return(FALSE)
+  }
+  if (!identical(httr2::resp_header(resp, "x-ratelimit-remaining"), "0")) {
+    return(FALSE)
+  }
+
+  time <- httr2::resp_header(resp, "x-ratelimit-reset")
+  if (is.null(time)) {
+    return(FALSE)
+  }
+
+  time <- as.numeric(time)
+  minutes_to_wait <- (time - unclass(Sys.time())) / 60
+  minutes_to_wait <= max_wait
+}
+github_after <- function(resp) {
+  time <- as.numeric(httr2::resp_header(resp, "x-ratelimit-reset"))
+  time - unclass(Sys.time())
 }

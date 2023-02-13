@@ -6,17 +6,31 @@ default_api_url <- function() {
 ## Headers to send with each API request
 default_send_headers <- c("User-Agent" = "https://github.com/r-lib/gh")
 
-gh_build_request <- function(endpoint = "/user", params = list(),
-                             token = NULL, destfile = NULL, overwrite = NULL,
-                             accept = NULL, send_headers = NULL,
-                             api_url = NULL, method = "GET") {
+gh_build_request <- function(endpoint = "/user",
+                             params = list(),
+                             token = NULL,
+                             destfile = NULL,
+                             overwrite = NULL,
+                             accept = NULL,
+                             send_headers = NULL,
+                             max_wait = 10,
+                             api_url = NULL,
+                             method = "GET") {
   working <- list(
-    method = method, url = character(), headers = NULL,
-    query = NULL, body = NULL,
-    endpoint = endpoint, params = params,
-    token = token, accept = c(Accept = accept),
-    send_headers = send_headers, api_url = api_url,
-    dest = destfile, overwrite = overwrite
+    method = method,
+    url = character(),
+    headers = NULL,
+    query = NULL,
+    body = NULL,
+    endpoint = endpoint,
+    params = params,
+    token = token,
+    accept = c(Accept = accept),
+    send_headers = send_headers,
+    api_url = api_url,
+    dest = destfile,
+    overwrite = overwrite,
+    max_wait = max_wait
   )
 
   working <- gh_set_verb(working)

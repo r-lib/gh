@@ -1,5 +1,12 @@
 # gh (development version)
 
+* gh is now powered by httr2. This should generally have little impact on normal
+  operation but if a request fails, you can use `httr2::last_response()` and 
+  `httr2::last_request()` to debug.
+  
+* `gh()` gains a new `.max_wait` argument which gives the maximum number of 
+  minutes to wait if you are rate limited (#67).
+
 * gh can now validate GitHub
   [fine-grained](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)
   personal access tokens (@jvstein, #171).

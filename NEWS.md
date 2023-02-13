@@ -7,6 +7,9 @@
 * `gh()` gains a new `.max_wait` argument which gives the maximum number of 
   minutes to wait if you are rate limited (#67).
 
+* New `gh_rate_limits()` function reports on all rate limits for the active 
+  user.
+
 * gh can now validate GitHub
   [fine-grained](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)
   personal access tokens (@jvstein, #171).

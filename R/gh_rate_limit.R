@@ -20,11 +20,6 @@
 
 gh_rate_limit <- function(response = NULL, .token = NULL, .api_url = NULL, .send_headers = NULL) {
   if (is.null(response)) {
-    lifecycle::deprecate_warn(
-      when = "2.0.0",
-      what = "gh_rate_limit(response)",
-      with = "gh_rate_limits()"
-    )
     # This end point does not count against limit
     .token <- .token %||% gh_token(.api_url)
     response <- gh("GET /rate_limit",

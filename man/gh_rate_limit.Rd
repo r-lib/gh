@@ -2,6 +2,7 @@
 % Please edit documentation in R/gh_rate_limit.R
 \name{gh_rate_limit}
 \alias{gh_rate_limit}
+\alias{gh_rate_limits}
 \title{Return GitHub user's current rate limits}
 \usage{
 gh_rate_limit(
@@ -10,6 +11,8 @@ gh_rate_limit(
   .api_url = NULL,
   .send_headers = NULL
 )
+
+gh_rate_limits(.token = NULL, .api_url = NULL, .send_headers = NULL)
 }
 \arguments{
 \item{response}{\code{gh_response} object from a previous \code{gh} call, rate
@@ -35,11 +38,9 @@ A \code{list} object containing the overall \code{limit}, \code{remaining} limit
 limit \code{reset} time.
 }
 \description{
-Reports the current rate limit status for the authenticated user,
-either pulls this information from a previous successful request
-or directly from the GitHub API.
-}
-\details{
+\code{gh_rate_limits()} reports on all rate limits for the authenticated user.
+\code{gh_rate_limit()} reports on rate limits for previous successful request.
+
 Further details on GitHub's API rate limit policies are available at
 \url{https://docs.github.com/v3/#rate-limiting}.
 }

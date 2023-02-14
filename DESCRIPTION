@@ -18,7 +18,6 @@ Imports:
     httr2,
     ini,
     jsonlite,
-    lifecycle,
     rlang (>= 1.0.0)
 Suggests:
     covr,

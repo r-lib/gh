@@ -1,9 +1,9 @@
-pandoc: 2.14.2
-pkgdown: 2.0.6
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   managing-personal-access-tokens: managing-personal-access-tokens.html
-last_built: 2022-10-21T08:45Z
+last_built: 2023-02-14T16:37Z
 urls:
   reference: https://gh.r-lib.org/reference
   article: https://gh.r-lib.org/articles

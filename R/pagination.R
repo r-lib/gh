@@ -39,17 +39,15 @@ gh_link_request <- function(gh_response, link) {
   url <- extract_link(gh_response, link)
   if (is.na(url)) cli::cli_abort("No {link} page")
 
-  list(
-    method = attr(gh_response, "method"),
-    url = url,
-    headers = attr(gh_response, ".send_headers")
-  )
+  req <- attr(gh_response, "request")
+  req$url <- url
+  req
 }
 
 gh_link <- function(gh_response, link) {
   req <- gh_link_request(gh_response, link)
   raw <- gh_make_request(req)
-  gh_process_response(raw)
+  gh_process_response(raw, req)
 }
 
 gh_extract_pages <- function(gh_response) {

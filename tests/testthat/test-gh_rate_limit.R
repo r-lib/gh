@@ -18,7 +18,7 @@ test_that("good input", {
 
 test_that("errors", {
   expect_error(gh_rate_limit(list()))
-  expect_error(gh_rate_limit(.token = "bad"))
+  expect_error(gh_rate_limits(.token = "bad"))
 })
 
 test_that("missing rate limit", {

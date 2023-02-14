@@ -1,8 +1,8 @@
 #' Return GitHub user's current rate limits
 #'
-#' Reports the current rate limit status for the authenticated user,
-#' either pulls this information from a previous successful request
-#' or directly from the GitHub API.
+#' @description
+#' `gh_rate_limits()` reports on all rate limits for the authenticated user.
+#' `gh_rate_limit()` reports on rate limits for previous successful request.
 #'
 #' Further details on GitHub's API rate limit policies are available at
 #' <https://docs.github.com/v3/#rate-limiting>.
@@ -39,5 +39,32 @@ gh_rate_limit <- function(response = NULL, .token = NULL, .api_url = NULL, .send
     limit     = as.integer(c(http_res[["x-ratelimit-limit"]], NA)[1]),
     remaining = as.integer(c(http_res[["x-ratelimit-remaining"]], NA)[1]),
     reset     = reset
+  )
+}
+
+#' @export
+#' @rdname gh_rate_limit
+gh_rate_limits <- function(.token = NULL, .api_url = NULL, .send_headers = NULL) {
+  .token <- .token %||% gh_token(.api_url)
+  response <- gh(
+    "GET /rate_limit",
+    .token = .token,
+    .api_url = .api_url,
+    .send_headers = .send_headers
+  )
+
+  resources <- response$resources
+
+  reset <- .POSIXct(sapply(resources, "[[", "reset"))
+
+  data.frame(
+    type = names(resources),
+    limit = sapply(resources, "[[", "limit"),
+    used = sapply(resources, "[[", "used"),
+    remaining = sapply(resources, "[[", "remaining"),
+    reset = reset,
+    mins_left = round((unclass(reset) - unclass(Sys.time())) / 60, 1),
+    stringsAsFactors = FALSE,
+    row.names = NULL
   )
 }

@@ -65,7 +65,8 @@
 #' @param .params Additional list of parameters to append to `...`.
 #'   It is easier to use this than `...` if you have your parameters in
 #'   a list already.
-#'
+#' @param .max_wait Maximum number of seconds to wait if rate limited.
+#'   Defaults to 10 minutes.
 #' @return Answer from the API as a `gh_response` object, which is also a
 #'   `list`. Failed requests will generate an R error. Requests that
 #'   generate a raw response will return a raw vector.
@@ -141,10 +142,20 @@
 #'     "Content-Type" = "application/json"
 #'   )
 #' )
-gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
-               .overwrite = FALSE, .api_url = NULL, .method = "GET",
-               .limit = NULL, .accept = "application/vnd.github.v3+json",
-               .send_headers = NULL, .progress = TRUE, .params = list()) {
+gh <- function(endpoint,
+               ...,
+               per_page = NULL,
+               .token = NULL,
+               .destfile = NULL,
+               .overwrite = FALSE,
+               .api_url = NULL,
+               .method = "GET",
+               .limit = NULL,
+               .accept = "application/vnd.github.v3+json",
+               .send_headers = NULL,
+               .progress = TRUE,
+               .params = list(),
+               .max_wait = 600) {
   params <- c(list(...), .params)
   params <- drop_named_nulls(params)
 
@@ -159,11 +170,16 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
   }
 
   req <- gh_build_request(
-    endpoint = endpoint, params = params,
-    token = .token, destfile = .destfile,
-    overwrite = .overwrite, accept = .accept,
+    endpoint = endpoint,
+    params = params,
+    token = .token,
+    destfile = .destfile,
+    overwrite = .overwrite,
+    accept = .accept,
     send_headers = .send_headers,
-    api_url = .api_url, method = .method
+    max_wait = .max_wait,
+    api_url = .api_url,
+    method = .method
   )
 
 
@@ -172,7 +188,6 @@ gh <- function(endpoint, ..., per_page = NULL, .token = NULL, .destfile = NULL,
   if (.progress) prbr <- make_progress_bar(req)
 
   raw <- gh_make_request(req)
-
   res <- gh_process_response(raw)
   len <- gh_response_length(res)
 
@@ -234,21 +249,99 @@ gh_response_length <- function(res) {
   }
 }
 
-gh_make_request <- function(x) {
-  method_fun <- list(
-    "GET" = GET, "POST" = POST, "PATCH" = PATCH,
-    "PUT" = PUT, "DELETE" = DELETE
-  )[[x$method]]
-  if (is.null(method_fun)) {
+gh_make_request <- function(x, error_call = caller_env()) {
+  if (!x$method %in% c("GET", "POST", "PATCH", "PUT", "DELETE")) {
     cli::cli_abort("Unknown HTTP verb: {.val {x$method}}")
   }
 
-  raw <- do.call(
-    method_fun,
-    compact(list(
-      url = x$url, query = x$query, body = x$body,
-      add_headers(x$headers), x$dest
-    ))
+  req <- httr2::request(x$url)
+  req <- httr2::req_method(req, x$method)
+  req <- httr2::req_url_query(req, !!!x$query)
+  if (is.raw(x$body)) {
+    req <- httr2::req_body_raw(req, x$body)
+  } else {
+    req <- httr2::req_body_json(req, x$body, null = "list", digits = 4)
+  }
+  req <- httr2::req_headers(req, !!!x$headers)
+
+  if (!is_testing()) {
+    req <- httr2::req_retry(
+      req,
+      max_tries = 3,
+      is_transient = function(resp) github_is_transient(resp, x$max_wait),
+      after = github_after
+    )
+  }
+
+  # allow custom handling with gh_error
+  req <- httr2::req_error(req, is_error = function(resp) FALSE)
+
+  resp <- httr2::req_perform(req, path = x$dest)
+  if (httr2::resp_status(resp) >= 300) {
+    gh_error(resp, error_call = error_call)
+  }
+
+  resp
+}
+
+# https://docs.github.com/v3/#client-errors
+gh_error <- function(response, error_call = caller_env()) {
+  heads <- httr2::resp_headers(response)
+  res <- httr2::resp_body_json(response)
+  status <- httr2::resp_status(response)
+
+  msg <- "GitHub API error ({status}): {heads$status %||% ''} {res$message}"
+
+  if (status == 404) {
+    msg <- c(msg, x = c("URL not found: {.url {response$url}}"))
+  }
+
+  doc_url <- res$documentation_url
+  if (!is.null(doc_url)) {
+    msg <- c(msg, c("i" = "Read more at {.url {doc_url}}"))
+  }
+
+  errors <- res$errors
+  if (!is.null(errors)) {
+    errors <- as.data.frame(do.call(rbind, errors))
+    nms <- c("resource", "field", "code", "message")
+    nms <- nms[nms %in% names(errors)]
+    msg <- c(
+      msg,
+      capture.output(print(errors[nms], row.names = FALSE))
+    )
+  }
+
+  cli::cli_abort(
+    msg,
+    class = c("github_error", paste0("http_error_", status)),
+    call = error_call,
+    response_headers = heads,
+    response_content = res
   )
-  raw
+}
+
+
+# use retry-after info when possible
+# https://docs.github.com/en/rest/overview/resources-in-the-rest-api#exceeding-the-rate-limit
+github_is_transient <- function(resp, max_wait) {
+  if (httr2::resp_status(resp) != 403) {
+    return(FALSE)
+  }
+  if (!identical(httr2::resp_header(resp, "x-ratelimit-remaining"), "0")) {
+    return(FALSE)
+  }
+
+  time <- httr2::resp_header(resp, "x-ratelimit-reset")
+  if (is.null(time)) {
+    return(FALSE)
+  }
+
+  time <- as.numeric(time)
+  minutes_to_wait <- (time - unclass(Sys.time()))
+  minutes_to_wait <= max_wait
+}
+github_after <- function(resp) {
+  time <- as.numeric(httr2::resp_header(resp, "x-ratelimit-reset"))
+  time - unclass(Sys.time())
 }

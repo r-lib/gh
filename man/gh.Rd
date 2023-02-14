@@ -18,7 +18,8 @@ gh(
   .send_headers = NULL,
   .progress = TRUE,
   .params = list(),
-  .max_wait = 600
+  .max_wait = 600,
+  .max_rate = NULL
 )
 }
 \arguments{
@@ -94,6 +95,9 @@ a list already.}
 
 \item{.max_wait}{Maximum number of seconds to wait if rate limited.
 Defaults to 10 minutes.}
+
+\item{.max_rate}{Maximum request rate in requests per second. Set
+this to automatically throttle requests.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a

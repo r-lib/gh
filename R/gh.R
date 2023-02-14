@@ -65,7 +65,8 @@
 #' @param .params Additional list of parameters to append to `...`.
 #'   It is easier to use this than `...` if you have your parameters in
 #'   a list already.
-#' @param .max_wait Maximum number of minutes to wait if rate limited.
+#' @param .max_wait Maximum number of seconds to wait if rate limited.
+#'   Defaults to 10 minutes.
 #' @return Answer from the API as a `gh_response` object, which is also a
 #'   `list`. Failed requests will generate an R error. Requests that
 #'   generate a raw response will return a raw vector.
@@ -154,7 +155,7 @@ gh <- function(endpoint,
                .send_headers = NULL,
                .progress = TRUE,
                .params = list(),
-               .max_wait = 10) {
+               .max_wait = 600) {
   params <- c(list(...), .params)
   params <- drop_named_nulls(params)
 
@@ -337,7 +338,7 @@ github_is_transient <- function(resp, max_wait) {
   }
 
   time <- as.numeric(time)
-  minutes_to_wait <- (time - unclass(Sys.time())) / 60
+  minutes_to_wait <- (time - unclass(Sys.time()))
   minutes_to_wait <= max_wait
 }
 github_after <- function(resp) {

@@ -18,7 +18,7 @@ gh(
   .send_headers = NULL,
   .progress = TRUE,
   .params = list(),
-  .max_wait = 10
+  .max_wait = 600
 )
 }
 \arguments{
@@ -92,7 +92,8 @@ need more than one HTTP request.}
 It is easier to use this than \code{...} if you have your parameters in
 a list already.}
 
-\item{.max_wait}{Maximum number of minutes to wait if rate limited.}
+\item{.max_wait}{Maximum number of seconds to wait if rate limited.
+Defaults to 10 minutes.}
 }
 \value{
 Answer from the API as a \code{gh_response} object, which is also a

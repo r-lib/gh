@@ -67,6 +67,8 @@
 #'   a list already.
 #' @param .max_wait Maximum number of seconds to wait if rate limited.
 #'   Defaults to 10 minutes.
+#' @param .max_rate Maximum request rate in requests per second. Set
+#'   this to automatically throttle requests.
 #' @return Answer from the API as a `gh_response` object, which is also a
 #'   `list`. Failed requests will generate an R error. Requests that
 #'   generate a raw response will return a raw vector.
@@ -155,7 +157,8 @@ gh <- function(endpoint,
                .send_headers = NULL,
                .progress = TRUE,
                .params = list(),
-               .max_wait = 600) {
+               .max_wait = 600,
+               .max_rate = NULL) {
   params <- c(list(...), .params)
   params <- drop_named_nulls(params)
 
@@ -178,17 +181,17 @@ gh <- function(endpoint,
     accept = .accept,
     send_headers = .send_headers,
     max_wait = .max_wait,
+    max_rate = .max_rate,
     api_url = .api_url,
     method = .method
   )
-
 
   if (req$method == "GET") check_named_nas(params)
 
   if (.progress) prbr <- make_progress_bar(req)
 
   raw <- gh_make_request(req)
-  res <- gh_process_response(raw)
+  res <- gh_process_response(raw, req)
   len <- gh_response_length(res)
 
   while (!is.null(.limit) && len < .limit && gh_has_next(res)) {
@@ -271,6 +274,10 @@ gh_make_request <- function(x, error_call = caller_env()) {
       is_transient = function(resp) github_is_transient(resp, x$max_wait),
       after = github_after
     )
+  }
+
+  if (!is.null(x$max_rate)) {
+    req <- httr2::req_throttle(req, x$max_rate)
   }
 
   # allow custom handling with gh_error

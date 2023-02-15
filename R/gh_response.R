@@ -1,4 +1,4 @@
-gh_process_response <- function(resp) {
+gh_process_response <- function(resp, gh_req) {
   stopifnot(inherits(resp, "httr2_response"))
 
   content_type <- httr2::resp_content_type(resp)
@@ -24,8 +24,11 @@ gh_process_response <- function(resp) {
     res <- list(message = httr2::resp_body_string(resp))
   }
 
-  attr(res, "method") <- resp$method
   attr(res, "response") <- httr2::resp_headers(resp)
+  attr(res, "request") <- gh_req
+
+  # for backward compatibility
+  attr(res, "method") <- resp$method
   attr(res, ".send_headers") <- httr2::last_request()$headers
 
   if (is_ondisk) {

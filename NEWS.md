@@ -1,5 +1,8 @@
 # gh (development version)
 
+* `gh()` gains a new `.max_rate` parameter that sets the maximum number of 
+  requests per second.
+
 * gh is now powered by httr2. This should generally have little impact on normal
   operation but if a request fails, you can use `httr2::last_response()` and 
   `httr2::last_request()` to debug.

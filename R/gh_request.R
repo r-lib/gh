@@ -14,6 +14,7 @@ gh_build_request <- function(endpoint = "/user",
                              accept = NULL,
                              send_headers = NULL,
                              max_wait = 10,
+                             max_rate = NULL,
                              api_url = NULL,
                              method = "GET") {
   working <- list(
@@ -30,7 +31,8 @@ gh_build_request <- function(endpoint = "/user",
     api_url = api_url,
     dest = destfile,
     overwrite = overwrite,
-    max_wait = max_wait
+    max_wait = max_wait,
+    max_rate = max_rate
   )
 
   working <- gh_set_verb(working)
@@ -39,7 +41,7 @@ gh_build_request <- function(endpoint = "/user",
   working <- gh_set_body(working)
   working <- gh_set_url(working)
   working <- gh_set_headers(working)
-  working[c("method", "url", "headers", "query", "body", "dest")]
+  working[c("method", "url", "headers", "query", "body", "dest", "max_wait", "max_rate")]
 }
 
 

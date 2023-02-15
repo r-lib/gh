@@ -54,3 +54,16 @@ test_that("warns if output is HTML", {
   expect_equal(res, list(message = "<p>foo</p>\n"), ignore_attr = TRUE)
   expect_equal(class(res), c("gh_response", "list"))
 })
+
+test_that("captures details to recreate request", {
+  res <- gh("/orgs/{org}/repos", org = "r-lib", .per_page = 1)
+
+  req <- attr(res, "request")
+  expect_type(req, "list")
+  expect_equal(req$url, "https://api.github.com/orgs/r-lib/repos")
+  expect_equal(req$query, list(.per_page = 1))
+
+  # For backwards compatibility
+  expect_equal(attr(res, "method"), "GET")
+  expect_type(attr(res, ".send_headers"), "list")
+})

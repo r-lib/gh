@@ -98,7 +98,8 @@ body, as JSON.</p></li>
 <span>  .send_headers <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  .progress <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  .params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>  .max_wait <span class="op">=</span> <span class="fl">600</span></span>
+<span>  .max_wait <span class="op">=</span> <span class="fl">600</span>,</span>
+<span>  .max_rate <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -199,6 +200,11 @@ a list already.</p></dd>
 <dt>.max_wait</dt>
 <dd><p>Maximum number of seconds to wait if rate limited.
 Defaults to 10 minutes.</p></dd>
+
+
+<dt>.max_rate</dt>
+<dd><p>Maximum request rate in requests per second. Set
+this to automatically throttle requests.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -723,7 +729,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "releases_url": "https://api.github.com/repos/r-dbi/bigrquery/releases{/id}",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "deployments_url": "https://api.github.com/repos/r-dbi/bigrquery/deployments",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2013-05-22T14:04:16Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-13T23:21:01Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-15T11:36:36Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2022-12-15T11:34:14Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "git_url": "git://github.com/r-dbi/bigrquery.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "ssh_url": "git@github.com:r-dbi/bigrquery.git",</span>
@@ -731,8 +737,8 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "svn_url": "https://github.com/r-dbi/bigrquery",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "homepage": "https://bigrquery.r-dbi.org",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 1543,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 481,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 481,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 482,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 482,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "language": "R",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_issues": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_projects": false,</span>
@@ -763,7 +769,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "visibility": "public",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "forks": 174,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues": 81,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 481,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 482,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "default_branch": "main",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "permissions": {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "admin": false,</span>
@@ -956,7 +962,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "releases_url": "https://api.github.com/repos/r-dbi/bigrquery/releases{/id}",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "deployments_url": "https://api.github.com/repos/r-dbi/bigrquery/deployments",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2013-05-22T14:04:16Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-13T23:21:01Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-15T11:36:36Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2022-12-15T11:34:14Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "git_url": "git://github.com/r-dbi/bigrquery.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "ssh_url": "git@github.com:r-dbi/bigrquery.git",</span>
@@ -964,8 +970,8 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "svn_url": "https://github.com/r-dbi/bigrquery",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "homepage": "https://bigrquery.r-dbi.org",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 1543,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 481,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 481,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 482,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 482,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "language": "R",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_issues": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_projects": false,</span>
@@ -996,7 +1002,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "visibility": "public",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "forks": 174,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues": 81,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 481,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 482,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "default_branch": "main",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "permissions": {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "admin": false,</span>
@@ -1129,6 +1135,142 @@ generate a raw response will return a raw vector.</p>
 <span class="r-in"><span><span class="fu">gh</span><span class="op">(</span><span class="st">"/repos/hadley/dplyr/issues"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/labels{/name}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/comments",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/pull/6727",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 1584965905,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "PR_kwDOAGIUpc5J_ME5",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 6727,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Make the current group size a variable updated by reference",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 19150088,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE5MTUwMDg4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/19150088?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/DavisVaughan/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/DavisVaughan/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/DavisVaughan/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/DavisVaughan/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/DavisVaughan/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/DavisVaughan/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/DavisVaughan/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/DavisVaughan/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-14T23:13:18Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-15T14:03:05Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "draft": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pull_request": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/pulls/6727",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/pull/6727",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "diff_url": "https://github.com/tidyverse/dplyr/pull/6727.diff",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "patch_url": "https://github.com/tidyverse/dplyr/pull/6727.patch",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "merged_at": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "This PR:\r\n\r\n- Provides access to the current group size through `$get_current_group_size()`\r\n- Uses this helper in `n()`, which makes it a little faster\r\n\r\nThis also gives us an easy private way to access the current group size for https://github.com/tidyverse/dplyr/issues/6685#issuecomment-1430392850\r\n\r\nIt also gets rid of the need to do `parent.env(chops)` internally, which always felt a little clunky to me.\r\n\r\n``` r\r\nlibrary(dplyr)\r\n\r\nset.seed(123)\r\n\r\n# ~100k groups, so that many evaluations of `n()`\r\nx &lt;- sample(1e5, 1e6, replace = TRUE)\r\ndf &lt;- tibble(x = x)\r\ndf &lt;- group_by(df, x)\r\ndf\r\n#&gt; # A tibble: 1,000,000 × 1\r\n#&gt; # Groups:   x [99,995]\r\n#&gt;        x\r\n#&gt;    &lt;int&gt;\r\n#&gt;  1 51663\r\n#&gt;  2 57870\r\n#&gt;  3  2986\r\n#&gt;  4 29925\r\n#&gt;  5 95246\r\n#&gt;  6 68293\r\n#&gt;  7 62555\r\n#&gt;  8 45404\r\n#&gt;  9 65161\r\n#&gt; 10 46435\r\n#&gt; # … with 999,990 more rows\r\n\r\nbench::mark(summarise(df, n = n()), iterations = 100)\r\n\r\n# Main\r\n#&gt; Warning: Some expressions had a GC in every iteration; so filtering is\r\n#&gt; disabled.\r\n#&gt; # A tibble: 1 × 6\r\n#&gt;   expression                  min   median `itr/sec` mem_alloc `gc/sec`\r\n#&gt;   &lt;bch:expr&gt;             &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;\r\n#&gt; 1 summarise(df, n = n())    919ms    1.14s     0.873    7.15MB     13.8\r\n\r\n# This PR\r\n#&gt; Warning: Some expressions had a GC in every iteration; so filtering is\r\n#&gt; disabled.\r\n#&gt; # A tibble: 1 × 6\r\n#&gt;   expression                  min   median `itr/sec` mem_alloc `gc/sec`\r\n#&gt;   &lt;bch:expr&gt;             &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;\r\n#&gt; 1 summarise(df, n = n())    596ms    742ms      1.35    7.16MB     15.1\r\n```\r\n\r\n&lt;sup&gt;Created on 2023-02-15 with [reprex v2.0.2.9000](https://reprex.tidyverse.org)&lt;\/sup&gt;",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/reactions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/timeline",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/labels{/name}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/comments",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/pull/6726",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 1584835303,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "PR_kwDOAGIUpc5J-vfN",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 6726,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Inject maskable arguments in `slice_*()`",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 19150088,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE5MTUwMDg4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/19150088?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/DavisVaughan/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/DavisVaughan/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/DavisVaughan/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/DavisVaughan/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/DavisVaughan/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/DavisVaughan/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/DavisVaughan/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/DavisVaughan/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-14T21:08:29Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T23:18:14Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "draft": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pull_request": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/pulls/6726",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/pull/6726",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "diff_url": "https://github.com/tidyverse/dplyr/pull/6726.diff",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "patch_url": "https://github.com/tidyverse/dplyr/pull/6726.patch",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "merged_at": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Closes #6725",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/reactions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/timeline",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6725",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6725/labels{/name}",</span>
@@ -1164,10 +1306,46 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/milestones/31",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/milestone/31",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "labels_url": "https://api.github.com/repos/tidyverse/dplyr/milestones/31/labels",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 9017918,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MI_kwDOAGIUpc4AiZo-",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "number": 31,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "title": "1.1.1",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "description": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "creator": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "login": "DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 19150088,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDQ6VXNlcjE5MTUwMDg4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "avatar_url": "https://avatars.githubusercontent.com/u/19150088?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/users/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "html_url": "https://github.com/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "followers_url": "https://api.github.com/users/DavisVaughan/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "following_url": "https://api.github.com/users/DavisVaughan/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "gists_url": "https://api.github.com/users/DavisVaughan/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "starred_url": "https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "subscriptions_url": "https://api.github.com/users/DavisVaughan/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "organizations_url": "https://api.github.com/users/DavisVaughan/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "repos_url": "https://api.github.com/users/DavisVaughan/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "events_url": "https://api.github.com/users/DavisVaughan/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "received_events_url": "https://api.github.com/users/DavisVaughan/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "open_issues": 6,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-14T15:55:51Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T15:55:51Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
@@ -1185,66 +1363,6 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6725/timeline",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/labels{/name}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/comments",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/6724",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 1584285284,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "I_kwDOAGIUpc5ebkZk",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 6724,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "dplyr verbs to ISO standards",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "alexhallam",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 9298693,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjkyOTg2OTM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/9298693?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/alexhallam",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/alexhallam",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/alexhallam/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/alexhallam/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/alexhallam/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/alexhallam/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/alexhallam/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/alexhallam/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/alexhallam/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/alexhallam/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/alexhallam/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-14T14:41:10Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T14:42:13Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Less of an issue, but more of a question.\r\n\r\nI have been a long-time `dplyr` user. At this point, there are probably no verbs that are more natural to me.\r\n\r\nThere are many clis, database languages, and data manipulation libraries that use ISO SQL or roll with their own grammar.\r\n\r\nI have wondered why no ISO standard for `dplyr` verbs exists? I know a standard would encourage me to make an API layer supporting the grammar if I were to make another tool in a different language or framework.\r\n\r\nI guess what I am trying to say is that the grammar is bigger than `dplyr` alone. Why not standardize the grammar for other tools to point to?\r\n\r\n",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/reactions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/timeline",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
@@ -1285,9 +1403,9 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 2,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 4,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-10T23:58:30Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-13T22:25:36Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-15T12:25:15Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "CONTRIBUTOR",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
@@ -1387,7 +1505,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
@@ -1611,7 +1729,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
@@ -1707,13 +1825,13 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 4,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 5,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-06T08:24:07Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-07T20:36:32Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T21:20:02Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
@@ -1803,7 +1921,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
@@ -1866,46 +1984,10 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/milestones/31",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/milestone/31",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "labels_url": "https://api.github.com/repos/tidyverse/dplyr/milestones/31/labels",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 9017918,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MI_kwDOAGIUpc4AiZo-",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "number": 31,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "title": "1.1.1",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "description": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "creator": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "login": "DavisVaughan",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 19150088,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDQ6VXNlcjE5MTUwMDg4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "avatar_url": "https://avatars.githubusercontent.com/u/19150088?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/users/DavisVaughan",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "html_url": "https://github.com/DavisVaughan",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "followers_url": "https://api.github.com/users/DavisVaughan/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "following_url": "https://api.github.com/users/DavisVaughan/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "gists_url": "https://api.github.com/users/DavisVaughan/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "starred_url": "https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "subscriptions_url": "https://api.github.com/users/DavisVaughan/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "organizations_url": "https://api.github.com/users/DavisVaughan/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "repos_url": "https://api.github.com/users/DavisVaughan/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "events_url": "https://api.github.com/users/DavisVaughan/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "received_events_url": "https://api.github.com/users/DavisVaughan/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "open_issues": 6,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 4,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-01T18:29:11Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-07T21:10:06Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T17:33:04Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
@@ -1995,7 +2077,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
@@ -3420,85 +3502,6 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4663/timeline",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/labels{/name}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/comments",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/4050",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 393503823,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "MDU6SXNzdWUzOTM1MDM4MjM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 4050,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Conditionally mutate selected rows ",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 1741643,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE3NDE2NDM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/1741643?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/krlmlr/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/krlmlr/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/krlmlr/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/krlmlr/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/krlmlr/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/krlmlr/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/krlmlr/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/krlmlr/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/krlmlr/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 17708200,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDU6TGFiZWwxNzcwODIwMA==",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/repos/tidyverse/dplyr/labels/feature",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "name": "feature",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "color": "B4C3AE",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "default": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "description": "a feature request or enhancement"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 3407329987,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "LA_kwDOAGIUpc7LF7rD",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/repos/tidyverse/dplyr/labels/columns%20%E2%86%94%EF%B8%8F",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "name": "columns ↔️",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "color": "eeeeee",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "default": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "description": "Operations on columns: mutate(), select(),  rename(), relocate()"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 7,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2018-12-21T15:47:39Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2022-09-13T18:46:00Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "This would allow supporting an efficient `mutate_if_row()` verb here or elsewhere (assuming there's also a nice way to set the group data, as implemented in `update_group_data()` here). I remember a discussion about using the group data for other exciting things such as bootstrapping?\r\n\r\nIn the example below, the first three rows should remain unchanged.\r\n\r\n``` r\r\nlibrary(tidyverse)\r\n\r\ndf &lt;- tibble(a = 1:5)\r\ndf\r\n#&gt; # A tibble: 5 x 1\r\n#&gt;       a\r\n#&gt;   &lt;int&gt;\r\n#&gt; 1     1\r\n#&gt; 2     2\r\n#&gt; 3     3\r\n#&gt; 4     4\r\n#&gt; 5     5\r\n\r\nupdate_group_data &lt;- function(.data, group_data) {\r\n  attr(.data, \"groups\") &lt;- group_data\r\n  .data\r\n}\r\n\r\ngroup_filter &lt;- function(.data, ...) {\r\n  new_group_data &lt;-\r\n    .data %&gt;%\r\n    group_data() %&gt;%\r\n    filter(...)\r\n\r\n  .data %&gt;%\r\n    update_group_data(new_group_data)\r\n}\r\n\r\nmutate_if_row &lt;- function(.data, cond, ...) {\r\n  cond &lt;- rlang::enquo(cond)\r\n\r\n  .data %&gt;%\r\n    group_by(.flag = !!cond) %&gt;%\r\n    group_filter(.flag) %&gt;%\r\n    mutate(...) %&gt;%\r\n    ungroup() %&gt;%\r\n    select(-.flag)\r\n}\r\n\r\ndf %&gt;%\r\n  mutate_if_row(a &gt; 3, a = a + 1L)\r\n#&gt; # A tibble: 5 x 1\r\n#&gt;       a\r\n#&gt;   &lt;int&gt;\r\n#&gt; 1    NA\r\n#&gt; 2    NA\r\n#&gt; 3    NA\r\n#&gt; 4     5\r\n#&gt; 5     6\r\n```\r\n\r\n&lt;sup&gt;Created on 2018-12-21 by the [reprex package](https://reprex.tidyverse.org) (v0.2.1.9000)&lt;\/sup&gt;",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/reactions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 2,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 2,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/timeline",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   }</span>
@@ -3506,6 +3509,142 @@ generate a raw response will return a raw vector.</p>
 <span class="r-in"><span><span class="fu">gh</span><span class="op">(</span><span class="st">"/repos/{owner}/{repo}/issues"</span>, owner <span class="op">=</span> <span class="st">"hadley"</span>, repo <span class="op">=</span> <span class="st">"dplyr"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/labels{/name}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/comments",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/pull/6727",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 1584965905,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "PR_kwDOAGIUpc5J_ME5",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 6727,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Make the current group size a variable updated by reference",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 19150088,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE5MTUwMDg4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/19150088?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/DavisVaughan/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/DavisVaughan/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/DavisVaughan/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/DavisVaughan/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/DavisVaughan/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/DavisVaughan/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/DavisVaughan/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/DavisVaughan/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-14T23:13:18Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-15T14:03:05Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "draft": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pull_request": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/pulls/6727",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/pull/6727",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "diff_url": "https://github.com/tidyverse/dplyr/pull/6727.diff",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "patch_url": "https://github.com/tidyverse/dplyr/pull/6727.patch",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "merged_at": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "This PR:\r\n\r\n- Provides access to the current group size through `$get_current_group_size()`\r\n- Uses this helper in `n()`, which makes it a little faster\r\n\r\nThis also gives us an easy private way to access the current group size for https://github.com/tidyverse/dplyr/issues/6685#issuecomment-1430392850\r\n\r\nIt also gets rid of the need to do `parent.env(chops)` internally, which always felt a little clunky to me.\r\n\r\n``` r\r\nlibrary(dplyr)\r\n\r\nset.seed(123)\r\n\r\n# ~100k groups, so that many evaluations of `n()`\r\nx &lt;- sample(1e5, 1e6, replace = TRUE)\r\ndf &lt;- tibble(x = x)\r\ndf &lt;- group_by(df, x)\r\ndf\r\n#&gt; # A tibble: 1,000,000 × 1\r\n#&gt; # Groups:   x [99,995]\r\n#&gt;        x\r\n#&gt;    &lt;int&gt;\r\n#&gt;  1 51663\r\n#&gt;  2 57870\r\n#&gt;  3  2986\r\n#&gt;  4 29925\r\n#&gt;  5 95246\r\n#&gt;  6 68293\r\n#&gt;  7 62555\r\n#&gt;  8 45404\r\n#&gt;  9 65161\r\n#&gt; 10 46435\r\n#&gt; # … with 999,990 more rows\r\n\r\nbench::mark(summarise(df, n = n()), iterations = 100)\r\n\r\n# Main\r\n#&gt; Warning: Some expressions had a GC in every iteration; so filtering is\r\n#&gt; disabled.\r\n#&gt; # A tibble: 1 × 6\r\n#&gt;   expression                  min   median `itr/sec` mem_alloc `gc/sec`\r\n#&gt;   &lt;bch:expr&gt;             &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;\r\n#&gt; 1 summarise(df, n = n())    919ms    1.14s     0.873    7.15MB     13.8\r\n\r\n# This PR\r\n#&gt; Warning: Some expressions had a GC in every iteration; so filtering is\r\n#&gt; disabled.\r\n#&gt; # A tibble: 1 × 6\r\n#&gt;   expression                  min   median `itr/sec` mem_alloc `gc/sec`\r\n#&gt;   &lt;bch:expr&gt;             &lt;bch:tm&gt; &lt;bch:tm&gt;     &lt;dbl&gt; &lt;bch:byt&gt;    &lt;dbl&gt;\r\n#&gt; 1 summarise(df, n = n())    596ms    742ms      1.35    7.16MB     15.1\r\n```\r\n\r\n&lt;sup&gt;Created on 2023-02-15 with [reprex v2.0.2.9000](https://reprex.tidyverse.org)&lt;\/sup&gt;",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/reactions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6727/timeline",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/labels{/name}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/comments",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/pull/6726",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 1584835303,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "PR_kwDOAGIUpc5J-vfN",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 6726,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Inject maskable arguments in `slice_*()`",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 19150088,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE5MTUwMDg4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/19150088?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/DavisVaughan/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/DavisVaughan/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/DavisVaughan/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/DavisVaughan/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/DavisVaughan/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/DavisVaughan/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/DavisVaughan/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/DavisVaughan/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-14T21:08:29Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T23:18:14Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "draft": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pull_request": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/pulls/6726",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/pull/6726",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "diff_url": "https://github.com/tidyverse/dplyr/pull/6726.diff",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "patch_url": "https://github.com/tidyverse/dplyr/pull/6726.patch",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "merged_at": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Closes #6725",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/reactions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6726/timeline",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6725",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6725/labels{/name}",</span>
@@ -3541,10 +3680,46 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/milestones/31",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/milestone/31",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "labels_url": "https://api.github.com/repos/tidyverse/dplyr/milestones/31/labels",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 9017918,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MI_kwDOAGIUpc4AiZo-",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "number": 31,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "title": "1.1.1",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "description": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "creator": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "login": "DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 19150088,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDQ6VXNlcjE5MTUwMDg4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "avatar_url": "https://avatars.githubusercontent.com/u/19150088?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/users/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "html_url": "https://github.com/DavisVaughan",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "followers_url": "https://api.github.com/users/DavisVaughan/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "following_url": "https://api.github.com/users/DavisVaughan/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "gists_url": "https://api.github.com/users/DavisVaughan/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "starred_url": "https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "subscriptions_url": "https://api.github.com/users/DavisVaughan/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "organizations_url": "https://api.github.com/users/DavisVaughan/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "repos_url": "https://api.github.com/users/DavisVaughan/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "events_url": "https://api.github.com/users/DavisVaughan/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "received_events_url": "https://api.github.com/users/DavisVaughan/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "open_issues": 6,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-14T15:55:51Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T15:55:51Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
@@ -3562,66 +3737,6 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6725/timeline",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/labels{/name}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/comments",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/6724",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 1584285284,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "I_kwDOAGIUpc5ebkZk",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 6724,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "dplyr verbs to ISO standards",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "alexhallam",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 9298693,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjkyOTg2OTM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/9298693?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/alexhallam",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/alexhallam",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/alexhallam/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/alexhallam/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/alexhallam/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/alexhallam/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/alexhallam/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/alexhallam/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/alexhallam/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/alexhallam/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/alexhallam/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-14T14:41:10Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T14:42:13Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Less of an issue, but more of a question.\r\n\r\nI have been a long-time `dplyr` user. At this point, there are probably no verbs that are more natural to me.\r\n\r\nThere are many clis, database languages, and data manipulation libraries that use ISO SQL or roll with their own grammar.\r\n\r\nI have wondered why no ISO standard for `dplyr` verbs exists? I know a standard would encourage me to make an API layer supporting the grammar if I were to make another tool in a different language or framework.\r\n\r\nI guess what I am trying to say is that the grammar is bigger than `dplyr` alone. Why not standardize the grammar for other tools to point to?\r\n\r\n",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/reactions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/6724/timeline",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
@@ -3662,9 +3777,9 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 2,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 4,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-10T23:58:30Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-13T22:25:36Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-15T12:25:15Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "CONTRIBUTOR",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
@@ -3764,7 +3879,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
@@ -3988,7 +4103,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
@@ -4084,13 +4199,13 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 4,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 5,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-06T08:24:07Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-07T20:36:32Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T21:20:02Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
@@ -4180,7 +4295,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
@@ -4243,46 +4358,10 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/milestones/31",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/milestone/31",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "labels_url": "https://api.github.com/repos/tidyverse/dplyr/milestones/31/labels",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 9017918,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MI_kwDOAGIUpc4AiZo-",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "number": 31,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "title": "1.1.1",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "description": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "creator": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "login": "DavisVaughan",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 19150088,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDQ6VXNlcjE5MTUwMDg4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "avatar_url": "https://avatars.githubusercontent.com/u/19150088?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/users/DavisVaughan",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "html_url": "https://github.com/DavisVaughan",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "followers_url": "https://api.github.com/users/DavisVaughan/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "following_url": "https://api.github.com/users/DavisVaughan/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "gists_url": "https://api.github.com/users/DavisVaughan/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "starred_url": "https://api.github.com/users/DavisVaughan/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "subscriptions_url": "https://api.github.com/users/DavisVaughan/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "organizations_url": "https://api.github.com/users/DavisVaughan/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "repos_url": "https://api.github.com/users/DavisVaughan/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "events_url": "https://api.github.com/users/DavisVaughan/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "received_events_url": "https://api.github.com/users/DavisVaughan/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "open_issues": 6,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 4,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2023-02-01T18:29:11Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-07T21:10:06Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2023-02-14T17:33:04Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
@@ -4372,7 +4451,7 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_issues": 12,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "state": "open",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "created_at": "2023-02-07T20:36:20Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T16:04:02Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "updated_at": "2023-02-14T21:09:40Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "due_on": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "closed_at": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
@@ -5797,85 +5876,6 @@ generate a raw response will return a raw vector.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4663/timeline",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/labels{/name}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/comments",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/4050",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 393503823,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "MDU6SXNzdWUzOTM1MDM4MjM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 4050,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Conditionally mutate selected rows ",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 1741643,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE3NDE2NDM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/1741643?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/krlmlr/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/krlmlr/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/krlmlr/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/krlmlr/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/krlmlr/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/krlmlr/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/krlmlr/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/krlmlr/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/krlmlr/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 17708200,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDU6TGFiZWwxNzcwODIwMA==",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/repos/tidyverse/dplyr/labels/feature",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "name": "feature",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "color": "B4C3AE",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "default": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "description": "a feature request or enhancement"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 3407329987,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "LA_kwDOAGIUpc7LF7rD",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/repos/tidyverse/dplyr/labels/columns%20%E2%86%94%EF%B8%8F",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "name": "columns ↔️",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "color": "eeeeee",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "default": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "description": "Operations on columns: mutate(), select(),  rename(), relocate()"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 7,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2018-12-21T15:47:39Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2022-09-13T18:46:00Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "This would allow supporting an efficient `mutate_if_row()` verb here or elsewhere (assuming there's also a nice way to set the group data, as implemented in `update_group_data()` here). I remember a discussion about using the group data for other exciting things such as bootstrapping?\r\n\r\nIn the example below, the first three rows should remain unchanged.\r\n\r\n``` r\r\nlibrary(tidyverse)\r\n\r\ndf &lt;- tibble(a = 1:5)\r\ndf\r\n#&gt; # A tibble: 5 x 1\r\n#&gt;       a\r\n#&gt;   &lt;int&gt;\r\n#&gt; 1     1\r\n#&gt; 2     2\r\n#&gt; 3     3\r\n#&gt; 4     4\r\n#&gt; 5     5\r\n\r\nupdate_group_data &lt;- function(.data, group_data) {\r\n  attr(.data, \"groups\") &lt;- group_data\r\n  .data\r\n}\r\n\r\ngroup_filter &lt;- function(.data, ...) {\r\n  new_group_data &lt;-\r\n    .data %&gt;%\r\n    group_data() %&gt;%\r\n    filter(...)\r\n\r\n  .data %&gt;%\r\n    update_group_data(new_group_data)\r\n}\r\n\r\nmutate_if_row &lt;- function(.data, cond, ...) {\r\n  cond &lt;- rlang::enquo(cond)\r\n\r\n  .data %&gt;%\r\n    group_by(.flag = !!cond) %&gt;%\r\n    group_filter(.flag) %&gt;%\r\n    mutate(...) %&gt;%\r\n    ungroup() %&gt;%\r\n    select(-.flag)\r\n}\r\n\r\ndf %&gt;%\r\n  mutate_if_row(a &gt; 3, a = a + 1L)\r\n#&gt; # A tibble: 5 x 1\r\n#&gt;       a\r\n#&gt;   &lt;int&gt;\r\n#&gt; 1    NA\r\n#&gt; 2    NA\r\n#&gt; 3    NA\r\n#&gt; 4     5\r\n#&gt; 5     6\r\n```\r\n\r\n&lt;sup&gt;Created on 2018-12-21 by the [reprex package](https://reprex.tidyverse.org) (v0.2.1.9000)&lt;\/sup&gt;",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/reactions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 2,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 2,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/4050/timeline",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   }</span>

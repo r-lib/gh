@@ -26,7 +26,7 @@
 #'   values are silently dropped. For GET requests, named `NA` values trigger an
 #'   error. For other methods, named `NA` values are included in the body of the
 #'   request, as JSON `null`.
-#' @param per_page Number of items to return per page. If omitted,
+#' @param per_page,.per_page Number of items to return per page. If omitted,
 #'   will be substituted by `max(.limit, 100)` if `.limit` is set,
 #'   otherwise determined by the API (never greater than 100).
 #' @param .destfile Path to write response to disk. If `NULL` (default),
@@ -147,6 +147,7 @@
 gh <- function(endpoint,
                ...,
                per_page = NULL,
+               .per_page = NULL,
                .token = NULL,
                .destfile = NULL,
                .overwrite = FALSE,
@@ -162,12 +163,12 @@ gh <- function(endpoint,
   params <- c(list(...), .params)
   params <- drop_named_nulls(params)
 
-  if (is.null(per_page)) {
-    if (!is.null(.limit)) {
-      per_page <- max(min(.limit, 100), 1)
-    }
-  }
 
+  check_exclusive(per_page, .per_page, .require = FALSE)
+  per_page <- per_page %||% .per_page
+  if (is.null(per_page) && !is.null(.limit)) {
+    per_page <- max(min(.limit, 100), 1)
+  }
   if (!is.null(per_page)) {
     params <- c(params, list(per_page = per_page))
   }

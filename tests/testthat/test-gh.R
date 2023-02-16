@@ -52,6 +52,19 @@ test_that("can catch a given status directly", {
   expect_s3_class(e, "http_error_404")
 })
 
+test_that("can use per_page or .per_page but not both", {
+  resp <- gh("/orgs/tidyverse/repos", per_page = 2)
+  expect_equal(attr(resp, "request")$query$per_page, 2)
+
+  resp <- gh("/orgs/tidyverse/repos", .per_page = 2)
+  expect_equal(attr(resp, "request")$query$per_page, 2)
+
+  expect_snapshot(
+    error = TRUE,
+    gh("/orgs/tidyverse/repos", per_page = 1, .per_page = 2)
+  )
+})
+
 test_that("can paginate", {
   pages <- gh("/orgs/tidyverse/repos", per_page = 1, .limit = 5, .progress = FALSE)
   expect_length(pages, 5)

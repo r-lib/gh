@@ -61,7 +61,7 @@ test_that("captures details to recreate request", {
   req <- attr(res, "request")
   expect_type(req, "list")
   expect_equal(req$url, "https://api.github.com/orgs/r-lib/repos")
-  expect_equal(req$query, list(.per_page = 1))
+  expect_equal(req$query, list(per_page = 1))
 
   # For backwards compatibility
   expect_equal(attr(res, "method"), "GET")

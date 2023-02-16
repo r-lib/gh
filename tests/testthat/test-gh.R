@@ -51,3 +51,20 @@ test_that("can catch a given status directly", {
   expect_s3_class(e, "github_error")
   expect_s3_class(e, "http_error_404")
 })
+
+test_that("can paginate", {
+  pages <- gh("/orgs/tidyverse/repos", per_page = 1, .limit = 5, .progress = FALSE)
+  expect_length(pages, 5)
+})
+
+test_that("trim output when .limit isn't a multiple of .per_page", {
+  pages <- gh("/orgs/tidyverse/repos", per_page = 2, .limit = 3, .progress = FALSE)
+  expect_length(pages, 3)
+})
+
+test_that("can paginate repository search", {
+  pages <- gh("/search/repositories", q = "tidyverse", per_page = 10, .limit = 35)
+  expect_named(pages, c("total_count", "incomplete_results", "items"))
+  # Eliminates aren't trimmed to .limit in this case
+  expect_length(pages$items, 40)
+})

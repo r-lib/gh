@@ -188,15 +188,20 @@ gh <- function(endpoint,
 
   if (req$method == "GET") check_named_nas(params)
 
-  if (.progress) prbr <- make_progress_bar(req)
-
   raw <- gh_make_request(req)
   res <- gh_process_response(raw, req)
   len <- gh_response_length(res)
 
+  if (.progress && !is.null(.limit)) {
+    pages <- min(gh_extract_pages(res), ceiling(.limit / per_page))
+    cli::cli_progress_bar("Running gh query", total = pages)
+    cli::cli_progress_update() # already done one
+  }
+
   while (!is.null(.limit) && len < .limit && gh_has_next(res)) {
-    if (.progress) update_progress_bar(prbr, res)
     res2 <- gh_next(res)
+    len <- len + gh_response_length(res2)
+    if (.progress) cli::cli_progress_update()
 
     if (!is.null(names(res2)) && identical(names(res), names(res2))) {
       res3 <- mapply( # Handle named array case
@@ -218,11 +223,11 @@ gh <- function(endpoint,
       res3 <- c(res, res2) # e.g. GET /orgs/:org/invitations
     }
 
-    len <- len + gh_response_length(res2)
-
     attributes(res3) <- attributes(res2)
     res <- res3
   }
+
+  if (.progress) cli::cli_progress_done()
 
   # We only subset for a non-named response.
   if (!is.null(.limit) && len > .limit &&

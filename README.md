@@ -47,14 +47,16 @@ call. E.g.
 ``` r
 my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "after"         "alexr"         "altlist"       "argufy"       
-#>  [5] "ask"           "async"         "brokenPackage" "butcher"      
-#>  [9] "css"           "curl"          "disposables"   "dotenv"       
-#> [13] "empty"         "falsy"         "finmix"        "franc"        
-#> [17] "fswatch"       "homebrew-rim"  "ISA"           "keynote"      
-#> [21] "keypress"      "lpSolve"       "macBriain"     "maxygen"      
-#> [25] "MISO"          "msgtools"      "multicolor"    "notifier"     
-#> [29] "odbc"          "parr"
+#>  [1] "after"                "alexr"                "all.primer.tutorials"
+#>  [4] "altlist"              "argufy"               "ask"                 
+#>  [7] "async"                "BCEA"                 "BH"                  
+#> [10] "brokenPackage"        "butcher"              "css"                 
+#> [13] "curl"                 "disposables"          "dotenv"              
+#> [16] "falsy"                "finmix"               "foobar"              
+#> [19] "franc"                "fswatch"              "guildai-r"           
+#> [22] "httpgd"               "installgithub.app"    "ISA"                 
+#> [25] "isa2"                 "josaplay"             "keynote"             
+#> [28] "keypress"             "log"                  "lpSolve"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -67,16 +69,16 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "r-builds"              "homebrew-rim"          "rgdal"                
-#>  [4] "readxl"                "sdcHierarchies"        "skopeo"               
-#>  [7] "playground"            "r-system-requirements" "butcher"              
-#> [10] "tidyr"                 "empty"                 "rim"                  
-#> [13] "tidyverse.org"         "finmix"                "tune"                 
-#> [16] "multicolor"            "pkgdepends"            "css"                  
-#> [19] "curl"                  "usethis2"              "r-debug"              
-#> [22] "purrr"                 "redfish"               "win32-console-docs"   
-#> [25] "vt100-emulator"        "RSQLite"               "pkgload"              
-#> [28] "rencfaq"               "renv"                  "stockfish"
+#>  [1] "isa2"                   "r-builds"               "sos"                   
+#>  [4] "SCAVENGE"               "rworkflows"             "r-bugs"                
+#>  [7] "josaplay"               "all.primer.tutorials"   "neartools"             
+#> [10] "REDCapTidieR"           "guildai-r"              "BH"                    
+#> [13] "testrtools"             "vt-rs"                  "testpaktestthat"       
+#> [16] "httpgd"                 "BCEA"                   "monorepo"              
+#> [19] "pacman"                 "tiff"                   "tidyclust"             
+#> [22] "testCheckForceSuggests" "naomi"                  "rstudio"               
+#> [25] "butcher"                "foobar"                 "roxydemo"              
+#> [28] "log"                    "rtools-packages"        "r-builds-original"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -108,20 +110,20 @@ Supply the `page` parameter to get subsequent pages:
 ``` r
 my_repos2 <- gh("GET /orgs/{org}/repos", org = "r-lib", page = 2)
 vapply(my_repos2, "[[", "", "name")
-#>  [1] "gargle"      "remotes"     "jose"        "backports"   "rcmdcheck"  
-#>  [6] "vdiffr"      "callr"       "mockery"     "here"        "revdepcheck"
-#> [11] "processx"    "vctrs"       "debugme"     "usethis"     "rlang"      
-#> [16] "pkgload"     "httrmock"    "pkgbuild"    "prettycode"  "roxygen2md" 
-#> [21] "pkgapi"      "zeallot"     "liteq"       "keyring"     "sloop"      
-#> [26] "styler"      "ansistrings" "archive"     "later"       "crancache"
+#>  [1] "sodium"      "gargle"      "remotes"     "jose"        "backports"  
+#>  [6] "rcmdcheck"   "vdiffr"      "callr"       "mockery"     "here"       
+#> [11] "revdepcheck" "processx"    "vctrs"       "debugme"     "usethis"    
+#> [16] "rlang"       "pkgload"     "httrmock"    "pkgbuild"    "prettycode" 
+#> [21] "roxygen2md"  "pkgapi"      "zeallot"     "liteq"       "keyring"    
+#> [26] "sloop"       "styler"      "ansistrings" "archive"     "later"
 ```
 
 ## Environment Variables
 
--   The `GITHUB_API_URL` environment variable is used for the default
-    github api url.
--   One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used,
-    in this order, as default token.
+- The `GITHUB_API_URL` environment variable is used for the default
+  github api url.
+- One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used,
+  in this order, as default token.
 
 ## Code of Conduct
 

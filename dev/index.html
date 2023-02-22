@@ -93,14 +93,16 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /users/{username}/repos"</span>, username <span class="op">=</span> <span class="st">"gaborcsardi"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "after"         "alexr"         "altlist"       "argufy"       </span></span>
-<span><span class="co">#&gt;  [5] "ask"           "async"         "brokenPackage" "butcher"      </span></span>
-<span><span class="co">#&gt;  [9] "css"           "curl"          "disposables"   "dotenv"       </span></span>
-<span><span class="co">#&gt; [13] "empty"         "falsy"         "finmix"        "franc"        </span></span>
-<span><span class="co">#&gt; [17] "fswatch"       "homebrew-rim"  "ISA"           "keynote"      </span></span>
-<span><span class="co">#&gt; [21] "keypress"      "lpSolve"       "macBriain"     "maxygen"      </span></span>
-<span><span class="co">#&gt; [25] "MISO"          "msgtools"      "multicolor"    "notifier"     </span></span>
-<span><span class="co">#&gt; [29] "odbc"          "parr"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "after"                "alexr"                "all.primer.tutorials"</span></span>
+<span><span class="co">#&gt;  [4] "altlist"              "argufy"               "ask"                 </span></span>
+<span><span class="co">#&gt;  [7] "async"                "BCEA"                 "BH"                  </span></span>
+<span><span class="co">#&gt; [10] "brokenPackage"        "butcher"              "css"                 </span></span>
+<span><span class="co">#&gt; [13] "curl"                 "disposables"          "dotenv"              </span></span>
+<span><span class="co">#&gt; [16] "falsy"                "finmix"               "foobar"              </span></span>
+<span><span class="co">#&gt; [19] "franc"                "fswatch"              "guildai-r"           </span></span>
+<span><span class="co">#&gt; [22] "httpgd"               "installgithub.app"    "ISA"                 </span></span>
+<span><span class="co">#&gt; [25] "isa2"                 "josaplay"             "keynote"             </span></span>
+<span><span class="co">#&gt; [28] "keypress"             "log"                  "lpSolve"</span></span></code></pre></div>
 <p>The JSON result sent by the API is converted to an R object.</p>
 <p>Parameters can be passed as extra arguments. E.g.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -109,16 +111,16 @@
 <span>  username <span class="op">=</span> <span class="st">"gaborcsardi"</span>,</span>
 <span>  sort <span class="op">=</span> <span class="st">"created"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "r-builds"              "homebrew-rim"          "rgdal"                </span></span>
-<span><span class="co">#&gt;  [4] "readxl"                "sdcHierarchies"        "skopeo"               </span></span>
-<span><span class="co">#&gt;  [7] "playground"            "r-system-requirements" "butcher"              </span></span>
-<span><span class="co">#&gt; [10] "tidyr"                 "empty"                 "rim"                  </span></span>
-<span><span class="co">#&gt; [13] "tidyverse.org"         "finmix"                "tune"                 </span></span>
-<span><span class="co">#&gt; [16] "multicolor"            "pkgdepends"            "css"                  </span></span>
-<span><span class="co">#&gt; [19] "curl"                  "usethis2"              "r-debug"              </span></span>
-<span><span class="co">#&gt; [22] "purrr"                 "redfish"               "win32-console-docs"   </span></span>
-<span><span class="co">#&gt; [25] "vt100-emulator"        "RSQLite"               "pkgload"              </span></span>
-<span><span class="co">#&gt; [28] "rencfaq"               "renv"                  "stockfish"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "isa2"                   "r-builds"               "sos"                   </span></span>
+<span><span class="co">#&gt;  [4] "SCAVENGE"               "rworkflows"             "r-bugs"                </span></span>
+<span><span class="co">#&gt;  [7] "josaplay"               "all.primer.tutorials"   "neartools"             </span></span>
+<span><span class="co">#&gt; [10] "REDCapTidieR"           "guildai-r"              "BH"                    </span></span>
+<span><span class="co">#&gt; [13] "testrtools"             "vt-rs"                  "testpaktestthat"       </span></span>
+<span><span class="co">#&gt; [16] "httpgd"                 "BCEA"                   "monorepo"              </span></span>
+<span><span class="co">#&gt; [19] "pacman"                 "tiff"                   "tidyclust"             </span></span>
+<span><span class="co">#&gt; [22] "testCheckForceSuggests" "naomi"                  "rstudio"               </span></span>
+<span><span class="co">#&gt; [25] "butcher"                "foobar"                 "roxydemo"              </span></span>
+<span><span class="co">#&gt; [28] "log"                    "rtools-packages"        "r-builds-original"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="post-patch-put-and-delete-requests">POST, PATCH, PUT and DELETE requests<a class="anchor" aria-label="anchor" href="#post-patch-put-and-delete-requests"></a>
 </h3>
@@ -142,12 +144,12 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_repos2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /orgs/{org}/repos"</span>, org <span class="op">=</span> <span class="st">"r-lib"</span>, page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "gargle"      "remotes"     "jose"        "backports"   "rcmdcheck"  </span></span>
-<span><span class="co">#&gt;  [6] "vdiffr"      "callr"       "mockery"     "here"        "revdepcheck"</span></span>
-<span><span class="co">#&gt; [11] "processx"    "vctrs"       "debugme"     "usethis"     "rlang"      </span></span>
-<span><span class="co">#&gt; [16] "pkgload"     "httrmock"    "pkgbuild"    "prettycode"  "roxygen2md" </span></span>
-<span><span class="co">#&gt; [21] "pkgapi"      "zeallot"     "liteq"       "keyring"     "sloop"      </span></span>
-<span><span class="co">#&gt; [26] "styler"      "ansistrings" "archive"     "later"       "crancache"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "sodium"      "gargle"      "remotes"     "jose"        "backports"  </span></span>
+<span><span class="co">#&gt;  [6] "rcmdcheck"   "vdiffr"      "callr"       "mockery"     "here"       </span></span>
+<span><span class="co">#&gt; [11] "revdepcheck" "processx"    "vctrs"       "debugme"     "usethis"    </span></span>
+<span><span class="co">#&gt; [16] "rlang"       "pkgload"     "httrmock"    "pkgbuild"    "prettycode" </span></span>
+<span><span class="co">#&gt; [21] "roxygen2md"  "pkgapi"      "zeallot"     "liteq"       "keyring"    </span></span>
+<span><span class="co">#&gt; [26] "sloop"       "styler"      "ansistrings" "archive"     "later"</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

@@ -8,12 +8,12 @@
 <meta name="description" content="Minimal client to access the GitHub API.">
 <title>GitHub API • gh</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.2/font.css" rel="stylesheet">
-<link href="deps/Source_Code_Pro-0.4.2/font.css" rel="stylesheet">
+<link href="deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.6/font.css" rel="stylesheet">
+<link href="deps/Source_Code_Pro-0.4.6/font.css" rel="stylesheet">
 <!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- bootstrap-toc --><script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="GitHub API">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="GitHub API">
 <meta property="og:description" content="Minimal client to access the GitHub API.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -28,7 +28,7 @@
     
     <a class="navbar-brand me-2" href="index.html">gh</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.4.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,6 +72,7 @@
 <div class="page-header"><h1 id="gh">gh<a class="anchor" aria-label="anchor" href="#gh"></a>
 </h1></div>
 <!-- badges: start -->
+
 <p>Minimalistic client to access GitHub’s <a href="https://docs.github.com/rest" class="external-link">REST</a> and <a href="https://docs.github.com/graphql" class="external-link">GraphQL</a> APIs.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -91,14 +92,16 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /users/{username}/repos"</span>, username <span class="op">=</span> <span class="st">"gaborcsardi"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "after"         "alexr"         "altlist"       "argufy"       </span></span>
-<span><span class="co">#&gt;  [5] "ask"           "async"         "brokenPackage" "butcher"      </span></span>
-<span><span class="co">#&gt;  [9] "css"           "curl"          "disposables"   "dotenv"       </span></span>
-<span><span class="co">#&gt; [13] "empty"         "falsy"         "finmix"        "franc"        </span></span>
-<span><span class="co">#&gt; [17] "fswatch"       "homebrew-rim"  "ISA"           "keynote"      </span></span>
-<span><span class="co">#&gt; [21] "keypress"      "lpSolve"       "macBriain"     "maxygen"      </span></span>
-<span><span class="co">#&gt; [25] "MISO"          "msgtools"      "multicolor"    "notifier"     </span></span>
-<span><span class="co">#&gt; [29] "odbc"          "parr"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "after"                "alexr"                "all.primer.tutorials"</span></span>
+<span><span class="co">#&gt;  [4] "altlist"              "argufy"               "ask"                 </span></span>
+<span><span class="co">#&gt;  [7] "async"                "BCEA"                 "BH"                  </span></span>
+<span><span class="co">#&gt; [10] "brokenPackage"        "butcher"              "css"                 </span></span>
+<span><span class="co">#&gt; [13] "curl"                 "disposables"          "dotenv"              </span></span>
+<span><span class="co">#&gt; [16] "falsy"                "finmix"               "foobar"              </span></span>
+<span><span class="co">#&gt; [19] "franc"                "fswatch"              "guildai-r"           </span></span>
+<span><span class="co">#&gt; [22] "httpgd"               "installgithub.app"    "ISA"                 </span></span>
+<span><span class="co">#&gt; [25] "isa2"                 "josaplay"             "keynote"             </span></span>
+<span><span class="co">#&gt; [28] "keypress"             "log"                  "lpSolve"</span></span></code></pre></div>
 <p>The JSON result sent by the API is converted to an R object.</p>
 <p>Parameters can be passed as extra arguments. E.g.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -107,16 +110,16 @@
 <span>  username <span class="op">=</span> <span class="st">"gaborcsardi"</span>,</span>
 <span>  sort <span class="op">=</span> <span class="st">"created"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "r-builds"              "homebrew-rim"          "rgdal"                </span></span>
-<span><span class="co">#&gt;  [4] "readxl"                "sdcHierarchies"        "skopeo"               </span></span>
-<span><span class="co">#&gt;  [7] "playground"            "r-system-requirements" "butcher"              </span></span>
-<span><span class="co">#&gt; [10] "tidyr"                 "empty"                 "rim"                  </span></span>
-<span><span class="co">#&gt; [13] "tidyverse.org"         "finmix"                "tune"                 </span></span>
-<span><span class="co">#&gt; [16] "multicolor"            "pkgdepends"            "css"                  </span></span>
-<span><span class="co">#&gt; [19] "curl"                  "usethis2"              "r-debug"              </span></span>
-<span><span class="co">#&gt; [22] "purrr"                 "redfish"               "win32-console-docs"   </span></span>
-<span><span class="co">#&gt; [25] "vt100-emulator"        "RSQLite"               "pkgload"              </span></span>
-<span><span class="co">#&gt; [28] "rencfaq"               "renv"                  "stockfish"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "isa2"                   "r-builds"               "sos"                   </span></span>
+<span><span class="co">#&gt;  [4] "SCAVENGE"               "rworkflows"             "r-bugs"                </span></span>
+<span><span class="co">#&gt;  [7] "josaplay"               "all.primer.tutorials"   "neartools"             </span></span>
+<span><span class="co">#&gt; [10] "REDCapTidieR"           "guildai-r"              "BH"                    </span></span>
+<span><span class="co">#&gt; [13] "testrtools"             "vt-rs"                  "testpaktestthat"       </span></span>
+<span><span class="co">#&gt; [16] "httpgd"                 "BCEA"                   "monorepo"              </span></span>
+<span><span class="co">#&gt; [19] "pacman"                 "tiff"                   "tidyclust"             </span></span>
+<span><span class="co">#&gt; [22] "testCheckForceSuggests" "naomi"                  "rstudio"               </span></span>
+<span><span class="co">#&gt; [25] "butcher"                "foobar"                 "roxydemo"              </span></span>
+<span><span class="co">#&gt; [28] "log"                    "rtools-packages"        "r-builds-original"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="post-patch-put-and-delete-requests">POST, PATCH, PUT and DELETE requests<a class="anchor" aria-label="anchor" href="#post-patch-put-and-delete-requests"></a>
 </h3>
@@ -140,12 +143,12 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_repos2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /orgs/{org}/repos"</span>, org <span class="op">=</span> <span class="st">"r-lib"</span>, page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "gargle"      "remotes"     "jose"        "backports"   "rcmdcheck"  </span></span>
-<span><span class="co">#&gt;  [6] "vdiffr"      "callr"       "mockery"     "here"        "revdepcheck"</span></span>
-<span><span class="co">#&gt; [11] "processx"    "vctrs"       "debugme"     "usethis"     "rlang"      </span></span>
-<span><span class="co">#&gt; [16] "pkgload"     "httrmock"    "pkgbuild"    "prettycode"  "roxygen2md" </span></span>
-<span><span class="co">#&gt; [21] "pkgapi"      "zeallot"     "liteq"       "keyring"     "sloop"      </span></span>
-<span><span class="co">#&gt; [26] "styler"      "ansistrings" "archive"     "later"       "crancache"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "sodium"      "gargle"      "remotes"     "jose"        "backports"  </span></span>
+<span><span class="co">#&gt;  [6] "rcmdcheck"   "vdiffr"      "callr"       "mockery"     "here"       </span></span>
+<span><span class="co">#&gt; [11] "revdepcheck" "processx"    "vctrs"       "debugme"     "usethis"    </span></span>
+<span><span class="co">#&gt; [16] "rlang"       "pkgload"     "httrmock"    "pkgbuild"    "prettycode" </span></span>
+<span><span class="co">#&gt; [21] "roxygen2md"  "pkgapi"      "zeallot"     "liteq"       "keyring"    </span></span>
+<span><span class="co">#&gt; [26] "sloop"       "styler"      "ansistrings" "archive"     "later"</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -228,7 +231,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
   </div></footer>

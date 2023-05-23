@@ -1,3 +1,5 @@
+# gh (development version)
+
 # gh 1.4.0
 
 * `gh()` gains a new `.max_rate` parameter that sets the maximum number of 

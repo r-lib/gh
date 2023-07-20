@@ -144,6 +144,16 @@
 #'     "Content-Type" = "application/json"
 #'   )
 #' )
+#' @examplesIf FALSE
+#' ## Pass along a query to the search/code endpoint via the ... argument
+#' x <- gh::gh(
+#'             "/search/code",
+#'             q = "installation repo:r-lib/gh",
+#'             .send_headers = c("X-GitHub-Api-Version" = "2022-11-28")
+#'             )
+#'  str(x, list.len = 3, give.attr = FALSE)
+#'
+#'
 gh <- function(endpoint,
                ...,
                per_page = NULL,

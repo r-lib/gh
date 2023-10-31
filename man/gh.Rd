@@ -8,6 +8,7 @@ gh(
   endpoint,
   ...,
   per_page = NULL,
+  .per_page = NULL,
   .token = NULL,
   .destfile = NULL,
   .overwrite = FALSE,
@@ -43,7 +44,7 @@ values are silently dropped. For GET requests, named \code{NA} values trigger an
 error. For other methods, named \code{NA} values are included in the body of the
 request, as JSON \code{null}.}
 
-\item{per_page}{Number of items to return per page. If omitted,
+\item{per_page, .per_page}{Number of items to return per page. If omitted,
 will be substituted by \code{max(.limit, 100)} if \code{.limit} is set,
 otherwise determined by the API (never greater than 100).}
 

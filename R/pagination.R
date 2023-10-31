@@ -52,9 +52,7 @@ gh_link <- function(gh_response, link) {
 
 gh_extract_pages <- function(gh_response) {
   last <- extract_link(gh_response, "last")
-  if (grepl("&page=[0-9]+$", last)) {
-    as.integer(sub("^.*page=([0-9]+)$", "\\1", last))
-  }
+  as.integer(httr2::url_parse(last)$query$page)
 }
 
 #' Get the next, previous, first or last page of results
@@ -96,40 +94,3 @@ gh_first <- function(gh_response) gh_link(gh_response, "first")
 #' @export
 
 gh_last <- function(gh_response) gh_link(gh_response, "last")
-
-make_progress_bar <- function(gh_request) {
-  state <- new.env(parent = emptyenv())
-  state$pageno <- 0L
-  state$got <- 0L
-  state$status <- NULL
-  state
-}
-
-update_progress_bar <- function(state, gh_response) {
-  state$pageno <- state$pageno + 1L
-  state$got <- gh_response_length(gh_response)
-  state$pages <- gh_extract_pages(gh_response) %||% state$pages
-
-  if (is.null(state$status)) {
-    state$status <- cli_status(
-      "{.alert-info Running gh query}",
-      .envir = parent.frame()
-    )
-  }
-
-  total <- NULL
-  if (!is.null(state$pages)) {
-    est <- state$pages * (state$got / state$pageno)
-    if (est >= state$got) total <- est
-  }
-
-  cli_status_update(
-    state$status,
-    c(
-      "{.alert-info Running gh query, got {state$got} record{?s}}",
-      if (!is.null(total)) " of about {total}"
-    )
-  )
-
-  invisible(state)
-}

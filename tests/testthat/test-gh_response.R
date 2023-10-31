@@ -49,6 +49,7 @@ test_that("can download files", {
 })
 
 test_that("warns if output is HTML", {
+  skip_on_cran()
   expect_snapshot(res <- gh("POST /markdown", text = "foo"))
 
   expect_equal(res, list(message = "<p>foo</p>\n"), ignore_attr = TRUE)
@@ -56,6 +57,7 @@ test_that("warns if output is HTML", {
 })
 
 test_that("captures details to recreate request", {
+  skip_on_cran()
   res <- gh("/orgs/{org}/repos", org = "r-lib", .per_page = 1)
 
   req <- attr(res, "request")

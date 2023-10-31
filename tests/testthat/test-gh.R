@@ -53,6 +53,7 @@ test_that("can catch a given status directly", {
 })
 
 test_that("can use per_page or .per_page but not both", {
+  skip_on_cran()
   resp <- gh("/orgs/tidyverse/repos", per_page = 2)
   expect_equal(attr(resp, "request")$query$per_page, 2)
 
@@ -66,16 +67,19 @@ test_that("can use per_page or .per_page but not both", {
 })
 
 test_that("can paginate", {
+  skip_on_cran()
   pages <- gh("/orgs/tidyverse/repos", per_page = 1, .limit = 5, .progress = FALSE)
   expect_length(pages, 5)
 })
 
 test_that("trim output when .limit isn't a multiple of .per_page", {
+  skip_on_cran()
   pages <- gh("/orgs/tidyverse/repos", per_page = 2, .limit = 3, .progress = FALSE)
   expect_length(pages, 3)
 })
 
 test_that("can paginate repository search", {
+  skip_on_cran()
   pages <- gh("/search/repositories", q = "tidyverse", per_page = 10, .limit = 35)
   expect_named(pages, c("total_count", "incomplete_results", "items"))
   # Eliminates aren't trimmed to .limit in this case

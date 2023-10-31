@@ -1,4 +1,5 @@
 test_that("can extract relative pages", {
+  skip_on_cran()
   page1 <- gh("/orgs/tidyverse/repos", per_page = 1)
   expect_true(gh_has(page1, "next"))
   expect_false(gh_has(page1, "prev"))
@@ -14,6 +15,7 @@ test_that("can extract relative pages", {
 })
 
 test_that("paginated request gets max_wait and max_rate", {
+  skip_on_cran()
   gh <- gh("/orgs/tidyverse/repos", per_page = 5, .max_wait = 1, .max_rate = 10)
 
   req <- gh_link_request(gh, "next")

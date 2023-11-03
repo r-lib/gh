@@ -6,6 +6,7 @@ JSON
 LastPass
 Minimalistic
 PATs
+PBC
 URI
 api
 auth
@@ -13,12 +14,10 @@ discoverable
 funder
 gitcreds
 github
-https
 httr
 keyring
 macOS
 pre
 programmatically
 repo
-repos
 usethis

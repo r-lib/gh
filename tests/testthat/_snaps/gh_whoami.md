@@ -12,7 +12,7 @@
     Condition
       Error in `gh()`:
       ! GitHub API error (401): Requires authentication
-      i Read more at <https://docs.github.com/rest/reference/users#get-the-authenticated-user>
+      i Read more at <https://docs.github.com/rest/users/users#get-the-authenticated-user>
     Code
       gh_whoami(.token = "blah")
     Condition

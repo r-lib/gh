@@ -26,6 +26,12 @@ Install the package from CRAN as usual:
 install.packages("gh")
 ```
 
+Install the development version from GitHub:
+
+``` r
+pak::pak("r-lib/gh")
+```
+
 ## Usage
 
 ``` r

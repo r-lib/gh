@@ -11,7 +11,8 @@ Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
 URL: https://gh.r-lib.org/, https://github.com/r-lib/gh#readme
 BugReports: https://github.com/r-lib/gh/issues
-Depends: R (>= 3.4)
+Depends: 
+    R (>= 3.6)
 Imports:
     cli (>= 3.0.1),
     gitcreds,

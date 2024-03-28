@@ -55,10 +55,16 @@ for different GitHub Enterprise deployments.}
 
 \item{.destfile}{Path to write response to disk. If \code{NULL} (default),
 response will be processed and returned as an object. If path is given,
-response will be written to disk in the form sent.}
+response will be written to disk in the form sent. gh writes the
+response to a temporary file, and renames that file to \code{.destfile}
+after the request was successful. The name of the temporary file is
+created by adding a \verb{-<random>.gh-tmp} suffix to it, where \verb{<random>}
+is an ASCII string with random characters. gh removes the temporary
+file on error.}
 
 \item{.overwrite}{If \code{.destfile} is provided, whether to overwrite an
-existing file.  Defaults to \code{FALSE}.}
+existing file.  Defaults to \code{FALSE}. If an error happens the original
+file is kept.}
 
 \item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
 if \code{endpoint} just contains a path. Defaults to \code{GITHUB_API_URL}

@@ -31,9 +31,15 @@
 #'   otherwise determined by the API (never greater than 100).
 #' @param .destfile Path to write response to disk. If `NULL` (default),
 #'   response will be processed and returned as an object. If path is given,
-#'   response will be written to disk in the form sent.
+#'   response will be written to disk in the form sent. gh writes the
+#'   response to a temporary file, and renames that file to `.destfile`
+#'   after the request was successful. The name of the temporary file is
+#'   created by adding a `-<random>.gh-tmp` suffix to it, where `<random>`
+#'   is an ASCII string with random characters. gh removes the temporary
+#'   file on error.
 #' @param .overwrite If `.destfile` is provided, whether to overwrite an
-#'   existing file.  Defaults to `FALSE`.
+#'   existing file.  Defaults to `FALSE`. If an error happens the original
+#'   file is kept.
 #' @param .token Authentication token. Defaults to `GITHUB_PAT` or
 #'   `GITHUB_TOKEN` environment variables, in this order if any is set.
 #'   See [gh_token()] if you need more flexibility, e.g. different tokens
@@ -299,19 +305,20 @@ gh_make_request <- function(x, error_call = caller_env()) {
   # allow custom handling with gh_error
   req <- httr2::req_error(req, is_error = function(resp) FALSE)
 
-  resp <- httr2::req_perform(req, path = x$dest)
+  resp <- httr2::req_perform(req, path = x$desttmp)
   if (httr2::resp_status(resp) >= 300) {
-    gh_error(resp, error_call = error_call)
+    gh_error(resp, gh_req = x, error_call = error_call)
   }
 
   resp
 }
 
 # https://docs.github.com/v3/#client-errors
-gh_error <- function(response, error_call = caller_env()) {
+gh_error <- function(response, gh_req, error_call = caller_env()) {
   heads <- httr2::resp_headers(response)
   res <- httr2::resp_body_json(response)
   status <- httr2::resp_status(response)
+  if (!is.null(gh_req$desttmp)) unlink(gh_req$desttmp)
 
   msg <- "GitHub API error ({status}): {heads$status %||% ''} {res$message}"
 

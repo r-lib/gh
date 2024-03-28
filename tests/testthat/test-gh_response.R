@@ -69,3 +69,17 @@ test_that("captures details to recreate request", {
   expect_equal(attr(res, "method"), "GET")
   expect_type(attr(res, ".send_headers"), "list")
 })
+
+test_that("output file is not overwritten on error", {
+  tmp <- withr::local_tempfile()
+  writeLines("foo", tmp)
+
+  err <- tryCatch(
+    gh("/repos", .destfile = tmp),
+    error = function(e) e
+  )
+
+  expect_true(file.exists(tmp))
+  expect_equal(readLines(tmp), "foo")
+  expect_true(!is.null((err$response_content)))
+})

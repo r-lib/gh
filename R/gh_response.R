@@ -11,6 +11,8 @@ gh_process_response <- function(resp, gh_req) {
 
   if (is_ondisk) {
     res <- as.character(resp$body)
+    file.rename(res, gh_req$dest)
+    res <- gh_req$dest
   } else if (is_empty) {
     res <- list()
   } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {

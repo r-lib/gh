@@ -41,7 +41,8 @@ gh_build_request <- function(endpoint = "/user",
   working <- gh_set_body(working)
   working <- gh_set_url(working)
   working <- gh_set_headers(working)
-  working[c("method", "url", "headers", "query", "body", "dest", "max_wait", "max_rate")]
+  working <- gh_set_temp_destfile(working)
+  working[c("method", "url", "headers", "query", "body", "dest", "desttmp", "max_wait", "max_rate")]
 }
 
 
@@ -140,6 +141,15 @@ gh_set_url <- function(x) {
   }
 
   x
+}
+
+gh_set_temp_destfile <- function(working) {
+  working$desttmp <- if (is.null(working$dest)) {
+    NULL
+  } else {
+    paste0(working$dest, "-", basename(tempfile("")), ".gh-tmp")
+  }
+  working
 }
 
 get_baseurl <- function(url) { # https://github.uni.edu/api/v3/

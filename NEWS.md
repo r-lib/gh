@@ -3,6 +3,10 @@
 * `gh_next()`, `gh_prev()`, `gh_first()` and `gh_last()`
   now work correctly again (#181).
 
+* When the user sets `.destfile` to write the response to disk, gh now
+  writes the output to a temporary file, which is then renamed to
+  `.destfile` after performing the request, or deleted on error (#178).
+
 # gh 1.4.0
 
 * `gh()` gains a new `.max_rate` parameter that sets the maximum number of

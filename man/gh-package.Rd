@@ -3,7 +3,6 @@
 \docType{package}
 \name{gh-package}
 \alias{gh-package}
-\alias{_PACKAGE}
 \title{gh: 'GitHub' 'API'}
 \description{
 Minimal client to access the 'GitHub' 'API'.

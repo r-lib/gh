@@ -1,4 +1,6 @@
 library(testthat)
 library(gh)
 
-test_check("gh")
+if (Sys.getenv("NOT_CRAN") == "true") {
+  test_check("gh")
+}

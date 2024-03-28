@@ -5084,9 +5084,8 @@ generate a raw response will return a raw vector.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Automatic pagination</span></span></span>
 <span class="r-in"><span><span class="va">users</span> <span class="op">&lt;-</span> <span class="fu">gh</span><span class="op">(</span><span class="st">"/users"</span>, .limit <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in httr2::url_parse(last):</span> `url` must be a single string, not a character `NA`.</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">users</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'users' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 50</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co">## Access developer preview of Licenses API (in preview as of 2015-09-24)</span></span></span>
 <span class="r-in"><span><span class="fu">gh</span><span class="op">(</span><span class="st">"/licenses"</span><span class="op">)</span> <span class="co"># used to error code 415</span></span></span>

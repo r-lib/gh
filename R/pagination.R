@@ -55,7 +55,9 @@ gh_link <- function(gh_response, link) {
 
 gh_extract_pages <- function(gh_response) {
   last <- extract_link(gh_response, "last")
-  as.integer(httr2::url_parse(last)$query$page)
+  if (!is.na(last)) {
+    as.integer(httr2::url_parse(last)$query$page)
+  }
 }
 
 #' Get the next, previous, first or last page of results

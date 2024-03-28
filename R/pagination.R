@@ -40,7 +40,10 @@ gh_link_request <- function(gh_response, link) {
   if (is.na(url)) cli::cli_abort("No {link} page")
 
   req <- attr(gh_response, "request")
-  req$url <- url
+  purl <- httr2::url_parse(url)
+  req$query <- purl$query
+  purl$query <- NULL
+  req$url <- httr2::url_build(purl)
   req
 }
 

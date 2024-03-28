@@ -7,7 +7,11 @@ test_that("can extract relative pages", {
   page2 <- gh_next(page1)
   expect_equal(
     attr(page2, "request")$url,
-    "https://api.github.com/organizations/22032646/repos?per_page=1&page=2"
+    "https://api.github.com/organizations/22032646/repos"
+  )
+  expect_equal(
+    attr(page2, "request")$query,
+    list(per_page = "1", page = "2")
   )
   expect_true(gh_has(page2, "prev"))
 
@@ -22,6 +26,5 @@ test_that("paginated request gets max_wait and max_rate", {
   expect_equal(req$max_wait, 1)
   expect_equal(req$max_rate, 10)
 
-  url <- httr2::url_parse(req$url)
-  expect_equal(url$query$page, "2")
+  expect_equal(req$query$page, "2")
 })

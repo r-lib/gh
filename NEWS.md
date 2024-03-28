@@ -1,18 +1,21 @@
 # gh (development version)
 
+* `gh_next()`, `gh_prev()`, `gh_first()` and `gh_last()`
+  now work correctly again (#181).
+
 # gh 1.4.0
 
-* `gh()` gains a new `.max_rate` parameter that sets the maximum number of 
+* `gh()` gains a new `.max_rate` parameter that sets the maximum number of
   requests per second.
 
 * gh is now powered by httr2. This should generally have little impact on normal
-  operation but if a request fails, you can use `httr2::last_response()` and 
+  operation but if a request fails, you can use `httr2::last_response()` and
   `httr2::last_request()` to debug.
-  
-* `gh()` gains a new `.max_wait` argument which gives the maximum number of 
+
+* `gh()` gains a new `.max_wait` argument which gives the maximum number of
   minutes to wait if you are rate limited (#67).
 
-* New `gh_rate_limits()` function reports on all rate limits for the active 
+* New `gh_rate_limits()` function reports on all rate limits for the active
   user.
 
 * gh can now validate GitHub
@@ -71,7 +74,7 @@
   gh accepts and prioritizes the new style. However, it still does parameter
   substitution for the old style.
 
-* Fixed an error that occurred when calling `gh()` with `.progress = FALSE` 
+* Fixed an error that occurred when calling `gh()` with `.progress = FALSE`
   (@gadenbuie, #115).
 
 * `gh()` accepts named `NA` parameters that are destined for the request

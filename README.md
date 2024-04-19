@@ -34,11 +34,14 @@ pak::pak("r-lib/gh")
 
 ### Authentication
 
-The value returned by `gh::gh_token()` is used as Personal Access Token.
-A token is needed for some requests, and to help with rate limiting.
-Refer to the documentation of `gh::gh_token()` to learn how to set the
-token by storing it in the Git credentials store (or in an environment
-variable).
+The value returned by `gh::gh_token()` is used as Personal Access Token
+(PAT). A token is needed for some requests, and to help with rate
+limiting. gh can use your regular git credentials in the git credential
+store, via the gitcreds package. Use `gitcreds::gitcreds_set()` to put a
+PAT into the git credential store. If you cannot use the credential
+store, set the `GITHUB_PAT` environment variable to your PAT. See the
+details in the `?gh::gh_token` manual page and the manual of the
+gitcreds package.
 
 ### API URL
 
@@ -68,14 +71,14 @@ my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
 #>  [1] "after"                "alexr"                "all.primer.tutorials"
 #>  [4] "altlist"              "argufy"               "ask"                 
-#>  [7] "async"                "BCEA"                 "BH"                  
-#> [10] "brokenPackage"        "butcher"              "css"                 
-#> [13] "curl"                 "disposables"          "dotenv"              
-#> [16] "falsy"                "finmix"               "foobar"              
-#> [19] "franc"                "fswatch"              "guildai-r"           
-#> [22] "httpgd"               "installgithub.app"    "ISA"                 
-#> [25] "isa2"                 "josaplay"             "keynote"             
-#> [28] "keypress"             "log"                  "lpSolve"
+#>  [7] "async"                "autobrew-bundler"     "BCEA"                
+#> [10] "BH"                   "bigrquerystorage"     "brew-big-sur"        
+#> [13] "brokenPackage"        "butcher"              "checkinstall"        
+#> [16] "cli"                  "covrlabs"             "csg"                 
+#> [19] "css"                  "curl"                 "cv"                  
+#> [22] "cyclocomp"            "cynkrablog"           "DBItest"             
+#> [25] "debian-repo"          "disposables"          "dotenv"              
+#> [28] "falsy"                "finmix"               "foobar"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -88,16 +91,16 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "isa2"                   "r-builds"               "sos"                   
-#>  [4] "SCAVENGE"               "rworkflows"             "r-bugs"                
-#>  [7] "josaplay"               "all.primer.tutorials"   "neartools"             
-#> [10] "REDCapTidieR"           "guildai-r"              "BH"                    
-#> [13] "testrtools"             "vt-rs"                  "testpaktestthat"       
-#> [16] "httpgd"                 "BCEA"                   "monorepo"              
-#> [19] "pacman"                 "tiff"                   "tidyclust"             
-#> [22] "testCheckForceSuggests" "naomi"                  "rstudio"               
-#> [25] "butcher"                "foobar"                 "roxydemo"              
-#> [28] "log"                    "rtools-packages"        "r-builds-original"
+#>  [1] "nanonext"              "winget-pkgs"           "gon"                  
+#>  [4] "PlotR"                 "miniparquet"           "LDAvis"               
+#>  [7] "ragg"                  "TreeDist"              "mmrm"                 
+#> [10] "SKFCPD"                "RSiena2"               "rsiena"               
+#> [13] "ReadStat"              "libxls"                "covrlabs"             
+#> [16] "nanodbc"               "odbc"                  "r-dev-web"            
+#> [19] "homebrew-core-big-sur" "brew-big-sur"          "scripts"              
+#> [22] "format"                "bigrquerystorage"      "autobrew-bundler"     
+#> [25] "homebrew-cran"         "cv"                    "playground3"          
+#> [28] "cynkrablog"            "usethis"               "minimaxApprox"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -136,6 +139,14 @@ vapply(my_repos2, "[[", "", "name")
 #> [21] "roxygen2md"  "pkgapi"      "zeallot"     "liteq"       "keyring"    
 #> [26] "sloop"       "styler"      "ansistrings" "archive"     "later"
 ```
+
+## Environment Variables
+
+- The `GITHUB_API_URL` environment variable is used for the default
+  github api url.
+- The `GITHUB_PAT` and `GITHUB_TOKEN` environment variables are used, if
+  set, in this order, as default token. Consider using the git
+  credential store instead, see `?gh::gh_token`.
 
 ## Code of Conduct
 

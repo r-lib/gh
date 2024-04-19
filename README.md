@@ -18,7 +18,7 @@ Minimalistic client to access GitHub’s
 [REST](https://docs.github.com/rest) and
 [GraphQL](https://docs.github.com/graphql) APIs.
 
-## Installation
+## Installation and setup
 
 Install the package from CRAN as usual:
 
@@ -31,6 +31,19 @@ Install the development version from GitHub:
 ``` r
 pak::pak("r-lib/gh")
 ```
+
+### Authentication
+
+The value returned by `gh::gh_token()` is used as Personal Access Token.
+A token is needed for some requests, and to help with rate limiting.
+Refer to the documentation of `gh::gh_token()` to learn how to set the
+token by storing it in the Git credentials store (or in an environment
+variable).
+
+### API URL
+
+- The `GITHUB_API_URL` environment variable, if set, is used for the
+  default github api url.
 
 ## Usage
 
@@ -123,13 +136,6 @@ vapply(my_repos2, "[[", "", "name")
 #> [21] "roxygen2md"  "pkgapi"      "zeallot"     "liteq"       "keyring"    
 #> [26] "sloop"       "styler"      "ansistrings" "archive"     "later"
 ```
-
-## Environment Variables
-
-- The `GITHUB_API_URL` environment variable is used for the default
-  github api url.
-- One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used,
-  in this order, as default token.
 
 ## Code of Conduct
 

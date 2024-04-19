@@ -8,7 +8,8 @@
 #' want a PAT.
 #'
 #' gh calls [gitcreds::gitcreds_get()] with the `api_url`, which checks session
-#' environment variables and then the local Git credential store for a PAT
+#' environment variables (`GITHUB_PAT`, `GITHUB_TOKEN`)
+#' and then the local Git credential store for a PAT
 #' appropriate to the `api_url`. Therefore, if you have previously used a PAT
 #' with, e.g., command line Git, gh may retrieve and re-use it. You can call
 #' [gitcreds::gitcreds_get()] directly, yourself, if you want to see what is

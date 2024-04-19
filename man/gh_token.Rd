@@ -24,7 +24,8 @@ PAT also helps with rate limiting. If your gh use is more than casual, you
 want a PAT.
 
 gh calls \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} with the \code{api_url}, which checks session
-environment variables and then the local Git credential store for a PAT
+environment variables (\code{GITHUB_PAT}, \code{GITHUB_TOKEN})
+and then the local Git credential store for a PAT
 appropriate to the \code{api_url}. Therefore, if you have previously used a PAT
 with, e.g., command line Git, gh may retrieve and re-use it. You can call
 \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}} directly, yourself, if you want to see what is

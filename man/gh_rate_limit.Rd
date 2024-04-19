@@ -19,10 +19,7 @@ gh_rate_limits(.token = NULL, .api_url = NULL, .send_headers = NULL)
 limit values are determined from values in the response header.
 Optional argument, if missing a call to "GET /rate_limit" will be made.}
 
-\item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
-\code{GITHUB_TOKEN} environment variables, in this order if any is set.
-See \code{\link[=gh_token]{gh_token()}} if you need more flexibility, e.g. different tokens
-for different GitHub Enterprise deployments.}
+\item{.token}{Authentication token. Defaults to \code{\link[=gh_token]{gh_token()}}.}
 
 \item{.api_url}{Github API url (default: \url{https://api.github.com}). Used
 if \code{endpoint} just contains a path. Defaults to \code{GITHUB_API_URL}

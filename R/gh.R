@@ -40,10 +40,7 @@
 #' @param .overwrite If `.destfile` is provided, whether to overwrite an
 #'   existing file.  Defaults to `FALSE`. If an error happens the original
 #'   file is kept.
-#' @param .token Authentication token. Defaults to `GITHUB_PAT` or
-#'   `GITHUB_TOKEN` environment variables, in this order if any is set.
-#'   See [gh_token()] if you need more flexibility, e.g. different tokens
-#'   for different GitHub Enterprise deployments.
+#' @param .token Authentication token. Defaults to [gh_token()].
 #' @param .api_url Github API url (default: <https://api.github.com>). Used
 #'   if `endpoint` just contains a path. Defaults to `GITHUB_API_URL`
 #'   environment variable if set.
@@ -91,8 +88,7 @@
 #' gh("/users/hadley/starred", .limit = 2)
 #' gh("/users/{username}/starred", username = "hadley", .limit = 2)
 #' @examplesIf FALSE
-#' ## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
-#' ## environment variable
+#' ## Create a repository, needs a token (see gh_token())
 #' gh("POST /user/repos", name = "foobar")
 #' @examplesIf identical(Sys.getenv("IN_PKGDOWN"), "true")
 #' ## Issues of a repository

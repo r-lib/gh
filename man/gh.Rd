@@ -48,10 +48,7 @@ request, as JSON \code{null}.}
 will be substituted by \code{max(.limit, 100)} if \code{.limit} is set,
 otherwise determined by the API (never greater than 100).}
 
-\item{.token}{Authentication token. Defaults to \code{GITHUB_PAT} or
-\code{GITHUB_TOKEN} environment variables, in this order if any is set.
-See \code{\link[=gh_token]{gh_token()}} if you need more flexibility, e.g. different tokens
-for different GitHub Enterprise deployments.}
+\item{.token}{Authentication token. Defaults to \code{\link[=gh_token]{gh_token()}}.}
 
 \item{.destfile}{Path to write response to disk. If \code{NULL} (default),
 response will be processed and returned as an object. If path is given,
@@ -135,8 +132,7 @@ gh("/users/hadley/starred", .limit = 2)
 gh("/users/{username}/starred", username = "hadley", .limit = 2)
 \dontshow{\}) # examplesIf}
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-## Create a repository, needs a token in GITHUB_PAT (or GITHUB_TOKEN)
-## environment variable
+## Create a repository, needs a token (see gh_token())
 gh("POST /user/repos", name = "foobar")
 \dontshow{\}) # examplesIf}
 \dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

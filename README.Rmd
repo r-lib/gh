@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 Minimalistic client to access GitHub's
 [REST](https://docs.github.com/rest) and [GraphQL](https://docs.github.com/graphql) APIs.
 
-## Installation
+## Installation and setup
 
 Install the package from CRAN as usual:
 
@@ -40,6 +40,20 @@ Install the development version from GitHub:
 pak::pak("r-lib/gh")
 ```
 
+### Authentication
+
+The value returned by `gh::gh_token()` is used as Personal Access Token
+(PAT). A token is needed for some requests, and to help with rate limiting.
+gh can use your regular git credentials in the git credential store, via
+the gitcreds package. Use `gitcreds::gitcreds_set()` to put a PAT into the
+git credential store. If you cannot use the credential store, set the
+`GITHUB_PAT` environment variable to your PAT. See the details in the
+`?gh::gh_token` manual page and the manual of the gitcreds package.
+
+### API URL
+
+* The `GITHUB_API_URL` environment variable, if set, is used for the default github api url.
+
 ## Usage
 
 ```{r}
@@ -49,9 +63,9 @@ library(gh)
 Use the `gh()` function to access all API endpoints. The endpoints are
 listed in the [documentation](https://docs.github.com/rest).
 
-The first argument of `gh()` is the endpoint. You can just copy and paste the 
+The first argument of `gh()` is the endpoint. You can just copy and paste the
 API endpoints from the documentation. Note that the leading slash
-must be included as well. 
+must be included as well.
 
 From <https://docs.github.com/rest/reference/repos#list-repositories-for-a-user> you can copy and paste `GET /users/{username}/repos` into your `gh()`
 call. E.g.
@@ -92,7 +106,7 @@ gh("DELETE /repos/{owner}/{repo}", owner = "gaborcsardi",
 
 ### Tokens
 
-By default the `GITHUB_PAT` environment variable is used. Alternatively, 
+By default the `GITHUB_PAT` environment variable is used. Alternatively,
 one can set the `.token` argument of `gh()`.
 
 ### Pagination
@@ -108,8 +122,9 @@ vapply(my_repos2, "[[", "", "name")
 
 * The `GITHUB_API_URL` environment variable is used for the default github
   api url.
-* One of `GITHUB_PAT` or `GITHUB_TOKEN` environment variables is used, in
-  this order, as default token.
+* The `GITHUB_PAT` and `GITHUB_TOKEN` environment variables are used, if
+  set, in this order, as default token. Consider using the git credential
+  store instead, see `?gh::gh_token`.
 
 ## Code of Conduct
 

@@ -1,57 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://gh.r-lib.org/dev/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/articles/managing-personal-access-tokens.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/index.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/gh-package.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/gh.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/gh_gql.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/gh_next.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/gh_rate_limit.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/gh_token.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/gh_tree_remote.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/gh_whoami.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://gh.r-lib.org/dev/reference/print.gh_response.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://gh.r-lib.org/dev/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/LICENSE-text.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/LICENSE.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/articles/index.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/articles/managing-personal-access-tokens.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/authors.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/index.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/news/index.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/gh-package.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/gh.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/gh_gql.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/gh_next.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/gh_rate_limit.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/gh_token.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/gh_tree_remote.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/gh_whoami.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/index.html</loc></url>
+<url><loc>https://gh.r-lib.org/dev/reference/print.gh_response.html</loc></url>
 </urlset>
+

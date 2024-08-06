@@ -80,6 +80,9 @@ test_that("trim output when .limit isn't a multiple of .per_page", {
 
 test_that("can paginate repository search", {
   skip_on_cran()
+  # we need to run this sparingly, otherwise we'll get rate
+  # limited and the test fails
+  skip_on_ci()
   pages <- gh("/search/repositories", q = "tidyverse", per_page = 10, .limit = 35)
   expect_named(pages, c("total_count", "incomplete_results", "items"))
   # Eliminates aren't trimmed to .limit in this case

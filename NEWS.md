@@ -1,6 +1,6 @@
 # gh (development version)
 
-* `gh_response` class now works more nicely with tidyr rectangling (#161)
+* `gh_response` class now works more nicely with tidyr rectangling (@tanho63, #161)
 
 # gh 1.4.1
 

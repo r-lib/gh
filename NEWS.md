@@ -8,6 +8,8 @@
 * When the user sets `.destfile` to write the response to disk, gh now
   writes the output to a temporary file, which is then renamed to
   `.destfile` after performing the request, or deleted on error (#178).
+  
+* Removes usage of mockery (#197)
 
 # gh 1.4.0
 

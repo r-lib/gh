@@ -1,10 +1,12 @@
 
 test_that(".params works", {
   reqs <- list()
-  mockery::stub(gh, "gh_build_request", function(...) {
-    reqs <<- c(reqs, list(gh_build_request(...)))
-    stop("just this")
-  })
+  testthat::local_mocked_bindings(
+    gh_build_request = function(...) {
+      reqs <<- c(reqs, list(gh_build_request(...)))
+      stop("just this")
+    }
+  )
 
   expect_error(
     gh("POST /repos/:org/:repo/issues/:number/labels",

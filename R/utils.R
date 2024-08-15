@@ -76,6 +76,12 @@ drop_named_nulls <- function(x) {
   cleanse_names(x[!named | !null])
 }
 
+.parse_params <- function(..., .params = list()) {
+  params <- c(list(...), .params)
+  params <- drop_named_nulls(params)
+  return(params)
+}
+
 check_named_nas <- function(x) {
   if (has_no_names(x)) {
     return(x)

@@ -1,5 +1,7 @@
 # gh (development version)
 
+* Removes usage of mockery (@tanho63, #197)
+
 # gh 1.4.1
 
 * `gh_next()`, `gh_prev()`, `gh_first()` and `gh_last()`
@@ -8,8 +10,6 @@
 * When the user sets `.destfile` to write the response to disk, gh now
   writes the output to a temporary file, which is then renamed to
   `.destfile` after performing the request, or deleted on error (#178).
-  
-* Removes usage of mockery (#197)
 
 # gh 1.4.0
 

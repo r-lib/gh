@@ -172,9 +172,8 @@ gh <- function(endpoint,
                .params = list(),
                .max_wait = 600,
                .max_rate = NULL) {
-  params <- c(list(...), .params)
-  params <- drop_named_nulls(params)
 
+  params <- .parse_params(..., .params = .params)
 
   check_exclusive(per_page, .per_page, .require = FALSE)
   per_page <- per_page %||% .per_page

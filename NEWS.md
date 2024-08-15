@@ -1,5 +1,7 @@
 # gh (development version)
 
+* Removes usage of mockery (@tanho63, #197)
+
 # gh 1.4.1
 
 * `gh_next()`, `gh_prev()`, `gh_first()` and `gh_last()`

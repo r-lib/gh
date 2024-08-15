@@ -25,7 +25,6 @@ Imports:
 Suggests:
     covr,
     knitr,
-    mockery,
     rmarkdown,
     rprojroot,
     spelling,

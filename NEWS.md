@@ -1,6 +1,8 @@
 # gh (development version)
 
 * `gh_response` class now works more nicely with tidyr rectangling (@tanho63, #161)
+* Removes usage of mockery (@tanho63, #197)
+
 
 # gh 1.4.1
 

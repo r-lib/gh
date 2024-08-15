@@ -67,3 +67,15 @@ test_that("named NA is error", {
     expect_error(check_named_nas(tc))
   }
 })
+
+
+test_that(".parse_params combines list .params with ... params", {
+  params <- list(
+    .parse_params(org = "ORG", repo = "REPO", number = "1"),
+    .parse_params(org = "ORG", repo = "REPO", .params = list(number = "1")),
+    .parse_params(.params = list(org = "ORG", repo = "REPO", number = "1"))
+  )
+
+  expect_identical(params[[1]], params[[2]])
+  expect_identical(params[[2]], params[[3]])
+})

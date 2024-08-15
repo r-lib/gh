@@ -29,6 +29,7 @@ This article describes how to store your PAT, so that gh can find it (automatica
 More resources on PAT management:
 
   * GitHub documentation on [Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+    - Important: a PAT can expire, the default expiration date is 30 days. 
   * In the [usethis package](https://usethis.r-lib.org):
     - Vignette: [Managing Git(Hub) Credentials](https://usethis.r-lib.org/articles/articles/git-credentials.html) 
     - `usethis::gh_token_help()` and `usethis::git_sitrep()` help you check if

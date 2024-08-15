@@ -173,7 +173,7 @@ gh <- function(endpoint,
                .max_wait = 600,
                .max_rate = NULL) {
 
-  params <- .parse_params(..., .params)
+  params <- .parse_params(..., .params = .params)
 
   check_exclusive(per_page, .per_page, .require = FALSE)
   per_page <- per_page %||% .per_page

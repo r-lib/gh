@@ -277,10 +277,13 @@ gh_make_request <- function(x, error_call = caller_env()) {
   req <- httr2::request(x$url)
   req <- httr2::req_method(req, x$method)
   req <- httr2::req_url_query(req, !!!x$query)
-  if (is.raw(x$body)) {
-    req <- httr2::req_body_raw(req, x$body)
-  } else {
-    req <- httr2::req_body_json(req, x$body, null = "list", digits = 4)
+
+  if (!is.null((x$body))) {
+    if (is.raw(x$body)) {
+      req <- httr2::req_body_raw(req, x$body)
+    } else {
+      req <- httr2::req_body_json(req, x$body, null = "list", digits = 4)
+    }
   }
   req <- httr2::req_headers(req, !!!x$headers)
 

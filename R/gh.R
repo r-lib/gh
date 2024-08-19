@@ -306,7 +306,7 @@ gh_make_request <- function(x, error_call = caller_env()) {
   req <- httr2::req_error(req, is_error = function(resp) FALSE)
 
   resp <- httr2::req_perform(req, path = x$desttmp)
-  if (httr2::resp_status(resp) >= 300) {
+  if (httr2::resp_status(resp) >= 400) {
     gh_error(resp, gh_req = x, error_call = error_call)
   }
 

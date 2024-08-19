@@ -287,6 +287,8 @@ gh_make_request <- function(x, error_call = caller_env()) {
   }
   req <- httr2::req_headers(req, !!!x$headers)
 
+  req <- httr2::req_cache(req, path = tools::R_user_dir("gh", "cache"))
+
   if (!is_testing()) {
     req <- httr2::req_retry(
       req,

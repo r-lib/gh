@@ -7,15 +7,22 @@ test_that("can extract relative pages", {
   page2 <- gh_next(page1)
   expect_equal(
     attr(page2, "request")$url,
-    "https://api.github.com/organizations/22032646/repos"
-  )
-  expect_equal(
-    attr(page2, "request")$query,
-    list(per_page = "1", page = "2")
+    "https://api.github.com/organizations/22032646/repos?per_page=1&page=2"
   )
   expect_true(gh_has(page2, "prev"))
 
   expect_snapshot(gh_prev(page1), error = TRUE)
+})
+
+test_that("can paginate even when space re-encoded to +", {
+  skip_on_cran()
+  json <- gh::gh(
+    "GET /search/issues",
+    q = 'label:"tidy-dev-day :nerd_face:"',
+    per_page = 10,
+    .limit = 20
+  )
+  expect_length(json$items, 20)
 })
 
 test_that("paginated request gets max_wait and max_rate", {
@@ -26,5 +33,6 @@ test_that("paginated request gets max_wait and max_rate", {
   expect_equal(req$max_wait, 1)
   expect_equal(req$max_rate, 10)
 
-  expect_equal(req$query$page, "2")
+  url <- httr2::url_parse(req$url)
+  expect_equal(url$query$page, "2")
 })

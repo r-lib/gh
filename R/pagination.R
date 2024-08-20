@@ -54,6 +54,8 @@ gh_extract_pages <- function(gh_response) {
   last <- extract_link(gh_response, "last")
   if (!is.na(last)) {
     as.integer(httr2::url_parse(last)$query$page)
+  } else {
+    NA
   }
 }
 

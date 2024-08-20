@@ -6,7 +6,7 @@ gh_process_response <- function(resp, gh_req) {
 
   is_raw <- identical(content_type, "application/octet-stream") ||
     isTRUE(grepl("param=raw$", gh_media_type, ignore.case = TRUE))
-  is_ondisk <- inherits(resp$body, "httr2_path")
+  is_ondisk <- inherits(resp$body, "httr2_path") && !is.null(gh_req$dest)
   is_empty <- length(resp$body) == 0
 
   if (is_ondisk) {

@@ -83,3 +83,14 @@ test_that("output file is not overwritten on error", {
   expect_equal(readLines(tmp), "foo")
   expect_true(!is.null((err$response_content)))
 })
+
+test_that("gh_response objects can be combined via vctrs #161",{
+  skip_on_cran()
+  skip_if_not_installed("vctrs")
+  user_1 <- gh("/users", .limit = 1)
+  user_2 <- gh("/users", .limit = 1,)
+  user_vec <- vctrs::vec_c(user_1, user_2)
+  user_df <- vctrs::vec_rbind(user_1[[1]], user_2[[1]])
+  expect_equal(length(user_vec), 2)
+  expect_equal(nrow(user_df), 2)
+})

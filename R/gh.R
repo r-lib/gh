@@ -287,7 +287,13 @@ gh_make_request <- function(x, error_call = caller_env()) {
   }
   req <- httr2::req_headers(req, !!!x$headers)
 
-  req <- httr2::req_cache(req, path = tools::R_user_dir("gh", "cache"))
+  if (!isFALSE(getOption("gh_cache"))) {
+    req <- httr2::req_cache(
+      req,
+      max_size = 100 * 1024 * 1024, # 100 MB
+      path = tools::R_user_dir("gh", "cache")
+    )
+  }
 
   if (!is_testing()) {
     req <- httr2::req_retry(

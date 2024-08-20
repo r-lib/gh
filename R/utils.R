@@ -77,7 +77,7 @@ drop_named_nulls <- function(x) {
 }
 
 .parse_params <- function(..., .params = list()) {
-  params <- c(list(...), .params)
+  params <- c(list2(...), .params)
   drop_named_nulls(params)
 }
 

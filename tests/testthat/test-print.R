@@ -1,5 +1,7 @@
 test_that("can print all types of object", {
   skip_on_cran()
+  local_options(gh_cache = FALSE)
+
   get_license <- function(...) {
     gh(
       "GET /repos/{owner}/{repo}/contents/{path}",

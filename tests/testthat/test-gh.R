@@ -22,6 +22,11 @@ test_that("can catch a given status directly", {
   expect_s3_class(e, "http_error_404")
 })
 
+test_that("can ignore trailing commas", {
+  skip_on_cran()
+  expect_no_error(gh("/orgs/tidyverse/repos", ))
+})
+
 test_that("can use per_page or .per_page but not both", {
   skip_on_cran()
   resp <- gh("/orgs/tidyverse/repos", per_page = 2)

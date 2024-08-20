@@ -1,6 +1,7 @@
 # gh (development version)
 
 * `gh_response` class now works more nicely with tidyr rectangling (@tanho63, #161)
+* `gh()` now uses a cache provided by httr2. This cache lives in `tools::R_user_dir("gh", "cache")`, maxes out at 100 MB, and can be disabled by setting `options(gh_cache = FALSE)` (#203).
 * Removes usage of mockery (@tanho63, #197)
 
 

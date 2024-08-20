@@ -92,5 +92,5 @@ test_that("gh_response objects can be combined via vctrs #161",{
   user_vec <- vctrs::vec_c(user_1, user_2)
   user_df <- vctrs::vec_rbind(user_1[[1]], user_2[[1]])
   expect_equal(length(user_vec), 2)
-  expect_equal(nrow(user_vec), 2)
+  expect_equal(nrow(user_df), 2)
 })

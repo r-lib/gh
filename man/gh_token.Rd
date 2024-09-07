@@ -2,9 +2,12 @@
 % Please edit documentation in R/gh_token.R
 \name{gh_token}
 \alias{gh_token}
+\alias{gh_token_exists}
 \title{Return the local user's GitHub Personal Access Token (PAT)}
 \usage{
 gh_token(api_url = NULL)
+
+gh_token_exists(api_url = NULL)
 }
 \arguments{
 \item{api_url}{GitHub API URL. Defaults to the \code{GITHUB_API_URL} environment

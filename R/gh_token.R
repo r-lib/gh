@@ -53,6 +53,20 @@ gh_token <- function(api_url = NULL) {
   gh_pat(token$password %||% "")
 }
 
+#' @export
+#' @rdname gh_token
+gh_token_exists <- function(api_url = NULL) {
+  api_url <- api_url %||% default_api_url()
+  tryCatch(
+    {
+      token <- gitcreds::gitcreds_get(get_hosturl(api_url))
+      gh_pat(token$password)
+      TRUE
+    } ,
+    error = function(e) FALSE
+  )
+}
+
 gh_auth <- function(token) {
   if (isTRUE(token != "")) {
     if (any(grepl("\\W", token))) {

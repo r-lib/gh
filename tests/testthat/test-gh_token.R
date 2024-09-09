@@ -55,6 +55,19 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
   })
 })
 
+test_that("gh_token_exists works as expected", {
+  withr::local_envvar(GITHUB_API_URL = "https://test.com")
+
+  withr::local_envvar(GITHUB_PAT_TEST_COM = NA)
+  expect_false(gh_token_exists())
+
+  withr::local_envvar(GITHUB_PAT_TEST_COM = gh_pat(strrep("0", 40)))
+  expect_true(gh_token_exists())
+
+  withr::local_envvar(GITHUB_PAT_TEST_COM = "invalid")
+  expect_false(gh_token_exists())
+})
+
 # gh_pat class ----
 test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
   # older PATs

@@ -17,7 +17,7 @@ Imports:
     cli (>= 3.0.1),
     gitcreds,
     glue,
-    httr2,
+    httr2 (>= 1.0.5.9000),
     ini,
     jsonlite,
     lifecycle,
@@ -38,3 +38,5 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Remotes:  
+    r-lib/httr2

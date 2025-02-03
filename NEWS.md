@@ -4,6 +4,9 @@
 * `gh()` now uses a cache provided by httr2. This cache lives in `tools::R_user_dir("gh", "cache")`, maxes out at 100 MB, and can be disabled by setting `options(gh_cache = FALSE)` (#203).
 * Removes usage of mockery (@tanho63, #197)
 
+* `gh_token()` can now pick up on the viewer's GitHub credentials (if any) when
+  running on Posit Connect (@atheriel, #217).
+
 # gh 1.4.1
 
 * `gh_next()`, `gh_prev()`, `gh_first()` and `gh_last()`

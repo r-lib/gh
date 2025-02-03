@@ -46,8 +46,16 @@
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
   stopifnot(is.character(api_url), length(api_url) == 1)
+  host_url <- get_hosturl(api_url)
+  # Check for credentials supplied by Posit Connect.
+  if (is_installed("connectcreds")) {
+    if (connectcreds::has_viewer_token(host_url)) {
+      token <- connectcreds::connect_viewer_token(host_url)
+      return(gh_pat(token$access_token))
+    }
+  }
   token <- tryCatch(
-    gitcreds::gitcreds_get(get_hosturl(api_url)),
+    gitcreds::gitcreds_get(host_url),
     error = function(e) NULL
   )
   gh_pat(token$password %||% "")
@@ -56,15 +64,7 @@ gh_token <- function(api_url = NULL) {
 #' @export
 #' @rdname gh_token
 gh_token_exists <- function(api_url = NULL) {
-  api_url <- api_url %||% default_api_url()
-  tryCatch(
-    {
-      token <- gitcreds::gitcreds_get(get_hosturl(api_url))
-      gh_pat(token$password)
-      TRUE
-    } ,
-    error = function(e) FALSE
-  )
+  tryCatch(nzchar(gh_token(api_url)), error = function(e) FALSE)
 }
 
 gh_auth <- function(token) {

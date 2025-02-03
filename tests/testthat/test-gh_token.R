@@ -163,3 +163,11 @@ test_that("get_apiurl() works", {
   expect_equal(get_apiurl("https://github.acme.com/OWNER/REPO"), x)
   expect_equal(get_apiurl("https://github.acme.com/api/v3"), x)
 })
+
+test_that("tokens can be requested from a Connect server", {
+  skip_if_not_installed("connectcreds")
+
+  token <- strrep("a", 40)
+  connectcreds::local_mocked_connect_responses(token = token)
+  expect_equal(gh_token(), gh_pat(token))
+})

@@ -289,6 +289,9 @@ gh_make_request <- function(x, error_call = caller_env()) {
 
   # Reduce connection timeout from curl's 10s default to 5s
   req <- httr2::req_options(req, connecttimeout_ms = 5000)
+  if (Sys.getenv("GH_FORCE_HTTP_1_1") == "true") {
+    req <- httr2::req_options(req, http_version = 2)
+  }
 
   if (!isFALSE(getOption("gh_cache"))) {
     req <- httr2::req_cache(

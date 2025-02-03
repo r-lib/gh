@@ -14,9 +14,10 @@ test_that("repos, some basics", {
   res <- gh(
     TMPL("/orgs/{org}/repos"),
     org = "r-lib",
-    type = "sources"
+    type = "sources",
+    sort = "full_name"
   )
-  expect_true("desc" %in% vapply(res, "[[", "name", FUN.VALUE = ""))
+  expect_true("actions" %in% vapply(res, "[[", "name", FUN.VALUE = ""))
 
   res <- gh("/repositories")
   expect_true(all(c("id", "name", "full_name") %in% names(res[[1]])))

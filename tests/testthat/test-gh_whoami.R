@@ -9,6 +9,7 @@ test_that("whoami works in presence of PAT", {
 test_that("whoami errors with bad/absent PAT", {
   skip_if_no_github()
   skip_on_ci() # since no token sometimes fails due to rate-limiting
+  withr::local_envvar(GH_FORCE_HTTP_1_1 = "true")
 
   expect_snapshot(error = TRUE, {
     gh_whoami(.token = "")

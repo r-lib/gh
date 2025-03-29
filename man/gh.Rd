@@ -14,6 +14,11 @@ gh(
   .overwrite = FALSE,
   .api_url = NULL,
   .method = "GET",
+  .proxy_url = NULL,
+  .proxy_port = NULL,
+  .proxy_username = NULL,
+  .proxy_password = NULL,
+  .proxy_auth = "basic",
   .limit = NULL,
   .accept = "application/vnd.github.v3+json",
   .send_headers = NULL,
@@ -69,6 +74,13 @@ environment variable if set.}
 
 \item{.method}{HTTP method to use if not explicitly supplied in the
 \code{endpoint}.}
+
+\item{.proxy_url, .proxy_port}{Location of proxy.}
+
+\item{.proxy_username, .proxy_paassword}{Login details for proxy, if needed.}
+
+\item{.proxy_auth}{Type of HTTP authentication to use. Should be one of the
+following: \code{basic}, \code{digest}, \code{digest_ie}, \code{gssnegotiate}, \code{ntlm}, \code{any}.}
 
 \item{.limit}{Number of records to return. This can be used
 instead of manual pagination. By default it is \code{NULL},

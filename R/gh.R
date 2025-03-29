@@ -46,6 +46,10 @@
 #'   environment variable if set.
 #' @param .method HTTP method to use if not explicitly supplied in the
 #'    `endpoint`.
+#' @param .proxy_url,.proxy_port Location of proxy.
+#' @param .proxy_username,.proxy_paassword Login details for proxy, if needed.
+#' @param .proxy_auth Type of HTTP authentication to use. Should be one of the
+#' following: `basic`, `digest`, `digest_ie`, `gssnegotiate`, `ntlm`, `any`.
 #' @param .limit Number of records to return. This can be used
 #'   instead of manual pagination. By default it is `NULL`,
 #'   which means that the defaults of the GitHub API are used.
@@ -165,6 +169,11 @@ gh <- function(endpoint,
                .overwrite = FALSE,
                .api_url = NULL,
                .method = "GET",
+               .proxy_url = NULL,
+               .proxy_port = NULL,
+               .proxy_username = NULL,
+               .proxy_password = NULL,
+               .proxy_auth = "basic",
                .limit = NULL,
                .accept = "application/vnd.github.v3+json",
                .send_headers = NULL,
@@ -183,7 +192,17 @@ gh <- function(endpoint,
   if (!is.null(per_page)) {
     params <- c(params, list(per_page = per_page))
   }
-
+  if (is.null(.proxy_url)) {
+    proxy <- NULL
+  } else {
+    proxy <- list(
+      url = .proxy_url,
+      port = .proxy_port,
+      username = .proxy_username,
+      password = .proxy_password,
+      auth = .proxy_auth
+    )
+  }
   req <- gh_build_request(
     endpoint = endpoint,
     params = params,
@@ -195,7 +214,8 @@ gh <- function(endpoint,
     max_wait = .max_wait,
     max_rate = .max_rate,
     api_url = .api_url,
-    method = .method
+    method = .method,
+    proxy = proxy
   )
 
   if (req$method == "GET") check_named_nas(params)
@@ -292,7 +312,16 @@ gh_make_request <- function(x, error_call = caller_env()) {
   if (Sys.getenv("GH_FORCE_HTTP_1_1") == "true") {
     req <- httr2::req_options(req, http_version = 2)
   }
-
+  if (!is.null(x$proxy)) {
+    req <- httr2::req_proxy(
+      req,
+      url = x$proxy$url,
+      port = x$proxy$port,
+      username = x$proxy$username,
+      password = x$proxy$password,
+      auth = x$proxy$auth
+    )
+  }
   if (!isFALSE(getOption("gh_cache"))) {
     req <- httr2::req_cache(
       req,

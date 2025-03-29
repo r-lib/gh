@@ -16,9 +16,11 @@ gh_build_request <- function(endpoint = "/user",
                              max_wait = 10,
                              max_rate = NULL,
                              api_url = NULL,
-                             method = "GET") {
+                             method = "GET",
+                             proxy = NULL) {
   working <- list(
     method = method,
+    proxy = proxy,
     url = character(),
     headers = NULL,
     query = NULL,

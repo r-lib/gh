@@ -77,7 +77,7 @@ environment variable if set.}
 
 \item{.proxy_url, .proxy_port}{Location of proxy.}
 
-\item{.proxy_username, .proxy_paassword}{Login details for proxy, if needed.}
+\item{.proxy_username, .proxy_password}{Login details for proxy, if needed.}
 
 \item{.proxy_auth}{Type of HTTP authentication to use. Should be one of the
 following: \code{basic}, \code{digest}, \code{digest_ie}, \code{gssnegotiate}, \code{ntlm}, \code{any}.}

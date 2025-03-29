@@ -47,7 +47,7 @@
 #' @param .method HTTP method to use if not explicitly supplied in the
 #'    `endpoint`.
 #' @param .proxy_url,.proxy_port Location of proxy.
-#' @param .proxy_username,.proxy_paassword Login details for proxy, if needed.
+#' @param .proxy_username,.proxy_password Login details for proxy, if needed.
 #' @param .proxy_auth Type of HTTP authentication to use. Should be one of the
 #' following: `basic`, `digest`, `digest_ie`, `gssnegotiate`, `ntlm`, `any`.
 #' @param .limit Number of records to return. This can be used

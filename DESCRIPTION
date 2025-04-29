@@ -39,5 +39,6 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Remotes:  
+Remotes: 
     r-lib/httr2
+Config/usethis/last-upkeep: 2025-04-29

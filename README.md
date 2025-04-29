@@ -45,8 +45,8 @@ gitcreds package.
 
 ### API URL
 
-- The `GITHUB_API_URL` environment variable, if set, is used for the
-  default github api url.
+-   The `GITHUB_API_URL` environment variable, if set, is used for the
+    default github api url.
 
 ## Usage
 
@@ -69,16 +69,16 @@ call. E.g.
 ``` r
 my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "after"                "alexr"                "all.primer.tutorials"
-#>  [4] "altlist"              "argufy"               "ask"                 
-#>  [7] "async"                "autobrew-bundler"     "BCEA"                
-#> [10] "BH"                   "bigrquerystorage"     "brew-big-sur"        
-#> [13] "brokenPackage"        "butcher"              "checkinstall"        
-#> [16] "cli"                  "covrlabs"             "csg"                 
-#> [19] "css"                  "curl"                 "cv"                  
-#> [22] "cyclocomp"            "cynkrablog"           "DBItest"             
-#> [25] "debian-repo"          "disposables"          "dotenv"              
-#> [28] "falsy"                "finmix"               "foobar"
+#>  [1] "after"                "alda"                 "alexr"               
+#>  [4] "all.primer.tutorials" "altlist"              "anticlust"           
+#>  [7] "argufy"               "ask"                  "async"               
+#> [10] "autobrew-bundler"     "available-work"       "baguette"            
+#> [13] "BCEA"                 "BH"                   "bigrquerystorage"    
+#> [16] "brew-big-sur"         "brokenPackage"        "brulee"              
+#> [19] "build-r-app"          "butcher"              "censored"            
+#> [22] "cf-tunnel"            "checkinstall"         "cli"                 
+#> [25] "clock"                "comments"             "covr"                
+#> [28] "covrlabs"             "cran-metadata"        "csg"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -91,16 +91,14 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "nanonext"              "winget-pkgs"           "gon"                  
-#>  [4] "PlotR"                 "miniparquet"           "LDAvis"               
-#>  [7] "ragg"                  "TreeDist"              "mmrm"                 
-#> [10] "SKFCPD"                "RSiena2"               "rsiena"               
-#> [13] "ReadStat"              "libxls"                "covrlabs"             
-#> [16] "nanodbc"               "odbc"                  "r-dev-web"            
-#> [19] "homebrew-core-big-sur" "brew-big-sur"          "scripts"              
-#> [22] "format"                "bigrquerystorage"      "autobrew-bundler"     
-#> [25] "homebrew-cran"         "cv"                    "playground3"          
-#> [28] "cynkrablog"            "usethis"               "minimaxApprox"
+#>  [1] "phantomjs"       "FSA"             "greta"           "webdriver"      
+#>  [5] "clock"           "testthat"        "jsonlite"        "duckdb"         
+#>  [9] "duckdb-r"        "httpuv"          "unwind"          "httr2"          
+#> [13] "pins-r"          "install-figlet"  "weird-package"   "anticlust"      
+#> [17] "nanoparquet-cli" "cf-tunnel"       "myweek"          "figlet"         
+#> [21] "evercran"        "available-work"  "r-shell"         "Rcpp"           
+#> [25] "openssl"         "openbsd-vm"      "cran-metadata"   "run-r-app"      
+#> [29] "build-r-app"     "comments"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -132,21 +130,21 @@ Supply the `page` parameter to get subsequent pages:
 ``` r
 my_repos2 <- gh("GET /orgs/{org}/repos", org = "r-lib", page = 2)
 vapply(my_repos2, "[[", "", "name")
-#>  [1] "sodium"      "gargle"      "remotes"     "jose"        "backports"  
-#>  [6] "rcmdcheck"   "vdiffr"      "callr"       "mockery"     "here"       
-#> [11] "revdepcheck" "processx"    "vctrs"       "debugme"     "usethis"    
-#> [16] "rlang"       "pkgload"     "httrmock"    "pkgbuild"    "prettycode" 
-#> [21] "roxygen2md"  "pkgapi"      "zeallot"     "liteq"       "keyring"    
-#> [26] "sloop"       "styler"      "ansistrings" "archive"     "later"
+#>  [1] "desc"        "profvis"     "sodium"      "gargle"      "remotes"    
+#>  [6] "jose"        "backports"   "rcmdcheck"   "vdiffr"      "callr"      
+#> [11] "mockery"     "here"        "revdepcheck" "processx"    "vctrs"      
+#> [16] "debugme"     "usethis"     "rlang"       "pkgload"     "httrmock"   
+#> [21] "pkgbuild"    "prettycode"  "roxygen2md"  "pkgapi"      "zeallot"    
+#> [26] "liteq"       "keyring"     "sloop"       "styler"      "ansistrings"
 ```
 
 ## Environment Variables
 
-- The `GITHUB_API_URL` environment variable is used for the default
-  github api url.
-- The `GITHUB_PAT` and `GITHUB_TOKEN` environment variables are used, if
-  set, in this order, as default token. Consider using the git
-  credential store instead, see `?gh::gh_token`.
+-   The `GITHUB_API_URL` environment variable is used for the default
+    github api url.
+-   The `GITHUB_PAT` and `GITHUB_TOKEN` environment variables are used,
+    if set, in this order, as default token. Consider using the git
+    credential store instead, see `?gh::gh_token`.
 
 ## Code of Conduct
 

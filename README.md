@@ -6,12 +6,12 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/r-lib/gh/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/gh?branch=main)
 [![](https://www.r-pkg.org/badges/version/gh)](https://www.r-pkg.org/pkg/gh)
 [![CRAN Posit mirror
 downloads](https://cranlogs.r-pkg.org/badges/gh)](https://www.r-pkg.org/pkg/gh)
 [![R-CMD-check](https://github.com/r-lib/gh/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/gh/actions/workflows/R-CMD-check.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/r-lib/gh/graph/badge.svg)](https://app.codecov.io/gh/r-lib/gh)
 <!-- badges: end -->
 
 Minimalistic client to access GitHub’s

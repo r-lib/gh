@@ -15,14 +15,18 @@ test_that("method arg sets default method", {
 
 test_that("parameter substitution is equivalent to direct specification (:)", {
   subst <-
-    gh_build_request("POST /repos/:org/:repo/issues/:number/labels",
+    gh_build_request(
+      "POST /repos/:org/:repo/issues/:number/labels",
       params = list(
-        org = "ORG", repo = "REPO", number = "1",
+        org = "ORG",
+        repo = "REPO",
+        number = "1",
         "body"
       )
     )
   spec <-
-    gh_build_request("POST /repos/ORG/REPO/issues/1/labels",
+    gh_build_request(
+      "POST /repos/ORG/REPO/issues/1/labels",
       params = list("body")
     )
   expect_identical(subst, spec)
@@ -30,14 +34,18 @@ test_that("parameter substitution is equivalent to direct specification (:)", {
 
 test_that("parameter substitution is equivalent to direct specification", {
   subst <-
-    gh_build_request("POST /repos/{org}/{repo}/issues/{number}/labels",
+    gh_build_request(
+      "POST /repos/{org}/{repo}/issues/{number}/labels",
       params = list(
-        org = "ORG", repo = "REPO", number = "1",
+        org = "ORG",
+        repo = "REPO",
+        number = "1",
         "body"
       )
     )
   spec <-
-    gh_build_request("POST /repos/ORG/REPO/issues/1/labels",
+    gh_build_request(
+      "POST /repos/ORG/REPO/issues/1/labels",
       params = list("body")
     )
   expect_identical(subst, spec)
@@ -90,7 +98,7 @@ test_that("gh_set_endpoint() refuses to substitute an NA", {
     endpoint = "POST /orgs/{org}/repos",
     params = list(org = NA)
   )
-  expect_error(gh_set_endpoint(input), "Named NA")
+  expect_snapshot(error = TRUE, gh_set_endpoint(input))
 })
 
 test_that("gh_set_endpoint() allows a named NA in body for non-GET", {

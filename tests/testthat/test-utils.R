@@ -2,29 +2,41 @@ test_that("can detect presence vs absence names", {
   expect_identical(has_name(list("foo", "bar")), c(FALSE, FALSE))
   expect_identical(has_name(list(a = "foo", "bar")), c(TRUE, FALSE))
 
-  expect_identical(has_name({
-    x <- list("foo", "bar")
-    names(x)[1] <- "a"
-    x
-  }), c(TRUE, FALSE))
-  expect_identical(has_name({
-    x <- list("foo", "bar")
-    names(x)[1] <- "a"
-    names(x)[2] <- ""
-    x
-  }), c(TRUE, FALSE))
+  expect_identical(
+    has_name({
+      x <- list("foo", "bar")
+      names(x)[1] <- "a"
+      x
+    }),
+    c(TRUE, FALSE)
+  )
+  expect_identical(
+    has_name({
+      x <- list("foo", "bar")
+      names(x)[1] <- "a"
+      names(x)[2] <- ""
+      x
+    }),
+    c(TRUE, FALSE)
+  )
 
-  expect_identical(has_name({
-    x <- list("foo", "bar")
-    names(x)[1] <- ""
-    x
-  }), c(FALSE, FALSE))
-  expect_identical(has_name({
-    x <- list("foo", "bar")
-    names(x)[1] <- ""
-    names(x)[2] <- ""
-    x
-  }), c(FALSE, FALSE))
+  expect_identical(
+    has_name({
+      x <- list("foo", "bar")
+      names(x)[1] <- ""
+      x
+    }),
+    c(FALSE, FALSE)
+  )
+  expect_identical(
+    has_name({
+      x <- list("foo", "bar")
+      names(x)[1] <- ""
+      names(x)[2] <- ""
+      x
+    }),
+    c(FALSE, FALSE)
+  )
 })
 
 test_that("named NULL is dropped", {
@@ -64,7 +76,7 @@ test_that("named NA is error", {
   }
 
   for (tc in badtcs) {
-    expect_error(check_named_nas(tc))
+    expect_snapshot(error = TRUE, check_named_nas(tc))
   }
 })
 

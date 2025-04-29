@@ -1,4 +1,3 @@
-
 #' Print the result of a GitHub API call
 #'
 #' @param x The result object.

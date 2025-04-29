@@ -71,7 +71,6 @@ git_remotes <- function(path = ".") {
 }
 
 
-
 git_config <- function(path = ".") {
   config_path <- file.path(repo_root(path), ".git", "config")
   if (!file.exists(config_path)) {

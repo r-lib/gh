@@ -4,7 +4,9 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r setup, include = FALSE}
+```{r}
+#| label: setup
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -17,10 +19,10 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/r-lib/gh/workflows/R-CMD-check/badge.svg)](https://github.com/r-lib/gh/actions)
-[![Codecov test coverage](https://codecov.io/gh/r-lib/gh/branch/main/graph/badge.svg)](https://app.codecov.io/gh/r-lib/gh?branch=main)
 [![](https://www.r-pkg.org/badges/version/gh)](https://www.r-pkg.org/pkg/gh)
 [![CRAN Posit mirror downloads](https://cranlogs.r-pkg.org/badges/gh)](https://www.r-pkg.org/pkg/gh)
 [![R-CMD-check](https://github.com/r-lib/gh/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/r-lib/gh/actions/workflows/R-CMD-check.yaml)
+[![Codecov test coverage](https://codecov.io/gh/r-lib/gh/graph/badge.svg)](https://app.codecov.io/gh/r-lib/gh)
 <!-- badges: end -->
 
 Minimalistic client to access GitHub's
@@ -30,13 +32,15 @@ Minimalistic client to access GitHub's
 
 Install the package from CRAN as usual:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 install.packages("gh")
 ```
 
 Install the development version from GitHub:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 pak::pak("r-lib/gh")
 ```
 
@@ -93,13 +97,15 @@ POST, PATCH, PUT, and DELETE requests can be sent by including the
 HTTP verb before the endpoint, in the first argument. E.g. to
 create a repository:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 new_repo <- gh("POST /user/repos", name = "my-new-repo-for-gh-testing")
 ```
 
 and then delete it:
 
-```{r eval = FALSE}
+```{r}
+#| eval: false
 gh("DELETE /repos/{owner}/{repo}", owner = "gaborcsardi",
    repo = "my-new-repo-for-gh-testing")
 ```

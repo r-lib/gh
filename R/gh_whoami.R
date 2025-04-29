@@ -49,8 +49,10 @@ gh_whoami <- function(.token = NULL, .api_url = NULL, .send_headers = NULL) {
     return(invisible(NULL))
   }
   res <- gh(
-    endpoint = "/user", .token = .token,
-    .api_url = .api_url, .send_headers = .send_headers
+    endpoint = "/user",
+    .token = .token,
+    .api_url = .api_url,
+    .send_headers = .send_headers
   )
   scopes <- attr(res, "response")[["x-oauth-scopes"]]
   res <- res[c("name", "login", "html_url")]

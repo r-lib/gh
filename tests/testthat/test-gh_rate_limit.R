@@ -3,9 +3,9 @@ test_that("good input", {
     list(),
     class = "gh_response",
     response = list(
-      "x-ratelimit-limit"     =  "5000",
-      "x-ratelimit-remaining" =  "4999",
-      "x-ratelimit-reset"     =  "1580507619"
+      "x-ratelimit-limit" = "5000",
+      "x-ratelimit-remaining" = "4999",
+      "x-ratelimit-reset" = "1580507619"
     )
   )
 
@@ -17,8 +17,10 @@ test_that("good input", {
 })
 
 test_that("errors", {
-  expect_error(gh_rate_limit(list()))
-  expect_error(gh_rate_limits(.token = "bad"))
+  expect_snapshot(error = TRUE, {
+    gh_rate_limit(list())
+    gh_rate_limits(.token = "bad")
+  })
 })
 
 test_that("missing rate limit", {

@@ -72,7 +72,11 @@ test_that("gh_token_exists works as expected", {
 test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
   # older PATs
   expect_error(gh_pat(strrep("a", 40)), NA)
-  expect_error(gh_pat(strrep("g", 40)), "40 hexadecimal digits", class = "error")
+  expect_error(
+    gh_pat(strrep("g", 40)),
+    "40 hexadecimal digits",
+    class = "error"
+  )
   expect_error(gh_pat("aa"), "40 hexadecimal digits", class = "error")
 
   # newer PATs
@@ -80,8 +84,16 @@ test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
   expect_error(gh_pat(paste0("ghp_", strrep("3", 251))), NA)
   expect_error(gh_pat(paste0("github_pat_", strrep("A", 36))), NA)
   expect_error(gh_pat(paste0("github_pat_", strrep("3", 244))), NA)
-  expect_error(gh_pat(paste0("ghJ_", strrep("a", 36))), "prefix", class = "error")
-  expect_error(gh_pat(paste0("github_pa_", strrep("B", 244))), "github_pat_", class = "error")
+  expect_error(
+    gh_pat(paste0("ghJ_", strrep("a", 36))),
+    "prefix",
+    class = "error"
+  )
+  expect_error(
+    gh_pat(paste0("github_pa_", strrep("B", 244))),
+    "github_pat_",
+    class = "error"
+  )
 })
 
 test_that("format.gh_pat() and str.gh_pat() hide the middle stuff", {
@@ -101,8 +113,10 @@ test_that("format.gh_pat() handles empty string", {
 
 # URL processing helpers ----
 test_that("get_baseurl() insists on http(s)", {
-  expect_error(get_baseurl("github.com"), "protocols")
-  expect_error(get_baseurl("github.acme.com"), "protocols")
+  expect_snapshot(error = TRUE, {
+    get_baseurl("github.com")
+    get_baseurl("github.acme.com")
+  })
 })
 
 test_that("get_baseurl() works", {

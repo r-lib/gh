@@ -90,12 +90,17 @@ new_gh_pat <- function(x) {
 # validates PAT only in a very narrow, technical, and local sense
 validate_gh_pat <- function(x) {
   stopifnot(inherits(x, "gh_pat"))
-  if (x == "" ||
-    # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
-    # Fine grained tokens start with "github_pat_".
-    # https://github.blog/changelog/2022-10-18-introducing-fine-grained-personal-access-tokens/
-    grepl("^(gh[pousr]_[A-Za-z0-9_]{36,251}|github_pat_[A-Za-z0-9_]{36,244})$", x) ||
-    grepl("^[[:xdigit:]]{40}$", x)) {
+  if (
+    x == "" ||
+      # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
+      # Fine grained tokens start with "github_pat_".
+      # https://github.blog/changelog/2022-10-18-introducing-fine-grained-personal-access-tokens/
+      grepl(
+        "^(gh[pousr]_[A-Za-z0-9_]{36,251}|github_pat_[A-Za-z0-9_]{36,244})$",
+        x
+      ) ||
+      grepl("^[[:xdigit:]]{40}$", x)
+  ) {
     x
   } else {
     url <- "https://gh.r-lib.org/articles/managing-personal-access-tokens.html"

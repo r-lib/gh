@@ -156,23 +156,24 @@
 #'  str(x, list.len = 3, give.attr = FALSE)
 #'
 #'
-gh <- function(endpoint,
-               ...,
-               per_page = NULL,
-               .per_page = NULL,
-               .token = NULL,
-               .destfile = NULL,
-               .overwrite = FALSE,
-               .api_url = NULL,
-               .method = "GET",
-               .limit = NULL,
-               .accept = "application/vnd.github.v3+json",
-               .send_headers = NULL,
-               .progress = TRUE,
-               .params = list(),
-               .max_wait = 600,
-               .max_rate = NULL) {
-
+gh <- function(
+  endpoint,
+  ...,
+  per_page = NULL,
+  .per_page = NULL,
+  .token = NULL,
+  .destfile = NULL,
+  .overwrite = FALSE,
+  .api_url = NULL,
+  .method = "GET",
+  .limit = NULL,
+  .accept = "application/vnd.github.v3+json",
+  .send_headers = NULL,
+  .progress = TRUE,
+  .params = list(),
+  .max_wait = 600,
+  .max_rate = NULL
+) {
   params <- .parse_params(..., .params = .params)
 
   check_exclusive(per_page, .per_page, .require = FALSE)
@@ -216,8 +217,10 @@ gh <- function(endpoint,
     if (.progress) cli::cli_progress_update()
 
     if (!is.null(names(res2)) && identical(names(res), names(res2))) {
-      res3 <- mapply( # Handle named array case
-        function(x, y, n) { # e.g. GET /search/repositories
+      res3 <- mapply(
+        # Handle named array case
+        function(x, y, n) {
+          # e.g. GET /search/repositories
           z <- c(x, y)
           atm <- is.atomic(z)
           if (atm && n %in% c("total_count", "incomplete_results")) {
@@ -228,10 +231,13 @@ gh <- function(endpoint,
             z
           }
         },
-        res, res2, names(res),
+        res,
+        res2,
+        names(res),
         SIMPLIFY = FALSE
       )
-    } else { # Handle unnamed array case
+    } else {
+      # Handle unnamed array case
       res3 <- c(res, res2) # e.g. GET /orgs/:org/invitations
     }
 
@@ -242,8 +248,12 @@ gh <- function(endpoint,
   if (.progress) cli::cli_progress_done()
 
   # We only subset for a non-named response.
-  if (!is.null(.limit) && len > .limit &&
-    !"total_count" %in% names(res) && length(res) == len) {
+  if (
+    !is.null(.limit) &&
+      len > .limit &&
+      !"total_count" %in% names(res) &&
+      length(res) == len
+  ) {
     res_attr <- attributes(res)
     res <- res[seq_len(.limit)]
     attributes(res) <- res_attr
@@ -253,8 +263,9 @@ gh <- function(endpoint,
 }
 
 gh_response_length <- function(res) {
-  if (!is.null(names(res)) && length(res) > 1 &&
-    names(res)[1] == "total_count") {
+  if (
+    !is.null(names(res)) && length(res) > 1 && names(res)[1] == "total_count"
+  ) {
     # Ignore total_count, incomplete_results, repository_selection
     # and take the first list element to get the length
     lst <- vapply(res, is.list, logical(1))

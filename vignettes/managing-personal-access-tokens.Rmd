@@ -7,14 +7,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r setup}
+```{r}
+#| label: setup
 library(gh)
 ```
 
@@ -45,7 +47,8 @@ More resources on PAT management:
 `gh::gh()` allows the user to provide a PAT via the `.token` argument and to specify a host other than "github.com" via the `.api_url` argument.
 (Some companies and universities run their own instance of GitHub Enterprise.)
 
-```{r, eval = FALSE}
+```{r}
+#| eval: false
 gh(endpoint, ..., .token = NULL, ..., .api_url = NULL, ...)
 ```
 

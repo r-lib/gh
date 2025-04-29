@@ -3,9 +3,9 @@ test_that("good input", {
     list(),
     class = "gh_response",
     response = list(
-      "x-ratelimit-limit"     =  "5000",
-      "x-ratelimit-remaining" =  "4999",
-      "x-ratelimit-reset"     =  "1580507619"
+      "x-ratelimit-limit" = "5000",
+      "x-ratelimit-remaining" = "4999",
+      "x-ratelimit-reset" = "1580507619"
     )
   )
 

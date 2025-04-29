@@ -1,4 +1,3 @@
-
 extract_link <- function(gh_response, link) {
   headers <- attr(gh_response, "response")
   links <- headers$link

@@ -6,17 +6,19 @@ default_api_url <- function() {
 ## Headers to send with each API request
 default_send_headers <- c("User-Agent" = "https://github.com/r-lib/gh")
 
-gh_build_request <- function(endpoint = "/user",
-                             params = list(),
-                             token = NULL,
-                             destfile = NULL,
-                             overwrite = NULL,
-                             accept = NULL,
-                             send_headers = NULL,
-                             max_wait = 10,
-                             max_rate = NULL,
-                             api_url = NULL,
-                             method = "GET") {
+gh_build_request <- function(
+  endpoint = "/user",
+  params = list(),
+  token = NULL,
+  destfile = NULL,
+  overwrite = NULL,
+  accept = NULL,
+  send_headers = NULL,
+  max_wait = 10,
+  max_rate = NULL,
+  api_url = NULL,
+  method = "GET"
+) {
   working <- list(
     method = method,
     url = character(),
@@ -42,7 +44,17 @@ gh_build_request <- function(endpoint = "/user",
   working <- gh_set_url(working)
   working <- gh_set_headers(working)
   working <- gh_set_temp_destfile(working)
-  working[c("method", "url", "headers", "query", "body", "dest", "desttmp", "max_wait", "max_rate")]
+  working[c(
+    "method",
+    "url",
+    "headers",
+    "query",
+    "body",
+    "dest",
+    "desttmp",
+    "max_wait",
+    "max_rate"
+  )]
 }
 
 
@@ -70,7 +82,9 @@ gh_set_verb <- function(x) {
 
 gh_set_endpoint <- function(x) {
   params <- x$params
-  if (!is_template(x$endpoint) || length(params) == 0L || has_no_names(params)) {
+  if (
+    !is_template(x$endpoint) || length(params) == 0L || has_no_names(params)
+  ) {
     return(x)
   }
 
@@ -80,8 +94,8 @@ gh_set_endpoint <- function(x) {
 
   for (i in named_params) {
     endpoint2 <- expand_variable(
-      varname  = names(params)[i],
-      value    = params[[i]][1],
+      varname = names(params)[i],
+      value = params[[i]][1],
       template = endpoint
     )
     if (is.na(endpoint2)) {
@@ -152,7 +166,8 @@ gh_set_temp_destfile <- function(working) {
   working
 }
 
-get_baseurl <- function(url) { # https://github.uni.edu/api/v3/
+get_baseurl <- function(url) {
+  # https://github.uni.edu/api/v3/
   if (!any(grepl("^https?://", url))) {
     stop("Only works with HTTP(S) protocols")
   }
@@ -233,8 +248,9 @@ expand_variable <- function(varname, value, template) {
   if (is.null(type)) {
     return(template)
   }
-  pattern <- switch(type,
-    uri   = paste0("[{]", varname, "[}]"),
+  pattern <- switch(
+    type,
+    uri = paste0("[{]", varname, "[}]"),
     colon = paste0(":", varname, "\\b"),
     stop("Internal error: unrecognized template type")
   )

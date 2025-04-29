@@ -43,13 +43,23 @@ test_that("can use per_page or .per_page but not both", {
 
 test_that("can paginate", {
   skip_on_cran()
-  pages <- gh("/orgs/tidyverse/repos", per_page = 1, .limit = 5, .progress = FALSE)
+  pages <- gh(
+    "/orgs/tidyverse/repos",
+    per_page = 1,
+    .limit = 5,
+    .progress = FALSE
+  )
   expect_length(pages, 5)
 })
 
 test_that("trim output when .limit isn't a multiple of .per_page", {
   skip_on_cran()
-  pages <- gh("/orgs/tidyverse/repos", per_page = 2, .limit = 3, .progress = FALSE)
+  pages <- gh(
+    "/orgs/tidyverse/repos",
+    per_page = 2,
+    .limit = 3,
+    .progress = FALSE
+  )
   expect_length(pages, 3)
 })
 
@@ -58,7 +68,12 @@ test_that("can paginate repository search", {
   # we need to run this sparingly, otherwise we'll get rate
   # limited and the test fails
   skip_on_ci()
-  pages <- gh("/search/repositories", q = "tidyverse", per_page = 10, .limit = 35)
+  pages <- gh(
+    "/search/repositories",
+    q = "tidyverse",
+    per_page = 10,
+    .limit = 35
+  )
   expect_named(pages, c("total_count", "incomplete_results", "items"))
   # Eliminates aren't trimmed to .limit in this case
   expect_length(pages$items, 40)

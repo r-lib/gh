@@ -113,8 +113,10 @@ test_that("format.gh_pat() handles empty string", {
 
 # URL processing helpers ----
 test_that("get_baseurl() insists on http(s)", {
-  expect_error(get_baseurl("github.com"), "protocols")
-  expect_error(get_baseurl("github.acme.com"), "protocols")
+  expect_snapshot(error = TRUE, {
+    get_baseurl("github.com")
+    get_baseurl("github.acme.com")
+  })
 })
 
 test_that("get_baseurl() works", {

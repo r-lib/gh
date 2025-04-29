@@ -98,7 +98,7 @@ test_that("gh_set_endpoint() refuses to substitute an NA", {
     endpoint = "POST /orgs/{org}/repos",
     params = list(org = NA)
   )
-  expect_error(gh_set_endpoint(input), "Named NA")
+  expect_snapshot(error = TRUE, gh_set_endpoint(input))
 })
 
 test_that("gh_set_endpoint() allows a named NA in body for non-GET", {

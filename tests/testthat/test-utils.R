@@ -76,7 +76,7 @@ test_that("named NA is error", {
   }
 
   for (tc in badtcs) {
-    expect_error(check_named_nas(tc))
+    expect_snapshot(error = TRUE, check_named_nas(tc))
   }
 })
 

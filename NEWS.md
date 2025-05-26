@@ -51,7 +51,7 @@
   user.
 
 * gh can now validate GitHub
-  [fine-grained](https://github.blog/2022-10-18-introducing-fine-grained-personal-access-tokens-for-github/)
+  [fine-grained](https://github.blog/security/application-security/introducing-fine-grained-personal-access-tokens-for-github/)
   personal access tokens (@jvstein, #171).
 
 # gh 1.3.1

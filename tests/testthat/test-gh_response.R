@@ -68,10 +68,6 @@ test_that("captures details to recreate request", {
   expect_type(req, "list")
   expect_equal(req$url, "https://api.github.com/orgs/r-lib/repos")
   expect_equal(req$query, list(per_page = 1))
-
-  # For backwards compatibility
-  expect_equal(attr(res, "method"), "GET")
-  expect_type(attr(res, ".send_headers"), "list")
 })
 
 test_that("output file is not overwritten on error", {

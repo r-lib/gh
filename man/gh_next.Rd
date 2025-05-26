@@ -7,16 +7,23 @@
 \alias{gh_last}
 \title{Get the next, previous, first or last page of results}
 \usage{
-gh_next(gh_response)
+gh_next(gh_response, .token = NULL, .send_headers = NULL)
 
-gh_prev(gh_response)
+gh_prev(gh_response, .token = NULL, .send_headers = NULL)
 
-gh_first(gh_response)
+gh_first(gh_response, .token = NULL, .send_headers = NULL)
 
-gh_last(gh_response)
+gh_last(gh_response, .token = NULL, .send_headers = NULL)
 }
 \arguments{
 \item{gh_response}{An object returned by a \code{\link[=gh]{gh()}} call.}
+
+\item{.token}{Authentication token. Defaults to \code{\link[=gh_token]{gh_token()}}.}
+
+\item{.send_headers}{Named character vector of header field values
+(except \code{Authorization}, which is handled via \code{.token}). This can be
+used to override or augment the default \code{User-Agent} header:
+\code{"https://github.com/r-lib/gh"}.}
 }
 \value{
 Answer from the API.

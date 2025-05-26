@@ -29,7 +29,7 @@ test_that("paginated request gets max_wait and max_rate", {
   skip_on_cran()
   gh <- gh("/orgs/tidyverse/repos", per_page = 5, .max_wait = 1, .max_rate = 10)
 
-  req <- gh_link_request(gh, "next")
+  req <- gh_link_request(gh, "next", .token = NULL, .send_headers = NULL)
   expect_equal(req$max_wait, 1)
   expect_equal(req$max_rate, 10)
 

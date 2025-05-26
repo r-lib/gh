@@ -1,11 +1,30 @@
 # gh (development version)
 
-* New `gh_token_exists()` tells you if a valid GH token has been set.
-* `gh()` now uses a cache provided by httr2. This cache lives in `tools::R_user_dir("gh", "cache")`, maxes out at 100 MB, and can be disabled by setting `options(gh_cache = FALSE)` (#203).
-* Removes usage of mockery (@tanho63, #197)
+## BREAKING CHANGES
 
-* `gh_token()` can now pick up on the viewer's GitHub credentials (if any) when
-  running on Posit Connect (@atheriel, #217).
+### Posit Security Advisory(PSA) - PSA-1649
+
+* Posit acknowledges that the response header may contain sensitive
+  information. (#222) Thank you to @foysal1197 for your thorough research
+  and responsible disclosure.
+
+ `gh()`, and other functions that use it, now do not save the request
+  headers in the returned object. Consequently, if you use the `gh_next()`,
+  `gh_prev()`, `gh_first()` or `gh_last()` functions and passed `.token`
+  and/or `.send_headers` explicitly to the original `gh()` (or similar)
+  call, then you'll also need to pass the same `.token` and/or
+  `.send_headers` to `gh_next()`, `gh_prev()`, `gh_first()` or `gh_last()`.
+
+## OTHER CHANGES
+
+* New `gh_token_exists()` tells you if a valid GH token has been set.
+
+* `gh()` now uses a cache provided by httr2. This cache lives in
+  `tools::R_user_dir("gh", "cache")`, maxes out at 100 MB, and can be
+  disabled by setting `options(gh_cache = FALSE)` (#203).
+
+* `gh_token()` can now pick up on the viewer's GitHub credentials (if any)
+  when running on Posit Connect (@atheriel, #217).
 
 # gh 1.4.1
 

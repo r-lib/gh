@@ -212,7 +212,7 @@ gh <- function(
   }
 
   while (!is.null(.limit) && len < .limit && gh_has_next(res)) {
-    res2 <- gh_next(res)
+    res2 <- gh_next(res, .token = .token, .send_headers = .send_headers)
     len <- len + gh_response_length(res2)
     if (.progress) cli::cli_progress_update()
 

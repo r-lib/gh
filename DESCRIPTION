@@ -12,13 +12,13 @@ Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
 URL: https://gh.r-lib.org/, https://github.com/r-lib/gh#readme
 BugReports: https://github.com/r-lib/gh/issues
-Depends: 
+Depends:
     R (>= 4.1)
 Imports:
     cli (>= 3.0.1),
     gitcreds,
     glue,
-    httr2 (>= 1.0.5.9000),
+    httr2 (>= 1.0.6),
     ini,
     jsonlite,
     lifecycle,
@@ -32,10 +32,8 @@ Suggests:
     spelling,
     testthat (>= 3.0.0),
     withr
-VignetteBuilder: 
+VignetteBuilder:
     knitr
-Remotes: 
-    r-lib/httr2
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/usethis/last-upkeep: 2025-04-29

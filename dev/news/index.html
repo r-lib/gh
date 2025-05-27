@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gh</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.4.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.5.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,16 +38,19 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="gh-development-version">gh (development version)<a class="anchor" aria-label="anchor" href="#gh-development-version"></a></h2>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.5.0" id="gh-150">gh 1.5.0<a class="anchor" aria-label="anchor" href="#gh-150"></a></h2><p class="text-muted">CRAN release: 2025-05-26</p>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">BREAKING CHANGES<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-1-5-0">BREAKING CHANGES<a class="anchor" aria-label="anchor" href="#breaking-changes-1-5-0"></a></h3>
 <div class="section level4">
-<h4 id="posit-security-advisorypsa---psa-development-version">Posit Security Advisory(PSA) - PSA-1649<a class="anchor" aria-label="anchor" href="#posit-security-advisorypsa---psa-development-version"></a></h4>
+<h4 id="posit-security-advisorypsa---psa-1-5-0">Posit Security Advisory(PSA) - PSA-1649<a class="anchor" aria-label="anchor" href="#posit-security-advisorypsa---psa-1-5-0"></a></h4>
 <ul><li>Posit acknowledges that the response header may contain sensitive information. (<a href="https://github.com/r-lib/gh/issues/222" class="external-link">#222</a>) Thank you to <a href="https://github.com/foysal1197" class="external-link">@foysal1197</a> for your thorough research and responsible disclosure.</li>
 </ul><p><code><a href="../reference/gh.html">gh()</a></code>, and other functions that use it, now do not save the request headers in the returned object. Consequently, if you use the <code><a href="../reference/gh_next.html">gh_next()</a></code>, <code><a href="../reference/gh_next.html">gh_prev()</a></code>, <code><a href="../reference/gh_next.html">gh_first()</a></code> or <code><a href="../reference/gh_next.html">gh_last()</a></code> functions and passed <code>.token</code> and/or <code>.send_headers</code> explicitly to the original <code><a href="../reference/gh.html">gh()</a></code> (or similar) call, then you’ll also need to pass the same <code>.token</code> and/or <code>.send_headers</code> to <code><a href="../reference/gh_next.html">gh_next()</a></code>, <code><a href="../reference/gh_next.html">gh_prev()</a></code>, <code><a href="../reference/gh_next.html">gh_first()</a></code> or <code><a href="../reference/gh_next.html">gh_last()</a></code>.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="other-changes-development-version">OTHER CHANGES<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
+<h3 id="other-changes-1-5-0">OTHER CHANGES<a class="anchor" aria-label="anchor" href="#other-changes-1-5-0"></a></h3>
 <ul><li><p>New <code><a href="../reference/gh_token.html">gh_token_exists()</a></code> tells you if a valid GH token has been set.</p></li>
 <li><p><code><a href="../reference/gh.html">gh()</a></code> now uses a cache provided by httr2. This cache lives in <code>tools::R_user_dir("gh", "cache")</code>, maxes out at 100 MB, and can be disabled by setting <code>options(gh_cache = FALSE)</code> (<a href="https://github.com/r-lib/gh/issues/203" class="external-link">#203</a>).</p></li>
 <li><p><code><a href="../reference/gh_token.html">gh_token()</a></code> can now pick up on the viewer’s GitHub credentials (if any) when running on Posit Connect (<a href="https://github.com/atheriel" class="external-link">@atheriel</a>, <a href="https://github.com/r-lib/gh/issues/217" class="external-link">#217</a>).</p></li>

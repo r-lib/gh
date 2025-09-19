@@ -22,8 +22,7 @@ Imports:
     ini,
     jsonlite,
     lifecycle,
-    rlang (>= 1.0.0),
-    vctrs
+    rlang (>= 1.0.0)
 Suggests:
     connectcreds,
     covr,
@@ -32,6 +31,7 @@ Suggests:
     rprojroot,
     spelling,
     testthat (>= 3.0.0),
+    vctrs,
     withr
 VignetteBuilder:
     knitr

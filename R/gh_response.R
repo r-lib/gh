@@ -42,3 +42,17 @@ gh_process_response <- function(resp, gh_req) {
 remove_headers <- function(x) {
   x[names(x) != "headers"]
 }
+
+# Add vctrs methods that strip attributes from gh_response when combining,
+# enabling rectangling via unnesting etc
+# See <https://github.com/r-lib/gh/issues/161> for more details
+#' @exportS3Method vctrs::vec_ptype2
+vec_ptype2.gh_response.gh_response <- function(x, y, ...) {
+  list()
+}
+
+#' @exportS3Method vctrs::vec_cast
+vec_cast.list.gh_response <- function(x, to, ...) {
+  attributes(x) <- NULL
+  x
+}

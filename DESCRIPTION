@@ -1,6 +1,6 @@
 Package: gh
 Title: 'GitHub' 'API'
-Version: 1.5.0.9000
+Version: 1.5.0.9001
 Authors@R: c(
     person("Gábor", "Csárdi", , "csardi.gabor@gmail.com", role = c("cre", "ctb")),
     person("Jennifer", "Bryan", role = "aut"),
@@ -22,7 +22,8 @@ Imports:
     ini,
     jsonlite,
     lifecycle,
-    rlang (>= 1.0.0)
+    rlang (>= 1.0.0),
+    vctrs
 Suggests:
     connectcreds,
     covr,

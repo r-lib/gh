@@ -98,7 +98,7 @@ validate_gh_pat <- function(x) {
       # GitHub App installation tokens start with "ghs_".
       # https://github.blog/changelog/2026-04-24-notice-about-upcoming-new-format-for-github-app-installation-tokens/
       grepl(
-        "^(gh[pousr]_[A-Za-z0-9_]{36,251}|github_pat_[A-Za-z0-9_]{36,244}|ghs_[A-Za-z0-9_]+)$",
+        "^(gh[pousr]_[A-Za-z0-9_]{36,251}|github_pat_[A-Za-z0-9_]{36,244}|ghs_.+)$",
         x
       ) ||
       grepl("^[[:xdigit:]]{40}$", x)

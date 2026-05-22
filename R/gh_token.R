@@ -95,8 +95,10 @@ validate_gh_pat <- function(x) {
       # https://github.blog/changelog/2021-03-04-authentication-token-format-updates/
       # Fine grained tokens start with "github_pat_".
       # https://github.blog/changelog/2022-10-18-introducing-fine-grained-personal-access-tokens/
+      # GitHub App installation tokens start with "ghs_".
+      # https://github.blog/changelog/2026-04-24-notice-about-upcoming-new-format-for-github-app-installation-tokens/
       grepl(
-        "^(gh[pousr]_[A-Za-z0-9_]{36,251}|github_pat_[A-Za-z0-9_]{36,244})$",
+        "^(gh[pousr]_[A-Za-z0-9_]{36,251}|github_pat_[A-Za-z0-9_]{36,244}|ghs_[A-Za-z0-9_]+)$",
         x
       ) ||
       grepl("^[[:xdigit:]]{40}$", x)
@@ -106,9 +108,10 @@ validate_gh_pat <- function(x) {
     url <- "https://gh.r-lib.org/articles/managing-personal-access-tokens.html"
     cli::cli_abort(c(
       "Invalid GitHub PAT format",
-      "i" = "A GitHub PAT must have one of three forms:",
+      "i" = "A GitHub PAT must have one of four forms:",
       "*" = "40 hexadecimal digits (older PATs)",
       "*" = "A 'ghp_' prefix followed by 36 to 251 more characters (newer PATs)",
+      "*" = "A `ghs_` prefix followed by about 500 characters (GitHub App installation tokens)",
       "*" = "A 'github_pat_' prefix followed by 36 to 244 more characters (fine-grained PATs)",
       "i" = "Read more at {.url {url}}."
     ))

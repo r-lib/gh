@@ -116,7 +116,8 @@ validate_gh_pat <- function(x) {
 }
 
 gh_pat <- function(x) {
-  validate_gh_pat(new_gh_pat(x))
+  #validate_gh_pat(new_gh_pat(x))
+  new_gh_pat(x)
 }
 
 #' @export

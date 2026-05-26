@@ -121,6 +121,24 @@ body, as JSON.
 \item Convert the response to an R list using \code{\link[jsonlite:fromJSON]{jsonlite::fromJSON()}}.
 }
 }
+\section{Caching}{
+
+\code{gh()} uses httr2's HTTP cache by default. It is stored in
+\code{tools::R_user_dir("gh", "cache")}, capped at 100 MB, and shared
+across R sessions. When the cache holds a previous response for a
+request, \code{gh()} lets httr2 attach \code{If-None-Match} / \code{If-Modified-Since}
+headers automatically and replays the cached body on a \verb{304 Not Modified} reply, so the call doesn't count against your GitHub rate
+limit. Set \code{options(gh_cache = FALSE)} to disable, or delete the
+directory above to clear it.
+
+If you pass \code{If-None-Match} (or \code{If-Modified-Since}) yourself via
+\code{.send_headers}, httr2's cache does not intervene: a \code{304} response
+is returned as an empty \code{gh_response} with the response headers
+(including \code{ETag}) still attached on \code{attr(res, "response")}. You are
+responsible for holding on to the previous body and matching it
+against the ETag.
+}
+
 \examples{
 \dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) withAutoprint(\{ # examplesIf}
 ## Repositories of a user, these are equivalent

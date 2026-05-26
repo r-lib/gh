@@ -61,16 +61,14 @@ fake_github_app <- function() {
     if (!isTRUE(res$locals$token_valid)) {
       return(fake_gh_error(res, 401L, "Bad credentials"))
     }
-    res$
-      set_header("x-oauth-scopes", "gist, repo, user")$
-      send_json(
-        list(
-          login = "fakeuser",
-          name = "Fake User",
-          html_url = "https://github.com/fakeuser"
-        ),
-        auto_unbox = TRUE
-      )
+    res$set_header("x-oauth-scopes", "gist, repo, user")$send_json(
+      list(
+        login = "fakeuser",
+        name = "Fake User",
+        html_url = "https://github.com/fakeuser"
+      ),
+      auto_unbox = TRUE
+    )
   })
 
   app$get("/rate_limit", function(req, res) {
@@ -139,26 +137,30 @@ fake_github_app <- function() {
       )
       if (raw_requested) {
         body <- charToRaw(paste0(
-          "Package: ", req$params$repo, "\n",
-          "Title: Fake content of ", req$params$path, "\n"
+          "Package: ",
+          req$params$repo,
+          "\n",
+          "Title: Fake content of ",
+          req$params$path,
+          "\n"
         ))
-        res$
-          set_header("x-github-media-type", "github.v3; param=raw")$
-          set_type("application/octet-stream")$
-          send(body)
+        res$set_header("x-github-media-type", "github.v3; param=raw")$set_type(
+          "application/octet-stream"
+        )$send(body)
       } else {
-        res$
-          set_header("x-github-media-type", "github.v3; param=json")$
-          send_json(
-            list(
-              name = req$params$path,
-              path = req$params$path,
-              type = "file",
-              content = "ZmFrZQ==",
-              encoding = "base64"
-            ),
-            auto_unbox = TRUE
-          )
+        res$set_header(
+          "x-github-media-type",
+          "github.v3; param=json"
+        )$send_json(
+          list(
+            name = req$params$path,
+            path = req$params$path,
+            type = "file",
+            content = "ZmFrZQ==",
+            encoding = "base64"
+          ),
+          auto_unbox = TRUE
+        )
       }
     }
   )
@@ -168,9 +170,7 @@ fake_github_app <- function() {
     if (!nzchar(text)) {
       return(res$send_status(200L))
     }
-    res$
-      set_type("text/html")$
-      send(paste0("<p>", text, "</p>\n"))
+    res$set_type("text/html")$send(paste0("<p>", text, "</p>\n"))
   })
 
   app$get("/search/repositories", function(req, res) {
@@ -251,9 +251,22 @@ fake_repos_for <- function(slug) {
   names <- switch(
     slug,
     "r-lib" = c(
-      "actions", "cli", "covr", "devtools", "fs", "gh", "httr2", "pkgbuild",
-      "pkgload", "rcmdcheck", "remotes", "rlang", "roxygen2", "testthat",
-      "usethis", "withr"
+      "actions",
+      "cli",
+      "covr",
+      "devtools",
+      "fs",
+      "gh",
+      "httr2",
+      "pkgbuild",
+      "pkgload",
+      "rcmdcheck",
+      "remotes",
+      "rlang",
+      "roxygen2",
+      "testthat",
+      "usethis",
+      "withr"
     ),
     "tidyverse" = sprintf("repo-%02d", 1:60),
     "search" = sprintf("tidy-%02d", 1:60),
@@ -338,7 +351,9 @@ set_link_header <- function(req, res, base_path, page, last_page, per_page) {
     q <- query
     q$page <- p
     parts <- mapply(
-      function(k, v) paste0(k, "=", utils::URLencode(as.character(v), reserved = TRUE)),
+      function(k, v) {
+        paste0(k, "=", utils::URLencode(as.character(v), reserved = TRUE))
+      },
       names(q),
       q,
       USE.NAMES = FALSE

@@ -6,6 +6,9 @@
   `GH_VALIDATE_TOKENS` environment to `"off"`, `"warn"` or `"error"`
   to configure this.
 
+* Token validation now recognizes newer GitHub App installation tokens
+  (`ghs_` prefix) (#231, @jharmon-gilead).
+
 # gh 1.5.0
 
 ## BREAKING CHANGES

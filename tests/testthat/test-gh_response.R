@@ -7,6 +7,25 @@ test_that("works with empty bodies", {
   expect_equal(out, list(), ignore_attr = TRUE)
 })
 
+test_that("handles 304 Not Modified (#219)", {
+  local_fake_github()
+  withr::local_options(gh_cache = FALSE)
+
+  res <- gh("/users/{user}/repos", user = "hadley", .limit = 2)
+  etag <- attr(res, "response")$etag
+  expect_false(is.null(etag))
+
+  res2 <- gh(
+    "/users/{user}/repos",
+    user = "hadley",
+    .limit = 2,
+    .send_headers = c("If-None-Match" = etag)
+  )
+  expect_equal(res2, list(), ignore_attr = TRUE)
+  expect_s3_class(res2, "gh_response")
+  expect_equal(attr(res2, "response")$etag, etag)
+})
+
 test_that("works with empty bodies from DELETE", {
   local_fake_github()
   out <- gh(

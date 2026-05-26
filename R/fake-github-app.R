@@ -113,6 +113,11 @@ fake_github_app <- function() {
   )
 
   app$get("/users/:user/repos", function(req, res) {
+    etag <- paste0("\"users-", req$params$user, "-v1\"")
+    res$set_header("ETag", etag)
+    if (identical(req$get_header("If-None-Match"), etag)) {
+      return(res$send_status(304L))
+    }
     repos <- fake_repos_for(req$params$user)
     send_paginated(req, res, repos, base_path = req$path)
   })

@@ -1,6 +1,5 @@
 test_that("works with empty bodies", {
-  skip_if_no_github()
-
+  local_fake_github()
   out <- gh("GET /orgs/{org}/repos", org = "gh-org-testing-no-repos")
   expect_equal(out, list(), ignore_attr = TRUE)
 
@@ -9,8 +8,7 @@ test_that("works with empty bodies", {
 })
 
 test_that("works with empty bodies from DELETE", {
-  skip_if_no_github(has_scope = "gist")
-
+  local_fake_github()
   out <- gh(
     "POST /gists",
     files = list(x = list(content = "y")),
@@ -21,8 +19,7 @@ test_that("works with empty bodies from DELETE", {
 })
 
 test_that("can get raw response", {
-  skip_if_no_github()
-
+  local_fake_github()
   res <- gh(
     "GET /repos/{owner}/{repo}/contents/{path}",
     owner = "r-lib",
@@ -39,8 +36,7 @@ test_that("can get raw response", {
 })
 
 test_that("can download files", {
-  skip_if_no_github()
-
+  local_fake_github()
   tmp <- withr::local_tempfile()
   res_file <- gh(
     "/orgs/{org}/repos",
@@ -53,7 +49,7 @@ test_that("can download files", {
 })
 
 test_that("warns if output is HTML", {
-  skip_on_cran()
+  local_fake_github()
   expect_snapshot(res <- gh("POST /markdown", text = "foo"))
 
   expect_equal(res, list(message = "<p>foo</p>\n"), ignore_attr = TRUE)
@@ -61,21 +57,22 @@ test_that("warns if output is HTML", {
 })
 
 test_that("captures details to recreate request", {
-  skip_on_cran()
+  local_fake_github()
   res <- gh("/orgs/{org}/repos", org = "r-lib", .per_page = 1)
 
   req <- attr(res, "request")
   expect_type(req, "list")
-  expect_equal(req$url, "https://api.github.com/orgs/r-lib/repos")
+  expect_match(req$url, "/orgs/r-lib/repos$")
   expect_equal(req$query, list(per_page = 1))
 })
 
 test_that("output file is not overwritten on error", {
+  local_fake_github()
   tmp <- withr::local_tempfile()
   writeLines("foo", tmp)
 
   err <- tryCatch(
-    gh("/repos", .destfile = tmp),
+    gh("/missing", .destfile = tmp),
     error = function(e) e
   )
 
@@ -86,7 +83,7 @@ test_that("output file is not overwritten on error", {
 
 
 test_that("gh_response objects can be combined via vctrs #161", {
-  skip_on_cran()
+  local_fake_github()
   skip_if_not_installed("vctrs")
   user_1 <- gh("/users", .limit = 1)
   user_2 <- gh("/users", .limit = 1, )

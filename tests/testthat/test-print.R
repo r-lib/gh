@@ -1,5 +1,5 @@
 test_that("can print all types of object", {
-  skip_on_cran()
+  local_fake_github()
   local_options(gh_cache = FALSE)
 
   get_license <- function(...) {

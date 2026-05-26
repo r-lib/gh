@@ -1,16 +1,12 @@
 test_that("whoami works in presence of PAT", {
-  skip_if_no_github(has_scope = "user")
-
+  local_fake_github()
   res <- gh_whoami()
   expect_s3_class(res, "gh_response")
   expect_match(res[["scopes"]], "\\buser\\b")
 })
 
 test_that("whoami errors with bad/absent PAT", {
-  skip_if_no_github()
-  skip_on_ci() # since no token sometimes fails due to rate-limiting
-  withr::local_envvar(GH_FORCE_HTTP_1_1 = "true")
-
+  local_fake_github()
   expect_snapshot(error = TRUE, {
     gh_whoami(.token = "")
     gh_whoami(.token = NA)

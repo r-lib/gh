@@ -1,5 +1,9 @@
 # gh (development version)
 
+* New `fake_github_app()`, a webfakes app that implements a small subset
+  of the GitHub REST API. This app is now used in the gh test suite, and
+  it can be used by upstream package authors as well.
+
 * Token validation now recognizes newer GitHub App installation tokens
   (`ghs_` prefix) (#231, @jharmon-gilead).
 

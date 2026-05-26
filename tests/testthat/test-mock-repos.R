@@ -3,8 +3,7 @@ if (!exists("TMPL", environment(), inherits = FALSE)) {
 }
 
 test_that("repos, some basics", {
-  skip_if_no_github()
-
+  local_fake_github()
   res <- gh(
     TMPL("/users/{username}/repos"),
     username = "gaborcsardi"
@@ -24,8 +23,7 @@ test_that("repos, some basics", {
 })
 
 test_that("can POST, PATCH, and DELETE", {
-  skip_if_no_github(has_scope = "gist")
-
+  local_fake_github()
   res <- gh(
     "POST /gists",
     files = list(test.R = list(content = "test")),

@@ -1,12 +1,14 @@
 test_that("generates a useful message", {
-  skip_if_no_github()
-
-  expect_snapshot(gh("/missing"), error = TRUE)
+  local_fake_github()
+  expect_snapshot(
+    gh("/missing"),
+    error = TRUE,
+    transform = redact_fake_host
+  )
 })
 
 test_that("errors return a github_error object", {
-  skip_if_no_github()
-
+  local_fake_github()
   e <- tryCatch(gh("/missing"), error = identity)
 
   expect_s3_class(e, "github_error")
@@ -14,8 +16,7 @@ test_that("errors return a github_error object", {
 })
 
 test_that("can catch a given status directly", {
-  skip_if_no_github()
-
+  local_fake_github()
   e <- tryCatch(gh("/missing"), "http_error_404" = identity)
 
   expect_s3_class(e, "github_error")
@@ -23,12 +24,12 @@ test_that("can catch a given status directly", {
 })
 
 test_that("can ignore trailing commas", {
-  skip_on_cran()
+  local_fake_github()
   expect_no_error(gh("/orgs/tidyverse/repos", ))
 })
 
 test_that("can use per_page or .per_page but not both", {
-  skip_on_cran()
+  local_fake_github()
   resp <- gh("/orgs/tidyverse/repos", per_page = 2)
   expect_equal(attr(resp, "request")$query$per_page, 2)
 
@@ -42,7 +43,7 @@ test_that("can use per_page or .per_page but not both", {
 })
 
 test_that("can paginate", {
-  skip_on_cran()
+  local_fake_github()
   pages <- gh(
     "/orgs/tidyverse/repos",
     per_page = 1,
@@ -53,7 +54,7 @@ test_that("can paginate", {
 })
 
 test_that("trim output when .limit isn't a multiple of .per_page", {
-  skip_on_cran()
+  local_fake_github()
   pages <- gh(
     "/orgs/tidyverse/repos",
     per_page = 2,
@@ -64,10 +65,7 @@ test_that("trim output when .limit isn't a multiple of .per_page", {
 })
 
 test_that("can paginate repository search", {
-  skip_on_cran()
-  # we need to run this sparingly, otherwise we'll get rate
-  # limited and the test fails
-  skip_on_ci()
+  local_fake_github()
   pages <- gh(
     "/search/repositories",
     q = "tidyverse",
@@ -75,6 +73,6 @@ test_that("can paginate repository search", {
     .limit = 35
   )
   expect_named(pages, c("total_count", "incomplete_results", "items"))
-  # Eliminates aren't trimmed to .limit in this case
+  # Items aren't trimmed to .limit in this case
   expect_length(pages$items, 40)
 })

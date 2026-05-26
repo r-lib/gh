@@ -17,6 +17,7 @@ test_that("good input", {
 })
 
 test_that("errors", {
+  local_fake_github()
   expect_snapshot(error = TRUE, {
     gh_rate_limit(list())
     gh_rate_limits(.token = "bad")

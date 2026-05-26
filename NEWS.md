@@ -1,5 +1,8 @@
 # gh (development version)
 
+* Token validation now recognizes newer GitHub App installation tokens
+  (`ghs_` prefix) (#231, @jharmon-gilead).
+
 # gh 1.5.0
 
 ## BREAKING CHANGES

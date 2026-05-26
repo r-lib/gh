@@ -56,6 +56,7 @@ test_that("fall back to GITHUB_PAT, then GITHUB_TOKEN", {
 })
 
 test_that("gh_token_exists works as expected", {
+  withr::local_options(gh_validate_tokens = "error")
   withr::local_envvar(GITHUB_API_URL = "https://test.com")
 
   withr::local_envvar(GITHUB_PAT_TEST_COM = NA)
@@ -70,6 +71,8 @@ test_that("gh_token_exists works as expected", {
 
 # gh_pat class ----
 test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
+  withr::local_options(gh_validate_tokens = "error")
+
   # older PATs
   expect_error(gh_pat(strrep("a", 40)), NA)
   expect_error(
@@ -94,6 +97,42 @@ test_that("validate_gh_pat() rejects bad characters, wrong # of characters", {
     "github_pat_",
     class = "error"
   )
+})
+
+test_that("validate_gh_pat() honors gh_validate_tokens option and env var", {
+  bad <- "definitely-not-a-pat"
+
+  # Default is "warn": warns but still returns the value. Reset the
+  # session-wide warning throttle so the expected warning isn't suppressed
+  # by an earlier firing.
+  withr::local_options(gh_validate_tokens = NULL)
+  withr::local_envvar(GH_VALIDATE_TOKENS = NA)
+  rlang::reset_warning_verbosity("gh_invalid_pat")
+  expect_warning(out <- gh_pat(bad), "Invalid GitHub PAT format")
+  expect_s3_class(out, "gh_pat")
+  expect_equal(unclass(out), bad)
+
+  # "off" skips validation, no message of any kind.
+  withr::local_options(gh_validate_tokens = "off")
+  expect_silent(out <- gh_pat(bad))
+  expect_equal(unclass(out), bad)
+
+  # "error" aborts (current pre-default behavior).
+  withr::local_options(gh_validate_tokens = "error")
+  expect_error(gh_pat(bad), "Invalid GitHub PAT format")
+
+  # Env var is honored when option is unset.
+  withr::local_options(gh_validate_tokens = NULL)
+  withr::local_envvar(GH_VALIDATE_TOKENS = "error")
+  expect_error(gh_pat(bad), "Invalid GitHub PAT format")
+
+  # Option takes precedence over env var (env var still "error" from above).
+  withr::local_options(gh_validate_tokens = "off")
+  expect_silent(gh_pat(bad))
+
+  # Unknown mode errors loudly.
+  withr::local_options(gh_validate_tokens = "bogus")
+  expect_error(gh_pat(bad), "Invalid token validation mode")
 })
 
 test_that("format.gh_pat() and str.gh_pat() hide the middle stuff", {

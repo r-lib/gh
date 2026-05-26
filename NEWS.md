@@ -1,5 +1,11 @@
 # gh (development version)
 
+* GitHub PAT format validation now issues a warning by default instead of
+  throwing an error, so a PAT in an unrecognized (e.g. newly introduced)
+  format is still used. Set the `gh_validate_tokens` option or the
+  `GH_VALIDATE_TOKENS` environment to `"off"`, `"warn"` or `"error"`
+  to configure this.
+
 # gh 1.5.0
 
 ## BREAKING CHANGES

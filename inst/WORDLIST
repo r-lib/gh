@@ -3,12 +3,14 @@ Codecov
 ETag
 Github
 GraphQL
+JSON
 LastPass
 Minimalistic
 PATs
 PBC
 PSA
 ROR
+URI
 api
 auth
 discoverable
@@ -18,5 +20,7 @@ github
 httr
 keyring
 pre
+programmatically
+repo
 usethis
 webfakes

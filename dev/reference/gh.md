@@ -1593,8 +1593,8 @@ gh("/repos/hadley/dplyr/issues")
 #>     "closed_by": {},
 #>     "reactions": {
 #>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7822/reactions",
-#>       "total_count": 2,
-#>       "+1": 2,
+#>       "total_count": 3,
+#>       "+1": 3,
 #>       "-1": 0,
 #>       "laugh": 0,
 #>       "hooray": 0,
@@ -4023,8 +4023,8 @@ gh("/repos/{owner}/{repo}/issues", owner = "hadley", repo = "dplyr")
 #>     "closed_by": {},
 #>     "reactions": {
 #>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7822/reactions",
-#>       "total_count": 2,
-#>       "+1": 2,
+#>       "total_count": 3,
+#>       "+1": 3,
 #>       "-1": 0,
 #>       "laugh": 0,
 #>       "hooray": 0,

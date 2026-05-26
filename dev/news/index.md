@@ -2,6 +2,16 @@
 
 ## gh (development version)
 
+- New
+  [`fake_github_app()`](https://gh.r-lib.org/dev/reference/fake_github_app.md),
+  a webfakes app that implements a small subset of the GitHub REST API.
+  This app is now used in the gh test suite, and it can be used by
+  upstream package authors as well.
+
+- Token validation now recognizes newer GitHub App installation tokens
+  (`ghs_` prefix) ([\#231](https://github.com/r-lib/gh/issues/231),
+  [@jharmon-gilead](https://github.com/jharmon-gilead)).
+
 ## gh 1.5.0
 
 CRAN release: 2025-05-26

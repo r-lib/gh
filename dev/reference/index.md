@@ -2,6 +2,8 @@
 
 ## All functions
 
+- [`fake_github_app()`](https://gh.r-lib.org/dev/reference/fake_github_app.md)
+  : A fake GitHub web app
 - [`gh()`](https://gh.r-lib.org/dev/reference/gh.md) : Query the GitHub
   API
 - [`gh_gql()`](https://gh.r-lib.org/dev/reference/gh_gql.md) : A simple

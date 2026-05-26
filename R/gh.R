@@ -199,7 +199,9 @@ gh <- function(
     method = .method
   )
 
-  if (req$method == "GET") check_named_nas(params)
+  if (req$method == "GET") {
+    check_named_nas(params)
+  }
 
   raw <- gh_make_request(req)
   res <- gh_process_response(raw, req)
@@ -214,7 +216,9 @@ gh <- function(
   while (!is.null(.limit) && len < .limit && gh_has_next(res)) {
     res2 <- gh_next(res, .token = .token, .send_headers = .send_headers)
     len <- len + gh_response_length(res2)
-    if (.progress) cli::cli_progress_update()
+    if (.progress) {
+      cli::cli_progress_update()
+    }
 
     if (!is.null(names(res2)) && identical(names(res), names(res2))) {
       res3 <- mapply(
@@ -245,7 +249,9 @@ gh <- function(
     res <- res3
   }
 
-  if (.progress) cli::cli_progress_done()
+  if (.progress) {
+    cli::cli_progress_done()
+  }
 
   # We only subset for a non-named response.
   if (
@@ -341,7 +347,9 @@ gh_error <- function(response, gh_req, error_call = caller_env()) {
   heads <- httr2::resp_headers(response)
   res <- httr2::resp_body_json(response)
   status <- httr2::resp_status(response)
-  if (!is.null(gh_req$desttmp)) unlink(gh_req$desttmp)
+  if (!is.null(gh_req$desttmp)) {
+    unlink(gh_req$desttmp)
+  }
 
   msg <- "GitHub API error ({status}): {heads$status %||% ''} {res$message}"
 

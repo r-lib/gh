@@ -36,7 +36,9 @@ gh_link_request <- function(gh_response, link, .token, .send_headers) {
   stopifnot(inherits(gh_response, "gh_response"))
 
   url <- extract_link(gh_response, link)
-  if (is.na(url)) cli::cli_abort("No {link} page")
+  if (is.na(url)) {
+    cli::cli_abort("No {link} page")
+  }
 
   req <- attr(gh_response, "request")
   req$url <- url

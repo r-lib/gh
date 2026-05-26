@@ -39,7 +39,7 @@ instead, returns \code{""}.
 See GitHub's documentation on \href{https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token}{Creating a personal access token},
 or use \code{usethis::create_github_token()} for a guided experience, including
 pre-selection of recommended scopes. Once you have a PAT, you can use
-\code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_set()}} to add it to the Git credential store. From that
+\code{\link[gitcreds:gitcreds_set]{gitcreds::gitcreds_set()}} to add it to the Git credential store. From that
 point on, gh (via \code{\link[gitcreds:gitcreds_get]{gitcreds::gitcreds_get()}}) should be able to find it
 without further effort on your part.
 }

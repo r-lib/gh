@@ -28,7 +28,7 @@ as pagination in the GraphQL API is different from the v3 API.
 If you need pagination with GraphQL, you'll need to do that manually.
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (FALSE) withAutoprint(\{ # examplesIf}
 gh_gql("query { viewer { login }}")
 
 # Get rate limit

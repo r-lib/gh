@@ -1,5 +1,5 @@
 test_that("can extract relative pages", {
-  skip_on_cran()
+  proc <- local_fake_github()
   page1 <- gh("/orgs/tidyverse/repos", per_page = 1)
   expect_true(gh_has(page1, "next"))
   expect_false(gh_has(page1, "prev"))
@@ -7,7 +7,7 @@ test_that("can extract relative pages", {
   page2 <- gh_next(page1)
   expect_equal(
     attr(page2, "request")$url,
-    "https://api.github.com/organizations/22032646/repos?per_page=1&page=2"
+    paste0(sub("/$", "", proc$url()), "/orgs/tidyverse/repos?per_page=1&page=2")
   )
   expect_true(gh_has(page2, "prev"))
 
@@ -15,7 +15,7 @@ test_that("can extract relative pages", {
 })
 
 test_that("can paginate even when space re-encoded to +", {
-  skip_on_cran()
+  local_fake_github()
   json <- gh::gh(
     "GET /search/issues",
     q = 'label:"tidy-dev-day :nerd_face:"',
@@ -26,8 +26,13 @@ test_that("can paginate even when space re-encoded to +", {
 })
 
 test_that("paginated request gets max_wait and max_rate", {
-  skip_on_cran()
-  gh <- gh("/orgs/tidyverse/repos", per_page = 5, .max_wait = 1, .max_rate = 10)
+  local_fake_github()
+  gh <- gh(
+    "/orgs/tidyverse/repos",
+    per_page = 5,
+    .max_wait = 1,
+    .max_rate = 10
+  )
 
   req <- gh_link_request(gh, "next", .token = NULL, .send_headers = NULL)
   expect_equal(req$max_wait, 1)

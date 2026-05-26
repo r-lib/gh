@@ -185,6 +185,18 @@ fake_github_app <- function() {
 
   app$get("/search/issues", function(req, res) {
     items <- fake_issues(60L)
+    # Filter by `label:"..."` so a mangled q (e.g. space re-encoded as
+    # literal `+` on a later page) returns no matches. This is what
+    # surfaces the bug from #210.
+    q <- req$query$q %||% ""
+    m <- regmatches(q, regexpr('label:"([^"]+)"', q))
+    if (length(m) == 1L) {
+      label <- sub('label:"([^"]+)"', "\\1", m)
+      items <- Filter(
+        function(x) any(vapply(x$labels, function(l) identical(l$name, label), logical(1))),
+        items
+      )
+    }
     send_search(req, res, items)
   })
 
@@ -357,7 +369,11 @@ set_link_header <- function(req, res, base_path, page, last_page, per_page) {
     q$page <- p
     parts <- mapply(
       function(k, v) {
-        paste0(k, "=", utils::URLencode(as.character(v), reserved = TRUE))
+        # Match real GitHub: percent-encode reserved chars, but spaces
+        # in query values come back as `+` rather than `%20`.
+        enc <- utils::URLencode(as.character(v), reserved = TRUE)
+        enc <- gsub("%20", "+", enc, fixed = TRUE)
+        paste0(k, "=", enc)
       },
       names(q),
       q,

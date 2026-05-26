@@ -40,7 +40,7 @@ next page defined, etc.
 If the requested page does not exist, an error is thrown.
 }
 \examples{
-\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) withAutoprint(\{ # examplesIf}
 x <- gh("/users")
 vapply(x, "[[", character(1), "login")
 x2 <- gh_next(x)

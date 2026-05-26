@@ -47,10 +47,10 @@ the \code{GITHUB_PAT} environment variable, which you can set in your
 \code{.Renviron} file.
 }
 \examples{
-\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (identical(Sys.getenv("IN_PKGDOWN"), "true")) withAutoprint(\{ # examplesIf}
 gh_whoami()
 \dontshow{\}) # examplesIf}
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (FALSE) withAutoprint(\{ # examplesIf}
 ## explicit token + use with GitHub Enterprise
 gh_whoami(
   .token = "8c70fd8419398999c9ac5bacf3192882193cadf2",

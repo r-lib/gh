@@ -2,6 +2,13 @@
 
 ## gh (development version)
 
+- [`gh()`](https://gh.r-lib.org/dev/reference/gh.md) no longer errors on
+  a `304 Not Modified` response. This makes manual conditional requests
+  (e.g. passing `If-None-Match` via `.send_headers`) usable: a 304
+  returns an empty `gh_response` with the response headers (including
+  the `ETag`) still attached
+  ([\#219](https://github.com/r-lib/gh/issues/219)).
+
 - New
   [`fake_github_app()`](https://gh.r-lib.org/dev/reference/fake_github_app.md),
   a webfakes app that implements a small subset of the GitHub REST API.

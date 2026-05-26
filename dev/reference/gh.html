@@ -206,6 +206,24 @@ this to automatically throttle requests.</p></dd>
 generate a raw response will return a raw vector.</p>
     </div>
     <div class="section level2">
+    <h2 id="caching">Caching<a class="anchor" aria-label="anchor" href="#caching"></a></h2>
+
+
+<p><code>gh()</code> uses httr2's HTTP cache by default. It is stored in
+<code>tools::R_user_dir("gh", "cache")</code>, capped at 100 MB, and shared
+across R sessions. When the cache holds a previous response for a
+request, <code>gh()</code> lets httr2 attach <code>If-None-Match</code> / <code>If-Modified-Since</code>
+headers automatically and replays the cached body on a <code>304 Not Modified</code> reply, so the call doesn't count against your GitHub rate
+limit. Set <code>options(gh_cache = FALSE)</code> to disable, or delete the
+directory above to clear it.</p>
+<p>If you pass <code>If-None-Match</code> (or <code>If-Modified-Since</code>) yourself via
+<code>.send_headers</code>, httr2's cache does not intervene: a <code>304</code> response
+is returned as an empty <code>gh_response</code> with the response headers
+(including <code>ETag</code>) still attached on <code>attr(res, "response")</code>. You are
+responsible for holding on to the previous body and matching it
+against the ETag.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="gh_gql.html">gh_gql()</a></code> if you want to use the GitHub GraphQL API,
 <code><a href="gh_whoami.html">gh_whoami()</a></code> for details on GitHub API token management.</p></div>

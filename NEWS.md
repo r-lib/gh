@@ -1,5 +1,12 @@
 # gh (development version)
 
+* `gh()` now signals a classed `gh_interrupt` interrupt when a paginated
+  call is interrupted (e.g. via `Ctrl+C` / `Escape`). The condition object
+  carries the records fetched so far on its `$gh_result` field. If the
+  interrupt is not caught, then you can also access it via
+  `rlang::last_error()`, i.e. the partial results are in
+  `rlang::last_error()$gh_result` (#98).
+
 * `gh()` no longer returns empty results when httr2's HTTP cache
   revalidates a stored response with `304 Not Modified`.
 

@@ -286,60 +286,96 @@ gh_paginate <- function(
 
   res <- NULL
   cur_req <- httr2_req
-  repeat {
-    page <- page + 1L
-    resp <- httr2::req_perform(cur_req)
-    if (httr2::resp_status(resp) >= 400) {
-      gh_error(resp, gh_req = gh_req, error_call = error_call)
-    }
-    res2 <- gh_process_response(resp, gh_req)
-    n_items <- n_items + gh_response_length(res2)
-    res <- if (is.null(res)) res2 else gh_merge_pages(res, res2)
+  tryCatch(
+    repeat {
+      page <- page + 1L
+      resp <- httr2::req_perform(cur_req)
+      if (httr2::resp_status(resp) >= 400) {
+        gh_error(resp, gh_req = gh_req, error_call = error_call)
+      }
+      res2 <- gh_process_response(resp, gh_req)
+      n_items <- n_items + gh_response_length(res2)
+      res <- if (is.null(res)) res2 else gh_merge_pages(res, res2)
 
-    # After page 1: discover total from the "last" link if available, then
-    # swap the initial spinner for the appropriate final progress bar.
-    if (page == 1L) {
-      if (is.na(display_total)) {
-        last_url <- httr2::resp_link_url(resp, "last")
-        if (!is.null(last_url)) {
-          last_page <- as.integer(httr2::url_parse(last_url)$query$page)
-          if (!is.na(last_page)) {
-            display_pages <- last_page
-            display_total <- last_page * per_page
+      # After page 1: discover total from the "last" link if available, then
+      # swap the initial spinner for the appropriate final progress bar.
+      if (page == 1L) {
+        if (is.na(display_total)) {
+          last_url <- httr2::resp_link_url(resp, "last")
+          if (!is.null(last_url)) {
+            last_page <- as.integer(httr2::url_parse(last_url)$query$page)
+            if (!is.na(last_page)) {
+              display_pages <- last_page
+              display_total <- last_page * per_page
+            }
           }
         }
+        if (isTRUE(.progress)) {
+          cli::cli_progress_done()
+          cli::cli_progress_bar(
+            total = if (is.na(display_total)) NA else display_total,
+            format = if (is.na(display_total)) {
+              fmt_indeterminate
+            } else {
+              fmt_determinate
+            },
+            clear = TRUE,
+            .envir = environment()
+          )
+        }
       }
+
       if (isTRUE(.progress)) {
-        cli::cli_progress_done()
-        cli::cli_progress_bar(
-          total = if (is.na(display_total)) NA else display_total,
-          format = if (is.na(display_total)) {
-            fmt_indeterminate
-          } else {
-            fmt_determinate
-          },
-          clear = TRUE,
-          .envir = environment()
+        cli::cli_progress_update(
+          set = if (is.na(display_total)) NULL else min(n_items, display_total),
+          force = TRUE
         )
       }
-    }
 
-    if (isTRUE(.progress)) {
-      cli::cli_progress_update(
-        set = if (is.na(display_total)) NULL else min(n_items, display_total),
-        force = TRUE
+      if (page >= max_reqs) {
+        break
+      }
+      nxt <- next_url(resp, cur_req)
+      if (is.null(nxt)) {
+        break
+      }
+      cur_req <- nxt
+    },
+    interrupt = function(e) {
+      if (isTRUE(.progress)) {
+        cli::cli_progress_done() # nocov
+      }
+      cond <- structure(
+        class = c("gh_interrupt", "interrupt", "condition"),
+        list(
+          message = cli::format_inline(
+            "{.fn gh} interrupted after fetching {n_items} record{?s}."
+          ),
+          call = error_call,
+          gh_result = res
+        )
+      )
+      withRestarts(
+        {
+          signalCondition(cond)
+          # No exiting handler claimed it. Stash for `rlang::last_error()`
+          # recovery, then propagate as a real interrupt.
+          asNamespace("rlang")$poke_last_error(cond) # nocov
+          cli::cli_inform( # nocov
+            c(
+              "!" = cond$message,
+              "i" = paste(
+                "Partial results are available in",
+                "{.code rlang::last_error()$gh_result}."
+              )
+            )
+          )
+          rlang::interrupt() # nocov
+        },
+        muffle_gh_interrupt = function() invisible(NULL)
       )
     }
-
-    if (page >= max_reqs) {
-      break
-    }
-    nxt <- next_url(resp, cur_req)
-    if (is.null(nxt)) {
-      break
-    }
-    cur_req <- nxt
-  }
+  )
 
   attr(res, "gh_pagination_length") <- n_items
   res

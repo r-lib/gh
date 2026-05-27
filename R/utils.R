@@ -94,8 +94,9 @@ check_named_nas <- function(x) {
   })
   bad <- which(named & na)
   if (length(bad)) {
-    str <- paste0("`", names(x)[bad], "`", collapse = ", ")
-    stop("Named NA parameters are not allowed: ", str)
+    cli::cli_abort(
+      "Named NA parameters are not allowed: {.code {names(x)[bad]}}"
+    )
   }
 }
 

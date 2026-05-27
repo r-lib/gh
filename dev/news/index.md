@@ -19,6 +19,11 @@
   (`ghs_` prefix) ([\#231](https://github.com/r-lib/gh/issues/231),
   [@jharmon-gilead](https://github.com/jharmon-gilead)).
 
+- [`gh()`](https://gh.r-lib.org/dev/reference/gh.md) no longer crashes
+  when reporting a GitHub API error whose `errors` field is a plain
+  string rather than the documented array of objects, as happens on some
+  422 responses ([\#229](https://github.com/r-lib/gh/issues/229)).
+
 ## gh 1.5.0
 
 CRAN release: 2025-05-26

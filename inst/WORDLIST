@@ -1,5 +1,6 @@
 CMD
 Codecov
+ETag
 Github
 GraphQL
 JSON
@@ -11,7 +12,6 @@ PSA
 ROR
 URI
 api
-webfakes
 auth
 discoverable
 funder
@@ -24,4 +24,4 @@ pre
 programmatically
 repo
 usethis
-wc
+webfakes

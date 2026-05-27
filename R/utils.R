@@ -58,7 +58,12 @@ discard <- function(.x, .p, ...) {
 }
 probe <- function(.x, .p, ...) {
   if (is.logical(.p)) {
-    stopifnot(length(.p) == length(.x))
+    if (length(.p) != length(.x)) {
+      cli::cli_abort(
+        "{.arg .p} must have the same length as {.arg .x}.",
+        .internal = TRUE
+      )
+    }
     .p
   } else {
     vapply(.x, .p, logical(1), ...)
@@ -89,8 +94,9 @@ check_named_nas <- function(x) {
   })
   bad <- which(named & na)
   if (length(bad)) {
-    str <- paste0("`", names(x)[bad], "`", collapse = ", ")
-    stop("Named NA parameters are not allowed: ", str)
+    cli::cli_abort(
+      "Named NA parameters are not allowed: {.code {names(x)[bad]}}"
+    )
   }
 }
 

@@ -123,7 +123,11 @@ gh_set_query <- function(x) {
   if (x$method != "GET" || length(params) == 0L) {
     return(x)
   }
-  stopifnot(all(has_name(params)))
+  if (!all(has_name(params))) {
+    cli::cli_abort(
+      "All elements of {.arg params} must be named for {.code GET} requests."
+    )
+  }
   x$query <- params
   x$params <- NULL
   x
@@ -169,7 +173,7 @@ gh_set_temp_destfile <- function(working) {
 get_baseurl <- function(url) {
   # https://github.uni.edu/api/v3/
   if (!any(grepl("^https?://", url))) {
-    stop("Only works with HTTP(S) protocols")
+    cli::cli_abort("Only works with HTTP(S) protocols")
   }
   prot <- sub("^(https?://).*$", "\\1", url) # https://
   rest <- sub("^https?://(.*)$", "\\1", url) #         github.uni.edu/api/v3/
@@ -252,7 +256,7 @@ expand_variable <- function(varname, value, template) {
     type,
     uri = paste0("[{]", varname, "[}]"),
     colon = paste0(":", varname, "\\b"),
-    stop("Internal error: unrecognized template type")
+    cli::cli_abort("Internal error: unrecognized template type")
   )
   gsub(pattern, value, template)
 }

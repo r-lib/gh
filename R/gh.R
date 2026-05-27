@@ -76,6 +76,23 @@
 #'   `list`. Failed requests will generate an R error. Requests that
 #'   generate a raw response will return a raw vector.
 #'
+#' @section Caching:
+#' `gh()` uses httr2's HTTP cache by default. It is stored in
+#' `tools::R_user_dir("gh", "cache")`, capped at 100 MB, and shared
+#' across R sessions. When the cache holds a previous response for a
+#' request, `gh()` lets httr2 attach `If-None-Match` / `If-Modified-Since`
+#' headers automatically and replays the cached body on a `304 Not
+#' Modified` reply, so the call doesn't count against your GitHub rate
+#' limit. Set `options(gh_cache = FALSE)` to disable, or delete the
+#' directory above to clear it.
+#'
+#' If you pass `If-None-Match` (or `If-Modified-Since`) yourself via
+#' `.send_headers`, httr2's cache does not intervene: a `304` response
+#' is returned as an empty `gh_response` with the response headers
+#' (including `ETag`) still attached on `attr(res, "response")`. You are
+#' responsible for holding on to the previous body and matching it
+#' against the ETag.
+#'
 #' @export
 #' @seealso [gh_gql()] if you want to use the GitHub GraphQL API,
 #' [gh_whoami()] for details on GitHub API token management.
@@ -364,6 +381,15 @@ gh_error <- function(response, gh_req, error_call = caller_env()) {
 
   errors <- res$errors
   if (!is.null(errors)) {
+    # GitHub usually returns `errors` as an array of objects, but some 422s
+    # (e.g. exceeding the max statuses for a (sha, context) pair) return it
+    # as a plain string. Wrap any non-list entries in a `message` field.
+    if (!is.list(errors)) {
+      errors <- as.list(errors)
+    }
+    errors <- lapply(errors, function(e) {
+      if (is.list(e)) e else list(message = as.character(e))
+    })
     errors <- as.data.frame(do.call(rbind, errors))
     nms <- c("resource", "field", "code", "message")
     nms <- nms[nms %in% names(errors)]

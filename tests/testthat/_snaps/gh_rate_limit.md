@@ -4,7 +4,7 @@
       gh_rate_limit(list())
     Condition
       Error in `gh_rate_limit()`:
-      ! inherits(response, "gh_response") is not TRUE
+      ! `response` must be a <gh_response> object, not an empty list.
     Code
       gh_rate_limits(.token = "bad")
     Condition

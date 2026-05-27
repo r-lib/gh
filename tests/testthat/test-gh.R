@@ -15,6 +15,18 @@ test_that("errors return a github_error object", {
   expect_s3_class(e, "http_error_404")
 })
 
+# https://github.com/r-lib/gh/issues/229
+test_that("handles 422 responses with `errors` as a plain string", {
+  local_fake_github()
+  expect_snapshot(
+    gh("POST /repos/{owner}/{repo}/statuses/{sha}",
+       owner = "r-lib", repo = "gh", sha = "deadbeef",
+       state = "success"),
+    error = TRUE,
+    transform = redact_fake_host
+  )
+})
+
 test_that("can catch a given status directly", {
   local_fake_github()
   e <- tryCatch(gh("/missing"), "http_error_404" = identity)

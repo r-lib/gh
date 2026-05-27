@@ -56,7 +56,7 @@
 #' }
 gh_token <- function(api_url = NULL) {
   api_url <- api_url %||% default_api_url()
-  stopifnot(is.character(api_url), length(api_url) == 1)
+  check_string(api_url)
   host_url <- get_hosturl(api_url)
   # Check for credentials supplied by Posit Connect.
   if (is_installed("connectcreds")) {
@@ -100,7 +100,9 @@ new_gh_pat <- function(x) {
 
 # validates PAT only in a very narrow, technical, and local sense
 validate_gh_pat <- function(x) {
-  stopifnot(inherits(x, "gh_pat"))
+  if (!inherits(x, "gh_pat")) {
+    stop_input_type(x, "a <gh_pat> object")
+  }
   mode <- get_validate_tokens_mode()
   if (mode == "off") {
     return(x)

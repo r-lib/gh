@@ -30,7 +30,7 @@
 #' gh_gql(ratelimit_query)
 gh_gql <- function(query, ...) {
   if (".limit" %in% names(list(...))) {
-    stop("`.limit` does not work with the GraphQL API")
+    cli::cli_abort("{.arg .limit} does not work with the GraphQL API")
   }
 
   gh(endpoint = "POST /graphql", query = query, ...)

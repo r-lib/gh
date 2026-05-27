@@ -1,19 +1,25 @@
 gh_process_response <- function(resp, gh_req) {
-  stopifnot(inherits(resp, "httr2_response"))
+  if (!inherits(resp, "httr2_response")) {
+    stop_input_type(resp, "an <httr2_response> object")
+  }
 
+  status <- httr2::resp_status(resp)
   content_type <- httr2::resp_content_type(resp)
   gh_media_type <- httr2::resp_header(resp, "x-github-media-type")
 
   is_raw <- identical(content_type, "application/octet-stream") ||
     isTRUE(grepl("param=raw$", gh_media_type, ignore.case = TRUE))
   is_ondisk <- inherits(resp$body, "httr2_path") && !is.null(gh_req$dest)
+  # 304 Not Modified: no body, and Content-Type is typically absent — short
+  # circuit before the JSON / raw branches to avoid a body-parse error.
+  is_not_modified <- status == 304
   is_empty <- length(resp$body) == 0
 
   if (is_ondisk) {
     res <- as.character(resp$body)
     file.rename(res, gh_req$dest)
     res <- gh_req$dest
-  } else if (is_empty) {
+  } else if (is_not_modified || is_empty) {
     res <- list()
   } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {
     res <- httr2::resp_body_json(resp)

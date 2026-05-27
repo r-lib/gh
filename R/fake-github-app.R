@@ -54,6 +54,24 @@ fake_github_app <- function() {
     fake_gh_error(res, 404L, "Not Found")
   })
 
+  # Mirrors the real 422 returned when a (sha, context) pair has reached the
+  # max number of commit statuses. GitHub returns `errors` as a plain string
+  # here rather than the usual array of objects (see #229).
+  app$post(
+    "/repos/:owner/:repo/statuses/:sha",
+    function(req, res) {
+      res$set_status(422L)$send_json(
+        list(
+          message = "Validation Failed",
+          errors = "Validation failed: This SHA and context has reached the maximum number of statuses.",
+          documentation_url = "https://docs.github.com/rest/commits/statuses#create-a-commit-status",
+          status = "422"
+        ),
+        auto_unbox = TRUE
+      )
+    }
+  )
+
   app$get("/user", function(req, res) {
     if (!isTRUE(res$locals$auth_present)) {
       return(fake_gh_error(res, 401L, "Requires authentication"))
@@ -113,6 +131,11 @@ fake_github_app <- function() {
   )
 
   app$get("/users/:user/repos", function(req, res) {
+    etag <- paste0("\"users-", req$params$user, "-v1\"")
+    res$set_header("ETag", etag)
+    if (identical(req$get_header("If-None-Match"), etag)) {
+      return(res$send_status(304L))
+    }
     repos <- fake_repos_for(req$params$user)
     send_paginated(req, res, repos, base_path = req$path)
   })
@@ -180,6 +203,18 @@ fake_github_app <- function() {
 
   app$get("/search/issues", function(req, res) {
     items <- fake_issues(60L)
+    # Filter by `label:"..."` so a mangled q (e.g. space re-encoded as
+    # literal `+` on a later page) returns no matches. This is what
+    # surfaces the bug from #210.
+    q <- req$query$q %||% ""
+    m <- regmatches(q, regexpr('label:"([^"]+)"', q))
+    if (length(m) == 1L) {
+      label <- sub('label:"([^"]+)"', "\\1", m)
+      items <- Filter(
+        function(x) any(vapply(x$labels, function(l) identical(l$name, label), logical(1))),
+        items
+      )
+    }
     send_search(req, res, items)
   })
 
@@ -352,7 +387,11 @@ set_link_header <- function(req, res, base_path, page, last_page, per_page) {
     q$page <- p
     parts <- mapply(
       function(k, v) {
-        paste0(k, "=", utils::URLencode(as.character(v), reserved = TRUE))
+        # Match real GitHub: percent-encode reserved chars, but spaces
+        # in query values come back as `+` rather than `%20`.
+        enc <- utils::URLencode(as.character(v), reserved = TRUE)
+        enc <- gsub("%20", "+", enc, fixed = TRUE)
+        paste0(k, "=", enc)
       },
       names(q),
       q,

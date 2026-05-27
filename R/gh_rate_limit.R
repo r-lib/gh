@@ -35,7 +35,9 @@ gh_rate_limit <- function(
     )
   }
 
-  stopifnot(inherits(response, "gh_response"))
+  if (!inherits(response, "gh_response")) {
+    stop_input_type(response, "a <gh_response> object")
+  }
 
   http_res <- attr(response, "response")
 

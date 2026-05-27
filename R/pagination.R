@@ -33,7 +33,9 @@ gh_has_next <- function(gh_response) {
 }
 
 gh_link_request <- function(gh_response, link, .token, .send_headers) {
-  stopifnot(inherits(gh_response, "gh_response"))
+  if (!inherits(gh_response, "gh_response")) {
+    stop_input_type(gh_response, "a <gh_response> object")
+  }
 
   url <- extract_link(gh_response, link)
   if (is.na(url)) {

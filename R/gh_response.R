@@ -1,5 +1,7 @@
 gh_process_response <- function(resp, gh_req) {
-  stopifnot(inherits(resp, "httr2_response"))
+  if (!inherits(resp, "httr2_response")) {
+    stop_input_type(resp, "an <httr2_response> object")
+  }
 
   status <- httr2::resp_status(resp)
   content_type <- httr2::resp_content_type(resp)

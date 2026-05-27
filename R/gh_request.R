@@ -123,7 +123,11 @@ gh_set_query <- function(x) {
   if (x$method != "GET" || length(params) == 0L) {
     return(x)
   }
-  stopifnot(all(has_name(params)))
+  if (!all(has_name(params))) {
+    cli::cli_abort(
+      "All elements of {.arg params} must be named for {.code GET} requests."
+    )
+  }
   x$query <- params
   x$params <- NULL
   x

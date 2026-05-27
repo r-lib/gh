@@ -22,7 +22,7 @@ Imports:
     ini,
     jsonlite,
     lifecycle,
-    rlang (>= 1.0.0)
+    rlang (>= 1.1.0)
 Suggests:
     connectcreds,
     covr,

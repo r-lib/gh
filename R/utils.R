@@ -58,7 +58,12 @@ discard <- function(.x, .p, ...) {
 }
 probe <- function(.x, .p, ...) {
   if (is.logical(.p)) {
-    stopifnot(length(.p) == length(.x))
+    if (length(.p) != length(.x)) {
+      cli::cli_abort(
+        "{.arg .p} must have the same length as {.arg .x}.",
+        .internal = TRUE
+      )
+    }
     .p
   } else {
     vapply(.x, .p, logical(1), ...)

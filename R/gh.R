@@ -361,7 +361,8 @@ gh_paginate <- function(
           # No exiting handler claimed it. Stash for `rlang::last_error()`
           # recovery, then propagate as a real interrupt.
           asNamespace("rlang")$poke_last_error(cond) # nocov
-          cli::cli_inform( # nocov
+          # nocov start
+          cli::cli_inform(
             c(
               "!" = cond$message,
               "i" = paste(
@@ -370,6 +371,7 @@ gh_paginate <- function(
               )
             )
           )
+          # nocov end
           rlang::interrupt() # nocov
         },
         muffle_gh_interrupt = function() invisible(NULL)

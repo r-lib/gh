@@ -91,3 +91,4 @@ test_that(".parse_params combines list .params with ... params", {
   expect_identical(params[[1]], params[[2]])
   expect_identical(params[[2]], params[[3]])
 })
+

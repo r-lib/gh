@@ -127,3 +127,36 @@ test_that("gh_set_url() ensures URL is in 'API form'", {
 test_that("gh_make_request() errors if unknown verb", {
   expect_snapshot_error(gh("geeet /users/hadley/repos", .limit = 2))
 })
+
+test_that("gh_set_verb returns unchanged when endpoint is empty", {
+  input <- list(endpoint = "", method = "GET")
+  expect_identical(gh_set_verb(input), input)
+})
+
+test_that("gh_set_query errors when GET params are not all named", {
+  input <- list(endpoint = "/foo", method = "GET", params = list(a = 1, "x"))
+  expect_snapshot(error = TRUE, gh_set_query(input))
+})
+
+test_that("gh_set_body warns and ignores params on GET", {
+  input <- list(method = "GET", params = list("unnamed"))
+  expect_warning(
+    out <- gh_set_body(input),
+    "unnamed parameters are being ignored"
+  )
+  expect_null(out$body)
+})
+
+test_that("gh_set_body takes a single raw vector as the body", {
+  raw <- charToRaw("hello")
+  input <- list(method = "POST", params = list(raw))
+  out <- gh_set_body(input)
+  expect_identical(out$body, raw)
+})
+
+test_that("expand_variable returns template unchanged when no template found", {
+  expect_equal(
+    expand_variable("foo", "bar", "no-template-here"),
+    "no-template-here"
+  )
+})

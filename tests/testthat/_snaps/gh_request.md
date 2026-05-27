@@ -10,3 +10,11 @@
 
     Unknown HTTP verb: "GEEET"
 
+# gh_set_query errors when GET params are not all named
+
+    Code
+      gh_set_query(input)
+    Condition
+      Error in `gh_set_query()`:
+      ! All elements of `params` must be named for `GET` requests.
+

@@ -24,6 +24,35 @@ test_that("errors", {
   })
 })
 
+test_that("gh_rate_limit fetches from /rate_limit when no response is passed", {
+  local_fake_github()
+  limit <- gh_rate_limit()
+  expect_equal(limit$limit, 5000L)
+  expect_equal(limit$remaining, 5000L)
+  expect_s3_class(limit$reset, "POSIXct")
+})
+
+test_that("gh_rate_limits returns a data frame of all resource limits", {
+  local_fake_github()
+  limits <- gh_rate_limits()
+  expect_s3_class(limits, "data.frame")
+  expect_setequal(
+    limits$type,
+    c(
+      "core",
+      "search",
+      "graphql",
+      "integration_manifest",
+      "code_scanning_upload"
+    )
+  )
+  expect_true(all(limits$limit == 5000L))
+  expect_true(all(limits$used == 0L))
+  expect_true(all(limits$remaining == 5000L))
+  expect_s3_class(limits$reset, "POSIXct")
+  expect_type(limits$mins_left, "double")
+})
+
 test_that("missing rate limit", {
   mock_res <- structure(
     list(),

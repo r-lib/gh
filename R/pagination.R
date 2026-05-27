@@ -1,31 +1,6 @@
-extract_link <- function(gh_response, link) {
-  headers <- attr(gh_response, "response")
-  links <- headers$link
-  if (is.null(links)) {
-    return(NA_character_)
-  }
-  links <- trim_ws(strsplit(links, ",")[[1]])
-  link_list <- lapply(links, function(x) {
-    x <- trim_ws(strsplit(x, ";")[[1]])
-    name <- sub("^.*\"(.*)\".*$", "\\1", x[2])
-    value <- sub("^<(.*)>$", "\\1", x[1])
-    c(name, value)
-  })
-  link_list <- structure(
-    vapply(link_list, "[", "", 2),
-    names = vapply(link_list, "[", "", 1)
-  )
-
-  if (link %in% names(link_list)) {
-    link_list[[link]]
-  } else {
-    NA_character_
-  }
-}
-
 gh_has <- function(gh_response, link) {
-  url <- extract_link(gh_response, link)
-  !is.na(url)
+  resp <- attr(gh_response, "httr2_response")
+  !is.null(httr2::resp_link_url(resp, link))
 }
 
 gh_has_next <- function(gh_response) {
@@ -37,8 +12,9 @@ gh_link_request <- function(gh_response, link, .token, .send_headers) {
     stop_input_type(gh_response, "a <gh_response> object")
   }
 
-  url <- extract_link(gh_response, link)
-  if (is.na(url)) {
+  resp <- attr(gh_response, "httr2_response")
+  url <- httr2::resp_link_url(resp, link)
+  if (is.null(url)) {
     cli::cli_abort("No {link} page")
   }
 
@@ -54,15 +30,6 @@ gh_link <- function(gh_response, link, .token, .send_headers) {
   req <- gh_link_request(gh_response, link, .token, .send_headers)
   raw <- gh_make_request(req)
   gh_process_response(raw, req)
-}
-
-gh_extract_pages <- function(gh_response) {
-  last <- extract_link(gh_response, "last")
-  if (!is.na(last)) {
-    as.integer(httr2::url_parse(last)$query$page)
-  } else {
-    NA
-  }
 }
 
 #' Get the next, previous, first or last page of results

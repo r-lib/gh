@@ -2,12 +2,6 @@ trim_ws <- function(x) {
   sub("\\s*$", "", sub("^\\s*", "", x))
 }
 
-## from devtools, among other places
-compact <- function(x) {
-  is_empty <- vapply(x, function(x) length(x) == 0, logical(1))
-  x[!is_empty]
-}
-
 ## from purrr, among other places
 `%||%` <- function(x, y) {
   if (is.null(x)) {
@@ -98,27 +92,4 @@ check_named_nas <- function(x) {
       "Named NA parameters are not allowed: {.code {names(x)[bad]}}"
     )
   }
-}
-
-can_load <- function(pkg) {
-  isTRUE(requireNamespace(pkg, quietly = TRUE))
-}
-
-is_interactive <- function() {
-  opt <- getOption("rlib_interactive")
-  if (isTRUE(opt)) {
-    TRUE
-  } else if (identical(opt, FALSE)) {
-    FALSE
-  } else if (tolower(getOption("knitr.in.progress", "false")) == "true") {
-    FALSE
-  } else if (identical(Sys.getenv("TESTTHAT"), "true")) {
-    FALSE
-  } else {
-    interactive()
-  }
-}
-
-is_testing <- function() {
-  identical(Sys.getenv("TESTTHAT"), "true")
 }

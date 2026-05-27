@@ -1,3 +1,7 @@
+test_that("gh_process_response errors on non-httr2_response input", {
+  expect_snapshot(error = TRUE, gh_process_response(list(), list()))
+})
+
 test_that("works with empty bodies", {
   local_fake_github()
   out <- gh("GET /orgs/{org}/repos", org = "gh-org-testing-no-repos")

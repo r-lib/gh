@@ -10,16 +10,18 @@ gh_process_response <- function(resp, gh_req) {
   is_raw <- identical(content_type, "application/octet-stream") ||
     isTRUE(grepl("param=raw$", gh_media_type, ignore.case = TRUE))
   is_ondisk <- inherits(resp$body, "httr2_path") && !is.null(gh_req$dest)
-  # 304 Not Modified: no body, and Content-Type is typically absent — short
-  # circuit before the JSON / raw branches to avoid a body-parse error.
-  is_not_modified <- status == 304
+  # An empty body short-circuits before the JSON / raw branches: this
+  # covers a plain `304 Not Modified` (where Content-Type is typically
+  # absent) and any other content-less response. If the body is present
+  # — e.g. when httr2's HTTP cache attaches a stored body to a 304
+  # revalidation reply — we fall through and parse it.
   is_empty <- length(resp$body) == 0
 
   if (is_ondisk) {
     res <- as.character(resp$body)
     file.rename(res, gh_req$dest)
     res <- gh_req$dest
-  } else if (is_not_modified || is_empty) {
+  } else if (is_empty) {
     res <- list()
   } else if (grepl("^application/json", content_type, ignore.case = TRUE)) {
     res <- httr2::resp_body_json(resp)
@@ -33,6 +35,7 @@ gh_process_response <- function(resp, gh_req) {
   }
 
   attr(res, "response") <- httr2::resp_headers(resp)
+  attr(res, "httr2_response") <- resp
   attr(res, "request") <- remove_headers(gh_req)
 
   if (is_ondisk) {

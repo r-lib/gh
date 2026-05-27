@@ -91,3 +91,92 @@ test_that(".parse_params combines list .params with ... params", {
   expect_identical(params[[1]], params[[2]])
   expect_identical(params[[2]], params[[3]])
 })
+
+test_that("trim_ws strips leading and trailing whitespace", {
+  expect_identical(trim_ws("foo"), "foo")
+  expect_identical(trim_ws("  foo"), "foo")
+  expect_identical(trim_ws("foo  "), "foo")
+  expect_identical(trim_ws("  foo  "), "foo")
+  expect_identical(trim_ws("\t foo \n"), "foo")
+  expect_identical(trim_ws("foo bar"), "foo bar")
+  expect_identical(trim_ws(""), "")
+  expect_identical(trim_ws(c("  a", "b  ")), c("a", "b"))
+})
+
+test_that("has_no_names detects fully-unnamed input", {
+  expect_true(has_no_names(list("a", "b")))
+  expect_true(has_no_names(list()))
+  expect_false(has_no_names(list(a = 1, "b")))
+  expect_false(has_no_names(list(a = 1, b = 2)))
+
+  x <- list("a", "b")
+  names(x) <- c("", "")
+  expect_true(has_no_names(x))
+})
+
+test_that("cleanse_names drops all-empty names but keeps real ones", {
+  x <- list("a", "b")
+  names(x) <- c("", "")
+  expect_null(names(cleanse_names(x)))
+
+  y <- list(a = 1, b = 2)
+  expect_identical(cleanse_names(y), y)
+
+  z <- list(a = 1, "b")
+  expect_identical(cleanse_names(z), z)
+
+  expect_identical(cleanse_names(list()), list())
+})
+
+test_that("modify_vector overrides x with y case-insensitively", {
+  expect_identical(modify_vector(c(a = "1", b = "2")), c(a = "1", b = "2"))
+  expect_identical(
+    modify_vector(c(a = "1", b = "2"), NULL),
+    c(a = "1", b = "2")
+  )
+
+  expect_identical(
+    modify_vector(c(a = "1", b = "2"), c(b = "9")),
+    c(a = "1", b = "9")
+  )
+
+  expect_identical(
+    modify_vector(c(Accept = "json"), c(accept = "xml")),
+    c(accept = "xml")
+  )
+
+  expect_identical(
+    modify_vector(c(a = "1"), c(b = "2")),
+    c(a = "1", b = "2")
+  )
+})
+
+test_that("discard drops elements matching predicate", {
+  expect_identical(
+    discard(list(1, NULL, 2, NULL), is.null),
+    list(1, 2)
+  )
+  expect_identical(
+    discard(list(a = 1, b = NULL, c = 2), is.null),
+    list(a = 1, c = 2)
+  )
+  expect_identical(discard(list(), is.null), list())
+})
+
+test_that("discard accepts a logical selector", {
+  expect_identical(
+    discard(list("a", "b", "c"), c(TRUE, FALSE, TRUE)),
+    list("b")
+  )
+  expect_identical(
+    discard(list("a", "b", "c"), c(TRUE, NA, FALSE)),
+    list("b", "c")
+  )
+})
+
+test_that("discard errors on logical selector of wrong length", {
+  expect_snapshot(
+    error = TRUE,
+    discard(list("a", "b"), c(TRUE, FALSE, TRUE))
+  )
+})

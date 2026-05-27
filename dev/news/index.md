@@ -2,6 +2,10 @@
 
 ## gh (development version)
 
+- [`gh()`](https://gh.r-lib.org/dev/reference/gh.md) no longer returns
+  empty results when httr2’s HTTP cache revalidates a stored response
+  with `304 Not Modified`.
+
 - [`gh()`](https://gh.r-lib.org/dev/reference/gh.md) no longer errors on
   a `304 Not Modified` response. This makes manual conditional requests
   (e.g. passing `If-None-Match` via `.send_headers`) usable: a 304

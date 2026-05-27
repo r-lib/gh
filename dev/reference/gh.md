@@ -699,7 +699,7 @@ gh("/users/hadley/starred", .limit = 2)
 #>     "deployments_url": "https://api.github.com/repos/posit-dev/ggsql/deployments",
 #>     "created_at": "2025-12-04T13:26:11Z",
 #>     "updated_at": "2026-05-26T16:55:09Z",
-#>     "pushed_at": "2026-05-24T06:58:28Z",
+#>     "pushed_at": "2026-05-27T10:55:27Z",
 #>     "git_url": "git://github.com/posit-dev/ggsql.git",
 #>     "ssh_url": "git@github.com:posit-dev/ggsql.git",
 #>     "clone_url": "https://github.com/posit-dev/ggsql.git",
@@ -719,7 +719,7 @@ gh("/users/hadley/starred", .limit = 2)
 #>     "mirror_url": {},
 #>     "archived": false,
 #>     "disabled": false,
-#>     "open_issues_count": 60,
+#>     "open_issues_count": 61,
 #>     "license": {
 #>       "key": "mit",
 #>       "name": "MIT License",
@@ -735,7 +735,7 @@ gh("/users/hadley/starred", .limit = 2)
 #>     "topics": [],
 #>     "visibility": "public",
 #>     "forks": 21,
-#>     "open_issues": 60,
+#>     "open_issues": 61,
 #>     "watchers": 478,
 #>     "default_branch": "main",
 #>     "permissions": {
@@ -934,7 +934,7 @@ gh("/users/{username}/starred", username = "hadley", .limit = 2)
 #>     "deployments_url": "https://api.github.com/repos/posit-dev/ggsql/deployments",
 #>     "created_at": "2025-12-04T13:26:11Z",
 #>     "updated_at": "2026-05-26T16:55:09Z",
-#>     "pushed_at": "2026-05-24T06:58:28Z",
+#>     "pushed_at": "2026-05-27T10:55:27Z",
 #>     "git_url": "git://github.com/posit-dev/ggsql.git",
 #>     "ssh_url": "git@github.com:posit-dev/ggsql.git",
 #>     "clone_url": "https://github.com/posit-dev/ggsql.git",
@@ -954,7 +954,7 @@ gh("/users/{username}/starred", username = "hadley", .limit = 2)
 #>     "mirror_url": {},
 #>     "archived": false,
 #>     "disabled": false,
-#>     "open_issues_count": 60,
+#>     "open_issues_count": 61,
 #>     "license": {
 #>       "key": "mit",
 #>       "name": "MIT License",
@@ -970,7 +970,7 @@ gh("/users/{username}/starred", username = "hadley", .limit = 2)
 #>     "topics": [],
 #>     "visibility": "public",
 #>     "forks": 21,
-#>     "open_issues": 60,
+#>     "open_issues": 61,
 #>     "watchers": 478,
 #>     "default_branch": "main",
 #>     "permissions": {

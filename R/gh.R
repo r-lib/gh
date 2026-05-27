@@ -313,7 +313,11 @@ gh_paginate <- function(
         cli::cli_progress_done()
         cli::cli_progress_bar(
           total = if (is.na(display_total)) NA else display_total,
-          format = if (is.na(display_total)) fmt_indeterminate else fmt_determinate,
+          format = if (is.na(display_total)) {
+            fmt_indeterminate
+          } else {
+            fmt_determinate
+          },
           clear = TRUE,
           .envir = environment()
         )
@@ -327,9 +331,13 @@ gh_paginate <- function(
       )
     }
 
-    if (page >= max_reqs) break
+    if (page >= max_reqs) {
+      break
+    }
     nxt <- next_url(resp, cur_req)
-    if (is.null(nxt)) break
+    if (is.null(nxt)) {
+      break
+    }
     cur_req <- nxt
   }
 

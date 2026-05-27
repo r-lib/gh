@@ -19,9 +19,13 @@ test_that("errors return a github_error object", {
 test_that("handles 422 responses with `errors` as a plain string", {
   local_fake_github()
   expect_snapshot(
-    gh("POST /repos/{owner}/{repo}/statuses/{sha}",
-       owner = "r-lib", repo = "gh", sha = "deadbeef",
-       state = "success"),
+    gh(
+      "POST /repos/{owner}/{repo}/statuses/{sha}",
+      owner = "r-lib",
+      repo = "gh",
+      sha = "deadbeef",
+      state = "success"
+    ),
     error = TRUE,
     transform = redact_fake_host
   )

@@ -130,7 +130,10 @@ test_that("cleanse_names drops all-empty names but keeps real ones", {
 
 test_that("modify_vector overrides x with y case-insensitively", {
   expect_identical(modify_vector(c(a = "1", b = "2")), c(a = "1", b = "2"))
-  expect_identical(modify_vector(c(a = "1", b = "2"), NULL), c(a = "1", b = "2"))
+  expect_identical(
+    modify_vector(c(a = "1", b = "2"), NULL),
+    c(a = "1", b = "2")
+  )
 
   expect_identical(
     modify_vector(c(a = "1", b = "2"), c(b = "9")),
@@ -177,4 +180,3 @@ test_that("discard errors on logical selector of wrong length", {
     discard(list("a", "b"), c(TRUE, FALSE, TRUE))
   )
 })
-

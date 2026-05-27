@@ -38,7 +38,13 @@ test_that("gh_rate_limits returns a data frame of all resource limits", {
   expect_s3_class(limits, "data.frame")
   expect_setequal(
     limits$type,
-    c("core", "search", "graphql", "integration_manifest", "code_scanning_upload")
+    c(
+      "core",
+      "search",
+      "graphql",
+      "integration_manifest",
+      "code_scanning_upload"
+    )
   )
   expect_true(all(limits$limit == 5000L))
   expect_true(all(limits$used == 0L))

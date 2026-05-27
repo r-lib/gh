@@ -95,23 +95,22 @@ fake_github_app <- function() {
     }
     reset <- as.integer(unclass(Sys.time())) + 3600L
     one <- list(limit = 5000L, used = 0L, remaining = 5000L, reset = reset)
-    res$
-      set_header("x-ratelimit-limit", "5000")$
-      set_header("x-ratelimit-remaining", "5000")$
-      set_header("x-ratelimit-reset", as.character(reset))$
-      send_json(
-        list(
-          resources = list(
-            core = one,
-            search = one,
-            graphql = one,
-            integration_manifest = one,
-            code_scanning_upload = one
-          ),
-          rate = one
+    res$set_header("x-ratelimit-limit", "5000")$set_header(
+      "x-ratelimit-remaining",
+      "5000"
+    )$set_header("x-ratelimit-reset", as.character(reset))$send_json(
+      list(
+        resources = list(
+          core = one,
+          search = one,
+          graphql = one,
+          integration_manifest = one,
+          code_scanning_upload = one
         ),
-        auto_unbox = TRUE
-      )
+        rate = one
+      ),
+      auto_unbox = TRUE
+    )
   })
 
   app$get("/orgs/:org/repos", function(req, res) {
@@ -146,8 +145,14 @@ fake_github_app <- function() {
     if (page < last_page) {
       host <- req$get_header("Host") %||% "127.0.0.1"
       url <- paste0(
-        req$protocol, "://", host, req$path,
-        "?per_page=", per_page, "&page=", page + 1L
+        req$protocol,
+        "://",
+        host,
+        req$path,
+        "?per_page=",
+        per_page,
+        "&page=",
+        page + 1L
       )
       res$set_header("Link", paste0("<", url, '>; rel="next"'))
     }

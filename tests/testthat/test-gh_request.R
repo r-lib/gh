@@ -140,7 +140,10 @@ test_that("gh_set_query errors when GET params are not all named", {
 
 test_that("gh_set_body warns and ignores params on GET", {
   input <- list(method = "GET", params = list("unnamed"))
-  expect_warning(out <- gh_set_body(input), "unnamed parameters are being ignored")
+  expect_warning(
+    out <- gh_set_body(input),
+    "unnamed parameters are being ignored"
+  )
   expect_null(out$body)
 })
 

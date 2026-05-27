@@ -93,4 +93,3 @@ check_named_nas <- function(x) {
     )
   }
 }
-

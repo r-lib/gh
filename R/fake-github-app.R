@@ -54,6 +54,24 @@ fake_github_app <- function() {
     fake_gh_error(res, 404L, "Not Found")
   })
 
+  # Mirrors the real 422 returned when a (sha, context) pair has reached the
+  # max number of commit statuses. GitHub returns `errors` as a plain string
+  # here rather than the usual array of objects (see #229).
+  app$post(
+    "/repos/:owner/:repo/statuses/:sha",
+    function(req, res) {
+      res$set_status(422L)$send_json(
+        list(
+          message = "Validation Failed",
+          errors = "Validation failed: This SHA and context has reached the maximum number of statuses.",
+          documentation_url = "https://docs.github.com/rest/commits/statuses#create-a-commit-status",
+          status = "422"
+        ),
+        auto_unbox = TRUE
+      )
+    }
+  )
+
   app$get("/user", function(req, res) {
     if (!isTRUE(res$locals$auth_present)) {
       return(fake_gh_error(res, 401L, "Requires authentication"))

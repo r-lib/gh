@@ -381,6 +381,15 @@ gh_error <- function(response, gh_req, error_call = caller_env()) {
 
   errors <- res$errors
   if (!is.null(errors)) {
+    # GitHub usually returns `errors` as an array of objects, but some 422s
+    # (e.g. exceeding the max statuses for a (sha, context) pair) return it
+    # as a plain string. Wrap any non-list entries in a `message` field.
+    if (!is.list(errors)) {
+      errors <- as.list(errors)
+    }
+    errors <- lapply(errors, function(e) {
+      if (is.list(e)) e else list(message = as.character(e))
+    })
     errors <- as.data.frame(do.call(rbind, errors))
     nms <- c("resource", "field", "code", "message")
     nms <- nms[nms %in% names(errors)]

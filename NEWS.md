@@ -12,6 +12,10 @@
 * Token validation now recognizes newer GitHub App installation tokens
   (`ghs_` prefix) (#231, @jharmon-gilead).
 
+* `gh()` no longer crashes when reporting a GitHub API error whose
+  `errors` field is a plain string rather than the documented array of
+  objects, as happens on some 422 responses (#229).
+
 # gh 1.5.0
 
 ## BREAKING CHANGES

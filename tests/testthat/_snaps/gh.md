@@ -28,3 +28,13 @@
       Error in `gh()`:
       ! Exactly one of `per_page` or `.per_page` must be supplied.
 
+# paginated request surfaces a 4xx error
+
+    Code
+      gh("/orgs/{org}/repos", org = "gh-org-testing-404", .limit = 100)
+    Condition
+      Error in `gh()`:
+      ! GitHub API error (404): Not Found
+      x URL not found: <https://api.github.com/orgs/gh-org-testing-404/repos?per_page=100>
+      i Read more at <https://docs.github.com/rest>
+

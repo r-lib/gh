@@ -111,6 +111,28 @@ test_that("format.gh_pat() handles empty string", {
   expect_match(format(gh_pat("")), "<no PAT>")
 })
 
+test_that("print.gh_pat prints the obfuscated format", {
+  pat <- gh_pat(paste0("ghp_", strrep("A", 36)))
+  expect_output(print(pat), "ghp_.*\\.\\.\\.")
+})
+
+test_that("new_gh_pat rejects non-string input", {
+  expect_snapshot(error = TRUE, new_gh_pat(1L))
+  expect_snapshot(error = TRUE, new_gh_pat(c("a", "b")))
+})
+
+test_that("validate_gh_pat rejects non-gh_pat input", {
+  expect_snapshot(error = TRUE, validate_gh_pat("not-a-pat-object"))
+})
+
+test_that("gh_auth warns on token containing whitespace", {
+  expect_warning(
+    out <- gh_auth("token with space"),
+    "whitespace"
+  )
+  expect_equal(unname(out), "token token with space")
+})
+
 # URL processing helpers ----
 test_that("get_baseurl() insists on http(s)", {
   expect_snapshot(error = TRUE, {

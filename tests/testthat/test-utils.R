@@ -178,9 +178,3 @@ test_that("discard errors on logical selector of wrong length", {
   )
 })
 
-test_that("is_testing reflects the TESTTHAT envvar", {
-  expect_true(is_testing())
-  withr::with_envvar(c(TESTTHAT = ""), {
-    expect_false(is_testing())
-  })
-})

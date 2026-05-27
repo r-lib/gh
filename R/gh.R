@@ -423,14 +423,12 @@ gh_build_httr2_request <- function(x) {
     )
   }
 
-  if (!is_testing()) {
-    req <- httr2::req_retry(
-      req,
-      max_tries = 3,
-      is_transient = function(resp) github_is_transient(resp, x$max_wait),
-      after = github_after
-    )
-  }
+  req <- httr2::req_retry(
+    req,
+    max_tries = 3,
+    is_transient = function(resp) github_is_transient(resp, x$max_wait),
+    after = github_after
+  )
 
   if (!is.null(x$max_rate)) {
     req <- httr2::req_throttle(req, x$max_rate)

@@ -95,19 +95,23 @@ fake_github_app <- function() {
     }
     reset <- as.integer(unclass(Sys.time())) + 3600L
     one <- list(limit = 5000L, used = 0L, remaining = 5000L, reset = reset)
-    res$send_json(
-      list(
-        resources = list(
-          core = one,
-          search = one,
-          graphql = one,
-          integration_manifest = one,
-          code_scanning_upload = one
+    res$
+      set_header("x-ratelimit-limit", "5000")$
+      set_header("x-ratelimit-remaining", "5000")$
+      set_header("x-ratelimit-reset", as.character(reset))$
+      send_json(
+        list(
+          resources = list(
+            core = one,
+            search = one,
+            graphql = one,
+            integration_manifest = one,
+            code_scanning_upload = one
+          ),
+          rate = one
         ),
-        rate = one
-      ),
-      auto_unbox = TRUE
-    )
+        auto_unbox = TRUE
+      )
   })
 
   app$get("/orgs/:org/repos", function(req, res) {
@@ -115,8 +119,39 @@ fake_github_app <- function() {
     if (identical(org, "gh-org-testing-no-repos")) {
       return(res$send_json(list(), auto_unbox = TRUE))
     }
+    if (identical(org, "gh-org-testing-404")) {
+      return(fake_gh_error(res, 404L, "Not Found"))
+    }
     repos <- fake_repos_for(org)
     send_paginated(req, res, repos, base_path = req$path)
+  })
+
+  # Raw body echo: read the entire raw body and echo it back. Used to
+  # exercise gh's raw-body POST path.
+  app$post("/echo-raw", function(req, res) {
+    body <- if (length(req$raw)) req$raw else raw()
+    res$set_type("application/octet-stream")$send(body)
+  })
+
+  # Cursor-style pagination: emits only a `next` link (no `last`), so the
+  # client cannot learn the total page count up front.
+  app$get("/cursor-list", function(req, res) {
+    per_page <- clamp_int(req$query$per_page, default = 10L, max = 100L)
+    page <- clamp_int(req$query$page, default = 1L, max = .Machine$integer.max)
+    total <- 25L
+    last_page <- ceiling(total / per_page)
+    start <- (page - 1L) * per_page + 1L
+    stop <- min(page * per_page, total)
+    slice <- lapply(start:stop, function(i) list(id = i))
+    if (page < last_page) {
+      host <- req$get_header("Host") %||% "127.0.0.1"
+      url <- paste0(
+        req$protocol, "://", host, req$path,
+        "?per_page=", per_page, "&page=", page + 1L
+      )
+      res$set_header("Link", paste0("<", url, '>; rel="next"'))
+    }
+    res$send_json(slice, auto_unbox = TRUE)
   })
 
   # GitHub returns Link header URLs against /organizations/{id}/repos for
@@ -187,6 +222,19 @@ fake_github_app <- function() {
       }
     }
   )
+
+  app$post("/graphql", function(req, res) {
+    query <- req$json$query %||% ""
+    res$send_json(
+      list(
+        data = list(
+          viewer = list(login = "fakeuser"),
+          echo = query
+        )
+      ),
+      auto_unbox = TRUE
+    )
+  })
 
   app$post("/markdown", function(req, res) {
     text <- req$json$text %||% ""

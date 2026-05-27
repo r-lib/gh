@@ -25,6 +25,24 @@ test_that("can paginate even when space re-encoded to +", {
   expect_length(json$items, 20)
 })
 
+test_that("gh_has_next, gh_first, gh_last work", {
+  local_fake_github()
+  page1 <- gh("/orgs/tidyverse/repos", per_page = 1)
+  expect_true(gh_has_next(page1))
+
+  page2 <- gh_next(page1)
+  first <- gh_first(page2)
+  expect_false(gh_has_next(gh_last(page1)))
+  expect_equal(length(first), 1L)
+})
+
+test_that("gh_link_request errors on non-gh_response input", {
+  expect_snapshot(
+    error = TRUE,
+    gh_link_request(list(), "next", .token = NULL, .send_headers = NULL)
+  )
+})
+
 test_that("paginated request gets max_wait and max_rate", {
   local_fake_github()
   gh <- gh(

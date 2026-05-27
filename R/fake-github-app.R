@@ -211,7 +211,13 @@ fake_github_app <- function() {
     if (length(m) == 1L) {
       label <- sub('label:"([^"]+)"', "\\1", m)
       items <- Filter(
-        function(x) any(vapply(x$labels, function(l) identical(l$name, label), logical(1))),
+        function(x) {
+          any(vapply(
+            x$labels,
+            function(l) identical(l$name, label),
+            logical(1)
+          ))
+        },
         items
       )
     }

@@ -220,60 +220,18 @@ gh <- function(
     check_named_nas(params)
   }
 
-  raw <- gh_make_request(req)
-  res <- gh_process_response(raw, req)
-  len <- gh_response_length(res)
-
-  if (.progress && !is.null(.limit)) {
-    pages <- min(gh_extract_pages(res), ceiling(.limit / per_page))
-    cli::cli_progress_bar("Running gh query", total = pages)
-    cli::cli_progress_update() # already done one
+  if (is.null(.limit)) {
+    raw <- gh_make_request(req)
+    return(gh_process_response(raw, req))
   }
 
-  while (!is.null(.limit) && len < .limit && gh_has_next(res)) {
-    res2 <- gh_next(res, .token = .token, .send_headers = .send_headers)
-    len <- len + gh_response_length(res2)
-    if (.progress) {
-      cli::cli_progress_update()
-    }
-
-    if (!is.null(names(res2)) && identical(names(res), names(res2))) {
-      res3 <- mapply(
-        # Handle named array case
-        function(x, y, n) {
-          # e.g. GET /search/repositories
-          z <- c(x, y)
-          atm <- is.atomic(z)
-          if (atm && n %in% c("total_count", "incomplete_results")) {
-            y
-          } else if (atm) {
-            unique(z)
-          } else {
-            z
-          }
-        },
-        res,
-        res2,
-        names(res),
-        SIMPLIFY = FALSE
-      )
-    } else {
-      # Handle unnamed array case
-      res3 <- c(res, res2) # e.g. GET /orgs/:org/invitations
-    }
-
-    attributes(res3) <- attributes(res2)
-    res <- res3
-  }
-
-  if (.progress) {
-    cli::cli_progress_done()
-  }
+  res <- gh_paginate(req, .limit, per_page, .progress)
+  len <- attr(res, "gh_pagination_length")
+  attr(res, "gh_pagination_length") <- NULL
 
   # We only subset for a non-named response.
   if (
-    !is.null(.limit) &&
-      len > .limit &&
+    len > .limit &&
       !"total_count" %in% names(res) &&
       length(res) == len
   ) {
@@ -283,6 +241,136 @@ gh <- function(
   }
 
   res
+}
+
+gh_paginate <- function(
+  gh_req,
+  .limit,
+  per_page,
+  .progress,
+  error_call = caller_env()
+) {
+  httr2_req <- gh_build_httr2_request(gh_req)
+  limit <- .limit
+  max_reqs <- if (is.infinite(limit)) Inf else ceiling(limit / per_page)
+  next_url <- httr2::iterate_with_link_url(rel = "next")
+
+  page <- 0L
+  n_items <- 0L
+  # Totals are known up front when `.limit` is finite; otherwise NA until
+  # we (possibly) learn them from the "last" Link header on page 1.
+  display_total <- if (is.finite(limit)) limit else NA_integer_
+  display_pages <- if (is.finite(max_reqs)) max_reqs else NA_integer_
+
+  # Progress bar lifecycle: always open with an initial spinner. After the
+  # first response we tear it down and re-open with one of two formats:
+  #   - "determinate": filled bar + % + counts + ETA  (totals known)
+  #   - "indeterminate": spinner + counts + elapsed   (totals unknown,
+  #                      e.g. cursor-paginated endpoints with no rel=last)
+  fmt_init <- "{cli::pb_spin} Fetching... | {cli::pb_elapsed}"
+  fmt_determinate <- paste(
+    "{cli::pb_bar} {cli::pb_percent} |",
+    "{n_items}/{display_total} items, page {page}/{display_pages} |",
+    "ETA {cli::pb_eta}"
+  )
+  fmt_indeterminate <-
+    "{cli::pb_spin} {n_items} items, page {page} | {cli::pb_elapsed}"
+
+  if (isTRUE(.progress)) {
+    cli::cli_progress_bar(
+      format = fmt_init,
+      clear = TRUE,
+      .envir = environment()
+    )
+  }
+
+  res <- NULL
+  cur_req <- httr2_req
+  repeat {
+    page <- page + 1L
+    resp <- httr2::req_perform(cur_req)
+    if (httr2::resp_status(resp) >= 400) {
+      gh_error(resp, gh_req = gh_req, error_call = error_call)
+    }
+    res2 <- gh_process_response(resp, gh_req)
+    n_items <- n_items + gh_response_length(res2)
+    res <- if (is.null(res)) res2 else gh_merge_pages(res, res2)
+
+    # After page 1: discover total from the "last" link if available, then
+    # swap the initial spinner for the appropriate final progress bar.
+    if (page == 1L) {
+      if (is.na(display_total)) {
+        last_url <- httr2::resp_link_url(resp, "last")
+        if (!is.null(last_url)) {
+          last_page <- as.integer(httr2::url_parse(last_url)$query$page)
+          if (!is.na(last_page)) {
+            display_pages <- last_page
+            display_total <- last_page * per_page
+          }
+        }
+      }
+      if (isTRUE(.progress)) {
+        cli::cli_progress_done()
+        cli::cli_progress_bar(
+          total = if (is.na(display_total)) NA else display_total,
+          format = if (is.na(display_total)) {
+            fmt_indeterminate
+          } else {
+            fmt_determinate
+          },
+          clear = TRUE,
+          .envir = environment()
+        )
+      }
+    }
+
+    if (isTRUE(.progress)) {
+      cli::cli_progress_update(
+        set = if (is.na(display_total)) NULL else min(n_items, display_total),
+        force = TRUE
+      )
+    }
+
+    if (page >= max_reqs) {
+      break
+    }
+    nxt <- next_url(resp, cur_req)
+    if (is.null(nxt)) {
+      break
+    }
+    cur_req <- nxt
+  }
+
+  attr(res, "gh_pagination_length") <- n_items
+  res
+}
+
+gh_merge_pages <- function(res, res2) {
+  if (!is.null(names(res2)) && identical(names(res), names(res2))) {
+    out <- mapply(
+      # Handle named array case (e.g. GET /search/repositories)
+      function(x, y, n) {
+        z <- c(x, y)
+        atm <- is.atomic(z)
+        if (atm && n %in% c("total_count", "incomplete_results")) {
+          y
+        } else if (atm) {
+          unique(z)
+        } else {
+          z
+        }
+      },
+      res,
+      res2,
+      names(res),
+      SIMPLIFY = FALSE
+    )
+  } else {
+    # Handle unnamed array case (e.g. GET /orgs/:org/invitations)
+    out <- c(res, res2)
+  }
+  attributes(out) <- attributes(res2)
+  out
 }
 
 gh_response_length <- function(res) {
@@ -303,7 +391,7 @@ gh_response_length <- function(res) {
   }
 }
 
-gh_make_request <- function(x, error_call = caller_env()) {
+gh_build_httr2_request <- function(x) {
   if (!x$method %in% c("GET", "POST", "PATCH", "PUT", "DELETE")) {
     cli::cli_abort("Unknown HTTP verb: {.val {x$method}}")
   }
@@ -351,6 +439,11 @@ gh_make_request <- function(x, error_call = caller_env()) {
   # allow custom handling with gh_error
   req <- httr2::req_error(req, is_error = function(resp) FALSE)
 
+  req
+}
+
+gh_make_request <- function(x, error_call = caller_env()) {
+  req <- gh_build_httr2_request(x)
   resp <- httr2::req_perform(req, path = x$desttmp)
   if (httr2::resp_status(resp) >= 400) {
     gh_error(resp, gh_req = x, error_call = error_call)

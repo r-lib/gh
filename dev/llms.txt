@@ -137,7 +137,7 @@ vapply(my_repos2, "[[", "", "name")
 #> [26] "liteq"       "keyring"     "sloop"       "styler"      "ansistrings"
 ```
 
-## Environment Variables
+## Environment Variables and Options
 
 - The `GITHUB_API_URL` environment variable is used for the default
   github api url.
@@ -145,6 +145,11 @@ vapply(my_repos2, "[[", "", "name")
   set, in this order, as default token. Consider using the git
   credential store instead, see
   [`?gh::gh_token`](https://gh.r-lib.org/dev/reference/gh_token.md).
+- The `GH_VALIDATE_TOKENS` environment variable controls what happens
+  when gh retrieves a PAT in an unrecognized format. Set it to `"off"`
+  to skip validation, `"warn"` (the default) to issue a warning and use
+  the PAT anyway, or `"error"` to abort. The `gh_validate_tokens` R
+  option takes precedence over the environment variable.
 
 ## Code of Conduct
 

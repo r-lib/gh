@@ -153,11 +153,12 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="environment-variables">Environment Variables<a class="anchor" aria-label="anchor" href="#environment-variables"></a>
+<h2 id="environment-variables-and-options">Environment Variables and Options<a class="anchor" aria-label="anchor" href="#environment-variables-and-options"></a>
 </h2>
 <ul>
 <li>The <code>GITHUB_API_URL</code> environment variable is used for the default github api url.</li>
 <li>The <code>GITHUB_PAT</code> and <code>GITHUB_TOKEN</code> environment variables are used, if set, in this order, as default token. Consider using the git credential store instead, see <code><a href="reference/gh_token.html">?gh::gh_token</a></code>.</li>
+<li>The <code>GH_VALIDATE_TOKENS</code> environment variable controls what happens when gh retrieves a PAT in an unrecognized format. Set it to <code>"off"</code> to skip validation, <code>"warn"</code> (the default) to issue a warning and use the PAT anyway, or <code>"error"</code> to abort. The <code>gh_validate_tokens</code> R option takes precedence over the environment variable.</li>
 </ul>
 </div>
 <div class="section level2">

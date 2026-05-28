@@ -50,6 +50,17 @@ A string of characters, if a PAT is found, or the empty string,
 otherwise. For convenience, the return value has an S3 class in order to
 ensure that simple printing strategies don't reveal the entire PAT.
 
+## Token format validation
+
+gh warns if the PAT it retrieves does not match a known format. Set
+`options(gh_validate_tokens = "off")` or the `GH_VALIDATE_TOKENS=off`
+environment variable to avoid this warning. The option takes precedence
+over the environment variable.
+
+Set `options(gh_validate_tokens = "error")` or the
+`GH_VALIDATE_TOKENS=error` environment variable to make gh throw an
+error for an unrecognized PAT format.
+
 ## Examples
 
 ``` r

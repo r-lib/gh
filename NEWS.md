@@ -1,5 +1,14 @@
 # gh (development version)
 
+* GitHub PAT format validation now issues a warning by default instead of
+  throwing an error, so a PAT in an unrecognized (e.g. newly introduced)
+  format is still used. Set the `gh_validate_tokens` option or the
+  `GH_VALIDATE_TOKENS` environment to `"off"`, `"warn"` or `"error"`
+  to configure this.
+
+* Token validation now recognizes newer GitHub App installation tokens
+  (`ghs_` prefix) (#231, @jharmon-gilead).
+
 * `gh()` no longer returns empty results when httr2's HTTP cache
   revalidates a stored response with `304 Not Modified`.
 

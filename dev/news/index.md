@@ -2,6 +2,15 @@
 
 ## gh (development version)
 
+- [`gh()`](https://gh.r-lib.org/dev/reference/gh.md) now signals a
+  classed `gh_interrupt` interrupt when a paginated call is interrupted
+  (e.g. via `Ctrl+C` / `Escape`). The condition object carries the
+  records fetched so far on its `$gh_result` field. If the interrupt is
+  not caught, then you can also access it via
+  [`rlang::last_error()`](https://rlang.r-lib.org/reference/last_error.html),
+  i.e. the partial results are in `rlang::last_error()$gh_result`
+  ([\#98](https://github.com/r-lib/gh/issues/98)).
+
 - GitHub PAT format validation now issues a warning by default instead
   of throwing an error, so a PAT in an unrecognized (e.g. newly
   introduced) format is still used. Set the `gh_validate_tokens` option

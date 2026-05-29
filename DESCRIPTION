@@ -10,7 +10,7 @@ Authors@R: c(
   )
 Description: Minimal client to access the 'GitHub' 'API'.
 License: MIT + file LICENSE
-URL: https://gh.r-lib.org/, https://github.com/r-lib/gh#readme
+URL: https://gh.r-lib.org/, https://github.com/r-lib/gh
 BugReports: https://github.com/r-lib/gh/issues
 Depends:
     R (>= 4.1)

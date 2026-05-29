@@ -136,7 +136,7 @@
 
 * The documentation for the GitHub REST API has moved to
   <https://docs.github.com/rest> and endpoints are now documented using
-  the URI template style of [RFC 6570](https://www.rfc-editor.org/rfc/rfc6570):
+  the URI template style of [RFC 6570](https://datatracker.ietf.org/doc/html/rfc6570):
   - Old: `GET /repos/:owner/:repo/issues`
   - New: `GET /repos/{owner}/{repo}/issues`
 

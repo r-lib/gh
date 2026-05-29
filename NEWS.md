@@ -1,4 +1,4 @@
-# gh (development version)
+# gh 1.6.0
 
 * `gh()` now signals a classed `gh_interrupt` interrupt when a paginated
   call is interrupted (e.g. via `Ctrl+C` / `Escape`). The condition object

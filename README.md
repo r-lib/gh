@@ -69,16 +69,16 @@ call. E.g.
 ``` r
 my_repos <- gh("GET /users/{username}/repos", username = "gaborcsardi")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "after"                "alda"                 "alexr"               
-#>  [4] "all.primer.tutorials" "altlist"              "anticlust"           
-#>  [7] "argufy"               "ask"                  "async"               
-#> [10] "autobrew-bundler"     "available-work"       "baguette"            
-#> [13] "BCEA"                 "BH"                   "bigrquerystorage"    
-#> [16] "brew-big-sur"         "brokenPackage"        "brulee"              
-#> [19] "build-r-app"          "butcher"              "censored"            
-#> [22] "cf-tunnel"            "checkinstall"         "cli"                 
-#> [25] "clock"                "comments"             "covr"                
-#> [28] "covrlabs"             "cran-metadata"        "csg"
+#>  [1] "after"                "air"                  "alda"                
+#>  [4] "alexr"                "all.primer.tutorials" "altlist"             
+#>  [7] "anticlust"            "argufy"               "ask"                 
+#> [10] "async"                "autobrew-bundler"     "available-work"      
+#> [13] "baguette"             "BCEA"                 "BH"                  
+#> [16] "bigrquerystorage"     "brew-big-sur"         "brokenPackage"       
+#> [19] "brulee"               "build-r-app"          "butcher"             
+#> [22] "censored"             "cf-tunnel"            "checkinstall"        
+#> [25] "cli"                  "clock"                "comments"            
+#> [28] "covr"                 "covrlabs"             "cran-metadata"
 ```
 
 The JSON result sent by the API is converted to an R object.
@@ -91,14 +91,16 @@ my_repos <- gh(
   username = "gaborcsardi",
   sort = "created")
 vapply(my_repos, "[[", "", "name")
-#>  [1] "phantomjs"       "FSA"             "greta"           "webdriver"      
-#>  [5] "clock"           "testthat"        "jsonlite"        "duckdb"         
-#>  [9] "duckdb-r"        "httpuv"          "unwind"          "httr2"          
-#> [13] "pins-r"          "install-figlet"  "weird-package"   "anticlust"      
-#> [17] "nanoparquet-cli" "cf-tunnel"       "myweek"          "figlet"         
-#> [21] "evercran"        "available-work"  "r-shell"         "Rcpp"           
-#> [25] "openssl"         "openbsd-vm"      "cran-metadata"   "run-r-app"      
-#> [29] "build-r-app"     "comments"
+#>  [1] "data-dict.yaml"     "vroom"              "rds2rust"          
+#>  [4] "tree-sitter-toml"   "tstoml"             "tree-sitter-json"  
+#>  [7] "uncovr"             "tsjsonc"            "opentelemetry-cpp" 
+#> [10] "ellmer"             "air"                "s2"                
+#> [13] "parzer"             "shinycoreci"        "secret-service-cli"
+#> [16] "phantomjs"          "FSA"                "greta"             
+#> [19] "webdriver"          "clock"              "testthat"          
+#> [22] "jsonlite"           "duckdb"             "duckdb-r"          
+#> [25] "httpuv"             "unwind"             "httr2"             
+#> [28] "pins-r"             "install-figlet"     "weird-package"
 ```
 
 ### POST, PATCH, PUT and DELETE requests
@@ -130,12 +132,12 @@ Supply the `page` parameter to get subsequent pages:
 ``` r
 my_repos2 <- gh("GET /orgs/{org}/repos", org = "r-lib", page = 2)
 vapply(my_repos2, "[[", "", "name")
-#>  [1] "desc"        "profvis"     "sodium"      "gargle"      "remotes"    
-#>  [6] "jose"        "backports"   "rcmdcheck"   "vdiffr"      "callr"      
-#> [11] "mockery"     "here"        "revdepcheck" "processx"    "vctrs"      
-#> [16] "debugme"     "usethis"     "rlang"       "pkgload"     "httrmock"   
-#> [21] "pkgbuild"    "prettycode"  "roxygen2md"  "pkgapi"      "zeallot"    
-#> [26] "liteq"       "keyring"     "sloop"       "styler"      "ansistrings"
+#>  [1] "gh"          "desc"        "profvis"     "sodium"      "gargle"     
+#>  [6] "remotes"     "jose"        "backports"   "rcmdcheck"   "vdiffr"     
+#> [11] "callr"       "mockery"     "here"        "revdepcheck" "processx"   
+#> [16] "vctrs"       "debugme"     "usethis"     "rlang"       "pkgload"    
+#> [21] "httrmock"    "pkgbuild"    "prettycode"  "roxygen2md"  "pkgapi"     
+#> [26] "zeallot"     "liteq"       "keyring"     "sloop"       "styler"
 ```
 
 ## Environment Variables and Options

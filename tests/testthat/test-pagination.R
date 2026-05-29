@@ -43,6 +43,68 @@ test_that("gh_link_request errors on non-gh_response input", {
   )
 })
 
+test_that("interrupt during pagination signals gh_interrupt with partial data", {
+  local_fake_github()
+
+  original_process <- gh_process_response
+  call_count <- 0L
+  fake_process <- function(resp, gh_req) {
+    call_count <<- call_count + 1L
+    if (call_count >= 2L) {
+      rlang::interrupt()
+    }
+    original_process(resp, gh_req)
+  }
+  local_mocked_bindings(gh_process_response = fake_process)
+
+  cond <- tryCatch(
+    gh("/orgs/tidyverse/repos", per_page = 1, .limit = 5, .progress = FALSE),
+    gh_interrupt = function(e) e
+  )
+  expect_s3_class(cond, "gh_interrupt")
+  expect_s3_class(cond, "interrupt")
+  expect_s3_class(cond$gh_result, "gh_response")
+  expect_length(cond$gh_result, 1L)
+})
+
+test_that("generic interrupt handler also receives gh_result", {
+  local_fake_github()
+
+  original_process <- gh_process_response
+  call_count <- 0L
+  fake_process <- function(resp, gh_req) {
+    call_count <<- call_count + 1L
+    if (call_count >= 2L) {
+      rlang::interrupt()
+    }
+    original_process(resp, gh_req)
+  }
+  local_mocked_bindings(gh_process_response = fake_process)
+
+  cond <- tryCatch(
+    gh("/orgs/tidyverse/repos", per_page = 1, .limit = 5, .progress = FALSE),
+    interrupt = function(e) e
+  )
+  expect_s3_class(cond, "gh_interrupt")
+  expect_s3_class(cond$gh_result, "gh_response")
+})
+
+test_that("interrupt before first page signals gh_interrupt with NULL gh_result", {
+  local_fake_github()
+
+  fake_process <- function(resp, gh_req) {
+    rlang::interrupt()
+  }
+  local_mocked_bindings(gh_process_response = fake_process)
+
+  cond <- tryCatch(
+    gh("/orgs/tidyverse/repos", per_page = 1, .limit = 5, .progress = FALSE),
+    gh_interrupt = function(e) e
+  )
+  expect_s3_class(cond, "gh_interrupt")
+  expect_null(cond$gh_result)
+})
+
 test_that("paginated request gets max_wait and max_rate", {
   local_fake_github()
   gh <- gh(

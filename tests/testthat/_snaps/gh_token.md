@@ -1,3 +1,30 @@
+# get_validate_tokens_mode() rejects a setting that isn't a single string
+
+    Code
+      gh_pat(bad)
+    Condition
+      Error in `get_validate_tokens_mode()`:
+      ! Invalid token validation setting: must be a single string.
+      i Got a character vector.
+
+---
+
+    Code
+      gh_pat(bad)
+    Condition
+      Error in `get_validate_tokens_mode()`:
+      ! Invalid token validation setting: must be a single string.
+      i Got an integer.
+
+---
+
+    Code
+      gh_pat(bad)
+    Condition
+      Error in `get_validate_tokens_mode()`:
+      ! Invalid token validation setting: must be a single string.
+      i Got a character `NA`.
+
 # new_gh_pat rejects non-string input
 
     Code

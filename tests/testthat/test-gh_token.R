@@ -135,6 +135,19 @@ test_that("validate_gh_pat() honors gh_validate_tokens option and env var", {
   expect_error(gh_pat(bad), "Invalid token validation mode")
 })
 
+test_that("get_validate_tokens_mode() rejects a setting that isn't a single string", {
+  bad <- "definitely-not-a-pat"
+
+  withr::local_options(gh_validate_tokens = c("warn", "error"))
+  expect_snapshot(error = TRUE, gh_pat(bad))
+
+  withr::local_options(gh_validate_tokens = 42L)
+  expect_snapshot(error = TRUE, gh_pat(bad))
+
+  withr::local_options(gh_validate_tokens = NA_character_)
+  expect_snapshot(error = TRUE, gh_pat(bad))
+})
+
 test_that("format.gh_pat() and str.gh_pat() hide the middle stuff", {
   pat <- paste0(strrep("a", 10), strrep("4", 20), strrep("F", 10))
   expect_match(format(gh_pat(pat)), "[a-zA-Z]+")

@@ -7,15 +7,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>GitHub API • gh</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/Source_Sans_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="GitHub API">
 <meta name="description" content="Minimal client to access the GitHub API.">
 <meta property="og:description" content="Minimal client to access the GitHub API.">
-<script defer data-domain="gh.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/posit-dev/supported-by-posit/js/badge.min.js" data-max-height="43" data-light-bg="#666f76" data-light-fg="#f9f9f9"></script><script defer data-domain="gh.r-lib.org,all.tidyverse.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body>
     <a href="#container" class="visually-hidden-focusable">Skip to content</a>
@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="index.html">gh</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.5.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">1.6.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,7 +41,15 @@
 <li><a class="dropdown-item" href="articles/managing-personal-access-tokens.html">Managing Personal Access Tokens</a></li>
   </ul>
 </li>
-<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-news">
+<li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://gaborcsardi.org/2026/gh-1-6-0-recover-from-interruption/">gh 1.6.0</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="news/index.html">Changelog</a></li>
+  </ul>
+</li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -94,16 +102,16 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /users/{username}/repos"</span>, username <span class="op">=</span> <span class="st">"gaborcsardi"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "after"                "alda"                 "alexr"               </span></span>
-<span><span class="co">#&gt;  [4] "all.primer.tutorials" "altlist"              "anticlust"           </span></span>
-<span><span class="co">#&gt;  [7] "argufy"               "ask"                  "async"               </span></span>
-<span><span class="co">#&gt; [10] "autobrew-bundler"     "available-work"       "baguette"            </span></span>
-<span><span class="co">#&gt; [13] "BCEA"                 "BH"                   "bigrquerystorage"    </span></span>
-<span><span class="co">#&gt; [16] "brew-big-sur"         "brokenPackage"        "brulee"              </span></span>
-<span><span class="co">#&gt; [19] "build-r-app"          "butcher"              "censored"            </span></span>
-<span><span class="co">#&gt; [22] "cf-tunnel"            "checkinstall"         "cli"                 </span></span>
-<span><span class="co">#&gt; [25] "clock"                "comments"             "covr"                </span></span>
-<span><span class="co">#&gt; [28] "covrlabs"             "cran-metadata"        "csg"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "after"                "air"                  "alda"                </span></span>
+<span><span class="co">#&gt;  [4] "alexr"                "all.primer.tutorials" "altlist"             </span></span>
+<span><span class="co">#&gt;  [7] "anticlust"            "argufy"               "ask"                 </span></span>
+<span><span class="co">#&gt; [10] "async"                "autobrew-bundler"     "available-work"      </span></span>
+<span><span class="co">#&gt; [13] "baguette"             "BCEA"                 "BH"                  </span></span>
+<span><span class="co">#&gt; [16] "bigrquerystorage"     "brew-big-sur"         "brokenPackage"       </span></span>
+<span><span class="co">#&gt; [19] "brulee"               "build-r-app"          "butcher"             </span></span>
+<span><span class="co">#&gt; [22] "censored"             "cf-tunnel"            "checkinstall"        </span></span>
+<span><span class="co">#&gt; [25] "cli"                  "clock"                "comments"            </span></span>
+<span><span class="co">#&gt; [28] "covr"                 "covrlabs"             "cran-metadata"</span></span></code></pre></div>
 <p>The JSON result sent by the API is converted to an R object.</p>
 <p>Parameters can be passed as extra arguments. E.g.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -112,14 +120,16 @@
 <span>  username <span class="op">=</span> <span class="st">"gaborcsardi"</span>,</span>
 <span>  sort <span class="op">=</span> <span class="st">"created"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "phantomjs"       "FSA"             "greta"           "webdriver"      </span></span>
-<span><span class="co">#&gt;  [5] "clock"           "testthat"        "jsonlite"        "duckdb"         </span></span>
-<span><span class="co">#&gt;  [9] "duckdb-r"        "httpuv"          "unwind"          "httr2"          </span></span>
-<span><span class="co">#&gt; [13] "pins-r"          "install-figlet"  "weird-package"   "anticlust"      </span></span>
-<span><span class="co">#&gt; [17] "nanoparquet-cli" "cf-tunnel"       "myweek"          "figlet"         </span></span>
-<span><span class="co">#&gt; [21] "evercran"        "available-work"  "r-shell"         "Rcpp"           </span></span>
-<span><span class="co">#&gt; [25] "openssl"         "openbsd-vm"      "cran-metadata"   "run-r-app"      </span></span>
-<span><span class="co">#&gt; [29] "build-r-app"     "comments"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "data-dict.yaml"     "vroom"              "rds2rust"          </span></span>
+<span><span class="co">#&gt;  [4] "tree-sitter-toml"   "tstoml"             "tree-sitter-json"  </span></span>
+<span><span class="co">#&gt;  [7] "uncovr"             "tsjsonc"            "opentelemetry-cpp" </span></span>
+<span><span class="co">#&gt; [10] "ellmer"             "air"                "s2"                </span></span>
+<span><span class="co">#&gt; [13] "parzer"             "shinycoreci"        "secret-service-cli"</span></span>
+<span><span class="co">#&gt; [16] "phantomjs"          "FSA"                "greta"             </span></span>
+<span><span class="co">#&gt; [19] "webdriver"          "clock"              "testthat"          </span></span>
+<span><span class="co">#&gt; [22] "jsonlite"           "duckdb"             "duckdb-r"          </span></span>
+<span><span class="co">#&gt; [25] "httpuv"             "unwind"             "httr2"             </span></span>
+<span><span class="co">#&gt; [28] "pins-r"             "install-figlet"     "weird-package"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="post-patch-put-and-delete-requests">POST, PATCH, PUT and DELETE requests<a class="anchor" aria-label="anchor" href="#post-patch-put-and-delete-requests"></a>
 </h3>
@@ -143,20 +153,21 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_repos2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gh.html">gh</a></span><span class="op">(</span><span class="st">"GET /orgs/{org}/repos"</span>, org <span class="op">=</span> <span class="st">"r-lib"</span>, page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">vapply</a></span><span class="op">(</span><span class="va">my_repos2</span>, <span class="st">"[["</span>, <span class="st">""</span>, <span class="st">"name"</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "desc"        "profvis"     "sodium"      "gargle"      "remotes"    </span></span>
-<span><span class="co">#&gt;  [6] "jose"        "backports"   "rcmdcheck"   "vdiffr"      "callr"      </span></span>
-<span><span class="co">#&gt; [11] "mockery"     "here"        "revdepcheck" "processx"    "vctrs"      </span></span>
-<span><span class="co">#&gt; [16] "debugme"     "usethis"     "rlang"       "pkgload"     "httrmock"   </span></span>
-<span><span class="co">#&gt; [21] "pkgbuild"    "prettycode"  "roxygen2md"  "pkgapi"      "zeallot"    </span></span>
-<span><span class="co">#&gt; [26] "liteq"       "keyring"     "sloop"       "styler"      "ansistrings"</span></span></code></pre></div>
+<span><span class="co">#&gt;  [1] "gh"          "desc"        "profvis"     "sodium"      "gargle"     </span></span>
+<span><span class="co">#&gt;  [6] "remotes"     "jose"        "backports"   "rcmdcheck"   "vdiffr"     </span></span>
+<span><span class="co">#&gt; [11] "callr"       "mockery"     "here"        "revdepcheck" "processx"   </span></span>
+<span><span class="co">#&gt; [16] "vctrs"       "debugme"     "usethis"     "rlang"       "pkgload"    </span></span>
+<span><span class="co">#&gt; [21] "httrmock"    "pkgbuild"    "prettycode"  "roxygen2md"  "pkgapi"     </span></span>
+<span><span class="co">#&gt; [26] "zeallot"     "liteq"       "keyring"     "sloop"       "styler"</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="environment-variables">Environment Variables<a class="anchor" aria-label="anchor" href="#environment-variables"></a>
+<h2 id="environment-variables-and-options">Environment Variables and Options<a class="anchor" aria-label="anchor" href="#environment-variables-and-options"></a>
 </h2>
 <ul>
 <li>The <code>GITHUB_API_URL</code> environment variable is used for the default github api url.</li>
 <li>The <code>GITHUB_PAT</code> and <code>GITHUB_TOKEN</code> environment variables are used, if set, in this order, as default token. Consider using the git credential store instead, see <code><a href="reference/gh_token.html">?gh::gh_token</a></code>.</li>
+<li>The <code>GH_VALIDATE_TOKENS</code> environment variable controls what happens when gh retrieves a PAT in an unrecognized format. Set it to <code>"off"</code> to skip validation, <code>"warn"</code> (the default) to issue a warning and use the PAT anyway, or <code>"error"</code> to abort. The <code>gh_validate_tokens</code> R option takes precedence over the environment variable.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -228,7 +239,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
   </div></footer>

@@ -2,6 +2,10 @@
 
 ## gh (development version)
 
+## gh 1.6.0
+
+CRAN release: 2026-05-29
+
 - [`gh()`](https://gh.r-lib.org/dev/reference/gh.md) now signals a
   classed `gh_interrupt` interrupt when a paginated call is interrupted
   (e.g. via `Ctrl+C` / `Escape`). The condition object carries the

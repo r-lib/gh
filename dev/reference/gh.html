@@ -27,7 +27,7 @@ Convert the response to an R list using jsonlite::fromJSON().
 
     <a class="navbar-brand me-2" href="../index.html">gh</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.5.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.6.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +40,13 @@ Convert the response to an R list using jsonlite::fromJSON().
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/managing-personal-access-tokens.html">Managing Personal Access Tokens</a></li>
   </ul></li>
-<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-news" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">News</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-news"><li><h6 class="dropdown-header" data-toc-skip>Releases</h6></li>
+    <li><a class="external-link dropdown-item" href="https://gaborcsardi.org/2026/gh-1-6-0-recover-from-interruption/">gh 1.6.0</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="../news/index.html">Changelog</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
 <li class="nav-item"><a class="external-link nav-link" href="https://github.com/r-lib/gh/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
@@ -750,16 +756,16 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "releases_url": "https://api.github.com/repos/posit-dev/ggsql/releases{/id}",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "deployments_url": "https://api.github.com/repos/posit-dev/ggsql/deployments",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2025-12-04T13:26:11Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-05-27T21:38:10Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2026-05-27T14:10:17Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-06T04:22:38Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2026-06-01T13:17:13Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "git_url": "git://github.com/posit-dev/ggsql.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "ssh_url": "git@github.com:posit-dev/ggsql.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "clone_url": "https://github.com/posit-dev/ggsql.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "svn_url": "https://github.com/posit-dev/ggsql",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "homepage": "http://ggsql.org/",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 179583,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 480,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 480,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 175507,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 487,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 487,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "language": "Rust",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_issues": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_projects": true,</span>
@@ -767,11 +773,11 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_wiki": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_pages": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_discussions": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "forks_count": 21,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "forks_count": 22,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "mirror_url": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "archived": false,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "disabled": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues_count": 61,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues_count": 63,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "license": {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "key": "mit",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "name": "MIT License",</span>
@@ -786,9 +792,9 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "pull_request_creation_policy": "all",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "topics": [],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "visibility": "public",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "forks": 21,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues": 61,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 480,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "forks": 22,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues": 63,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 487,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "default_branch": "main",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "permissions": {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "admin": false,</span>
@@ -866,16 +872,16 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "releases_url": "https://api.github.com/repos/posit-dev/py-shiny/releases{/id}",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "deployments_url": "https://api.github.com/repos/posit-dev/py-shiny/deployments",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2021-07-27T20:19:49Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-05-28T22:58:06Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2026-05-28T22:58:04Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-05T07:47:03Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2026-06-03T20:13:16Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "git_url": "git://github.com/posit-dev/py-shiny.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "ssh_url": "git@github.com:posit-dev/py-shiny.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "clone_url": "https://github.com/posit-dev/py-shiny.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "svn_url": "https://github.com/posit-dev/py-shiny",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "homepage": "https://shiny.posit.co/py/",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 33247,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 1718,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 1718,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 30411,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 1722,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 1722,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "language": "Python",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_issues": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_projects": true,</span>
@@ -904,7 +910,7 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "visibility": "public",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "forks": 126,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues": 455,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 1718,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 1722,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "default_branch": "main",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "permissions": {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "admin": false,</span>
@@ -985,16 +991,16 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "releases_url": "https://api.github.com/repos/posit-dev/ggsql/releases{/id}",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "deployments_url": "https://api.github.com/repos/posit-dev/ggsql/deployments",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2025-12-04T13:26:11Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-05-27T21:38:10Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2026-05-27T14:10:17Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-06T04:22:38Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2026-06-01T13:17:13Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "git_url": "git://github.com/posit-dev/ggsql.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "ssh_url": "git@github.com:posit-dev/ggsql.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "clone_url": "https://github.com/posit-dev/ggsql.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "svn_url": "https://github.com/posit-dev/ggsql",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "homepage": "http://ggsql.org/",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 179583,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 480,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 480,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 175507,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 487,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 487,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "language": "Rust",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_issues": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_projects": true,</span>
@@ -1002,11 +1008,11 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_wiki": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_pages": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_discussions": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "forks_count": 21,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "forks_count": 22,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "mirror_url": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "archived": false,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "disabled": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues_count": 61,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues_count": 63,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "license": {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "key": "mit",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "name": "MIT License",</span>
@@ -1021,9 +1027,9 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "pull_request_creation_policy": "all",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "topics": [],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "visibility": "public",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "forks": 21,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues": 61,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 480,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "forks": 22,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues": 63,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 487,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "default_branch": "main",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "permissions": {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "admin": false,</span>
@@ -1101,16 +1107,16 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "releases_url": "https://api.github.com/repos/posit-dev/py-shiny/releases{/id}",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "deployments_url": "https://api.github.com/repos/posit-dev/py-shiny/deployments",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2021-07-27T20:19:49Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-05-28T22:58:06Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2026-05-28T22:58:04Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-05T07:47:03Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pushed_at": "2026-06-03T20:13:16Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "git_url": "git://github.com/posit-dev/py-shiny.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "ssh_url": "git@github.com:posit-dev/py-shiny.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "clone_url": "https://github.com/posit-dev/py-shiny.git",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "svn_url": "https://github.com/posit-dev/py-shiny",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "homepage": "https://shiny.posit.co/py/",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 33247,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 1718,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 1718,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "size": 30411,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "stargazers_count": 1722,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers_count": 1722,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "language": "Python",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_issues": true,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "has_projects": true,</span>
@@ -1139,7 +1145,7 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "visibility": "public",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "forks": 126,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "open_issues": 455,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 1718,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "watchers": 1722,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "default_branch": "main",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "permissions": {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "admin": false,</span>
@@ -1158,6 +1164,154 @@ against the ETag.</p>
 <span class="r-in"><span><span class="fu">gh</span><span class="op">(</span><span class="st">"/repos/hadley/dplyr/issues"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/labels{/name}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/comments",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/pull/7844",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 4601342463,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "PR_kwDOAGIUpc7jU7NL",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 7844,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "docs: clarify between comparison semantics",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "LeonidasZhak",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 70497898,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjcwNDk3ODk4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/70497898?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/LeonidasZhak",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/LeonidasZhak",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/LeonidasZhak/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/LeonidasZhak/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/LeonidasZhak/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/LeonidasZhak/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/LeonidasZhak/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/LeonidasZhak/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/LeonidasZhak/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/LeonidasZhak/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/LeonidasZhak/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "user_view_type": "public",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2026-06-06T01:42:33Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-06T01:42:33Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_field_values": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "type": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "draft": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pull_request": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/pulls/7844",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/pull/7844",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "diff_url": "https://github.com/tidyverse/dplyr/pull/7844.diff",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "patch_url": "https://github.com/tidyverse/dplyr/pull/7844.patch",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "merged_at": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Fixes #7702.\n\n## Summary\n- describe local `between()` comparisons as similar to `x &gt;= left &amp; x &lt;= right`, rather than an exact shortcut\n- mention that local comparisons use vctrs after common-type casting\n- clarify that character strings are not parsed as dates or date-times\n\n## Checks\n- `Rscript -e 'tools::checkRd(\"man/between.Rd\")'`\\n- `git diff --check`\\n- `R CMD build --no-build-vignettes .` was attempted, but this local machine has `rlang` 1.1.6 loaded while dplyr now requires &gt;= 1.1.7",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_by": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/reactions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/timeline",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/labels{/name}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/comments",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/7843",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 4578141971,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "I_kwDOAGIUpc8AAAABEODnEw",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 7843,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Improve error message for trailing comma in `across()`",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "DanChaltiel",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 15105152,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE1MTA1MTUy",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/15105152?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/DanChaltiel",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/DanChaltiel",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/DanChaltiel/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/DanChaltiel/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/DanChaltiel/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/DanChaltiel/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/DanChaltiel/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/DanChaltiel/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/DanChaltiel/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/DanChaltiel/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/DanChaltiel/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "user_view_type": "public",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2026-06-03T08:25:13Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-03T08:25:13Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "CONTRIBUTOR",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_field_values": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "type": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "sub_issues_summary": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "completed": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "percent_completed": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_dependencies_summary": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocked_by": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocked_by": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocking": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocking": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Hi,\n\nThis is a rather minor issue, but I spent some time scratching my head over it, so I thought it could be worth reporting as a possible error-message improvement.\n\nWhen leaving a trailing comma in `across()`, the resulting error mentions an unused `alist()` argument:\n\n``` r\nSys.setenv(LANGUAGE=\"en\")\nlibrary(dplyr)\nmtcars %&gt;%\n  mutate(across(am, \\(.x) .x+1, ))\n#&gt; Error in `mutate()`:\n#&gt; ℹ In argument: `across(am, function(.x) .x + 1, )`.\n#&gt; Caused by error in `across()`:\n#&gt; ! Can't compute column `am`.\n#&gt; Caused by error in `fn()`:\n#&gt; ! unused argument (alist())\n```\n\n&lt;sup&gt;Created on 2026-06-03 with [reprex v2.1.1](https://reprex.tidyverse.org)&lt;\/sup&gt;\n\nIn this short example, the trailing comma is easy to spot. However, with a longer function, it is much less noticeable in the trace, and I found the `alist()` message very hard to link to the actual problem.\n\nMaybe there is a way to catch it and rewrite it somehow?\n\nThanks!",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_by": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/reactions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/timeline",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pinned_comment": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7838",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7838/labels{/name}",</span>
@@ -2492,9 +2646,9 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 1,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 4,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2025-12-10T18:51:54Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2025-12-15T20:45:56Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-02T14:59:06Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
@@ -3432,178 +3586,6 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7622/timeline",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "pinned_comment": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/labels{/name}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/comments",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/7112",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 2748696028,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "I_kwDOAGIUpc6j1cXc",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 7112,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "`count(.by = )`",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 1741643,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE3NDE2NDM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/1741643?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/krlmlr/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/krlmlr/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/krlmlr/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/krlmlr/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/krlmlr/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/krlmlr/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/krlmlr/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/krlmlr/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/krlmlr/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "user_view_type": "public",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 17708200,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDU6TGFiZWwxNzcwODIwMA==",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/repos/tidyverse/dplyr/labels/feature",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "name": "feature",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "color": "B4C3AE",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "default": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "description": "a feature request or enhancement"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 3,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2024-12-18T20:29:48Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-05-15T16:26:04Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_field_values": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "type": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "sub_issues_summary": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "completed": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "percent_completed": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_dependencies_summary": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocked_by": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocked_by": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocking": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocking": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "I accidentally used the syntax below, and wonder if this should be the default recommended one, or at least a supported alternative.\n\n``` r\noptions(conflicts.policy = list(warn = FALSE))\nlibrary(dplyr)\n\ntibble(a = 1:3) |&gt;\n  count(.by = a)\n#&gt; # A tibble: 3 × 2\n#&gt;     .by     n\n#&gt;   &lt;int&gt; &lt;int&gt;\n#&gt; 1     1     1\n#&gt; 2     2     1\n#&gt; 3     3     1\n```\n\n&lt;sup&gt;Created on 2024-12-18 with [reprex v2.1.1](https://reprex.tidyverse.org)&lt;\/sup&gt;\n\nIt took me a while to understand why there's a `.by` column in the output.",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_by": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/reactions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 6,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 6,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/timeline",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "pinned_comment": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/labels{/name}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/comments",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/7106",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 2678939827,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "I_kwDOAGIUpc6frWCz",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 7106,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Show methods implemented by loaded packages more prominently",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 1741643,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE3NDE2NDM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/1741643?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/krlmlr/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/krlmlr/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/krlmlr/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/krlmlr/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/krlmlr/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/krlmlr/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/krlmlr/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/krlmlr/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/krlmlr/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "user_view_type": "public",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 674867158,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDU6TGFiZWw2NzQ4NjcxNTg=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/repos/tidyverse/dplyr/labels/documentation",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "name": "documentation",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "color": "CBBAB8",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "default": true,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "description": ""</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 1,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2024-11-21T10:38:06Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2024-11-21T19:31:27Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_field_values": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "type": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "sub_issues_summary": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "completed": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "percent_completed": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_dependencies_summary": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocked_by": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocked_by": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocking": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocking": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Example: if dbplyr is loaded, `?mutate` would contain a link to `?dbplyr::mutate.tbl_lazy` .\n\nPretty much like DBI, e.g., https://dbi.r-dbi.org/reference/dbConnect.html .\n\nRelevant for https://github.com/tidyverse/duckplyr/issues/214 and of course the existing backends.\n\nCC @maelle.",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_by": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/reactions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/timeline",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "pinned_comment": {}</span>
@@ -3612,6 +3594,154 @@ against the ETag.</p>
 <span class="r-in"><span><span class="fu">gh</span><span class="op">(</span><span class="st">"/repos/{owner}/{repo}/issues"</span>, owner <span class="op">=</span> <span class="st">"hadley"</span>, repo <span class="op">=</span> <span class="st">"dplyr"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/labels{/name}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/comments",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/pull/7844",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 4601342463,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "PR_kwDOAGIUpc7jU7NL",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 7844,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "docs: clarify between comparison semantics",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "LeonidasZhak",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 70497898,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjcwNDk3ODk4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/70497898?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/LeonidasZhak",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/LeonidasZhak",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/LeonidasZhak/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/LeonidasZhak/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/LeonidasZhak/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/LeonidasZhak/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/LeonidasZhak/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/LeonidasZhak/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/LeonidasZhak/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/LeonidasZhak/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/LeonidasZhak/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "user_view_type": "public",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2026-06-06T01:42:33Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-06T01:42:33Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_field_values": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "type": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "draft": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pull_request": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/pulls/7844",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/tidyverse/dplyr/pull/7844",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "diff_url": "https://github.com/tidyverse/dplyr/pull/7844.diff",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "patch_url": "https://github.com/tidyverse/dplyr/pull/7844.patch",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "merged_at": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Fixes #7702.\n\n## Summary\n- describe local `between()` comparisons as similar to `x &gt;= left &amp; x &lt;= right`, rather than an exact shortcut\n- mention that local comparisons use vctrs after common-type casting\n- clarify that character strings are not parsed as dates or date-times\n\n## Checks\n- `Rscript -e 'tools::checkRd(\"man/between.Rd\")'`\\n- `git diff --check`\\n- `R CMD build --no-build-vignettes .` was attempted, but this local machine has `rlang` 1.1.6 loaded while dplyr now requires &gt;= 1.1.7",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_by": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/reactions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7844/timeline",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/labels{/name}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/comments",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/7843",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 4578141971,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "I_kwDOAGIUpc8AAAABEODnEw",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 7843,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Improve error message for trailing comma in `across()`",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "DanChaltiel",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 15105152,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE1MTA1MTUy",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/15105152?v=4",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/DanChaltiel",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/DanChaltiel",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/DanChaltiel/followers",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/DanChaltiel/following{/other_user}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/DanChaltiel/gists{/gist_id}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/DanChaltiel/starred{/owner}{/repo}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/DanChaltiel/subscriptions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/DanChaltiel/orgs",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/DanChaltiel/repos",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/DanChaltiel/events{/privacy}",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/DanChaltiel/received_events",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "user_view_type": "public",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2026-06-03T08:25:13Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-03T08:25:13Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "CONTRIBUTOR",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_field_values": [],</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "type": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "sub_issues_summary": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "completed": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "percent_completed": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_dependencies_summary": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocked_by": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocked_by": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocking": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocking": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Hi,\n\nThis is a rather minor issue, but I spent some time scratching my head over it, so I thought it could be worth reporting as a possible error-message improvement.\n\nWhen leaving a trailing comma in `across()`, the resulting error mentions an unused `alist()` argument:\n\n``` r\nSys.setenv(LANGUAGE=\"en\")\nlibrary(dplyr)\nmtcars %&gt;%\n  mutate(across(am, \\(.x) .x+1, ))\n#&gt; Error in `mutate()`:\n#&gt; ℹ In argument: `across(am, function(.x) .x + 1, )`.\n#&gt; Caused by error in `across()`:\n#&gt; ! Can't compute column `am`.\n#&gt; Caused by error in `fn()`:\n#&gt; ! unused argument (alist())\n```\n\n&lt;sup&gt;Created on 2026-06-03 with [reprex v2.1.1](https://reprex.tidyverse.org)&lt;\/sup&gt;\n\nIn this short example, the trailing comma is easy to spot. However, with a longer function, it is much less noticeable in the trace, and I found the `alist()` message very hard to link to the actual problem.\n\nMaybe there is a way to catch it and rewrite it somehow?\n\nThanks!",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_by": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/reactions",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7843/timeline",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {},</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "pinned_comment": {}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7838",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7838/labels{/name}",</span>
@@ -4946,9 +5076,9 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 1,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 4,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2025-12-10T18:51:54Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2025-12-15T20:45:56Z",</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-06-02T14:59:06Z",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "NONE",</span>
@@ -5886,178 +6016,6 @@ against the ETag.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7622/timeline",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "pinned_comment": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/labels{/name}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/comments",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/7112",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 2748696028,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "I_kwDOAGIUpc6j1cXc",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 7112,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "`count(.by = )`",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 1741643,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE3NDE2NDM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/1741643?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/krlmlr/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/krlmlr/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/krlmlr/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/krlmlr/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/krlmlr/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/krlmlr/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/krlmlr/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/krlmlr/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/krlmlr/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "user_view_type": "public",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 17708200,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDU6TGFiZWwxNzcwODIwMA==",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/repos/tidyverse/dplyr/labels/feature",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "name": "feature",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "color": "B4C3AE",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "default": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "description": "a feature request or enhancement"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 3,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2024-12-18T20:29:48Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2026-05-15T16:26:04Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_field_values": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "type": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "sub_issues_summary": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "completed": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "percent_completed": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_dependencies_summary": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocked_by": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocked_by": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocking": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocking": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "I accidentally used the syntax below, and wonder if this should be the default recommended one, or at least a supported alternative.\n\n``` r\noptions(conflicts.policy = list(warn = FALSE))\nlibrary(dplyr)\n\ntibble(a = 1:3) |&gt;\n  count(.by = a)\n#&gt; # A tibble: 3 × 2\n#&gt;     .by     n\n#&gt;   &lt;int&gt; &lt;int&gt;\n#&gt; 1     1     1\n#&gt; 2     2     1\n#&gt; 3     3     1\n```\n\n&lt;sup&gt;Created on 2024-12-18 with [reprex v2.1.1](https://reprex.tidyverse.org)&lt;\/sup&gt;\n\nIt took me a while to understand why there's a `.by` column in the output.",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_by": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/reactions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 6,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 6,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7112/timeline",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "pinned_comment": {}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "repository_url": "https://api.github.com/repos/tidyverse/dplyr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/labels{/name}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/comments",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "events_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "html_url": "https://github.com/tidyverse/dplyr/issues/7106",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "id": 2678939827,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "node_id": "I_kwDOAGIUpc6frWCz",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "number": 7106,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "title": "Show methods implemented by loaded packages more prominently",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "user": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "login": "krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "id": 1741643,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "node_id": "MDQ6VXNlcjE3NDE2NDM=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "avatar_url": "https://avatars.githubusercontent.com/u/1741643?v=4",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gravatar_id": "",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/users/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "html_url": "https://github.com/krlmlr",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "followers_url": "https://api.github.com/users/krlmlr/followers",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "following_url": "https://api.github.com/users/krlmlr/following{/other_user}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "gists_url": "https://api.github.com/users/krlmlr/gists{/gist_id}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "starred_url": "https://api.github.com/users/krlmlr/starred{/owner}{/repo}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "subscriptions_url": "https://api.github.com/users/krlmlr/subscriptions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "organizations_url": "https://api.github.com/users/krlmlr/orgs",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "repos_url": "https://api.github.com/users/krlmlr/repos",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "events_url": "https://api.github.com/users/krlmlr/events{/privacy}",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "received_events_url": "https://api.github.com/users/krlmlr/received_events",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "type": "User",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "user_view_type": "public",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "site_admin": false</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "labels": [</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "id": 674867158,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "node_id": "MDU6TGFiZWw2NzQ4NjcxNTg=",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "url": "https://api.github.com/repos/tidyverse/dplyr/labels/documentation",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "name": "documentation",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "color": "CBBAB8",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "default": true,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         "description": ""</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "state": "open",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "locked": false,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignees": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "milestone": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "comments": 1,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "created_at": "2024-11-21T10:38:06Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "updated_at": "2024-11-21T19:31:27Z",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_at": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "assignee": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "author_association": "MEMBER",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_field_values": [],</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "type": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "active_lock_reason": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "sub_issues_summary": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "completed": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "percent_completed": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "issue_dependencies_summary": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocked_by": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocked_by": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "blocking": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_blocking": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "body": "Example: if dbplyr is loaded, `?mutate` would contain a link to `?dbplyr::mutate.tbl_lazy` .\n\nPretty much like DBI, e.g., https://dbi.r-dbi.org/reference/dbConnect.html .\n\nRelevant for https://github.com/tidyverse/duckplyr/issues/214 and of course the existing backends.\n\nCC @maelle.",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "closed_by": {},</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "reactions": {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/reactions",</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "total_count": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "+1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "-1": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "laugh": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "hooray": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "confused": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "heart": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "rocket": 0,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       "eyes": 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     },</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     "timeline_url": "https://api.github.com/repos/tidyverse/dplyr/issues/7106/timeline",</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "performed_via_github_app": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "state_reason": {},</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     "pinned_comment": {}</span>

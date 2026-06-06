@@ -1,3 +1,5 @@
+# gh (development version)
+
 # gh 1.6.0
 
 * `gh()` now signals a classed `gh_interrupt` interrupt when a paginated

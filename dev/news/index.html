@@ -44,7 +44,8 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="gh-development-version">gh (development version)<a class="anchor" aria-label="anchor" href="#gh-development-version"></a></h2>
-</div>
+<ul><li>The pagination progress bar now reports the real number of records an endpoint holds, even when <code>.limit</code> is set to a large finite value (<a href="https://github.com/r-lib/gh/issues/239" class="external-link">#239</a>).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.6.0" id="gh-160">gh 1.6.0<a class="anchor" aria-label="anchor" href="#gh-160"></a></h2><p class="text-muted">CRAN release: 2026-05-29</p>
 <ul><li><p><code><a href="../reference/gh.html">gh()</a></code> now signals a classed <code>gh_interrupt</code> interrupt when a paginated call is interrupted (e.g. via <code>Ctrl+C</code> / <code>Escape</code>). The condition object carries the records fetched so far on its <code>$gh_result</code> field. If the interrupt is not caught, then you can also access it via <code><a href="https://rlang.r-lib.org/reference/last_error.html" class="external-link">rlang::last_error()</a></code>, i.e. the partial results are in <code>rlang::last_error()$gh_result</code> (<a href="https://github.com/r-lib/gh/issues/98" class="external-link">#98</a>).</p></li>

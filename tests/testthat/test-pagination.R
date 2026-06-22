@@ -105,6 +105,39 @@ test_that("interrupt before first page signals gh_interrupt with NULL gh_result"
   expect_null(cond$gh_result)
 })
 
+test_that("cap_display_totals caps the limit-derived estimate (#239)", {
+  # A huge finite `.limit` used to mean "everything": the displayed total
+  # should drop to what the endpoint actually has, not the limit.
+  capped <- cap_display_totals(
+    display_total = 1e6,
+    display_pages = 10000,
+    last_page = 24,
+    per_page = 100
+  )
+  expect_equal(capped$pages, 24)
+  expect_equal(capped$total, 2400)
+
+  # A small `.limit` (fewer than what's available) is kept as-is.
+  capped <- cap_display_totals(
+    display_total = 50,
+    display_pages = 1,
+    last_page = 24,
+    per_page = 50
+  )
+  expect_equal(capped$pages, 1)
+  expect_equal(capped$total, 50)
+
+  # Infinite `.limit` (NA estimate): the header values win outright.
+  capped <- cap_display_totals(
+    display_total = NA_integer_,
+    display_pages = NA_integer_,
+    last_page = 24,
+    per_page = 100
+  )
+  expect_equal(capped$pages, 24)
+  expect_equal(capped$total, 2400)
+})
+
 test_that("paginated request gets max_wait and max_rate", {
   local_fake_github()
   gh <- gh(

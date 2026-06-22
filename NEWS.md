@@ -1,5 +1,8 @@
 # gh (development version)
 
+* The pagination progress bar now reports the real number of records an
+  endpoint holds, even when `.limit` is set to a large finite value (#239).
+
 # gh 1.6.0
 
 * `gh()` now signals a classed `gh_interrupt` interrupt when a paginated

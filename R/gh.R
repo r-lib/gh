@@ -300,14 +300,18 @@ gh_paginate <- function(
       # After page 1: discover total from the "last" link if available, then
       # swap the initial spinner for the appropriate final progress bar.
       if (page == 1L) {
-        if (is.na(display_total)) {
-          last_url <- httr2::resp_link_url(resp, "last")
-          if (!is.null(last_url)) {
-            last_page <- as.integer(httr2::url_parse(last_url)$query$page)
-            if (!is.na(last_page)) {
-              display_pages <- last_page
-              display_total <- last_page * per_page
-            }
+        last_url <- httr2::resp_link_url(resp, "last")
+        if (!is.null(last_url)) {
+          last_page <- as.integer(httr2::url_parse(last_url)$query$page)
+          if (!is.na(last_page)) {
+            capped <- cap_display_totals(
+              display_total,
+              display_pages,
+              last_page,
+              per_page
+            )
+            display_pages <- capped$pages
+            display_total <- capped$total
           }
         }
         if (isTRUE(.progress)) {
@@ -381,6 +385,18 @@ gh_paginate <- function(
 
   attr(res, "gh_pagination_length") <- n_items
   res
+}
+
+cap_display_totals <- function(
+  display_total,
+  display_pages,
+  last_page,
+  per_page
+) {
+  list(
+    pages = min(display_pages, last_page, na.rm = TRUE),
+    total = min(display_total, last_page * per_page, na.rm = TRUE)
+  )
 }
 
 gh_merge_pages <- function(res, res2) {

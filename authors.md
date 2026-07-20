@@ -19,12 +19,12 @@ Source:
 [`DESCRIPTION`](https://github.com/r-lib/gh/blob/main/DESCRIPTION)
 
 Bryan J, Wickham H (2026). *gh: 'GitHub' 'API'*. R package version
-1.6.0, <https://gh.r-lib.org/>.
+1.6.1, <https://gh.r-lib.org/>.
 
     @Manual{,
       title = {gh: 'GitHub' 'API'},
       author = {Jennifer Bryan and Hadley Wickham},
       year = {2026},
-      note = {R package version 1.6.0},
+      note = {R package version 1.6.1},
       url = {https://gh.r-lib.org/},
     }

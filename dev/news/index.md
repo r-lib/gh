@@ -2,6 +2,10 @@
 
 ## gh (development version)
 
+## gh 1.6.1
+
+CRAN release: 2026-07-20
+
 - The pagination progress bar now reports the real number of records an
   endpoint holds, even when `.limit` is set to a large finite value
   ([\#239](https://github.com/r-lib/gh/issues/239)).

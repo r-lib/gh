@@ -1,3 +1,5 @@
+# gh (development version)
+
 # gh 1.6.1
 
 * The pagination progress bar now reports the real number of records an

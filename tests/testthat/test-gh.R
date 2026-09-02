@@ -135,6 +135,24 @@ test_that("requests use the on-disk cache when gh_cache is not FALSE", {
   expect_s3_class(res, "gh_response")
 })
 
+test_that("cache is partitioned by token (#241)", {
+  withr::local_options(gh_cache = TRUE)
+
+  gh_req <- function(token) {
+    x <- gh_build_request("/user", token = token, api_url = "https://api.example.com")
+    gh_build_httr2_request(x)
+  }
+
+  path1 <- gh_req("token-one")$policies$cache_path
+  path2 <- gh_req("token-two")$policies$cache_path
+  path_anon <- gh_req("")$policies$cache_path
+
+  expect_false(is.null(path1))
+  expect_false(identical(path1, path2))
+  expect_false(identical(path1, path_anon))
+  expect_false(identical(path2, path_anon))
+})
+
 test_that("cursor-style pagination uses the indeterminate progress format", {
   local_fake_github()
   res <- gh("/cursor-list", per_page = 10, .limit = Inf, .progress = TRUE)

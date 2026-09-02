@@ -125,11 +125,14 @@ body, as JSON.
 
 \code{gh()} uses httr2's HTTP cache by default. It is stored in
 \code{tools::R_user_dir("gh", "cache")}, capped at 100 MB, and shared
-across R sessions. When the cache holds a previous response for a
-request, \code{gh()} lets httr2 attach \code{If-None-Match} / \code{If-Modified-Since}
-headers automatically and replays the cached body on a \verb{304 Not Modified} reply, so the call doesn't count against your GitHub rate
-limit. Set \code{options(gh_cache = FALSE)} to disable, or delete the
-directory above to clear it.
+across R sessions. Entries are partitioned by token, so responses
+cached for one token are never replayed for another. When the cache
+holds a previous response for a request, \code{gh()} lets httr2 attach
+\code{If-None-Match} / \code{If-Modified-Since} headers automatically and
+replays the cached body on a \verb{304 Not Modified} reply, so the call
+doesn't count against your GitHub rate limit. Set
+\code{options(gh_cache = FALSE)} to disable, or delete the directory above
+to clear it.
 
 If you pass \code{If-None-Match} (or \code{If-Modified-Since}) yourself via
 \code{.send_headers}, httr2's cache does not intervene: a \code{304} response

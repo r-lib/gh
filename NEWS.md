@@ -1,5 +1,9 @@
 # gh (development version)
 
+* `gh()`'s HTTP cache is now partitioned by authentication token, so a
+  cached response for one token can no longer be replayed for another
+  (#241).
+
 # gh 1.6.1
 
 * The pagination progress bar now reports the real number of records an

@@ -79,12 +79,14 @@
 #' @section Caching:
 #' `gh()` uses httr2's HTTP cache by default. It is stored in
 #' `tools::R_user_dir("gh", "cache")`, capped at 100 MB, and shared
-#' across R sessions. When the cache holds a previous response for a
-#' request, `gh()` lets httr2 attach `If-None-Match` / `If-Modified-Since`
-#' headers automatically and replays the cached body on a `304 Not
-#' Modified` reply, so the call doesn't count against your GitHub rate
-#' limit. Set `options(gh_cache = FALSE)` to disable, or delete the
-#' directory above to clear it.
+#' across R sessions. Entries are partitioned by token, so responses
+#' cached for one token are never replayed for another. When the cache
+#' holds a previous response for a request, `gh()` lets httr2 attach
+#' `If-None-Match` / `If-Modified-Since` headers automatically and
+#' replays the cached body on a `304 Not Modified` reply, so the call
+#' doesn't count against your GitHub rate limit. Set
+#' `options(gh_cache = FALSE)` to disable, or delete the directory above
+#' to clear it.
 #'
 #' If you pass `If-None-Match` (or `If-Modified-Since`) yourself via
 #' `.send_headers`, httr2's cache does not intervene: a `304` response
@@ -470,10 +472,16 @@ gh_build_httr2_request <- function(x) {
   }
 
   if (!isFALSE(getOption("gh_cache"))) {
+    # httr2's cache keys entries by URL only, ignoring the Authorization
+    # header, so responses for one token could otherwise be replayed for
+    # another (r-lib/gh#241). Partition the cache directory by token so
+    # different tokens can never share cache entries.
+    auth <- unname(x$headers["Authorization"])
+    auth_key <- rlang::hash(if (is.na(auth)) "" else auth)
     req <- httr2::req_cache(
       req,
       max_size = 100 * 1024 * 1024, # 100 MB
-      path = tools::R_user_dir("gh", "cache")
+      path = file.path(tools::R_user_dir("gh", "cache"), auth_key)
     )
   }
 

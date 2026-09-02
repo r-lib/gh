@@ -11,7 +11,7 @@ Minimal client to access the 'GitHub' 'API'.
 Useful links:
 \itemize{
   \item \url{https://gh.r-lib.org/}
-  \item \url{https://github.com/r-lib/gh#readme}
+  \item \url{https://github.com/r-lib/gh}
   \item Report bugs at \url{https://github.com/r-lib/gh/issues}
 }
 

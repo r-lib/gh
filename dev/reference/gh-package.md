@@ -8,7 +8,7 @@ Useful links:
 
 - <https://gh.r-lib.org/>
 
-- <https://github.com/r-lib/gh#readme>
+- <https://github.com/r-lib/gh>
 
 - Report bugs at <https://github.com/r-lib/gh/issues>
 

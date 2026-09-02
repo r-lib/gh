@@ -2,6 +2,11 @@
 
 ## gh (development version)
 
+- [`gh()`](https://gh.r-lib.org/dev/reference/gh.md)’s HTTP cache is now
+  partitioned by authentication token, so a cached response for one
+  token can no longer be replayed for another
+  ([\#241](https://github.com/r-lib/gh/issues/241)).
+
 ## gh 1.6.1
 
 CRAN release: 2026-07-20
